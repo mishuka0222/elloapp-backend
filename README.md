@@ -1,92 +1,205 @@
-# elloapp_tg_backend
+# Teamgram - Unofficial open source [mtproto](https://core.telegram.org/mtproto) server written in golang
+> open source mtproto server implemented in golang with compatible telegram client.
+
+## Introduce
+Open source [mtproto](https://core.telegram.org/mtproto) server implementation written in golang, support private deployment.
+
+## Features
+- MTProto 2.0
+  - Abridged
+  - Intermediate
+  - Padded intermediate
+  - Full
+- API Layer: 147
+- private chat
+- basic group
+- contacts
+
+## Architecture
+![Architecture](docs/image/architecture-001.png)
+
+### Documents
+[Diffie–Hellman key exchange](docs/dh-key-exchange.md)
+
+[Creating an Authorization Key](docs/Creating_an_Authorization_Key.md)
+
+[Mobile Protocol: Detailed Description (v.1.0, DEPRECATED)](docs/Mobile_Protocol-Detailed_Description_v.1.0_DEPRECATED.md)
+
+[Encrypted CDNs for Speed and Security](docs/cdn.md) Translate By [@steedfly](https://github.com/steedfly)
+
+## Installing Teamgram 
+`Teamgram` relies on open source high-performance components: 
+
+- **mysql5.7**
+- [redis](https://redis.io/)
+- [etcd](https://etcd.io/)
+- [kafka](https://kafka.apache.org/quickstart)
+- [minio](https://docs.min.io/docs/minio-quickstart-guide.html#GNU/Linux)
+- [ffmpeg](https://www.johnvansickle.com/ffmpeg/)
+
+Privatization deployment Before `Teamgram`, please make sure that the above five components have been installed. If your server does not have the above components, you must first install Missing components. 
+
+- [Centos9 Stream Build and Install](docs/install-centos-9.md) [@A Feel]
+- [CentOS7 teamgram-server环境搭建](docs/install-centos-7.md) [@saeipi]
+
+If you have the above components, it is recommended to use them directly. If not, it is recommended to use `docker-compose-env.yaml`.
 
 
+### Source code deployment
+#### Install [Go environment](https://go.dev/doc/install). Make sure Go version is at least 1.17.
 
-## Getting started
 
-To make it easy for you to get started with GitLab, here's a list of recommended next steps.
-
-Already a pro? Just edit this README.md and make it your own. Want to make it easy? [Use the template at the bottom](#editing-this-readme)!
-
-## Add your files
-
-- [ ] [Create](https://docs.gitlab.com/ee/user/project/repository/web_editor.html#create-a-file) or [upload](https://docs.gitlab.com/ee/user/project/repository/web_editor.html#upload-a-file) files
-- [ ] [Add files using the command line](https://docs.gitlab.com/ee/gitlab-basics/add-file.html#add-a-file-using-the-command-line) or push an existing Git repository with the following command:
+#### Get source code　
 
 ```
-cd existing_repo
-git remote add origin https://gitlab.com/merehead/elloapp/backend/elloapp_tg_backend.git
-git branch -M main
-git push -uf origin main
+git clone https://github.com/teamgram/teamgram-server.git
+cd teamgram-server
 ```
 
-## Integrate with your tools
+#### Init data
+- init database
 
-- [ ] [Set up project integrations](https://gitlab.com/merehead/elloapp/backend/elloapp_tg_backend/-/settings/integrations)
+	```
+	1. create database teamgram
+	2. init teamgram database
+	   mysql -uroot teamgram < teamgramd/sql/teamgram2.sql
+	   mysql -uroot teamgram < teamgramd/sql/migrate-*.sql
+	```
 
-## Collaborate with your team
+- init minio buckets
+	- bucket names
+	  - `documents`
+	  - `encryptedfiles`
+	  - `photos`
+	  - `videos`
+	- Access `http://ip:xxxxx` and create
 
-- [ ] [Invite team members and collaborators](https://docs.gitlab.com/ee/user/project/members/)
-- [ ] [Create a new merge request](https://docs.gitlab.com/ee/user/project/merge_requests/creating_merge_requests.html)
-- [ ] [Automatically close issues from merge requests](https://docs.gitlab.com/ee/user/project/issues/managing_issues.html#closing-issues-automatically)
-- [ ] [Enable merge request approvals](https://docs.gitlab.com/ee/user/project/merge_requests/approvals/)
-- [ ] [Automatically merge when pipeline succeeds](https://docs.gitlab.com/ee/user/project/merge_requests/merge_when_pipeline_succeeds.html)
 
-## Test and Deploy
+#### Build
+	
+```
+make
+```
 
-Use the built-in continuous integration in GitLab.
+#### Run
 
-- [ ] [Get started with GitLab CI/CD](https://docs.gitlab.com/ee/ci/quick_start/index.html)
-- [ ] [Analyze your code for known vulnerabilities with Static Application Security Testing(SAST)](https://docs.gitlab.com/ee/user/application_security/sast/)
-- [ ] [Deploy to Kubernetes, Amazon EC2, or Amazon ECS using Auto Deploy](https://docs.gitlab.com/ee/topics/autodevops/requirements.html)
-- [ ] [Use pull-based deployments for improved Kubernetes management](https://docs.gitlab.com/ee/user/clusters/agent/)
-- [ ] [Set up protected environments](https://docs.gitlab.com/ee/ci/environments/protected_environments.html)
+```
+cd teamgramd/bin
+./runall2.sh
+```
 
-***
+### Docker deployment
+#### Install [Docker](https://docs.docker.com/get-docker/)
 
-# Editing this README
+#### Install [Docker Compose](https://docs.docker.com/compose/install/)
 
-When you're ready to make this README your own, just edit this file and use the handy template below (or feel free to structure it however you want - this is just a starting point!). Thank you to [makeareadme.com](https://www.makeareadme.com/) for this template.
+#### Get source code
 
-## Suggestions for a good README
-Every project is different, so consider which of these sections apply to yours. The sections used in the template are suggestions for most open source projects. Also keep in mind that while a README can be too long and detailed, too long is better than too short. If you think your README is too long, consider utilizing another form of documentation rather than cutting out information.
+```
+git clone https://github.com/teamgram/teamgram-server.git
+cd teamgram-server
+```
 
-## Name
-Choose a self-explaining name for your project.
+#### Install depends
+- **change `192.168.1.150` to your ip in `docker-compose-env.yaml`**
+- install depends
 
-## Description
-Let people know what your project can do specifically. Provide context and add a link to any reference visitors might be unfamiliar with. A list of Features or a Background subsection can also be added here. If there are alternatives to your project, this is a good place to list differentiating factors.
+  ```
+  # pull docker images
+  docker-compose -f docker-compose-env.yaml pull
+  
+  # run docker-compose
+  docker-compose -f docker-compose-env.yaml up -d
+  ```
+  
+#### Init data
+- init database
 
-## Badges
-On some READMEs, you may see small images that convey metadata, such as whether or not all the tests are passing for the project. You can use Shields to add some to your README. Many services also have instructions for adding a badge.
+  ```
 
-## Visuals
-Depending on what you are making, it can be a good idea to include screenshots or even a video (you'll frequently see GIFs rather than actual videos). Tools like ttygif can help, but check out Asciinema for a more sophisticated method.
+  # Copy some files to container
+  docker cp ./teamgramd/sql/ mysql:/teamgramd/sql/
 
-## Installation
-Within a particular ecosystem, there may be a common way of installing things, such as using Yarn, NuGet, or Homebrew. However, consider the possibility that whoever is reading your README is a novice and would like more guidance. Listing specific steps helps remove ambiguity and gets people to using your project as quickly as possible. If it only runs in a specific context like a particular programming language version or operating system or has dependencies that have to be installed manually, also add a Requirements subsection.
+  # get mysql
+  docker exec -it mysql /bin/bash
+  
+  mysql -uteamgram -h127.0.0.1 -pteamgram teamgram < teamgramd/sql/teamgram2.sql
+  mysql -uteamgram -h127.0.0.1 -pteamgram teamgram < teamgramd/sql/migrate-20220321.sql
+  mysql -uteamgram -h127.0.0.1 -pteamgram teamgram < teamgramd/sql/migrate-20220326.sql
+  mysql -uteamgram -h127.0.0.1 -pteamgram teamgram < teamgramd/sql/migrate-20220328.sql
+  mysql -uteamgram -h127.0.0.1 -pteamgram teamgram < teamgramd/sql/migrate-20220401.sql
+  mysql -uteamgram -h127.0.0.1 -pteamgram teamgram < teamgramd/sql/migrate-20220412.sql
+  mysql -uteamgram -h127.0.0.1 -pteamgram teamgram < teamgramd/sql/migrate-20220419.sql
+  mysql -uteamgram -h127.0.0.1 -pteamgram teamgram < teamgramd/sql/migrate-20220423.sql
+  mysql -uteamgram -h127.0.0.1 -pteamgram teamgram < teamgramd/sql/migrate-20220504.sql
+  mysql -uteamgram -h127.0.0.1 -pteamgram teamgram < teamgramd/sql/migrate-20220721.sql
+  mysql -uteamgram -h127.0.0.1 -pteamgram teamgram < teamgramd/sql/migrate-20220826.sql
+  mysql -uteamgram -h127.0.0.1 -pteamgram teamgram < teamgramd/sql/migrate-20220919.sql
+  mysql -uteamgram -h127.0.0.1 -pteamgram teamgram < teamgramd/sql/migrate-20221008.sql
+  mysql -uteamgram -h127.0.0.1 -pteamgram teamgram < teamgramd/sql/migrate-20221011.sql
+  mysql -uteamgram -h127.0.0.1 -pteamgram teamgram < teamgramd/sql/migrate-20221016.sql
+  mysql -uteamgram -h127.0.0.1 -pteamgram teamgram < teamgramd/sql/migrate-20221023.sql
+  mysql -uteamgram -h127.0.0.1 -pteamgram teamgram < teamgramd/sql/migrate-20221101.sql
+  mysql -uteamgram -h127.0.0.1 -pteamgram teamgram < teamgramd/sql/init.sql
+  
+  # quit docker mysql
+  exit
+  ```
 
-## Usage
-Use examples liberally, and show the expected output if you can. It's helpful to have inline the smallest example of usage that you can demonstrate, while providing links to more sophisticated examples if they are too long to reasonably include in the README.
+- init minio buckets
+	- bucket names:
+	  - `documents`
+	  - `encryptedfiles`
+	  - `photos`
+	  - `videos`
+	- create buckets
+		
+		```
+		# get mc
+		docker run -it --entrypoint=/bin/bash minio/mc
+		   
+		# change 192.168.1.150 to your ip    
+		mc alias set minio http://192.168.1.150:9000 minio miniostorage
+		
+		# create buckets
+		mc mb minio/documents
+		mc mb minio/encryptedfiles
+		mc mb minio/photos
+		mc mb minio/videos
+  
+		# quit docker minio/mc
+		exit
+		```
 
-## Support
-Tell people where they can go to for help. It can be any combination of an issue tracker, a chat room, an email address, etc.
+#### Run
 
-## Roadmap
-If you have ideas for releases in the future, it is a good idea to list them in the README.
+```  
+# run docker-compose
+docker-compose up -d
+```
+	
+## Compatible clients
+**Important**: default signIn verify code is **12345**
 
-## Contributing
-State if you are open to contributions and what your requirements are for accepting them.
+[Android client for Teamgram](clients/teamgram-android.md)
 
-For people who want to make changes to your project, it's helpful to have some documentation on how to get started. Perhaps there is a script that they should run or some environment variables that they need to set. Make these steps explicit. These instructions could also be useful to your future self.
+[iOS client for Teamgram](clients/teamgram-ios.md)
 
-You can also document commands to lint the code or run tests. These steps help to ensure high code quality and reduce the likelihood that the changes inadvertently break something. Having instructions for running tests is especially helpful if it requires external setup, such as starting a Selenium server for testing in a browser.
+[tdesktop for Teamgram](clients/teamgram-tdesktop.md)
 
-## Authors and acknowledgment
-Show your appreciation to those who have contributed to the project.
+## Feedback
+Please report bugs, concerns, suggestions by issues, or join telegram group [Teamgram中文社区](https://t.me/+S1_22-6EM1BaffXS) Or [Teamgram](https://t.me/+TjD5LZJ5XLRlCYLF) to discuss problems around source code.
 
-## License
-For open source projects, say how it is licensed.
+## Notes
+If need enterprise edition:
 
-## Project status
-If you have run out of energy or time for your project, put a note at the top of the README saying that development has slowed down or stopped completely. Someone may choose to fork your project or volunteer to step in as a maintainer or owner, allowing your project to keep going. You can also make an explicit request for maintainers.
+- sticker/theme/wallpaper/reactions/2fa/secretchat/sms/push(apns/web/fcm)/web...
+- channel/megagroup
+- audiocall/videocall/groupcall/`rtmp live stream`
+- bots
+
+please PM the **[author](https://t.me/benqi)**
+
+## Give a Star! ⭐
+
+If you like or are using this project to learn or start your solution, please give it a star. Thanks!

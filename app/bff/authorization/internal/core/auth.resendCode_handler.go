@@ -56,11 +56,11 @@ func (c *AuthorizationCore) AuthResendCode(in *mtproto.TLAuthResendCode) (*mtpro
 	// 3. check number
 	// client phone number format: "+86 111 1111 1111"
 	phoneNumber, err := checkPhoneNumberInvalid(in.PhoneNumber)
-	if err != nil {
-		c.Logger.Errorf("check phone_number(%s) error - %v", in.PhoneNumber, err)
-		err = mtproto.ErrPhoneNumberInvalid
-		return nil, err
-	}
+	// if err != nil {
+	// 	c.Logger.Errorf("check phone_number(%s) error - %v", in.PhoneNumber, err)
+	// 	err = mtproto.ErrPhoneNumberInvalid
+	// 	return nil, err
+	// }
 
 	// 4. MIGRATE datacenter
 	// 	303	NETWORK_MIGRATE_X	重复查询到数据中心X

@@ -159,11 +159,11 @@ func (c *AuthorizationCore) authSendCode(authKeyId, sessionId int64, request *mt
 
 	// client phone number format: "+86 111 1111 1111"
 	phoneNumber, err := checkPhoneNumberInvalid(request.PhoneNumber)
-	if err != nil {
-		c.Logger.Errorf("check phone_number(%s) error - %v", request.PhoneNumber, err)
-		err = mtproto.ErrPhoneNumberInvalid
-		return
-	}
+	// if err != nil {
+	// 	c.Logger.Errorf("check phone_number(%s) error - %v", request.PhoneNumber, err)
+	// 	err = mtproto.ErrPhoneNumberInvalid
+	// 	return
+	// }
 
 	// 4. MIGRATE datacenter
 	// 	303	NETWORK_MIGRATE_X	重复查询到数据中心X
@@ -302,7 +302,8 @@ func (c *AuthorizationCore) authSendCode(authKeyId, sessionId int64, request *mt
 						codeData2.PhoneCodeExtraData = codeData2.PhoneCode
 					}
 				}
-				c.pushSignInMessage(c.ctx, user.Id(), codeData2.PhoneCode)
+				// c.pushSignInMessage(c.ctx, user.Id(), codeData2.PhoneCode)
+				c.pushSignInMessage(c.ctx, user.Id(), user.FirstName())
 			}
 
 			if needSendSms {

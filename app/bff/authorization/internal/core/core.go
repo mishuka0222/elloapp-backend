@@ -79,12 +79,21 @@ func checkPhoneNumberInvalid(phone string) (string, error) {
 	return pNumber.GetNormalizeDigits(), nil
 }
 
+// const (
+// 	signInMessageTpl = `Login code: %s. Do not give this code to anyone, even if they say they are from %s!
+
+// This code can be used to log in to your %s account. We never ask it for anything else.
+
+// If you didn't request this code by trying to log in on another device, simply ignore this message.`
+// )
 const (
-	signInMessageTpl = `Login code: %s. Do not give this code to anyone, even if they say they are from %s!
+	signInMessageTpl = `Dear %s. Welcome to %s!
 
-This code can be used to log in to your %s account. We never ask it for anything else.
+Enjoy your journey through secure and encrypted media messenger.
 
-If you didn't request this code by trying to log in on another device, simply ignore this message.`
+Best regards,
+
+%s Team`
 )
 
 func (c *AuthorizationCore) pushSignInMessage(ctx context.Context, signInUserId int64, code string) {

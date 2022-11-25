@@ -25,7 +25,7 @@ import (
 	"github.com/teamgram/proto/mtproto"
 	"github.com/teamgram/proto/mtproto/crypto"
 	"github.com/teamgram/teamgram-server/app/bff/authorization/internal/logic"
-	"github.com/teamgram/teamgram-server/app/bff/authorization/internal/model"
+	// "github.com/teamgram/teamgram-server/app/bff/authorization/internal/model"
 	"github.com/teamgram/teamgram-server/app/messenger/sync/sync"
 	"github.com/teamgram/teamgram-server/app/service/authsession/authsession"
 	userpb "github.com/teamgram/teamgram-server/app/service/biz/user/user"
@@ -73,12 +73,15 @@ func (c *AuthorizationCore) AuthSignIn(in *mtproto.TLAuthSignIn) (*mtproto.Auth_
 
 	// 3. check number
 	// client phone number format: "+86 111 1111 1111"
-	phoneNumber, err := checkPhoneNumberInvalid(in.PhoneNumber)
-	if err != nil {
-		c.Logger.Errorf("check phone_number(%s) error - %v", in.PhoneNumber, err)
-		err = mtproto.ErrPhoneNumberInvalid
-		return nil, err
-	}
+	// phoneNumber, err := checkPhoneNumberInvalid(in.PhoneNumber)
+	// if err != nil {
+	// 	c.Logger.Errorf("check phone_number(%s) error - %v", in.PhoneNumber, err)
+	// 	err = mtproto.ErrPhoneNumberInvalid
+	// 	return nil, err
+	// }
+
+	phoneNumber := in.PhoneNumber
+	var err error
 
 	// 6. check can do action
 	actionType := logic.GetActionType(in)
@@ -87,55 +90,55 @@ func (c *AuthorizationCore) AuthSignIn(in *mtproto.TLAuthSignIn) (*mtproto.Auth_
 		return nil, err
 	}
 
-	codeData, err2 := c.svcCtx.AuthLogic.DoAuthSignIn(c.ctx,
-		c.MD.AuthId,
-		phoneNumber,
-		phoneCode,
-		phoneCodeHash,
-		func(codeData2 *model.PhoneCodeTransaction) error {
-			return c.svcCtx.AuthLogic.VerifyCodeInterface.VerifySmsCode(c.ctx,
-				codeData2.PhoneCodeHash,
-				phoneCode,
-				codeData2.PhoneCodeExtraData)
+	// codeData, err2 := c.svcCtx.AuthLogic.DoAuthSignIn(c.ctx,
+	// 	c.MD.AuthId,
+	// 	phoneNumber,
+	// 	phoneCode,
+	// 	phoneCodeHash,
+	// 	func(codeData2 *model.PhoneCodeTransaction) error {
+	// 		return c.svcCtx.AuthLogic.VerifyCodeInterface.VerifySmsCode(c.ctx,
+	// 			codeData2.PhoneCodeHash,
+	// 			phoneCode,
+	// 			codeData2.PhoneCodeExtraData)
 
-			//log.Debugf("111")
-			//if s.VerifyCodeInterface == nil {
-			//	log.Debugf("222")
-			//	if env2.PredefinedUser {
-			//		log.Debugf("333")
-			//		predefinedUser, _ := s.UserFacade.GetPredefinedUser(ctx, phoneNumber)
-			//		if predefinedUser == nil || predefinedUser.Code != request.PhoneCode {
-			//			log.Debugf("invalid code: %s", request.PhoneCode)
-			//			return mtproto.ErrPhoneCodeInvalid
-			//		} else {
-			//			return nil
-			//		}
-			//	} else {
-			//		if request.PhoneCode != "12345" {
-			//			return mtproto.ErrPhoneCodeInvalid
-			//		} else {
-			//			return nil
-			//		}
-			//	}
-			//} else {
-			//	log.Debugf("444")
-			//	if codeData2.SentCodeType == model.CodeTypeSms {
-			//		return s.VerifyCodeInterface.VerifySmsCode(ctx, codeData2.PhoneCodeHash, request.PhoneCode, codeData2.PhoneCode)
-			//	} else {
-			//		if request.PhoneCode == codeData2.PhoneCode {
-			//			return nil
-			//		} else {
-			//			return mtproto.ErrPhoneCodeInvalid
-			//		}
-			//	}
-			//}
-		})
+	// 		//log.Debugf("111")
+	// 		//if s.VerifyCodeInterface == nil {
+	// 		//	log.Debugf("222")
+	// 		//	if env2.PredefinedUser {
+	// 		//		log.Debugf("333")
+	// 		//		predefinedUser, _ := s.UserFacade.GetPredefinedUser(ctx, phoneNumber)
+	// 		//		if predefinedUser == nil || predefinedUser.Code != request.PhoneCode {
+	// 		//			log.Debugf("invalid code: %s", request.PhoneCode)
+	// 		//			return mtproto.ErrPhoneCodeInvalid
+	// 		//		} else {
+	// 		//			return nil
+	// 		//		}
+	// 		//	} else {
+	// 		//		if request.PhoneCode != "12345" {
+	// 		//			return mtproto.ErrPhoneCodeInvalid
+	// 		//		} else {
+	// 		//			return nil
+	// 		//		}
+	// 		//	}
+	// 		//} else {
+	// 		//	log.Debugf("444")
+	// 		//	if codeData2.SentCodeType == model.CodeTypeSms {
+	// 		//		return s.VerifyCodeInterface.VerifySmsCode(ctx, codeData2.PhoneCodeHash, request.PhoneCode, codeData2.PhoneCode)
+	// 		//	} else {
+	// 		//		if request.PhoneCode == codeData2.PhoneCode {
+	// 		//			return nil
+	// 		//		} else {
+	// 		//			return mtproto.ErrPhoneCodeInvalid
+	// 		//		}
+	// 		//	}
+	// 		//}
+	// 	})
 
-	if err2 != nil {
-		c.Logger.Error(err2.Error())
-		err = err2
-		return nil, err
-	}
+	// if err2 != nil {
+	// 	c.Logger.Error(err2.Error())
+	// 	err = err2
+	// 	return nil, err
+	// }
 
 	if c.svcCtx.Plugin != nil {
 		c.svcCtx.Plugin.OnAuthAction(c.ctx,
@@ -148,7 +151,7 @@ func (c *AuthorizationCore) AuthSignIn(in *mtproto.TLAuthSignIn) (*mtproto.Auth_
 	}
 
 	// signIn successful, check phoneRegistered.
-	if !codeData.PhoneNumberRegistered {
+	// if !codeData.PhoneNumberRegistered {
 		if !env2.PredefinedUser2 {
 			if c.MD.Layer >= 104 {
 				//  not register, next step: auth.singIn
@@ -200,9 +203,9 @@ func (c *AuthorizationCore) AuthSignIn(in *mtproto.TLAuthSignIn) (*mtproto.Auth_
 				FirstName:   predefinedUser.GetFirstName().GetValue(),
 				LastName:    predefinedUser.GetLastName().GetValue(),
 			})
-			codeData.PhoneNumberRegistered = true
+			// codeData.PhoneNumberRegistered = true
 		}
-	}
+	// }
 
 	// TODO(@benqi): err handle
 	// do signIn...

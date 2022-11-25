@@ -24,11 +24,11 @@ import (
 
 	"github.com/teamgram/proto/mtproto"
 	"github.com/teamgram/proto/mtproto/crypto"
-	"github.com/teamgram/teamgram-server/app/bff/authorization/internal/model"
+	// "github.com/teamgram/teamgram-server/app/bff/authorization/internal/model"
 	"github.com/teamgram/teamgram-server/app/service/authsession/authsession"
 	userpb "github.com/teamgram/teamgram-server/app/service/biz/user/user"
 	"github.com/teamgram/teamgram-server/pkg/env2"
-	"github.com/teamgram/teamgram-server/pkg/phonenumber"
+	// "github.com/teamgram/teamgram-server/pkg/phonenumber"
 )
 
 /*
@@ -63,9 +63,9 @@ func (c *AuthorizationCore) AuthSignUp(in *mtproto.TLAuthSignUp) (*mtproto.Auth_
 	}
 
 	// 1. check phone_code empty
-	var (
-		phoneCode *string = nil
-	)
+	// var (
+	// 	phoneCode *string = nil
+	// )
 
 	// 3. check number
 	// 3.1. empty
@@ -78,19 +78,23 @@ func (c *AuthorizationCore) AuthSignUp(in *mtproto.TLAuthSignUp) (*mtproto.Auth_
 	// 3.2. check phone_number
 	// 客户端发送的手机号格式为: "+86 111 1111 1111"，归一化
 	// We need getRegionCode from phone_number
-	pNumber, err := phonenumber.MakePhoneNumberHelper(in.PhoneNumber, "")
-	if err != nil {
-		c.Logger.Errorf("check phone_number error - %v", err)
-		err = mtproto.ErrPhoneNumberInvalid
-		return nil, err
-	}
-	phoneNumber := pNumber.GetNormalizeDigits()
 
-	if in.PhoneCodeHash == "" {
-		c.Logger.Errorf("check phone_code_hash error - empty")
-		err = mtproto.ErrPhoneCodeHashEmpty
-		return nil, err
-	}
+	// Switch off validation phone number
+	// pNumber, err := phonenumber.MakePhoneNumberHelper(in.PhoneNumber, "")
+	// if err != nil {
+	// 	c.Logger.Errorf("check phone_number error - %v", err)
+	// 	err = mtproto.ErrPhoneNumberInvalid
+	// 	return nil, err
+	// }
+	// phoneNumber := pNumber.GetNormalizeDigits()
+	phoneNumber := in.PhoneNumber
+	var err error
+
+	// if in.PhoneCodeHash == "" {
+	// 	c.Logger.Errorf("check phone_code_hash error - empty")
+	// 	err = mtproto.ErrPhoneCodeHashEmpty
+	// 	return nil, err
+	// }
 
 	// TODO(@benqi): register name ruler
 	// check first name invalid
@@ -106,15 +110,15 @@ func (c *AuthorizationCore) AuthSignUp(in *mtproto.TLAuthSignUp) (*mtproto.Auth_
 	//
 
 	////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-	var (
-		codeData *model.PhoneCodeTransaction
-	)
+	// var (
+	// 	codeData *model.PhoneCodeTransaction
+	// )
 	// phoneRegistered := auth.CheckPhoneNumberExist(phoneNumber)
-	codeData, err = c.svcCtx.AuthLogic.DoAuthSignUp(c.ctx, c.MD.AuthId, phoneNumber, phoneCode, in.PhoneCodeHash)
-	if err != nil {
-		c.Logger.Errorf(err.Error())
-		return nil, err
-	}
+	// _, err = c.svcCtx.AuthLogic.DoAuthSignUp(c.ctx, c.MD.AuthId, phoneNumber, phoneCode, in.PhoneCodeHash)
+	// if err != nil {
+	// 	c.Logger.Errorf(err.Error())
+	// 	return nil, err
+	// }
 
 	var (
 		user *userpb.ImmutableUser
@@ -163,7 +167,7 @@ func (c *AuthorizationCore) AuthSignUp(in *mtproto.TLAuthSignUp) (*mtproto.Auth_
 	if user, err = c.svcCtx.UserClient.UserCreateNewUser(c.ctx, &userpb.TLUserCreateNewUser{
 		SecretKeyId: key.AuthKeyId(),
 		Phone:       phoneNumber,
-		CountryCode: pNumber.GetRegionCode(),
+		// CountryCode: pNumber.GetRegionCode(),
 		FirstName:   firstName,
 		LastName:    lastName,
 	}); err != nil {
@@ -200,7 +204,8 @@ func (c *AuthorizationCore) AuthSignUp(in *mtproto.TLAuthSignUp) (*mtproto.Auth_
 
 	// on event
 	c.svcCtx.AuthLogic.DeletePhoneCode(c.ctx, c.MD.AuthId, phoneNumber, in.PhoneCodeHash)
-	c.pushSignInMessage(c.ctx, user.Id(), codeData.PhoneCode)
+	// c.pushSignInMessage(c.ctx, user.Id(), codeData.PhoneCode)
+	c.pushSignInMessage(c.ctx, user.Id(), user.FirstName())
 	c.onContactSignUp(c.ctx, c.MD.AuthId, user.Id(), phoneNumber)
 
 	return mtproto.MakeTLAuthAuthorization(&mtproto.Auth_Authorization{

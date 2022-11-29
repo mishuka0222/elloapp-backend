@@ -20,6 +20,7 @@ package logic
 
 import (
 	"context"
+	"fmt"
 	"time"
 
 	"github.com/teamgram/proto/mtproto"
@@ -252,6 +253,66 @@ func (m *AuthLogic) DoAuthSignUp(ctx context.Context, authKeyId int64, phoneNumb
 	}
 
 	now := int32(time.Now().Unix())
+	if now > codeData.PhoneCodeExpired {
+		// TODO(@benqi): update timeout state?
+		err = mtproto.ErrPhoneCodeExpired
+		return
+	}
+
+	// auth.signUp#1b067634 phone_number:string phone_code_hash:string phone_code:string first_name:string last_name:string = auth.Authorization;
+	if phoneCode != nil {
+		if err = m.VerifyCodeInterface.VerifySmsCode(ctx,
+			codeData.PhoneCodeHash,
+			*phoneCode,
+			codeData.PhoneCodeExtraData); err != nil {
+			return
+		}
+		//if m.VerifyCodeInterface != nil {
+		//	err = m.VerifyCodeInterface.VerifySmsCode(ctx, codeData.PhoneCodeHash, *phoneCode, codeData.PhoneCode)
+		//	if err != nil {
+		//		log.Errorf("verifySmsCode error: %v", err)
+		//		err = mtproto.ErrPhoneCodeInvalid
+		//		return
+		//	}
+		//} else if *phoneCode != "12345" {
+		//	log.Errorf("verifySmsCode error: %v", err)
+		//	err = mtproto.ErrPhoneCodeInvalid
+		//	return
+		//}
+	}
+
+	codeData.State = model.CodeStateOk
+
+	/*
+		if !m.AuthCore.UpdatePhoneCodeData(ctx, authKeyId, phoneNumber, phoneCodeHash, codeData) {
+			err = mtproto.ErrInternelServerError
+			return
+		}
+
+		m.PhoneCodeTransaction = codeData
+	*/
+	return
+}
+
+func (m *AuthLogic) DoAuthSignUpV2(ctx context.Context, authKeyId int64, phoneNumber string, phoneCode *string, phoneCodeHash string) (codeData *model.PhoneCodeTransaction, err error) {
+	if codeData, err = m.Dao.GetPhoneCode(ctx, authKeyId, phoneNumber, phoneCodeHash); err != nil {
+		return
+	}
+
+	// TODO(@benqi): 重复请求处理...
+	// check state invalid.
+	// TODO(@benqi): remote client error, state is Ok
+	if codeData.State != model.CodeStateOk &&
+		codeData.State != model.CodeStateSignIn &&
+		codeData.State != model.CodeStateDeleted &&
+		codeData.State != model.CodeStateSignUp {
+		err = mtproto.ErrInputRequestInvalid
+		logx.WithContext(ctx).Errorf("invalid code state(%d) - err: %v", codeData.State, err)
+		return
+	}
+
+	now := int32(time.Now().Unix())
+	fmt.Println("EXPIRED: ", now, codeData.PhoneCodeExpired, now > codeData.PhoneCodeExpired)
 	if now > codeData.PhoneCodeExpired {
 		// TODO(@benqi): update timeout state?
 		err = mtproto.ErrPhoneCodeExpired

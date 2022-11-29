@@ -20,18 +20,16 @@ package core
 
 import (
 	"fmt"
+	"golang.org/x/crypto/bcrypt"
+	"google.golang.org/grpc/status"
 	"time"
 
 	"github.com/teamgram/proto/mtproto"
-	"github.com/teamgram/proto/mtproto/crypto"
 	"github.com/teamgram/teamgram-server/app/bff/authorization/internal/logic"
-	"github.com/teamgram/teamgram-server/app/bff/authorization/internal/model"
 	"github.com/teamgram/teamgram-server/app/messenger/sync/sync"
 	"github.com/teamgram/teamgram-server/app/service/authsession/authsession"
 	userpb "github.com/teamgram/teamgram-server/app/service/biz/user/user"
 	"github.com/teamgram/teamgram-server/pkg/code/conf"
-	"github.com/teamgram/teamgram-server/pkg/env2"
-	"github.com/teamgram/teamgram-server/pkg/phonenumber"
 )
 
 /*
@@ -57,28 +55,27 @@ import (
 // auth.signIn#bcd51581 phone_number:string phone_code_hash:string phone_code:string = auth.Authorization;
 func (c *AuthorizationCore) AuthSignIn(in *mtproto.TLAuthSignIn) (*mtproto.Auth_Authorization, error) {
 	var (
-		phoneCode     = in.GetPhoneCode_STRING()
-		phoneCodeHash = in.PhoneCodeHash
+		phoneCode = in.PhoneCodeHash
 	)
 
 	if phoneCode == "" {
-		phoneCode = in.GetPhoneCode_FLAGSTRING().GetValue()
-	}
-
-	if phoneCode == "" || phoneCodeHash == "" {
-		err := mtproto.ErrPhoneCodeEmpty
-		c.Logger.Errorf("auth.sendCode - error: %v", err)
+		err := mtproto.ErrPasswordEmpty
+		c.Logger.Errorf("auth.signIn - error: %v", err)
 		return nil, err
 	}
 
 	// 3. check number
 	// client phone number format: "+86 111 1111 1111"
-	phoneNumber, err := checkPhoneNumberInvalid(in.PhoneNumber)
-	if err != nil {
-		c.Logger.Errorf("check phone_number(%s) error - %v", in.PhoneNumber, err)
-		err = mtproto.ErrPhoneNumberInvalid
-		return nil, err
-	}
+	//phoneNumber, err := checkPhoneNumberInvalid(in.PhoneNumber)
+	//if err != nil {
+	//	c.Logger.Errorf("check phone_number(%s) error - %v", in.PhoneNumber, err)
+	//	err = mtproto.ErrPhoneNumberInvalid
+	//	return nil, err
+	//}
+	phoneNumber := in.PhoneNumber
+	var (
+		err error
+	)
 
 	// 6. check can do action
 	actionType := logic.GetActionType(in)
@@ -87,122 +84,122 @@ func (c *AuthorizationCore) AuthSignIn(in *mtproto.TLAuthSignIn) (*mtproto.Auth_
 		return nil, err
 	}
 
-	codeData, err2 := c.svcCtx.AuthLogic.DoAuthSignIn(c.ctx,
-		c.MD.AuthId,
-		phoneNumber,
-		phoneCode,
-		phoneCodeHash,
-		func(codeData2 *model.PhoneCodeTransaction) error {
-			return c.svcCtx.AuthLogic.VerifyCodeInterface.VerifySmsCode(c.ctx,
-				codeData2.PhoneCodeHash,
-				phoneCode,
-				codeData2.PhoneCodeExtraData)
+	//codeData, err2 := c.svcCtx.AuthLogic.DoAuthSignIn(c.ctx,
+	//	c.MD.AuthId,
+	//	phoneNumber,
+	//	"",
+	//	phoneCodeHash,
+	//	func(codeData2 *model.PhoneCodeTransaction) error {
+	//		return c.svcCtx.AuthLogic.VerifyCodeInterface.VerifySmsCode(c.ctx,
+	//			codeData2.PhoneCodeHash,
+	//			phoneCode,
+	//			codeData2.PhoneCodeExtraData)
+	//
+	//		//log.Debugf("111")
+	//		//if s.VerifyCodeInterface == nil {
+	//		//	log.Debugf("222")
+	//		//	if env2.PredefinedUser {
+	//		//		log.Debugf("333")
+	//		//		predefinedUser, _ := s.UserFacade.GetPredefinedUser(ctx, phoneNumber)
+	//		//		if predefinedUser == nil || predefinedUser.Code != request.PhoneCode {
+	//		//			log.Debugf("invalid code: %s", request.PhoneCode)
+	//		//			return mtproto.ErrPhoneCodeInvalid
+	//		//		} else {
+	//		//			return nil
+	//		//		}
+	//		//	} else {
+	//		//		if request.PhoneCode != "12345" {
+	//		//			return mtproto.ErrPhoneCodeInvalid
+	//		//		} else {
+	//		//			return nil
+	//		//		}
+	//		//	}
+	//		//} else {
+	//		//	log.Debugf("444")
+	//		//	if codeData2.SentCodeType == model.CodeTypeSms {
+	//		//		return s.VerifyCodeInterface.VerifySmsCode(ctx, codeData2.PhoneCodeHash, request.PhoneCode, codeData2.PhoneCode)
+	//		//	} else {
+	//		//		if request.PhoneCode == codeData2.PhoneCode {
+	//		//			return nil
+	//		//		} else {
+	//		//			return mtproto.ErrPhoneCodeInvalid
+	//		//		}
+	//		//	}
+	//		//}
+	//	})
+	//
+	//if err2 != nil {
+	//	c.Logger.Error(err2.Error())
+	//	err = err2
+	//	return nil, err
+	//}
 
-			//log.Debugf("111")
-			//if s.VerifyCodeInterface == nil {
-			//	log.Debugf("222")
-			//	if env2.PredefinedUser {
-			//		log.Debugf("333")
-			//		predefinedUser, _ := s.UserFacade.GetPredefinedUser(ctx, phoneNumber)
-			//		if predefinedUser == nil || predefinedUser.Code != request.PhoneCode {
-			//			log.Debugf("invalid code: %s", request.PhoneCode)
-			//			return mtproto.ErrPhoneCodeInvalid
-			//		} else {
-			//			return nil
-			//		}
-			//	} else {
-			//		if request.PhoneCode != "12345" {
-			//			return mtproto.ErrPhoneCodeInvalid
-			//		} else {
-			//			return nil
-			//		}
-			//	}
-			//} else {
-			//	log.Debugf("444")
-			//	if codeData2.SentCodeType == model.CodeTypeSms {
-			//		return s.VerifyCodeInterface.VerifySmsCode(ctx, codeData2.PhoneCodeHash, request.PhoneCode, codeData2.PhoneCode)
-			//	} else {
-			//		if request.PhoneCode == codeData2.PhoneCode {
-			//			return nil
-			//		} else {
-			//			return mtproto.ErrPhoneCodeInvalid
-			//		}
-			//	}
-			//}
-		})
-
-	if err2 != nil {
-		c.Logger.Error(err2.Error())
-		err = err2
-		return nil, err
-	}
-
-	if c.svcCtx.Plugin != nil {
-		c.svcCtx.Plugin.OnAuthAction(c.ctx,
-			c.MD.AuthId,
-			c.MD.ClientMsgId,
-			c.MD.ClientAddr,
-			in.PhoneNumber,
-			logic.GetActionType(in),
-			"auth.signIn")
-	}
+	//if c.svcCtx.Plugin != nil {
+	//	c.svcCtx.Plugin.OnAuthAction(c.ctx,
+	//		c.MD.AuthId,
+	//		c.MD.ClientMsgId,
+	//		c.MD.ClientAddr,
+	//		in.PhoneNumber,
+	//		logic.GetActionType(in),
+	//		"auth.signIn")
+	//}
 
 	// signIn successful, check phoneRegistered.
-	if !codeData.PhoneNumberRegistered {
-		if !env2.PredefinedUser2 {
-			if c.MD.Layer >= 104 {
-				//  not register, next step: auth.singIn
-				return mtproto.MakeTLAuthAuthorizationSignUpRequired(&mtproto.Auth_Authorization{
-					// TermsOfService: model.MakeTermOfService(),
-				}).To_Auth_Authorization(), nil
-			} else {
-				c.Logger.Errorf("auth.signIn - not registered, next step auth.signIn, %v", err)
-				err = mtproto.ErrPhoneNumberUnoccupied
-				return nil, err
-			}
-		} else {
-			predefinedUser, err3 := c.svcCtx.Dao.UserClient.UserGetPredefinedUser(c.ctx, &userpb.TLUserGetPredefinedUser{
-				Phone: phoneNumber,
-			})
-			if err3 != nil {
-				c.Logger.Errorf("auth.signIn - not registered, next step auth.signIn, %v", err3)
-				err = mtproto.ErrPhoneNumberUnoccupied
-				return nil, err
-			}
-
-			key := crypto.CreateAuthKey()
-			_, err = c.svcCtx.Dao.AuthsessionClient.AuthsessionSetAuthKey(c.ctx, &authsession.TLAuthsessionSetAuthKey{
-				AuthKey: &mtproto.AuthKeyInfo{
-					AuthKeyId:          key.AuthKeyId(),
-					AuthKey:            key.AuthKey(),
-					AuthKeyType:        mtproto.AuthKeyTypePerm,
-					PermAuthKeyId:      key.AuthKeyId(),
-					TempAuthKeyId:      0,
-					MediaTempAuthKeyId: 0,
-				},
-			})
-			if err != nil {
-				c.Logger.Errorf("create user secret key error")
-				err = mtproto.ErrPhoneNumberUnoccupied
-				return nil, err
-			}
-
-			// 3.2. check phone_number
-			// 客户端发送的手机号格式为: "+86 111 1111 1111"，归一化
-			// We need getRegionCode from phone_number
-			pNumber, _ := phonenumber.MakePhoneNumberHelper(phoneNumber, "")
-
-			// TODO: check
-			_, err = c.svcCtx.UserClient.UserCreateNewUser(c.ctx, &userpb.TLUserCreateNewUser{
-				SecretKeyId: key.AuthKeyId(),
-				Phone:       phoneNumber,
-				CountryCode: pNumber.GetRegionCode(),
-				FirstName:   predefinedUser.GetFirstName().GetValue(),
-				LastName:    predefinedUser.GetLastName().GetValue(),
-			})
-			codeData.PhoneNumberRegistered = true
-		}
-	}
+	//if !codeData.PhoneNumberRegistered {
+	//	if !env2.PredefinedUser2 {
+	//		if c.MD.Layer >= 104 {
+	//			//  not register, next step: auth.singIn
+	//			return mtproto.MakeTLAuthAuthorizationSignUpRequired(&mtproto.Auth_Authorization{
+	//				// TermsOfService: model.MakeTermOfService(),
+	//			}).To_Auth_Authorization(), nil
+	//		} else {
+	//			c.Logger.Errorf("auth.signIn - not registered, next step auth.signIn, %v", err)
+	//			err = mtproto.ErrPhoneNumberUnoccupied
+	//			return nil, err
+	//		}
+	//	} else {
+	//		predefinedUser, err3 := c.svcCtx.Dao.UserClient.UserGetPredefinedUser(c.ctx, &userpb.TLUserGetPredefinedUser{
+	//			Phone: phoneNumber,
+	//		})
+	//		if err3 != nil {
+	//			c.Logger.Errorf("auth.signIn - not registered, next step auth.signIn, %v", err3)
+	//			err = mtproto.ErrPhoneNumberUnoccupied
+	//			return nil, err
+	//		}
+	//
+	//		key := crypto.CreateAuthKey()
+	//		_, err = c.svcCtx.Dao.AuthsessionClient.AuthsessionSetAuthKey(c.ctx, &authsession.TLAuthsessionSetAuthKey{
+	//			AuthKey: &mtproto.AuthKeyInfo{
+	//				AuthKeyId:          key.AuthKeyId(),
+	//				AuthKey:            key.AuthKey(),
+	//				AuthKeyType:        mtproto.AuthKeyTypePerm,
+	//				PermAuthKeyId:      key.AuthKeyId(),
+	//				TempAuthKeyId:      0,
+	//				MediaTempAuthKeyId: 0,
+	//			},
+	//		})
+	//		if err != nil {
+	//			c.Logger.Errorf("create user secret key error")
+	//			err = mtproto.ErrPhoneNumberUnoccupied
+	//			return nil, err
+	//		}
+	//
+	//		// 3.2. check phone_number
+	//		// 客户端发送的手机号格式为: "+86 111 1111 1111"，归一化
+	//		// We need getRegionCode from phone_number
+	//		pNumber, _ := phonenumber.MakePhoneNumberHelper(phoneNumber, "")
+	//
+	//		// TODO: check
+	//		_, err = c.svcCtx.UserClient.UserCreateNewUser(c.ctx, &userpb.TLUserCreateNewUser{
+	//			SecretKeyId: key.AuthKeyId(),
+	//			Phone:       phoneNumber,
+	//			CountryCode: pNumber.GetRegionCode(),
+	//			FirstName:   predefinedUser.GetFirstName().GetValue(),
+	//			LastName:    predefinedUser.GetLastName().GetValue(),
+	//		})
+	//		codeData.PhoneNumberRegistered = true
+	//	}
+	//}
 
 	// TODO(@benqi): err handle
 	// do signIn...
@@ -237,9 +234,23 @@ func (c *AuthorizationCore) AuthSignIn(in *mtproto.TLAuthSignIn) (*mtproto.Auth_
 		}
 	}
 
+	code, err := c.svcCtx.Dao.UserClient.UserGetCountryCode(c.ctx, &userpb.TLUserGetCountryCode{
+		UserId: user.Id(),
+	})
+	if err != nil {
+		return nil, err
+	}
+
+	err = bcrypt.CompareHashAndPassword([]byte(code.V), []byte(phoneCode))
+	if err != nil {
+		err := status.Error(mtproto.ErrBadRequest, "PASSWORD_INVALID")
+		c.Logger.Errorf("auth.signIn - error: %v", err)
+		return nil, err
+	}
+
 	selfUser := user.ToSelfUser()
 
-	c.svcCtx.AuthLogic.DeletePhoneCode(c.ctx, c.MD.AuthId, in.PhoneNumber, phoneCodeHash)
+	//c.svcCtx.AuthLogic.DeletePhoneCode(c.ctx, c.MD.AuthId, in.PhoneNumber, phoneCodeHash)
 	region, _ := c.svcCtx.Dao.GetCountryAndRegionByIp(c.MD.ClientAddr)
 
 	var (

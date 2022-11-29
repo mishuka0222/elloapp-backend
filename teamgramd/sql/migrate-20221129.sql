@@ -1,0 +1,1 @@
+ALTER TABLE `users` MODIFY country_code varchar(256);

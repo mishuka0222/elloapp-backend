@@ -21,6 +21,7 @@ package core
 import (
 	"context"
 	"fmt"
+	"google.golang.org/grpc/status"
 	"math/rand"
 	"strings"
 	"time"
@@ -34,6 +35,11 @@ import (
 	"github.com/teamgram/teamgram-server/pkg/phonenumber"
 
 	"github.com/zeromicro/go-zero/core/logx"
+)
+
+// custom errors
+var (
+	ErrPhoneNumberUsernameInvalid = status.Error(mtproto.ErrBadRequest, "PHONE_NUMBER_USERNAME_INVALID")
 )
 
 type AuthorizationCore struct {

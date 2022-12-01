@@ -30,6 +30,7 @@ type Config struct {
 	KV                        kv.KvConf
 	Code                      *conf.SmsVerifyCodeConfig
 	UserClient                zrpc.RpcClientConf
+	UsernameClient            zrpc.RpcClientConf
 	AuthsessionClient         zrpc.RpcClientConf
 	ChatClient                zrpc.RpcClientConf
 	StatusClient              zrpc.RpcClientConf

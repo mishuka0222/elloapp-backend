@@ -29,6 +29,7 @@ import (
 	authsession_client "github.com/teamgram/teamgram-server/app/service/authsession/client"
 	chat_client "github.com/teamgram/teamgram-server/app/service/biz/chat/client"
 	user_client "github.com/teamgram/teamgram-server/app/service/biz/user/client"
+	username_client "github.com/teamgram/teamgram-server/app/service/biz/username/client"
 	status_client "github.com/teamgram/teamgram-server/app/service/status/client"
 	"github.com/zeromicro/go-zero/core/stores/kv"
 )
@@ -46,6 +47,7 @@ type Dao struct {
 	MMDB *geoip2.Reader
 	authsession_client.AuthsessionClient
 	user_client.UserClient
+	username_client.UsernameClient
 	sync_client.SyncClient
 	chat_client.ChatClient
 	status_client.StatusClient
@@ -61,6 +63,7 @@ func New(c config.Config) *Dao {
 		kv:                kv.NewStore(c.KV),
 		MMDB:              MMDB,
 		UserClient:        user_client.NewUserClient(rpcx.GetCachedRpcClient(c.UserClient)),
+		UsernameClient:    username_client.NewUsernameClient(rpcx.GetCachedRpcClient(c.UsernameClient)),
 		AuthsessionClient: authsession_client.NewAuthsessionClient(rpcx.GetCachedRpcClient(c.AuthsessionClient)),
 		ChatClient:        chat_client.NewChatClient(rpcx.GetCachedRpcClient(c.ChatClient)),
 		SyncClient:        sync_client.NewSyncMqClient(kafka.MustKafkaProducer(c.SyncClient)),

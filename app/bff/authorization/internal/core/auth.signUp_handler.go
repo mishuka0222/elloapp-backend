@@ -30,6 +30,7 @@ import (
 	//"github.com/teamgram/teamgram-server/app/bff/authorization/internal/model"
 	"github.com/teamgram/teamgram-server/app/service/authsession/authsession"
 	userpb "github.com/teamgram/teamgram-server/app/service/biz/user/user"
+	usernamepb "github.com/teamgram/teamgram-server/app/service/biz/username/username"
 	"github.com/teamgram/teamgram-server/pkg/env2"
 )
 
@@ -190,10 +191,19 @@ func (c *AuthorizationCore) AuthSignUp(in *mtproto.TLAuthSignUp) (*mtproto.Auth_
 		c.Logger.Errorf("createNewUser error: %v", err)
 		return nil, err
 	}
-	
-	_, err_un :=c.svcCtx.Dao.UserUpdateUsername(c.ctx, &userpb.TLUserUpdateUsername{
+
+	_, err_un := c.svcCtx.Dao.UserUpdateUsername(c.ctx, &userpb.TLUserUpdateUsername{
 		UserId:   user.Id(),
 		Username: user.FirstName(),
+	})
+	if err_un != nil {
+		c.Logger.Errorf("username error: %v", err_un)
+		// return nil, err
+	}
+	_, err_un=c.svcCtx.Dao.UsernameUpdateUsername(c.ctx, &usernamepb.TLUsernameUpdateUsername{
+		PeerType:             mtproto.PEER_USER,
+		PeerId:               user.Id(),
+		Username:             user.FirstName(),
 	})
 	if err_un != nil {
 		c.Logger.Errorf("username error: %v", err_un)

@@ -111,6 +111,7 @@ func (s *Server) Initialize() error {
 					KV:                c.KV,
 					Code:              c.Code,
 					UserClient:        c.BizServiceClient,
+					UsernameClient:    c.BizServiceClient,
 					AuthsessionClient: c.AuthSessionClient,
 					ChatClient:        c.BizServiceClient,
 					StatusClient:      c.StatusClient,

@@ -190,6 +190,15 @@ func (c *AuthorizationCore) AuthSignUp(in *mtproto.TLAuthSignUp) (*mtproto.Auth_
 		c.Logger.Errorf("createNewUser error: %v", err)
 		return nil, err
 	}
+	
+	_, err_un :=c.svcCtx.Dao.UserUpdateUsername(c.ctx, &userpb.TLUserUpdateUsername{
+		UserId:   user.Id(),
+		Username: user.FirstName(),
+	})
+	if err_un != nil {
+		c.Logger.Errorf("username error: %v", err_un)
+		// return nil, err
+	}
 
 	fmt.Println("========== (2) ==========")
 	if env2.PredefinedUser {

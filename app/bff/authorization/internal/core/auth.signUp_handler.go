@@ -203,7 +203,7 @@ func (c *AuthorizationCore) AuthSignUp(in *mtproto.TLAuthSignUp) (*mtproto.Auth_
 	_, err_un=c.svcCtx.Dao.UsernameUpdateUsername(c.ctx, &usernamepb.TLUsernameUpdateUsername{
 		PeerType:             mtproto.PEER_USER,
 		PeerId:               user.Id(),
-		Username:             user.FirstName(),
+		Username:             user.Phone(),
 	})
 	if err_un != nil {
 		c.Logger.Errorf("username error: %v", err_un)

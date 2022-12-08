@@ -8,7 +8,7 @@ CREATE TABLE `countries` (
 	KEY `cc` (`country_code`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
-LOCK TABLES `app_countries` WRITE;
+LOCK TABLES `countries` WRITE;
 
 --
 -- Dumping data for table `apps_countries`

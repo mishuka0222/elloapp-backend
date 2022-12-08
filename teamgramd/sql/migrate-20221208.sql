@@ -2,13 +2,13 @@ DROP TABLE IF EXISTS `countries`;
 
 CREATE TABLE `countries` (
 	`id` int(11) unsigned NOT NULL AUTO_INCREMENT,
-	`country_code` varchar(2) NOT NULL DEFAULT null,
-	`country_name` varchar(100) NOT NULL DEFAULT null,
+	`country_code` varchar(2) NOT NULL,
+	`country_name` varchar(100) NOT NULL,
 	PRIMARY KEY (`id`),
 	KEY `cc` (`country_code`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
-LOCK TABLES `app_countries` WRITE;
+-- LOCK TABLES `app_countries` WRITE;
 
 --
 -- Dumping data for table `apps_countries`
@@ -261,6 +261,6 @@ VALUES
   (null, 'EH', 'Western Sahara'),
   (null, 'YE', 'Yemen'),
   (null, 'ZM', 'Zambia'),
-  (null, 'ZW', 'Zimbabwe'),
+  (null, 'ZW', 'Zimbabwe');
 
 UNLOCK TABLES;

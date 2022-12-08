@@ -14,7 +14,7 @@ LOCK TABLES `app_countries` WRITE;
 -- Dumping data for table `apps_countries`
 --
 
-INSERT INTO `app_countries` (`id`, `country_code`, `country_name`)
+INSERT INTO `countries` (`id`, `country_code`, `country_name`)
 VALUES
   (null, 'AF', 'Afghanistan'),
   (null, 'AL', 'Albania'),

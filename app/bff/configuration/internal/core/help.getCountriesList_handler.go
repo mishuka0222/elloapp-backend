@@ -19,6 +19,7 @@
 package core
 
 import (
+	"github.com/gogo/protobuf/types"
 	"github.com/teamgram/proto/mtproto"
 )
 
@@ -26,10 +27,25 @@ import (
 // help.getCountriesList#735787a8 lang_code:string hash:int = help.CountriesList;
 func (c *ConfigurationCore) HelpGetCountriesList(in *mtproto.TLHelpGetCountriesList) (*mtproto.Help_CountriesList, error) {
 	// TODO: not impl
-	c.Logger.Errorf("help.getCountriesList blocked, License key from https://teamgram.net required to unlock enterprise features.")
+	// c.Logger.Errorf("help.getCountriesList blocked, License key from https://teamgram.net required to unlock enterprise features.")
+
+	countriesData, err := c.svcCtx.Dao.CountriesDAO.SelectList(c.ctx)
+	if err != nil {
+		return nil, err
+	}
+
+	var countries []*mtproto.Help_Country
+
+	for _, item := range countriesData {
+		countries = append(countries, &mtproto.Help_Country{
+			Iso2:        item.Flag,
+			DefaultName: item.Code,
+			Name:        &types.StringValue{Value: item.Name},
+		})
+	}
 
 	return mtproto.MakeTLHelpCountriesList(&mtproto.Help_CountriesList{
-		Countries: []*mtproto.Help_Country{},
+		Countries: countries,
 		Hash:      0,
 	}).To_Help_CountriesList(), nil
 }

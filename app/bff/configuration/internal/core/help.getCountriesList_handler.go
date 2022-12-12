@@ -38,7 +38,6 @@ func (c *ConfigurationCore) HelpGetCountriesList(in *mtproto.TLHelpGetCountriesL
 
 	for _, item := range countriesData {
 		countries = append(countries, &mtproto.Help_Country{
-			Iso2:        item.Flag,
 			DefaultName: item.Code,
 			Name:        &types.StringValue{Value: item.Name},
 		})

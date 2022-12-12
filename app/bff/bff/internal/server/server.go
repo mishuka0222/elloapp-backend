@@ -82,6 +82,7 @@ func (s *Server) Initialize() error {
 			grpcServer,
 			configuration_helper.New(configuration_helper.Config{
 				RpcServerConf: c.RpcServerConf,
+				Mysql:         c.Mysql,
 			}))
 
 		// qrcode_helper

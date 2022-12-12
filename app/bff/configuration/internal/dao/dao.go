@@ -19,7 +19,6 @@
 package dao
 
 import (
-	"github.com/teamgram/marmota/pkg/stores/sqlc"
 	"github.com/teamgram/marmota/pkg/stores/sqlx"
 	"github.com/teamgram/teamgram-server/app/bff/configuration/internal/config"
 	"github.com/teamgram/teamgram-server/app/bff/configuration/internal/dao/dao/mysql_dao"
@@ -27,13 +26,11 @@ import (
 
 type Dao struct {
 	*mysql_dao.Mysql
-	sqlc.CachedConn
 }
 
 func New(c config.Config) *Dao {
 	db := sqlx.NewMySQL(&c.Mysql)
 	return &Dao{
-		Mysql:      mysql_dao.NewMysqlDao(db),
-		CachedConn: sqlc.NewConn(db, c.Cache),
+		Mysql: mysql_dao.NewMysqlDao(db),
 	}
 }

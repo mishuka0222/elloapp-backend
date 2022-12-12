@@ -19,10 +19,10 @@ func NewCountriesDAO(db *sqlx.DB) *CountriesDAO {
 }
 
 // SelectList
-// select id, code, "name", flag from countries
+// select id, country_code, country_name  from countries
 func (dao *CountriesDAO) SelectList(ctx context.Context) (rList []dataobject.CountriesDO, err error) {
 	var (
-		query  = `select id, code, "name", flag from countries`
+		query  = `select id, country_code, country_name  from countries`
 		values []dataobject.CountriesDO
 	)
 	err = dao.db.QueryRowsPartial(ctx, &values, query)

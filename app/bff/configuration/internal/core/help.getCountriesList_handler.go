@@ -19,7 +19,6 @@
 package core
 
 import (
-	"github.com/gogo/protobuf/types"
 	"github.com/teamgram/proto/mtproto"
 )
 
@@ -38,8 +37,9 @@ func (c *ConfigurationCore) HelpGetCountriesList(in *mtproto.TLHelpGetCountriesL
 
 	for _, item := range countriesData {
 		countries = append(countries, &mtproto.Help_Country{
-			DefaultName: item.Code,
-			Name:        &types.StringValue{Value: item.Name},
+			DefaultName:  item.Name,
+			Iso2:         item.Code,
+			CountryCodes: []*mtproto.Help_CountryCode{{CountryCode: item.Code}},
 		})
 	}
 

@@ -36,15 +36,19 @@ func (c *ConfigurationCore) HelpGetCountriesList(in *mtproto.TLHelpGetCountriesL
 	var countries []*mtproto.Help_Country
 
 	for _, item := range countriesData {
-		countries = append(countries, &mtproto.Help_Country{
-			DefaultName:  item.Name,
-			Iso2:         item.Code,
-			CountryCodes: []*mtproto.Help_CountryCode{{CountryCode: item.Code}},
-		})
+		con := (&mtproto.Help_Country{
+			DefaultName: item.Name,
+			Iso2:        item.Code,
+			CountryCodes: []*mtproto.Help_CountryCode{
+				(&mtproto.Help_CountryCode{CountryCode: item.Code}).
+					To_HelpCountryCode().To_Help_CountryCode(),
+			},
+		}).To_HelpCountry().To_Help_Country()
+		countries = append(countries, con)
 	}
 
 	return mtproto.MakeTLHelpCountriesList(&mtproto.Help_CountriesList{
 		Countries: countries,
-		Hash:      0,
+		Hash:      in.Hash,
 	}).To_Help_CountriesList(), nil
 }

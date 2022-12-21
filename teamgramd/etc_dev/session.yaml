@@ -4,6 +4,10 @@ Etcd:
   Hosts:
     - 127.0.0.1:2379
   Key: interface.session
+Log:
+  Level: debug
+  Mode: console
+  Encoding: plain
 Cache:
   - Host: 127.0.0.1:6379
 AuthSession:
@@ -28,10 +32,7 @@ BFFProxyClients:
         Hosts:
           - 127.0.0.1:2379
         Key: bff.bff
-    - Etcd:
-        Hosts:
-          - 127.0.0.1:2379
-        Key: messenger.biz_server.phone
+      Timeout: 0
   IDMap:
     "/mtproto.RPCBiz": "bff.bff"
     "/feeds.RPCFeeds": "bff.bff"
@@ -49,7 +50,8 @@ BFFProxyClients:
     #"/mtproto.RPCSeamless": "bff.bff"
     #"/mtproto.RPCVoipCalls": "bff.bff"
     #"/mtproto.RPCChannels": "bff.bff"
-    #"/mtproto.RPCChats": "bff.bff"
+    "/mtproto.RPCChatInvites": "bff.bff"
+    "/mtproto.RPCChats": "bff.bff"
     #"/mtproto.RPCDeepLinks": "bff.bff"
     "/mtproto.RPCFiles": "bff.bff"
     #"/mtproto.RPCWebPage": "bff.bff"
@@ -88,4 +90,3 @@ BFFProxyClients:
     "/mtproto.RPCPhotos": "bff.bff"
     "/mtproto.RPCUsernames": "bff.bff"
     #"/mtproto.RPCWallpapers": "bff.bff"
-    #"/mtproto.RPCTranslate": "bff.bff"

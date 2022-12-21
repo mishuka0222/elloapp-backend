@@ -25,6 +25,7 @@ import (
 	authorization_helper "github.com/teamgram/teamgram-server/app/bff/authorization"
 	autodownload_helper "github.com/teamgram/teamgram-server/app/bff/autodownload"
 	"github.com/teamgram/teamgram-server/app/bff/bff/internal/config"
+	bizraw_helper "github.com/teamgram/teamgram-server/app/bff/bizraw"
 	chatinvites_helper "github.com/teamgram/teamgram-server/app/bff/chatinvites"
 	chats_helper "github.com/teamgram/teamgram-server/app/bff/chats"
 	configuration_helper "github.com/teamgram/teamgram-server/app/bff/configuration"
@@ -70,6 +71,21 @@ func (s *Server) Initialize() error {
 	// s.grpcSrv = grpc.New(ctx, c.RpcServerConf)
 
 	s.grpcSrv = zrpc.MustNewServer(c.RpcServerConf, func(grpcServer *grpc.Server) {
+		// bizraw_helper
+		mtproto.RegisterRPCBizServer(
+			grpcServer,
+			bizraw_helper.New(
+				bizraw_helper.Config{
+					RpcServerConf: c.RpcServerConf,
+				}))
+		// feeds_helper
+		//feeds.RegisterRPCFeedsServer(
+		//	grpcServer,
+		//	feeds_helper.New(
+		//		feeds_helper.Config{
+		//			RpcServerConf: c.RpcServerConf,
+		//		}))
+
 		// tos_helper
 		mtproto.RegisterRPCTosServer(
 			grpcServer,

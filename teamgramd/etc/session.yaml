@@ -34,6 +34,8 @@ BFFProxyClients:
         Key: bff.bff
       Timeout: 0
   IDMap:
+    "/mtproto.RPCBiz": "bff.bff"
+    "/feeds.RPCFeeds": "bff.bff"
     "/mtproto.RPCTos": "bff.bff"
     #"/mtproto.RPCReports": "bff.bff"
     "/mtproto.RPCConfiguration": "bff.bff"

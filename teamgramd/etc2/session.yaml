@@ -1,37 +1,35 @@
 Name: interface.session
-ListenOn: 127.0.0.1:20120
+ListenOn: 0.0.0.0:20120
 Etcd:
-  Hosts:
-    - 127.0.0.1:2379
+  Hosts: ["etcd:2379"]
   Key: interface.session
+Log:
+#  Mode: file
+#  Path: ./logs/session
+  Level: debug
+  Mode: console
+  Encoding: plain
 Cache:
-  - Host: 127.0.0.1:6379
+  - Host: redis:6379
 AuthSession:
   Etcd:
-    Hosts:
-      - 127.0.0.1:2379
+    Hosts: ["etcd:2379"]
     Key: service.authsession
 StatusClient:
   Etcd:
-    Hosts:
-      - 127.0.0.1:2379
+    Hosts: ["etcd:2379"]
     Key: service.status
 GatewayClient:
   Etcd:
-    Hosts:
-      - 127.0.0.1:2379
+    Hosts: ["etcd:2379"]
     Key: interface.gateway
 
 BFFProxyClients:
   Clients:
     - Etcd:
-        Hosts:
-          - 127.0.0.1:2379
+        Hosts: ["etcd:2379"]
         Key: bff.bff
-    - Etcd:
-        Hosts:
-          - 127.0.0.1:2379
-        Key: messenger.biz_server.phone
+      Timeout: 0
   IDMap:
     "/mtproto.RPCBiz": "bff.bff"
     "/feeds.RPCFeeds": "bff.bff"
@@ -49,7 +47,8 @@ BFFProxyClients:
     #"/mtproto.RPCSeamless": "bff.bff"
     #"/mtproto.RPCVoipCalls": "bff.bff"
     #"/mtproto.RPCChannels": "bff.bff"
-    #"/mtproto.RPCChats": "bff.bff"
+    "/mtproto.RPCChatInvites": "bff.bff"
+    "/mtproto.RPCChats": "bff.bff"
     #"/mtproto.RPCDeepLinks": "bff.bff"
     "/mtproto.RPCFiles": "bff.bff"
     #"/mtproto.RPCWebPage": "bff.bff"
@@ -88,4 +87,3 @@ BFFProxyClients:
     "/mtproto.RPCPhotos": "bff.bff"
     "/mtproto.RPCUsernames": "bff.bff"
     #"/mtproto.RPCWallpapers": "bff.bff"
-    #"/mtproto.RPCTranslate": "bff.bff"

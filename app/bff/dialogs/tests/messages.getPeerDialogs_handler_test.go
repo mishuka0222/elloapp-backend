@@ -8,7 +8,7 @@ import (
 	"testing"
 )
 
-func TestMessagesGetDialogs(t *testing.T) {
+func TestMessagesGetPeerDialogs(t *testing.T) {
 	c := NewRPCClient()
 	/*
 		{"server_id":"127.0.0.1:20120",
@@ -17,7 +17,7 @@ func TestMessagesGetDialogs(t *testing.T) {
 		"session_id":-6067082837832915424,
 		"receive_time":1671422104,
 		"user_id":777063,
-		"client_msg_id":7178703274366956544,
+		"client_msg_id":7178703274379841536,
 		"layer":147,
 		"client":"android",
 		"langpack":"android",
@@ -30,7 +30,7 @@ func TestMessagesGetDialogs(t *testing.T) {
 		SessionId:     -6067082837832915424,
 		ReceiveTime:   1671422104,
 		UserId:        777063,
-		ClientMsgId:   7178703274366956544,
+		ClientMsgId:   7178703274379841536,
 		IsBot:         false,
 		Layer:         147,
 		Client:        "android",
@@ -42,20 +42,31 @@ func TestMessagesGetDialogs(t *testing.T) {
 		panic(err)
 	}
 	/*
-		{"constructor":"CRC32_messages_getDialogs",
-		"exclude_pinned":true,
-		"offset_peer":{
-			"predicate_name":"inputPeerEmpty",
-			"constructor":"CRC32_inputPeerEmpty"},
-		"limit":100}
+		{"constructor":"CRC32_messages_getPeerDialogs",
+		"peers":[
+			{"predicate_name":"inputDialogPeer",
+			"constructor":"CRC32_inputDialogPeer",
+			"peer":
+				{"predicate_name":"inputPeerUser",
+				"constructor":"CRC32_inputPeerUser",
+				"user_id":"777063",
+				"access_hash":"1649049434428990075"}
+			}
+		]}
 	*/
-	dialogs, err := c.MessagesGetDialogs(ctx, &mtproto.TLMessagesGetDialogs{
-		Constructor:   mtproto.CRC32_messages_getDialogs,
-		ExcludePinned: true,
-		OffsetPeer: (&mtproto.InputPeer{
-			Constructor: mtproto.CRC32_inputPeerEmpty,
-		}).To_InputPeerEmpty().To_InputPeer(),
-		Limit: 100,
+	dialogs, err := c.MessagesGetPeerDialogs(ctx, &mtproto.TLMessagesGetPeerDialogs{
+		Constructor: mtproto.CRC32_messages_getDialogs,
+		Peers: []*mtproto.InputDialogPeer{
+			(&mtproto.InputDialogPeer{
+				Constructor: mtproto.CRC32_inputPeerUser,
+				Peer: (&mtproto.InputPeer{
+					PredicateName: "",
+					Constructor:   mtproto.CRC32_inputPeerUser,
+					UserId:        777063,
+					AccessHash:    1649049434428990075,
+				}).To_InputPeerUser().To_InputPeer(),
+			}).To_InputDialogPeer().To_InputDialogPeer(),
+		},
 	})
 	if err != nil {
 		panic(err)

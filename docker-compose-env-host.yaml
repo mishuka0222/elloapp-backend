@@ -6,47 +6,49 @@ version: "3"
 services:
   #zookeeper是kafka的依赖 - Zookeeper is the dependencies of Kafka
   zookeeper:
-#    image: wurstmeister/zookeeper
+    #    image: wurstmeister/zookeeper
     image: 'bitnami/zookeeper:latest'
     container_name: zookeeper
     volumes:
       - ./data/zookeeper/data:/data
       - /etc/localtime:/etc/localtime
-#    restart: always
+    #    restart: always
     ports:
       - 2181:2181
     environment:
       - ALLOW_ANONYMOUS_LOGIN=yes
-    networks:
-      - teamgram_net
+    #    networks:
+    #      - host
+    network_mode: "host"
 
   #消息队列 - Message queue
   kafka:
-#    image: wurstmeister/kafka
+    #    image: wurstmeister/kafka
     image: 'bitnami/kafka:latest'
     container_name: kafka
     ports:
       - 9092:9092
     environment:
-#      #TZ: Asia/Shanghai
-#      KAFKA_BROKER_ID: 0
-#      KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
-##      KAFKA_AUTO_CREATE_TOPICS_ENABLE: 'true'
-#      KAFKA_CREATE_TOPICS: "Inbox-T:1:1:compact,Sync-T:1:1:compact"
-##      KAFKA_ADVERTISED_HOST_NAME: 192.168.1.5
-#      KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://192.168.1.5:9092
-#      KAFKA_LISTENERS: PLAINTEXT://0.0.0.0:9092
+      #      #TZ: Asia/Shanghai
+      #      KAFKA_BROKER_ID: 0
+      #      KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
+      ##      KAFKA_AUTO_CREATE_TOPICS_ENABLE: 'true'
+      #      KAFKA_CREATE_TOPICS: "Inbox-T:1:1:compact,Sync-T:1:1:compact"
+      ##      KAFKA_ADVERTISED_HOST_NAME: 192.168.1.5
+      #      KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://192.168.1.5:9092
+      #      KAFKA_LISTENERS: PLAINTEXT://0.0.0.0:9092
       KAFKA_BROKER_ID: 0
       KAFKA_CFG_LISTENERS: PLAINTEXT://:9092
-      KAFKA_CFG_ADVERTISED_LISTENERS: PLAINTEXT://0.0.0.0:9092
+      KAFKA_CFG_ADVERTISED_LISTENERS: PLAINTEXT://:9092
       KAFKA_CREATE_TOPICS: "Inbox-T:1:1:compact,Sync-T:1:1:compact"
-      KAFKA_CFG_ZOOKEEPER_CONNECT: zookeeper:2181
+      KAFKA_CFG_ZOOKEEPER_CONNECT: 127.0.0.1:2181
       ALLOW_PLAINTEXT_LISTENER: yes
-#    restart: always
+    #    restart: always
     volumes:
       - ./data/kafka/data:/data
-    networks:
-      - teamgram_net
+    #    networks:
+    #      - host
+    network_mode: "host"
     depends_on:
       - zookeeper
 
@@ -65,17 +67,18 @@ services:
       ETCD_DATA_DIR: /data
       ETCD_NAME: node1
       INITIAL_CLUSTER_TOKEN: etcd-test-cluster
-      ETCD_INITIAL_ADVERTISE_PEER_URLS: http://etcd:2380
+      ETCD_INITIAL_ADVERTISE_PEER_URLS: http://127.0.0.1:2380
       ETCD_LISTEN_PEER_URLS: http://0.0.0.0:2380
-      ETCD_ADVERTISE_CLIENT_URLS: http://etcd:2379
+      ETCD_ADVERTISE_CLIENT_URLS: http://127.0.0.1:2379
       ETCD_LISTEN_CLIENT_URLS: http://0.0.0.0:2379
-      ETCD_INITIAL_CLUSTER: node1=http://etcd:2380
+      ETCD_INITIAL_CLUSTER: node1=http://127.0.0.1:2380
       ETCD_INITIAL_CLUSTER_STATE: new
       ETCD_AUTO_COMPACTION_RETENTION: 1
-#    restart: always
+    #    restart: always
     command: /usr/local/bin/etcd
-    networks:
-      - teamgram_net
+    #    networks:
+    #      - host
+    network_mode: "host"
 
   redis:
     image: redis
@@ -88,11 +91,12 @@ services:
       #- ./deploy/redis/config/redis.conf:/usr/local/redis/config/redis.conf
     environment:
       TZ: Asia/Shanghai
-#    restart: always
+    #    restart: always
     privileged: true
     command: redis-server --appendonly yes
-    networks:
-      - teamgram_net
+#        networks:
+#          - host
+    network_mode: "host"
 
   mysql:
     image: mysql:8.0.31
@@ -102,10 +106,10 @@ services:
       # 时区上海 - Time zone Shanghai (Change if needed)
       #TZ: Asia/Shanghai
       # root 密码 - root password
-#      MYSQL_ROOT_PASSWORD: ${DB_ROOT_PASSWORD:-my_root_secret}
+      #      MYSQL_ROOT_PASSWORD: ${DB_ROOT_PASSWORD:-my_root_secret}
       MYSQL_DATABASE: teamgram
       MYSQL_USER: teamgram
-#      MYSQL_PASSWORD: ${DB_PASSWORD:-teamgram}
+      #      MYSQL_PASSWORD: ${DB_PASSWORD:-teamgram}
       MYSQL_ALLOW_EMPTY_PASSWORD: "true"
     ports:
       - 3306:3306
@@ -121,9 +125,10 @@ services:
       --explicit_defaults_for_timestamp=true
       --lower_case_table_names=1
     privileged: true
-#    restart: always
-    networks:
-      - teamgram_net
+    #    restart: always
+    #    networks:
+    #      - host
+    network_mode: "host"
 
   minio:
     image: minio/minio
@@ -137,13 +142,14 @@ services:
       MINIO_ACCESS_KEY: minio
       MINIO_SECRET_KEY: miniostorage
     command: server /data --console-address ":9001"
-#    restart: always
-    networks:
-      - teamgram_net
+    #    restart: always
+    #    networks:
+    #      - host
+    network_mode: "host"
 
-networks:
-  teamgram_net:
-    driver: bridge
-    ipam:
-      config:
-        - subnet: 172.20.0.0/16
+#networks:
+#  teamgram#_net:
+#    driver: bridge
+#    ipam:
+#      config:
+#        - subnet: 172.20.0.0/16

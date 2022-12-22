@@ -13,6 +13,9 @@ func (s Service) BizInvokeBizDataRaw(ctx context.Context, request *mtproto.TLBiz
 	if err != nil {
 		return nil, err
 	}
+	if r != nil {
+		r.To_BizDataRaw().To_BizDataRaw()
+	}
 
 	c.Logger.Debugf("bizraw.bizInvokeBizDataRaw - reply: %s", r.DebugString())
 	return r, err

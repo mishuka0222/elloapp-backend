@@ -26,12 +26,14 @@ import (
 	autodownload_helper "github.com/teamgram/teamgram-server/app/bff/autodownload"
 	"github.com/teamgram/teamgram-server/app/bff/bff/internal/config"
 	bizraw_helper "github.com/teamgram/teamgram-server/app/bff/bizraw"
+	op_srv "github.com/teamgram/teamgram-server/app/bff/bizraw/service"
 	chatinvites_helper "github.com/teamgram/teamgram-server/app/bff/chatinvites"
 	chats_helper "github.com/teamgram/teamgram-server/app/bff/chats"
 	configuration_helper "github.com/teamgram/teamgram-server/app/bff/configuration"
 	contacts_helper "github.com/teamgram/teamgram-server/app/bff/contacts"
 	dialogs_helper "github.com/teamgram/teamgram-server/app/bff/dialogs"
 	drafts_helper "github.com/teamgram/teamgram-server/app/bff/drafts"
+	feeds_helper "github.com/teamgram/teamgram-server/app/bff/feeds"
 	files_helper "github.com/teamgram/teamgram-server/app/bff/files"
 	messages_helper "github.com/teamgram/teamgram-server/app/bff/messages"
 	miscellaneous_helper "github.com/teamgram/teamgram-server/app/bff/miscellaneous"
@@ -77,14 +79,11 @@ func (s *Server) Initialize() error {
 			bizraw_helper.New(
 				bizraw_helper.Config{
 					RpcServerConf: c.RpcServerConf,
+				}, map[op_srv.ServiceID]op_srv.OperationServer{
+					op_srv.Feeds: feeds_helper.New(feeds_helper.Config{
+						Mysql: c.Mysql,
+					}),
 				}))
-		// feeds_helper
-		//feeds.RegisterRPCFeedsServer(
-		//	grpcServer,
-		//	feeds_helper.New(
-		//		feeds_helper.Config{
-		//			RpcServerConf: c.RpcServerConf,
-		//		}))
 
 		// tos_helper
 		mtproto.RegisterRPCTosServer(

@@ -1,4 +1,4 @@
-Name: bff.configuration
+Name: bff.feeds
 ListenOn: 0.0.0.0:21220
 Mysql:
   Addr: 127.0.0.1:3306

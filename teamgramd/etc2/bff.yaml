@@ -67,7 +67,7 @@ SyncClient:
     - kafka:9092
 Mysql:
   Addr: mysql:3306
-  DSN: root:@tcp(mysql:3306)/teamgram?charset=utf8mb4&parseTime=true&loc=Asia%2FShanghai
+  DSN: root:@tcp(mysql:3306)/teamgram?charset=utf8mb4&parseTime=true
   Active: 64
   Idle: 64
   IdleTimeout: 4h

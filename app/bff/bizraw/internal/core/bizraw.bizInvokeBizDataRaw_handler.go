@@ -11,7 +11,7 @@ type Operation struct {
 	Data    json.RawMessage `json:"data"`
 }
 
-func (c BizCore) BizInvokeBizDataRaw(in *mtproto.TLBizInvokeBizDataRaw) (*mtproto.BizDataRaw, error) {
+func (c BizCore) OperationProxyService(in *mtproto.TLBizInvokeBizDataRaw) (*mtproto.BizDataRaw, error) {
 
 	var op Operation
 	err := json.Unmarshal(in.BizData.Data, &op)
@@ -19,6 +19,6 @@ func (c BizCore) BizInvokeBizDataRaw(in *mtproto.TLBizInvokeBizDataRaw) (*mtprot
 		return nil, err
 	}
 
-	c.Logger.Debugf("BizInvokeBizDataRaw service - %d, operation - %d", op.Service, op.Method)
+	c.Logger.Debugf("OperationProxyService service - %d, operation - %d", op.Service, op.Method)
 	return c.svcCtx.OpSrv.Handle(c.ctx, op.Service, op.Method, op.Data)
 }

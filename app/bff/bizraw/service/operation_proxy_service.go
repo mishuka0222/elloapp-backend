@@ -16,7 +16,7 @@ func New(register map[ServiceID]OperationServer) *Service {
 	if len(ServerList) < len(register) {
 		panic("Operation service error, incorrect register length")
 	}
-	validRegister := make(map[ServiceID]OperationServer, len(ServerList))
+	validRegister := make(map[ServiceID]OperationServer, len(register))
 	for _, it := range ServerList {
 		serv, ok := register[it]
 		if ok {
@@ -37,5 +37,17 @@ func (s *Service) Handle(ctx context.Context, servID int32, opID int32, data jso
 		log.Error(err)
 		return nil, errors.New(err)
 	}
-	return srv.GetHandler(ctx, opID, data)
+	resp, err := srv.GetHandler(ctx, opID, data)
+	if err != nil {
+		return nil, err
+	}
+	b, err := json.Marshal(resp)
+	if err != nil {
+		return nil, err
+	}
+
+	return (&mtproto.BizDataRaw{
+		Constructor: mtproto.CRC32_bizDataRaw,
+		Data:        b,
+	}).To_BizDataRaw().To_BizDataRaw(), nil
 }

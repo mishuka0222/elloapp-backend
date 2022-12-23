@@ -4,9 +4,18 @@ import (
 	"encoding/json"
 )
 
-// send array with { chat_id: int64, peer_type: int32, state: bool }
+// UpdateFeedList
+// send array with chat_id: []int64
 func (c *FeedCore) UpdateFeedList(in json.RawMessage) (interface{}, error) {
-	// todo: add your logic here and delete this line
-
+	var chats []int64
+	if err := json.Unmarshal(in, &chats); err != nil {
+		return nil, err
+	}
+	if _, err := c.svcCtx.Dao.UserFeedsDAO.DeleteFromListElseValue(c.ctx, c.MD.UserId, chats); err != nil {
+		return nil, err
+	}
+	if _, err := c.svcCtx.Dao.UserFeedsDAO.InsertList(c.ctx, c.MD.UserId, chats); err != nil {
+		return nil, err
+	}
 	return nil, nil
 }

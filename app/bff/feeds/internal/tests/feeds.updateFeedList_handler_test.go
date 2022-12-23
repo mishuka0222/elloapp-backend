@@ -2,17 +2,13 @@ package tests
 
 import (
 	"context"
-	"encoding/json"
-	"github.com/stretchr/testify/assert"
 	"github.com/teamgram/proto/mtproto/rpc/metadata"
 	op_srv "github.com/teamgram/teamgram-server/app/bff/bizraw/service"
-	"github.com/teamgram/teamgram-server/app/bff/feeds/internal/dao/dataobject"
 	"github.com/teamgram/teamgram-server/app/bff/feeds/internal/service"
-	"github.com/zeromicro/go-zero/core/logx"
 	"testing"
 )
 
-func TestGetFeedList(t *testing.T) {
+func TestUpdateFeedList(t *testing.T) {
 	c := NewRPCClient()
 	/*
 		{"server_id":"127.0.0.1:20120",
@@ -50,20 +46,14 @@ func TestGetFeedList(t *testing.T) {
 	*/
 	op, err := op_srv.NewOperation(op_srv.Operation{
 		Service: op_srv.Feeds,
-		Method:  service.GetFeedList,
-		Data:    nil,
+		Method:  service.UpdateFeedList,
+		Data:    []int64{12, 13, 4},
 	})
 	if err != nil {
 		t.Fatal(err)
 	}
-	data, err := c.BizInvokeBizDataRaw(ctx, op)
+	_, err = c.BizInvokeBizDataRaw(ctx, op)
 	if err != nil {
 		t.Fatal(err)
 	}
-	var feedList []dataobject.UserChatDO
-	if err := json.Unmarshal(data.Data, &feedList); err != nil {
-		t.Fatal(err)
-	}
-	assert.Equal(t, true, feedList[0].Status)
-	logx.Debugf("%+v", feedList)
 }

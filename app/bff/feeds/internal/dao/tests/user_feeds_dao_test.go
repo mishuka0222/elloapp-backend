@@ -33,10 +33,25 @@ func TestSelectFeedListDAO(t *testing.T) {
 		log.Printf("count row are selected %d", len(l))
 	}
 }
+
 func TestSelectChatListDAO(t *testing.T) {
 
 	d := dao.New(newConfDao())
 	l, err := d.UserFeedsDAO.SelectChatList(context.Background(), 777062)
+	if err != nil {
+		t.Fatal(err)
+	}
+	if len(l) <= 0 {
+		t.Fatalf("they should be not empty, count %d", len(l))
+	} else {
+		log.Printf("count row are selected %d", len(l))
+	}
+}
+
+func TestSelectReadOutboxListDAO(t *testing.T) {
+
+	d := dao.New(newConfDao())
+	l, err := d.UserFeedsDAO.SelectReadOutboxList(context.Background(), 777062)
 	if err != nil {
 		t.Fatal(err)
 	}

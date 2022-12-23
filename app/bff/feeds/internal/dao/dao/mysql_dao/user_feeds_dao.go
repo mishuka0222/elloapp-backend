@@ -39,6 +39,25 @@ func (dao *UserFeedsDAO) SelectFeedList(ctx context.Context, user_id int64) (rLi
 	return
 }
 
+// SelectReadOutboxList - select number top_message and read_outbox_max_id for user chats
+// select uf.chat_id, top_message, read_outbox_max_id from dialogs d, (select c.id as chat_id, cp.user_id from chat_participants cp, chats c where cp.user_id in (?) and cp.chat_id = c.id and cp.state = 0 and c.deactivated = 0 and c.id in (select uf.chat_id from user_feeds uf where uf.user_id in (?))) uf where d.user_id = uf.user_id and d.peer_id = uf.chat_id and d.user_id in (?)
+func (dao *UserFeedsDAO) SelectReadOutboxList(ctx context.Context, user_id int64) (rList []dataobject.ReadOutboxDO, err error) {
+	var (
+		query  = `select uf.chat_id, top_message, read_outbox_max_id from dialogs d, (select c.id as chat_id, cp.user_id from chat_participants cp, chats c where cp.user_id in (?) and cp.chat_id = c.id and cp.state = 0 and c.deactivated = 0 and c.id in (select uf.chat_id from user_feeds uf where uf.user_id in (?))) uf where d.user_id = uf.user_id and d.peer_id = uf.chat_id and d.user_id in (?)`
+		values []dataobject.ReadOutboxDO
+	)
+	err = dao.db.QueryRowsPartial(ctx, &values, query, user_id, user_id, user_id)
+
+	if err != nil {
+		logx.WithContext(ctx).Errorf("queryx in SelectReadOutboxList(_), error: %v", err)
+		return
+	}
+
+	rList = values
+
+	return
+}
+
 // SelectChatList
 // select cp.chat_id, c.photo_id, c.title from chat_participants cp, chats c where cp.state = 0 and cp.user_id in (?) and c.id = cp.chat_id and c.deactivated = 0
 func (dao *UserFeedsDAO) SelectChatList(ctx context.Context, user_id int64) (rList []dataobject.UserChatDO, err error) {

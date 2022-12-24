@@ -73,17 +73,6 @@ func (s *Server) Initialize() error {
 	// s.grpcSrv = grpc.New(ctx, c.RpcServerConf)
 
 	s.grpcSrv = zrpc.MustNewServer(c.RpcServerConf, func(grpcServer *grpc.Server) {
-		// bizraw_helper
-		mtproto.RegisterRPCBizServer(
-			grpcServer,
-			bizraw_helper.New(
-				bizraw_helper.Config{
-					RpcServerConf: c.RpcServerConf,
-				}, map[op_srv.ServiceID]op_srv.OperationServer{
-					op_srv.Feeds: feeds_helper.New(feeds_helper.Config{
-						Mysql: c.Mysql,
-					}),
-				}))
 
 		// tos_helper
 		mtproto.RegisterRPCTosServer(
@@ -236,20 +225,22 @@ func (s *Server) Initialize() error {
 			}))
 
 		// messages_helper
+
+		messagesCore := messages_helper.New(messages_helper.Config{
+			RpcServerConf:  c.RpcServerConf,
+			UserClient:     c.BizServiceClient,
+			ChatClient:     c.BizServiceClient,
+			MsgClient:      c.MsgClient,
+			DialogClient:   c.BizServiceClient,
+			IdgenClient:    c.IdgenClient,
+			MessageClient:  c.BizServiceClient,
+			MediaClient:    c.MediaClient,
+			UsernameClient: c.BizServiceClient,
+			SyncClient:     c.SyncClient,
+		}, nil)
 		mtproto.RegisterRPCMessagesServer(
-			grpcServer,
-			messages_helper.New(messages_helper.Config{
-				RpcServerConf:  c.RpcServerConf,
-				UserClient:     c.BizServiceClient,
-				ChatClient:     c.BizServiceClient,
-				MsgClient:      c.MsgClient,
-				DialogClient:   c.BizServiceClient,
-				IdgenClient:    c.IdgenClient,
-				MessageClient:  c.BizServiceClient,
-				MediaClient:    c.MediaClient,
-				UsernameClient: c.BizServiceClient,
-				SyncClient:     c.SyncClient,
-			}, nil))
+			grpcServer, messagesCore,
+		)
 
 		// notification_helper
 		mtproto.RegisterRPCNotificationServer(
@@ -317,6 +308,20 @@ func (s *Server) Initialize() error {
 				ChatClient:     c.BizServiceClient,
 				SyncClient:     c.SyncClient,
 			}, nil))
+
+		// bizraw_helper
+		mtproto.RegisterRPCBizServer(
+			grpcServer,
+			bizraw_helper.New(
+				bizraw_helper.Config{
+					RpcServerConf: c.RpcServerConf,
+				}, map[op_srv.ServiceID]op_srv.OperationServer{
+					op_srv.Feeds: feeds_helper.New(feeds_helper.Config{
+						Mysql:         c.Mysql,
+						MessageClient: c.BizServiceClient,
+					}, messagesCore),
+				}))
+
 	})
 
 	// logx.Must(err)

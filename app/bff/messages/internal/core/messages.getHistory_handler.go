@@ -39,7 +39,7 @@ func (c *MessagesCore) MessagesGetHistory(in *mtproto.TLMessagesGetHistory) (*mt
 		limit = in.Limit
 	)
 
-	if limit > 50 {
+	if limit <= 0 {
 		limit = 50
 	}
 

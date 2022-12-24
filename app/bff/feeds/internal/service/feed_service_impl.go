@@ -48,6 +48,20 @@ func (s *Service) ReadHistory(ctx context.Context, in json.RawMessage) (interfac
 	return r, err
 }
 
+// for user req: { uread_state: int64 }
+func (s *Service) GetHistory(ctx context.Context, in json.RawMessage) (interface{}, error) {
+	c := core.New(ctx, s.svcCtx)
+	c.Logger.Debugf("feeds.ReadHistory - metadata: %s, request: %s", c.MD.DebugString(), string(in))
+
+	r, err := c.GetHistory(in)
+	if err != nil {
+		return nil, err
+	}
+
+	c.Logger.Debugf("feeds.ReadHistory - reply: %+v", r)
+	return r, err
+}
+
 // for user req: { user_id: int64 }
 func (s *Service) GetHistoryCounter(ctx context.Context, in json.RawMessage) (interface{}, error) {
 	c := core.New(ctx, s.svcCtx)

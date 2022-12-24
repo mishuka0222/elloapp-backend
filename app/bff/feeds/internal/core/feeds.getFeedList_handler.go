@@ -15,7 +15,7 @@ func (c *FeedCore) GetFeedList(_ json.RawMessage) ([]dataobject.UserChatDO, erro
 	}
 	feedsMap := make(map[int64]struct{}, len(feedsData))
 	for _, i := range feedsData {
-		feedsMap[i] = struct{}{}
+		feedsMap[i.ChatID] = struct{}{}
 	}
 
 	chatsData, err := c.svcCtx.Dao.UserFeedsDAO.SelectChatList(c.ctx, c.MD.UserId)

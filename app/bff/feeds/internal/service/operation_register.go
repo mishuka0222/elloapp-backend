@@ -12,6 +12,7 @@ const (
 	UpdateFeedList
 	GetHistoryCounter
 	ReadHistory
+	GetHistory
 )
 
 func (s *Service) initOperationRegister() {
@@ -20,6 +21,7 @@ func (s *Service) initOperationRegister() {
 		UpdateFeedList:    s.UpdateFeedList,
 		GetHistoryCounter: s.GetHistoryCounter,
 		ReadHistory:       s.ReadHistory,
+		GetHistory:        s.GetHistory,
 	}
 	s.operationRegister = operationRegister
 }

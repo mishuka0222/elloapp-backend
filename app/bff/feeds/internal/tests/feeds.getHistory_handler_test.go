@@ -46,7 +46,7 @@ func TestGetHistory(t *testing.T) {
 	}
 
 	dt := core.GetHistoryReq{
-		Before: 220,
+		Before: 40,
 		Limit:  60,
 	}
 	/*

@@ -4,6 +4,7 @@ import (
 	"context"
 	"github.com/teamgram/proto/mtproto/rpc/metadata"
 	op_srv "github.com/teamgram/teamgram-server/app/bff/bizraw/service"
+	"github.com/teamgram/teamgram-server/app/bff/feeds/internal/dao/dataobject"
 	"github.com/teamgram/teamgram-server/app/bff/feeds/internal/service"
 	"testing"
 )
@@ -47,7 +48,11 @@ func TestUpdateFeedList(t *testing.T) {
 	op, err := op_srv.NewOperation(op_srv.Operation{
 		Service: op_srv.Feeds,
 		Method:  service.UpdateFeedList,
-		Data:    []int64{12, 13, 4},
+		Data: []dataobject.FeedInsertItemDO{
+			{ChatID: 12, PeerType: 2},
+			{ChatID: 13, PeerType: 2},
+			{ChatID: 4, PeerType: 2},
+		},
 	})
 	if err != nil {
 		t.Fatal(err)

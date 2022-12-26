@@ -3,7 +3,6 @@ package tests
 import (
 	"context"
 	"encoding/json"
-	"github.com/teamgram/proto/mtproto"
 	"github.com/teamgram/proto/mtproto/rpc/metadata"
 	op_srv "github.com/teamgram/teamgram-server/app/bff/bizraw/service"
 	"github.com/teamgram/teamgram-server/app/bff/feeds/internal/core"
@@ -47,7 +46,7 @@ func TestReadHistory(t *testing.T) {
 	}
 
 	dt := []core.ChatMaxID{
-		{ChatID: 14, MaxID: 400, PeerType: mtproto.CRC32_inputPeerChat},
+		{ChatID: 14, MaxID: 400, PeerType: 2},
 	}
 	/*
 		request GetHistoryResp

@@ -2,13 +2,14 @@ package core
 
 import (
 	"encoding/json"
+	"github.com/teamgram/teamgram-server/app/bff/feeds/internal/dao/dataobject"
 )
 
 // UpdateFeedList
 // update user_feeds list
-// req chats: []int64, resp: nil
+// req chats: [] dataobject.FeedInsertItemDO { chat_id: int64, peer_type: int32 }, resp: nil
 func (c *FeedCore) UpdateFeedList(in json.RawMessage) (interface{}, error) {
-	var chats []int64
+	var chats []dataobject.FeedInsertItemDO
 	if err := json.Unmarshal(in, &chats); err != nil {
 		return nil, err
 	}

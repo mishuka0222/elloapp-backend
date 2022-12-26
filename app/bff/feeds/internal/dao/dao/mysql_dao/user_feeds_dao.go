@@ -171,7 +171,7 @@ func (dao *UserFeedsDAO) SelectChatList(ctx context.Context, user_id int64) (rLi
 
 // DeleteFromListElseValue - delete all user chats except selected
 // elete from user_feeds where user_id = ? and chat_id not in (?,?,?)
-func (dao *UserFeedsDAO) DeleteFromListElseValue(ctx context.Context, user_id int64, chats []int64) (rowsAffected int64, err error) {
+func (dao *UserFeedsDAO) DeleteFromListElseValue(ctx context.Context, user_id int64, chats []dataobject.FeedInsertItemDO) (rowsAffected int64, err error) {
 	var (
 		query   = `delete from user_feeds where user_id = ?`
 		rResult sql.Result
@@ -179,7 +179,7 @@ func (dao *UserFeedsDAO) DeleteFromListElseValue(ctx context.Context, user_id in
 	if len(chats) != 0 {
 		query += " and chat_id not in"
 	} else {
-		chats = make([]int64, 0)
+		chats = make([]dataobject.FeedInsertItemDO, 0)
 	}
 	var args []interface{}
 	args = append(args, user_id)
@@ -187,7 +187,7 @@ func (dao *UserFeedsDAO) DeleteFromListElseValue(ctx context.Context, user_id in
 	var cArr []string
 	for i := range chats {
 		cArr = append(cArr, "?")
-		args = append(args, chats[i])
+		args = append(args, chats[i].ChatID)
 	}
 	q := strings.Join(cArr, ",")
 	if q != "" {
@@ -211,9 +211,9 @@ func (dao *UserFeedsDAO) DeleteFromListElseValue(ctx context.Context, user_id in
 
 // InsertList
 // insert into user_feeds (user_id, chat_id) values (?,?),(?,?),(?,?) on duplicate key update id = last_insert_id(id)
-func (dao *UserFeedsDAO) InsertList(ctx context.Context, user_id int64, chats []int64) (rowsAffected int64, err error) {
+func (dao *UserFeedsDAO) InsertList(ctx context.Context, user_id int64, chats []dataobject.FeedInsertItemDO) (rowsAffected int64, err error) {
 	var (
-		query   = `insert into user_feeds (user_id, chat_id) values `
+		query   = `insert into user_feeds (user_id, chat_id, peer_type) values `
 		rResult sql.Result
 	)
 	if len(chats) == 0 {
@@ -222,8 +222,8 @@ func (dao *UserFeedsDAO) InsertList(ctx context.Context, user_id int64, chats []
 	var args []interface{}
 	var cArr []string
 	for i := range chats {
-		cArr = append(cArr, "(?,?)")
-		args = append(args, user_id, chats[i])
+		cArr = append(cArr, "(?,?,?)")
+		args = append(args, user_id, chats[i].ChatID, chats[i].PeerType)
 	}
 	q := strings.Join(cArr, ",")
 	query += q + " on duplicate key update id = last_insert_id(id)"

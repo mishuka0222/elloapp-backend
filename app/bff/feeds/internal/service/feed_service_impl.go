@@ -24,7 +24,7 @@ func (s *Service) GetFeedList(ctx context.Context, in json.RawMessage) (interfac
 
 // UpdateFeedList
 // update user_feeds list
-// req chats: []int64, resp: nil
+// req chats: [] dataobject.FeedInsertItemDO { chat_id: int64, peer_type: int32 }, resp: nil
 func (s *Service) UpdateFeedList(ctx context.Context, in json.RawMessage) (interface{}, error) {
 	c := core.New(ctx, s.svcCtx)
 	c.Logger.Debugf("feeds.UpdateFeedList - metadata: %s, request: %s", c.MD.DebugString(), string(in))
@@ -55,7 +55,30 @@ func (s *Service) ReadHistory(ctx context.Context, in json.RawMessage) (interfac
 	return r, err
 }
 
-// for user req: { uread_state: int64 }
+// GetHistory
+// If you need read previous messages mast be above zero
+// req: GetHistoryReq { before: int32, limit: int32 }
+/* resp: GetHistoryResp
+{
+	messages: [{
+
+    }],
+    chats: [{
+
+    }],
+    users: [{
+
+    }],
+    chat_id_info: [{
+        chat_id:          int64,
+        inexact:          bool,
+        count:            int32,
+        next_rate:        int32,
+        offset_id_offset: int32,
+        pts:              int32
+    }]
+}
+*/
 func (s *Service) GetHistory(ctx context.Context, in json.RawMessage) (interface{}, error) {
 	c := core.New(ctx, s.svcCtx)
 	c.Logger.Debugf("feeds.ReadHistory - metadata: %s, request: %s", c.MD.DebugString(), string(in))

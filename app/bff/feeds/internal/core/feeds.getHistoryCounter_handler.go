@@ -9,7 +9,8 @@ type GetHistoryCounterResp struct {
 }
 
 // GetHistoryCounter
-// count unread messages in feeds req: empty
+// count unread messages in feeds
+// req: nil, resp: GetHistoryCounterResp { count: int32 }
 func (c *FeedCore) GetHistoryCounter(_ json.RawMessage) (*GetHistoryCounterResp, error) {
 
 	/*l, err := c.svcCtx.Dao.SelectFeedList(c.ctx, c.MD.UserId)

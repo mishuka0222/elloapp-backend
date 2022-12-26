@@ -43,7 +43,10 @@ func (dao *UserFeedsDAO) SelectFeedList(ctx context.Context, user_id int64) (rLi
 }
 
 // SelectOffsetMinList - generate offset for getHistory func
-// select min(user_message_box_id) as offset, peer_id, count(*) as count from ( select m.user_message_box_id, d.peer_id, d.created_at from dialogs d, messages m where d.peer_id in ( %s ) and d.user_id = ? and user_message_box_id < (read_inbox_max_id - ?) and d.peer_id = m.peer_id and d.user_id = m.user_id order by created_at desc, m.id desc limit ?) t group by peer_id
+// select min(user_message_box_id) as offset_min, max(user_message_box_id) as offset_max, peer_id, count(*) as count from (
+// select m.user_message_box_id, d.peer_id, d.created_at from dialogs d, messages m where d.peer_id in ( %s )
+// and d.user_id = ? and user_message_box_id < (read_inbox_max_id - ?) and d.peer_id = m.peer_id
+// and d.user_id = m.user_id order by m.id desc limit ?) t group by peer_id
 func (dao *UserFeedsDAO) SelectOffsetMinList(ctx context.Context, user_id int64, chats []int64, limit, offset int32) (rList dataobject.OffsetItemList, err error) {
 	var (
 		query = `select min(user_message_box_id) as offset_min, max(user_message_box_id) as offset_max, peer_id, count(*) as count from (
@@ -79,7 +82,10 @@ func (dao *UserFeedsDAO) SelectOffsetMinList(ctx context.Context, user_id int64,
 }
 
 // SelectOffsetMaxList - generate offset for getHistory func
-// select min(user_message_box_id) as offset, peer_id, count(*) as count from ( select m.user_message_box_id, d.peer_id, d.created_at from dialogs d, messages m where d.peer_id in ( %s ) and d.user_id = ? and user_message_box_id >= read_inbox_max_id and d.peer_id = m.peer_id and d.user_id = m.user_id order by created_at asc, user_message_box_id asc limit ?) t group by peer_id
+// select min(user_message_box_id) as offset_min, max(user_message_box_id) as offset_max, peer_id, count(*) as count from (
+// select m.user_message_box_id, d.peer_id, d.created_at from dialogs d, messages m where d.peer_id in ( %s )
+// and d.user_id = ? and user_message_box_id >= read_inbox_max_id and d.peer_id = m.peer_id
+// and d.user_id = m.user_id order by m.id asc limit ?) t group by peer_id
 func (dao *UserFeedsDAO) SelectOffsetMaxList(ctx context.Context, user_id int64, chats []int64, limit int32) (rList dataobject.OffsetItemList, err error) {
 	var (
 		query = `select min(user_message_box_id) as offset_min, max(user_message_box_id) as offset_max, peer_id, count(*) as count from (
@@ -115,7 +121,12 @@ func (dao *UserFeedsDAO) SelectOffsetMaxList(ctx context.Context, user_id int64,
 }
 
 // SelectUnreadCountList - select count unread messages for user feeds chat_id
-// select uf.chat_id, top_message - read_inbox_max_id as unread from dialogs d, (select c.id as chat_id, cp.user_id from chat_participants cp, chats c where cp.user_id in (?) and cp.chat_id = c.id and cp.state = 0 and c.deactivated = 0 and c.id in (select uf.chat_id from user_feeds uf where uf.user_id in (?))) uf where d.user_id = uf.user_id and d.peer_id = uf.chat_id and d.user_id in (?)
+// select uf.chat_id, top_message - read_inbox_max_id as unread from dialogs d, (
+// select c.id as chat_id, cp.user_id  from chat_participants cp, chats c where cp.user_id in (?)
+// and cp.chat_id = c.id  and cp.state = 0 and c.deactivated = 0 and c.id in (
+// select uf.chat_id
+// from user_feeds uf where uf.user_id in (?))) uf where d.user_id = uf.user_id
+// and d.peer_id = uf.chat_id and d.user_id in (?)
 func (dao *UserFeedsDAO) SelectUnreadCountList(ctx context.Context, user_id int64) (rList []dataobject.UnreadCountDo, err error) {
 	var (
 		query = `select uf.chat_id, top_message - read_inbox_max_id as unread from dialogs d, 
@@ -138,7 +149,8 @@ func (dao *UserFeedsDAO) SelectUnreadCountList(ctx context.Context, user_id int6
 }
 
 // SelectChatList
-// select cp.chat_id, c.photo_id, c.title from chat_participants cp, chats c where cp.state = 0 and cp.user_id in (?) and c.id = cp.chat_id and c.deactivated = 0
+// select cp.chat_id, c.photo_id, c.title from chat_participants cp, chats c where cp.state = 0
+// and cp.user_id in (?) and c.id = cp.chat_id and c.deactivated = 0
 func (dao *UserFeedsDAO) SelectChatList(ctx context.Context, user_id int64) (rList []dataobject.UserChatDO, err error) {
 	var (
 		query = `select cp.chat_id, c.photo_id, c.title from chat_participants cp, chats c where cp.state = 0 

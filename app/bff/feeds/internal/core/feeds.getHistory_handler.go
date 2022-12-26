@@ -30,7 +30,9 @@ type GetHistoryReq struct {
 }
 
 // GetHistory
-// If you need read previous messages mast be above zero req: { before: int32 }
+// If you need read previous messages mast be above zero
+// req: GetHistoryReq { before: int32, limit: int32 }
+// resp: GetHistoryResp { }
 func (c *FeedCore) GetHistory(in json.RawMessage) (*GetHistoryResp, error) {
 	var req GetHistoryReq
 	if err := json.Unmarshal(in, &req); err != nil {

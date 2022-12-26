@@ -6,16 +6,17 @@ import (
 )
 
 // GetFeedList
-// return all chats with bool for user [{ title: string, chat_id: int64, peer_type: int32, state: bool }] req: empty
+// return all chats with bool for user
+// req: nil, resp: { chat_id: int64, photo_id: int64, title: string, status: bool, peer_type: int32 }
 func (c *FeedCore) GetFeedList(_ json.RawMessage) ([]dataobject.UserChatDO, error) {
 
 	feedsData, err := c.svcCtx.Dao.UserFeedsDAO.SelectFeedList(c.ctx, c.MD.UserId)
 	if err != nil {
 		return nil, err
 	}
-	feedsMap := make(map[int64]struct{}, len(feedsData))
+	feedsMap := make(map[int64]int32, len(feedsData))
 	for _, i := range feedsData {
-		feedsMap[i.ChatID] = struct{}{}
+		feedsMap[i.ChatID] = i.PeerType
 	}
 
 	chatsData, err := c.svcCtx.Dao.UserFeedsDAO.SelectChatList(c.ctx, c.MD.UserId)
@@ -24,8 +25,9 @@ func (c *FeedCore) GetFeedList(_ json.RawMessage) ([]dataobject.UserChatDO, erro
 	}
 
 	for i := range chatsData {
-		if _, ok := feedsMap[chatsData[i].ChatID]; ok {
+		if peerType, ok := feedsMap[chatsData[i].ChatID]; ok {
 			chatsData[i].Status = true
+			chatsData[i].PeerType = peerType
 		}
 	}
 

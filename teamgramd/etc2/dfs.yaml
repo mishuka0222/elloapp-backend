@@ -1,0 +1,30 @@
+Name: service.dfs
+ListenOn: 0.0.0.0:20640
+Etcd:
+  Hosts: ["etcd:2379"]
+  Key: service.dfs
+Timeout: 0
+MiniHttp:
+  Name: service.dfs.minihttp
+  Host: 0.0.0.0
+  Port: 11701
+  Timeout: 0
+Log:
+#  Mode: file
+#  Path: ./logs/dfs
+  Level: debug
+  Mode: console
+  Encoding: plain
+Cache:
+  - Host: redis:6379
+Minio:
+  Endpoint: minio:9000
+  AccessKeyID: minio
+  SecretAccessKey: miniostorage
+  UseSSL: false
+IdGen:
+  Etcd:
+    Hosts: ["etcd:2379"]
+    Key: service.idgen
+SSDB:
+  - Host: redis:6379 # if use pika, change to 9221

@@ -22,12 +22,12 @@ import (
 	"github.com/gogo/protobuf/proto"
 	"github.com/teamgram/proto/mtproto"
 	"github.com/zeromicro/go-zero/core/jsonx"
-	"io/ioutil"
+	"os"
 	"time"
 )
 
 const (
-	configFile = "./config.json"
+
 	// date = 1509066502,    2017/10/27 09:08:22
 	// expires = 1509070295, 2017/10/27 10:11:35
 	expiresTimeout = 3600 // 超时时间设置为3600秒
@@ -36,10 +36,15 @@ const (
 	// SUPPORT_USER_ID = 2
 )
 
+var configFile = "./config.json"
+
 var config mtproto.TLConfig
 
 func init() {
-	configData, err := ioutil.ReadFile(configFile)
+	if path := os.Getenv("ELLO_APP_BFF_CONFIGURATION_CONFIG_JSON_PATH"); path != "" {
+		configFile = path
+	}
+	configData, err := os.ReadFile(configFile)
 	if err != nil {
 		panic(err)
 		return

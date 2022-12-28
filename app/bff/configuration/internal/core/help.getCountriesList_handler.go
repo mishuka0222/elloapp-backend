@@ -25,8 +25,6 @@ import (
 // HelpGetCountriesList
 // help.getCountriesList#735787a8 lang_code:string hash:int = help.CountriesList;
 func (c *ConfigurationCore) HelpGetCountriesList(in *mtproto.TLHelpGetCountriesList) (*mtproto.Help_CountriesList, error) {
-	// TODO: not impl
-	// c.Logger.Errorf("help.getCountriesList blocked, License key from https://teamgram.net required to unlock enterprise features.")
 
 	countriesData, err := c.svcCtx.Dao.CountriesDAO.SelectList(c.ctx)
 	if err != nil {

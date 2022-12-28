@@ -68,7 +68,12 @@ func (c *BFFProxyClient) GetRpcClientByRequest(t interface{}) (zrpc.Client, erro
 	if c2, ok := c.BFFClients[rt.Name()]; ok {
 		return c2, nil
 	} else {
-		// logx.Errorf("not found method: %s", rt.Name())
+		if rt.Name() == "TLBizInvokeBizDataRaw" {
+			if c2, ok = c.BFFClients["/mtproto.RPCBiz/BizInvokeBizDataRaw"]; ok {
+				return c2, nil
+			}
+		}
+		logx.Errorf("not found method: %s", rt.Name())
 		// logx.Errorf("%s blocked, License key from https://teamgram.net required to unlock enterprise features.", rt.Name())
 	}
 

@@ -20,6 +20,8 @@ package server
 
 import (
 	"flag"
+	authorization_helper "github.com/teamgram/teamgram-server/app/service/biz/authorization"
+	"github.com/teamgram/teamgram-server/app/service/biz/authorization/authorization"
 
 	"github.com/teamgram/teamgram-server/app/service/biz/biz/internal/config"
 	chat_helper "github.com/teamgram/teamgram-server/app/service/biz/chat"
@@ -62,6 +64,16 @@ func (s *Server) Initialize() error {
 	// s.grpcSrv = grpc.New(ctx, c.RpcServerConf)
 
 	s.grpcSrv = zrpc.MustNewServer(c.RpcServerConf, func(grpcServer *grpc.Server) {
+
+		// authorization
+		authorization.RegisterRPCAuthorizationServer(
+			grpcServer,
+			authorization_helper.New(
+				authorization_helper.Config{
+					RpcServerConf: c.RpcServerConf,
+					Mysql:         c.Mysql,
+				}))
+
 		// chat_helper
 		chat.RegisterRPCChatServer(
 			grpcServer,

@@ -23,6 +23,7 @@ import (
 	"github.com/teamgram/proto/mtproto"
 	account_helper "github.com/teamgram/teamgram-server/app/bff/account"
 	authorization_helper "github.com/teamgram/teamgram-server/app/bff/authorization"
+	"github.com/teamgram/teamgram-server/app/bff/authorization_customize"
 	autodownload_helper "github.com/teamgram/teamgram-server/app/bff/autodownload"
 	"github.com/teamgram/teamgram-server/app/bff/bff/internal/config"
 	bizraw_helper "github.com/teamgram/teamgram-server/app/bff/bizraw"
@@ -108,23 +109,29 @@ func (s *Server) Initialize() error {
 			}))
 
 		// authorization_helper
+		authorizationService := authorization_helper.New(
+			authorization_helper.Config{
+				RpcServerConf:     c.RpcServerConf,
+				KV:                c.KV,
+				Code:              c.Code,
+				UserClient:        c.BizServiceClient,
+				UsernameClient:    c.BizServiceClient,
+				AuthsessionClient: c.AuthSessionClient,
+				ChatClient:        c.BizServiceClient,
+				StatusClient:      c.StatusClient,
+				SyncClient:        c.SyncClient,
+				MsgClient:         c.MsgClient,
+			},
+			nil,
+			nil)
 		mtproto.RegisterRPCAuthorizationServer(
 			grpcServer,
-			authorization_helper.New(
-				authorization_helper.Config{
-					RpcServerConf:     c.RpcServerConf,
-					KV:                c.KV,
-					Code:              c.Code,
-					UserClient:        c.BizServiceClient,
-					UsernameClient:    c.BizServiceClient,
-					AuthsessionClient: c.AuthSessionClient,
-					ChatClient:        c.BizServiceClient,
-					StatusClient:      c.StatusClient,
-					SyncClient:        c.SyncClient,
-					MsgClient:         c.MsgClient,
-				},
-				nil,
-				nil))
+			authorizationService)
+
+		authorizationCustom := authorization_customize_helper.New(
+			authorization_customize_helper.Config{
+				AuthorizationClient: c.BizServiceClient,
+			}, authorizationService)
 
 		// premium_helper
 		mtproto.RegisterRPCPremiumServer(
@@ -320,6 +327,7 @@ func (s *Server) Initialize() error {
 						Mysql:         c.Mysql,
 						MessageClient: c.BizServiceClient,
 					}, messagesCore),
+					op_srv.AuthorizationCustomize: authorizationCustom,
 				}))
 
 	})

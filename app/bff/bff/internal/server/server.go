@@ -25,12 +25,15 @@ import (
 	authorization_helper "github.com/teamgram/teamgram-server/app/bff/authorization"
 	autodownload_helper "github.com/teamgram/teamgram-server/app/bff/autodownload"
 	"github.com/teamgram/teamgram-server/app/bff/bff/internal/config"
+	bizraw_helper "github.com/teamgram/teamgram-server/app/bff/bizraw"
+	op_srv "github.com/teamgram/teamgram-server/app/bff/bizraw/service"
 	chatinvites_helper "github.com/teamgram/teamgram-server/app/bff/chatinvites"
 	chats_helper "github.com/teamgram/teamgram-server/app/bff/chats"
 	configuration_helper "github.com/teamgram/teamgram-server/app/bff/configuration"
 	contacts_helper "github.com/teamgram/teamgram-server/app/bff/contacts"
 	dialogs_helper "github.com/teamgram/teamgram-server/app/bff/dialogs"
 	drafts_helper "github.com/teamgram/teamgram-server/app/bff/drafts"
+	feeds_helper "github.com/teamgram/teamgram-server/app/bff/feeds"
 	files_helper "github.com/teamgram/teamgram-server/app/bff/files"
 	messages_helper "github.com/teamgram/teamgram-server/app/bff/messages"
 	miscellaneous_helper "github.com/teamgram/teamgram-server/app/bff/miscellaneous"
@@ -70,6 +73,7 @@ func (s *Server) Initialize() error {
 	// s.grpcSrv = grpc.New(ctx, c.RpcServerConf)
 
 	s.grpcSrv = zrpc.MustNewServer(c.RpcServerConf, func(grpcServer *grpc.Server) {
+
 		// tos_helper
 		mtproto.RegisterRPCTosServer(
 			grpcServer,
@@ -221,20 +225,22 @@ func (s *Server) Initialize() error {
 			}))
 
 		// messages_helper
+
+		messagesCore := messages_helper.New(messages_helper.Config{
+			RpcServerConf:  c.RpcServerConf,
+			UserClient:     c.BizServiceClient,
+			ChatClient:     c.BizServiceClient,
+			MsgClient:      c.MsgClient,
+			DialogClient:   c.BizServiceClient,
+			IdgenClient:    c.IdgenClient,
+			MessageClient:  c.BizServiceClient,
+			MediaClient:    c.MediaClient,
+			UsernameClient: c.BizServiceClient,
+			SyncClient:     c.SyncClient,
+		}, nil)
 		mtproto.RegisterRPCMessagesServer(
-			grpcServer,
-			messages_helper.New(messages_helper.Config{
-				RpcServerConf:  c.RpcServerConf,
-				UserClient:     c.BizServiceClient,
-				ChatClient:     c.BizServiceClient,
-				MsgClient:      c.MsgClient,
-				DialogClient:   c.BizServiceClient,
-				IdgenClient:    c.IdgenClient,
-				MessageClient:  c.BizServiceClient,
-				MediaClient:    c.MediaClient,
-				UsernameClient: c.BizServiceClient,
-				SyncClient:     c.SyncClient,
-			}, nil))
+			grpcServer, messagesCore,
+		)
 
 		// notification_helper
 		mtproto.RegisterRPCNotificationServer(
@@ -302,6 +308,20 @@ func (s *Server) Initialize() error {
 				ChatClient:     c.BizServiceClient,
 				SyncClient:     c.SyncClient,
 			}, nil))
+
+		// bizraw_helper
+		mtproto.RegisterRPCBizServer(
+			grpcServer,
+			bizraw_helper.New(
+				bizraw_helper.Config{
+					RpcServerConf: c.RpcServerConf,
+				}, map[op_srv.ServiceID]op_srv.OperationServer{
+					op_srv.Feeds: feeds_helper.New(feeds_helper.Config{
+						Mysql:         c.Mysql,
+						MessageClient: c.BizServiceClient,
+					}, messagesCore),
+				}))
+
 	})
 
 	// logx.Must(err)

@@ -1,0 +1,26 @@
+FROM golang:1.18-buster as alpine
+
+ARG CMD_PATH
+ENV CMD_PATH=$CMD_PATH
+
+WORKDIR /app
+COPY ./go.mod ./
+COPY ./go.sum ./
+RUN go mod download
+
+ADD ./pkg ./pkg
+ADD ./app ./app
+#ADD ./ ./
+RUN mkdir -p "etc"
+RUN mkdir -p "logs"
+
+RUN CGO_ENABLED=0 GOOS=linux GOARCH=amd64 go build -a -installsuffix cgo -ldflags='-w -s' -o /application ./app/$CMD_PATH
+
+
+FROM scratch
+
+COPY --from=alpine /app/etc /etc
+COPY --from=alpine /app/logs /logs
+COPY --from=alpine /application /application
+COPY --from=alpine /etc/ssl/certs/ca-certificates.crt /etc/ssl/certs/
+CMD ["./application"]

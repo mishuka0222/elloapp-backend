@@ -23,7 +23,7 @@ import (
 	"github.com/teamgram/proto/mtproto"
 	account_helper "github.com/teamgram/teamgram-server/app/bff/account"
 	authorization_helper "github.com/teamgram/teamgram-server/app/bff/authorization"
-	authorization_customize "github.com/teamgram/teamgram-server/app/bff/authorization_сustomize"
+	"github.com/teamgram/teamgram-server/app/bff/authorization_customize"
 	autodownload_helper "github.com/teamgram/teamgram-server/app/bff/autodownload"
 	"github.com/teamgram/teamgram-server/app/bff/bff/internal/config"
 	bizraw_helper "github.com/teamgram/teamgram-server/app/bff/bizraw"
@@ -128,8 +128,8 @@ func (s *Server) Initialize() error {
 			grpcServer,
 			authorizationService)
 
-		authorizationCustom := authorization_customize.New(
-			authorization_customize.Config{
+		authorizationCustom := authorization_customize_helper.New(
+			authorization_customize_helper.Config{
 				AuthorizationClient: c.BizServiceClient,
 			}, authorizationService)
 

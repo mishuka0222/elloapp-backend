@@ -2,8 +2,8 @@ package svc
 
 import (
 	"github.com/teamgram/teamgram-server/app/bff/authorization"
-	"github.com/teamgram/teamgram-server/app/bff/authorization_сustomize/internal/config"
-	"github.com/teamgram/teamgram-server/app/bff/authorization_сustomize/internal/dao"
+	"github.com/teamgram/teamgram-server/app/bff/authorization_customize/internal/config"
+	"github.com/teamgram/teamgram-server/app/bff/authorization_customize/internal/dao"
 )
 
 type ServiceContext struct {

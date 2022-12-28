@@ -4,7 +4,7 @@ import (
 	"context"
 	"encoding/json"
 
-	"github.com/teamgram/teamgram-server/app/bff/authorization_сustomize/internal/svc"
+	"github.com/teamgram/teamgram-server/app/bff/authorization_customize/internal/svc"
 )
 
 type Service struct {

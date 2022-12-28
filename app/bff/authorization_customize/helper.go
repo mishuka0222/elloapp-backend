@@ -2,9 +2,9 @@ package authorization_customize_helper
 
 import (
 	authorization_helper "github.com/teamgram/teamgram-server/app/bff/authorization"
-	"github.com/teamgram/teamgram-server/app/bff/authorization_сustomize/internal/config"
-	"github.com/teamgram/teamgram-server/app/bff/authorization_сustomize/internal/service"
-	"github.com/teamgram/teamgram-server/app/bff/authorization_сustomize/internal/svc"
+	"github.com/teamgram/teamgram-server/app/bff/authorization_customize/internal/config"
+	"github.com/teamgram/teamgram-server/app/bff/authorization_customize/internal/service"
+	"github.com/teamgram/teamgram-server/app/bff/authorization_customize/internal/svc"
 )
 
 type (

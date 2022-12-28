@@ -14,7 +14,7 @@ type ServiceID int32
 
 const (
 	Feeds ServiceID = iota*100 + 100100
-	OtherServer
+	AuthorizationCustomize
 )
 
 var ServerList = []ServiceID{

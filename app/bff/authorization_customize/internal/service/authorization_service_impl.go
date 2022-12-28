@@ -3,7 +3,7 @@ package service
 import (
 	"context"
 	"encoding/json"
-	"github.com/teamgram/teamgram-server/app/bff/authorization_сustomize/internal/core"
+	"github.com/teamgram/teamgram-server/app/bff/authorization_customize/internal/core"
 )
 
 // AuthSingUP

@@ -20,7 +20,7 @@ package dao
 
 import (
 	"github.com/teamgram/marmota/pkg/net/rpcx"
-	"github.com/teamgram/teamgram-server/app/bff/authorization_сustomize/internal/config"
+	"github.com/teamgram/teamgram-server/app/bff/authorization_customize/internal/config"
 
 	authorization_client "github.com/teamgram/teamgram-server/app/service/biz/authorization/client"
 )

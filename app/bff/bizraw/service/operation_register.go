@@ -17,8 +17,9 @@ const (
 	AuthorizationCustomize
 )
 
-var ServerList = []ServiceID{
+var K_SERVER_LIST = []ServiceID{
 	Feeds,
+	AuthorizationCustomize,
 }
 
 // Operation

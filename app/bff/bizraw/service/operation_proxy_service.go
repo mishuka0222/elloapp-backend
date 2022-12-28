@@ -13,11 +13,11 @@ type Service struct {
 }
 
 func New(register map[ServiceID]OperationServer) *Service {
-	if len(ServerList) < len(register) {
+	if len(K_SERVER_LIST) < len(register) {
 		panic("Operation service error, incorrect register length")
 	}
 	validRegister := make(map[ServiceID]OperationServer, len(register))
-	for _, it := range ServerList {
+	for _, it := range K_SERVER_LIST {
 		serv, ok := register[it]
 		if ok {
 			validRegister[it] = serv

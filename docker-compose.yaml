@@ -1,7 +1,7 @@
 version: "3"
 
 services:
-  teamgram:
+  elloapp:
     build: .
     restart: always
     ports:
@@ -20,10 +20,10 @@ services:
       - "20670:20670"
       - "20420:20420"
     networks:
-      - teamgram_net
+      - elloapp_net
 
 networks:
-  teamgram_net:
+  elloapp_net:
     driver: bridge
     ipam:
       config:

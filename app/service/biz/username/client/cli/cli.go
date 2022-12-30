@@ -1,9 +1,3 @@
-// Copyright (c) 2021-present,  Teamgram Studio (https://teamgram.io).
-//  All rights reserved.
-//
-// Author: Teamgram (teamgram.io@gmail.com)
-//
-
 package main
 
 import (

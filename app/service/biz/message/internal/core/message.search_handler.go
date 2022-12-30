@@ -1,12 +1,3 @@
-/*
- * Created from 'scheme.tl' by 'mtprotoc'
- *
- * Copyright (c) 2021-present,  Teamgram Studio (https://teamgram.io).
- *  All rights reserved.
- *
- * Author: teamgramio (teamgram.io@gmail.com)
- */
-
 package core
 
 import (
@@ -69,7 +60,7 @@ func (c *MessageCore) MessageSearch(in *message.TLMessageSearch) (*message.Vecto
 				})
 		}
 	case mtproto.PEER_CHANNEL:
-		c.Logger.Errorf("message.search blocked, License key from https://teamgram.net required to unlock enterprise features.")
+		c.Logger.Errorf("message.search blocked, License key from https://elloapp.com required to unlock enterprise features.")
 
 		return nil, mtproto.ErrEnterpriseIsBlocked
 	}

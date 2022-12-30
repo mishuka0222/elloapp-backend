@@ -1,9 +1,3 @@
-// Copyright (c) 2021-present,  Teamgram Studio (https://teamgram.io).
-//  All rights reserved.
-//
-// Author: teamgramio (teamgram.io@gmail.com)
-//
-
 package bff_proxy_client
 
 import (
@@ -74,7 +68,7 @@ func (c *BFFProxyClient) GetRpcClientByRequest(t interface{}) (zrpc.Client, erro
 			}
 		}
 		logx.Errorf("not found method: %s", rt.Name())
-		// logx.Errorf("%s blocked, License key from https://teamgram.net required to unlock enterprise features.", rt.Name())
+		// logx.Errorf("%s blocked, License key from https://elloapp.com required to unlock enterprise features.", rt.Name())
 	}
 
 	// TODO(@benqi):

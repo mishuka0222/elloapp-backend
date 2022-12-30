@@ -20,6 +20,7 @@ RUN mkdir -p "etc2"
 RUN mkdir -p "logs"
 
 RUN go build -v -o ./application ./app/$CMD_PATH
+#COPY ./$CMD_PATH /application
 
 CMD ["./application", "-f=./config.yaml"]
 #RUN go run ./app/service/idgen/cmd/idgen/ -f=./config.yaml

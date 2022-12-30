@@ -13,8 +13,8 @@ services:
       - ./data/zookeeper/data:/data
       - /etc/localtime:/etc/localtime
     #    restart: always
-    ports:
-      - 2181:2181
+#    ports:
+#      - 2181:2181
     environment:
       - ALLOW_ANONYMOUS_LOGIN=yes
     #    networks:
@@ -26,8 +26,8 @@ services:
     #    image: wurstmeister/kafka
     image: 'bitnami/kafka:latest'
     container_name: kafka
-    ports:
-      - 9092:9092
+#    ports:
+#      - 9092:9092
     environment:
       #      #TZ: Asia/Shanghai
       #      KAFKA_BROKER_ID: 0
@@ -37,12 +37,12 @@ services:
       ##      KAFKA_ADVERTISED_HOST_NAME: 192.168.1.5
       #      KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://192.168.1.5:9092
       #      KAFKA_LISTENERS: PLAINTEXT://0.0.0.0:9092
-      KAFKA_BROKER_ID: 0
-      KAFKA_CFG_LISTENERS: PLAINTEXT://:9092
-      KAFKA_CFG_ADVERTISED_LISTENERS: PLAINTEXT://:9092
+      KAFKA_BROKER_ID: '0'
+      KAFKA_CFG_LISTENERS: 'PLAINTEXT://:9092'
+      KAFKA_CFG_ADVERTISED_LISTENERS: 'PLAINTEXT://:9092'
       KAFKA_CREATE_TOPICS: "Inbox-T:1:1:compact,Sync-T:1:1:compact"
-      KAFKA_CFG_ZOOKEEPER_CONNECT: 127.0.0.1:2181
-      ALLOW_PLAINTEXT_LISTENER: yes
+      KAFKA_CFG_ZOOKEEPER_CONNECT: '127.0.0.1:2181'
+      ALLOW_PLAINTEXT_LISTENER: 'yes'
     #    restart: always
     volumes:
       - ./data/kafka/data:/data
@@ -54,25 +54,25 @@ services:
 
   etcd:
     image: quay.io/coreos/etcd:v3.5.2
-    ports:
-      - 2379:2379
-      - 2380:2380
+#    ports:
+#      - 2379:2379
+#      - 2380:2380
     container_name: etcd
     volumes:
       - ./data/etcd/data:/data
-      - /etc/timezone:/etc/timezone
+#      - /etc/timezone:/etc/timezone
       - /etc/localtime:/etc/localtime:ro
     environment:
       ETCDCTL_API: 3
-      ETCD_DATA_DIR: /data
-      ETCD_NAME: node1
-      INITIAL_CLUSTER_TOKEN: etcd-test-cluster
-      ETCD_INITIAL_ADVERTISE_PEER_URLS: http://127.0.0.1:2380
-      ETCD_LISTEN_PEER_URLS: http://0.0.0.0:2380
-      ETCD_ADVERTISE_CLIENT_URLS: http://127.0.0.1:2379
-      ETCD_LISTEN_CLIENT_URLS: http://0.0.0.0:2379
-      ETCD_INITIAL_CLUSTER: node1=http://127.0.0.1:2380
-      ETCD_INITIAL_CLUSTER_STATE: new
+      ETCD_DATA_DIR: '/data'
+      ETCD_NAME: 'node1'
+      INITIAL_CLUSTER_TOKEN: 'etcd-test-cluster'
+      ETCD_INITIAL_ADVERTISE_PEER_URLS: 'http://127.0.0.1:2380'
+      ETCD_LISTEN_PEER_URLS: 'http://0.0.0.0:2380'
+      ETCD_ADVERTISE_CLIENT_URLS: 'http://127.0.0.1:2379'
+      ETCD_LISTEN_CLIENT_URLS: 'http://0.0.0.0:2379'
+      ETCD_INITIAL_CLUSTER: 'node1=http://127.0.0.1:2380'
+      ETCD_INITIAL_CLUSTER_STATE: 'new'
       ETCD_AUTO_COMPACTION_RETENTION: 1
     #    restart: always
     command: /usr/local/bin/etcd
@@ -83,8 +83,8 @@ services:
   redis:
     image: redis
     container_name: redis
-    ports:
-      - 6379:6379
+#    ports:
+#      - 6379:6379
     volumes:
       - ./data/redis/data:/data:rw
       #redis config file
@@ -107,12 +107,12 @@ services:
       #TZ: Asia/Shanghai
       # root 密码 - root password
       #      MYSQL_ROOT_PASSWORD: ${DB_ROOT_PASSWORD:-my_root_secret}
-      MYSQL_DATABASE: teamgram
-      MYSQL_USER: teamgram
-      #      MYSQL_PASSWORD: ${DB_PASSWORD:-teamgram}
+      MYSQL_DATABASE: elloapp
+      MYSQL_USER: elloapp
+      #      MYSQL_PASSWORD: ${DB_PASSWORD:-elloapp}
       MYSQL_ALLOW_EMPTY_PASSWORD: "true"
-    ports:
-      - 3306:3306
+#    ports:
+#      - 3306:3306
     volumes:
       # 数据挂载 - Data mounting
       - ./data/mysql/data:/var/lib/mysql
@@ -133,14 +133,14 @@ services:
   minio:
     image: minio/minio
     container_name: minio
-    ports:
-      - "9000:9000"
-      - "9001:9001"
+#    ports:
+#      - "9000:9000"
+#      - "9001:9001"
     volumes:
       - ./data/minio/data:/data
     environment:
-      MINIO_ACCESS_KEY: minio
-      MINIO_SECRET_KEY: miniostorage
+      MINIO_ACCESS_KEY: 'minio'
+      MINIO_SECRET_KEY: 'miniostorage'
     command: server /data --console-address ":9001"
     #    restart: always
     #    networks:
@@ -148,7 +148,7 @@ services:
     network_mode: "host"
 
 #networks:
-#  teamgram#_net:
+#  elloapp#_net:
 #    driver: bridge
 #    ipam:
 #      config:

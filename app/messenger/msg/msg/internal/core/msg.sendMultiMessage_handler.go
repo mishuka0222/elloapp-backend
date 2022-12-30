@@ -1,12 +1,3 @@
-/*
- * Created from 'scheme.tl' by 'mtprotoc'
- *
- * Copyright (c) 2021-present,  Teamgram Studio (https://teamgram.io).
- *  All rights reserved.
- *
- * Author: teamgramio (teamgram.io@gmail.com)
- */
-
 package core
 
 import (
@@ -28,7 +19,7 @@ func (c *MsgCore) MsgSendMultiMessage(in *msg.TLMsgSendMultiMessage) (*mtproto.U
 	)
 
 	if peer.IsChannel() {
-		// c.Logger.Errorf("msg.sendMultiMessage blocked, License key from https://teamgram.net required to unlock enterprise features.")
+		// c.Logger.Errorf("msg.sendMultiMessage blocked, License key from https://elloapp.com required to unlock enterprise features.")
 		return nil, mtproto.ErrEnterpriseIsBlocked
 	}
 
@@ -38,7 +29,7 @@ func (c *MsgCore) MsgSendMultiMessage(in *msg.TLMsgSendMultiMessage) (*mtproto.U
 		return nil, err
 	}
 	if in.Message[0].GetScheduleDate().GetValue() != 0 {
-		// c.Logger.Errorf("msg.sendMultiMessage blocked, License key from https://teamgram.net required to unlock enterprise features.")
+		// c.Logger.Errorf("msg.sendMultiMessage blocked, License key from https://elloapp.com required to unlock enterprise features.")
 		return nil, mtproto.ErrEnterpriseIsBlocked
 	}
 

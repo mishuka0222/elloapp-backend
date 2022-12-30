@@ -7,42 +7,43 @@ services:
       context: .
       dockerfile: DockerfileBin
       args:
-        - CMD_PATH=teamgramd/bin_dev/idgen
+        - CMD_PATH=elloappd/bin_dev/idgen
     network_mode: "host"
-    ports:
-      - '20660:20660'
+#    ports:
+#      - '20660:20660'
     volumes:
-      - ./teamgramd/etc_dev:/etc
-      - ./teamgramd/logs:/logs
+      - ./elloappd/etc_dev:/etc
+      - ./elloappd/logs:/logs
   status:
     container_name: 'status'
     build:
       context: .
       dockerfile: DockerfileBin
       args:
-        - CMD_PATH=teamgramd/bin_dev/status
+        - CMD_PATH=elloappd/bin_dev/status
     network_mode: "host"
-    ports:
-      - '20670:20670'
+#    ports:
+#      - '20670:20670'
     volumes:
-      - ./teamgramd/etc_dev:/etc
-      - ./teamgramd/logs:/logs
+      - ./elloappd/etc_dev:/etc
+      - ./elloappd/logs:/logs
     depends_on:
       - idgen
   dfs: # docker-compose -f docker-compose-app.yaml up -d dfs --build
     container_name: 'dfs'
-    build:
-      context: .
-      dockerfile: DockerfileUbuntu
-      args:
-        - CMD_PATH=service/dfs/cmd/dfs/
-        - CONFIG_PATH=teamgramd/etc_dev/dfs.yaml
+    image: 'snow1emperor/elloapp_dfs:latest'
+#    build:
+#      context: .
+#      dockerfile: DockerfileUbuntu
+#      args:
+#        - CMD_PATH=service/dfs/cmd/dfs/
+#        - CONFIG_PATH=elloappd/etc_dev/dfs.yaml
     network_mode: "host"
-    ports:
-      - '20640:20640'
+#    ports:
+#      - '20640:20640'
     volumes:
-      - ./teamgramd/etc_dev:/etc
-      - ./teamgramd/logs:/logs
+      - ./elloappd/etc_dev:/etc
+      - ./elloappd/logs:/logs
     depends_on:
       - status
   media:
@@ -51,13 +52,13 @@ services:
       context: .
       dockerfile: DockerfileBin
       args:
-        - CMD_PATH=teamgramd/bin_dev/media
+        - CMD_PATH=elloappd/bin_dev/media
     network_mode: "host"
-    ports:
-      - '20650:20650'
+#    ports:
+#      - '20650:20650'
     volumes:
-      - ./teamgramd/etc_dev:/etc
-      - ./teamgramd/logs:/logs
+      - ./elloappd/etc_dev:/etc
+      - ./elloappd/logs:/logs
     depends_on:
       - dfs
   authsession:
@@ -66,13 +67,13 @@ services:
       context: .
       dockerfile: DockerfileBin
       args:
-        - CMD_PATH=teamgramd/bin_dev/authsession
+        - CMD_PATH=elloappd/bin_dev/authsession
     network_mode: "host"
-    ports:
-      - '20450:20450'
+#    ports:
+#      - '20450:20450'
     volumes:
-      - ./teamgramd/etc_dev:/etc
-      - ./teamgramd/logs:/logs
+      - ./elloappd/etc_dev:/etc
+      - ./elloappd/logs:/logs
     depends_on:
       - media
   biz:
@@ -81,13 +82,13 @@ services:
       context: .
       dockerfile: DockerfileBin
       args:
-        - CMD_PATH=teamgramd/bin_dev/biz
+        - CMD_PATH=elloappd/bin_dev/biz
     network_mode: "host"
-    ports:
-      - '20020:20020'
+#    ports:
+#      - '20020:20020'
     volumes:
-      - ./teamgramd/etc_dev:/etc
-      - ./teamgramd/logs:/logs
+      - ./elloappd/etc_dev:/etc
+      - ./elloappd/logs:/logs
     depends_on:
       - authsession
   msg:
@@ -96,13 +97,13 @@ services:
       context: .
       dockerfile: DockerfileBin
       args:
-        - CMD_PATH=teamgramd/bin_dev/msg
+        - CMD_PATH=elloappd/bin_dev/msg
     network_mode: "host"
-    ports:
-      - '20030:20030'
+#    ports:
+#      - '20030:20030'
     volumes:
-      - ./teamgramd/etc_dev:/etc
-      - ./teamgramd/logs:/logs
+      - ./elloappd/etc_dev:/etc
+      - ./elloappd/logs:/logs
     depends_on:
       - biz
   sync:
@@ -111,13 +112,13 @@ services:
       context: .
       dockerfile: DockerfileBin
       args:
-        - CMD_PATH=teamgramd/bin_dev/sync
+        - CMD_PATH=elloappd/bin_dev/sync
     network_mode: "host"
-    ports:
-      - '20420:20420'
+#    ports:
+#      - '20420:20420'
     volumes:
-      - ./teamgramd/etc_dev:/etc
-      - ./teamgramd/logs:/logs
+      - ./elloappd/etc_dev:/etc
+      - ./elloappd/logs:/logs
     depends_on:
       - msg
   bff:
@@ -126,14 +127,14 @@ services:
       context: .
       dockerfile: DockerfileBin
       args:
-        - CMD_PATH=teamgramd/bin_dev/bff
+        - CMD_PATH=elloappd/bin_dev/bff
     network_mode: "host"
-    ports:
-      - '20010:20010'
+#    ports:
+#      - '20010:20010'
     volumes:
-      - ./teamgramd/etc_dev:/etc
-      - ./teamgramd/logs:/logs
-      - ./teamgramd/bin/config.json:/config.json
+      - ./elloappd/etc_dev:/etc
+      - ./elloappd/logs:/logs
+      - ./elloappd/bin/config.json:/config.json
     depends_on:
       - sync
   session:
@@ -142,13 +143,13 @@ services:
       context: .
       dockerfile: DockerfileBin
       args:
-        - CMD_PATH=teamgramd/bin_dev/session
+        - CMD_PATH=elloappd/bin_dev/session
     network_mode: "host"
-    ports:
-      - '20120:20120'
+#    ports:
+#      - '20120:20120'
     volumes:
-      - ./teamgramd/etc_dev:/etc
-      - ./teamgramd/logs:/logs
+      - ./elloappd/etc_dev:/etc
+      - ./elloappd/logs:/logs
     depends_on:
       - bff
   gateway:
@@ -157,16 +158,16 @@ services:
       context: .
       dockerfile: DockerfileBin
       args:
-        - CMD_PATH=teamgramd/bin_dev/gateway
+        - CMD_PATH=elloappd/bin_dev/gateway
     network_mode: "host"
-    ports:
-      - "20110:20110"
-      - "10443:10443"
-      - "5222:5222"
-      - "8801:8801"
+#    ports:
+#      - "20110:20110"
+#      - "10443:10443"
+#      - "5222:5222"
+#      - "8801:8801"
     volumes:
-      - ./teamgramd/etc_dev:/etc
-      - ./teamgramd/logs:/logs
-      - ./teamgramd/bin/server_pkcs1.key:/server_pkcs1.key
+      - ./elloappd/etc_dev:/etc
+      - ./elloappd/logs:/logs
+      - ./elloappd/bin/server_pkcs1.key:/server_pkcs1.key
     depends_on:
       - session

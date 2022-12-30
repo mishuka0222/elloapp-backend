@@ -22,6 +22,8 @@ import (
 	"flag"
 	authorization_helper "github.com/teamgram/teamgram-server/app/service/biz/authorization"
 	"github.com/teamgram/teamgram-server/app/service/biz/authorization/authorization"
+	feeds_helper "github.com/teamgram/teamgram-server/app/service/biz/feeds"
+	"github.com/teamgram/teamgram-server/app/service/biz/feeds/feeds"
 
 	"github.com/teamgram/teamgram-server/app/service/biz/biz/internal/config"
 	chat_helper "github.com/teamgram/teamgram-server/app/service/biz/chat"
@@ -64,6 +66,15 @@ func (s *Server) Initialize() error {
 	// s.grpcSrv = grpc.New(ctx, c.RpcServerConf)
 
 	s.grpcSrv = zrpc.MustNewServer(c.RpcServerConf, func(grpcServer *grpc.Server) {
+
+		// feeds
+		feeds.RegisterRPCFeedsServer(
+			grpcServer,
+			feeds_helper.New(
+				feeds_helper.Config{
+					RpcServerConf: c.RpcServerConf,
+					Mysql:         c.Mysql,
+				}))
 
 		// authorization
 		authorization.RegisterRPCAuthorizationServer(

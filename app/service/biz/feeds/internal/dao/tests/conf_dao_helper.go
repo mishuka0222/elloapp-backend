@@ -2,7 +2,7 @@ package tests
 
 import (
 	"flag"
-	"github.com/teamgram/teamgram-server/app/bff/feeds/internal/config"
+	"github.com/teamgram/teamgram-server/app/service/biz/feeds/internal/config"
 	"github.com/zeromicro/go-zero/core/conf"
 )
 

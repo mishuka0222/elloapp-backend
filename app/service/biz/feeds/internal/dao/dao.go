@@ -19,20 +19,18 @@
 package dao
 
 import (
-	"github.com/teamgram/marmota/pkg/net/rpcx"
-	"github.com/teamgram/teamgram-server/app/bff/feeds/internal/config"
-	feeds_client "github.com/teamgram/teamgram-server/app/service/biz/feeds/client"
-	message_client "github.com/teamgram/teamgram-server/app/service/biz/message/client"
+	"github.com/teamgram/marmota/pkg/stores/sqlx"
+	"github.com/teamgram/teamgram-server/app/service/biz/feeds/internal/config"
+	"github.com/teamgram/teamgram-server/app/service/biz/feeds/internal/dao/dao/mysql_dao"
 )
 
 type Dao struct {
-	message_client.MessageClient
-	feeds_client.FeedsClient
+	*mysql_dao.Mysql
 }
 
 func New(c config.Config) *Dao {
+	db := sqlx.NewMySQL(&c.Mysql)
 	return &Dao{
-		MessageClient: message_client.NewMessageClient(rpcx.GetCachedRpcClient(c.MessageClient)),
-		FeedsClient:   feeds_client.NewFeedsClient(rpcx.GetCachedRpcClient(c.FeedsClient)),
+		Mysql: mysql_dao.NewMysqlDao(db),
 	}
 }

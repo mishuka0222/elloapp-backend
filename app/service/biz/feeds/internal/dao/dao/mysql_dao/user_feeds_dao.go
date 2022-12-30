@@ -6,7 +6,8 @@ import (
 	"errors"
 	"fmt"
 	"github.com/teamgram/marmota/pkg/stores/sqlx"
-	"github.com/teamgram/teamgram-server/app/bff/feeds/internal/dao/dataobject"
+	"github.com/teamgram/teamgram-server/app/service/biz/feeds/feeds"
+	"github.com/teamgram/teamgram-server/app/service/biz/feeds/internal/dao/dataobject"
 	"github.com/zeromicro/go-zero/core/logx"
 	"strings"
 )
@@ -47,7 +48,7 @@ func (dao *UserFeedsDAO) SelectFeedList(ctx context.Context, user_id int64) (rLi
 // select m.user_message_box_id, d.peer_id, d.created_at from dialogs d, messages m where d.peer_id in ( %s )
 // and d.user_id = ? and user_message_box_id < (read_inbox_max_id - ?) and d.peer_id = m.peer_id
 // and d.user_id = m.user_id order by m.id desc limit ?) t group by peer_id
-func (dao *UserFeedsDAO) SelectOffsetMinList(ctx context.Context, user_id int64, chats []int64, limit, offset int32) (rList dataobject.OffsetItemList, err error) {
+func (dao *UserFeedsDAO) SelectOffsetMinList(ctx context.Context, user_id int64, chats []int64, limit, offset int32) (rList []*feeds.OffsetItemDo, err error) {
 	var (
 		query = `select min(user_message_box_id) as offset_min, max(user_message_box_id) as offset_max, peer_id, count(*) as count from (
         select m.user_message_box_id, d.peer_id, d.created_at from dialogs d, messages m
@@ -55,7 +56,7 @@ func (dao *UserFeedsDAO) SelectOffsetMinList(ctx context.Context, user_id int64,
         and user_message_box_id < (read_inbox_max_id - ?)
 		and d.peer_id = m.peer_id and d.user_id = m.user_id and d.peer_type = m.peer_type
         order by m.id desc limit ?) t group by peer_id`
-		values dataobject.OffsetItemList
+		values []*feeds.OffsetItemDo
 		args   []interface{}
 		cArr   []string
 	)
@@ -86,7 +87,7 @@ func (dao *UserFeedsDAO) SelectOffsetMinList(ctx context.Context, user_id int64,
 // select m.user_message_box_id, d.peer_id, d.created_at from dialogs d, messages m where d.peer_id in ( %s )
 // and d.user_id = ? and user_message_box_id >= read_inbox_max_id and d.peer_id = m.peer_id
 // and d.user_id = m.user_id order by m.id asc limit ?) t group by peer_id
-func (dao *UserFeedsDAO) SelectOffsetMaxList(ctx context.Context, user_id int64, chats []int64, limit int32) (rList dataobject.OffsetItemList, err error) {
+func (dao *UserFeedsDAO) SelectOffsetMaxList(ctx context.Context, user_id int64, chats []int64, limit int32) (rList []*feeds.OffsetItemDo, err error) {
 	var (
 		query = `select min(user_message_box_id) as offset_min, max(user_message_box_id) as offset_max, peer_id, count(*) as count from (
     	select m.user_message_box_id, d.peer_id, d.created_at from dialogs d, messages m
@@ -94,7 +95,7 @@ func (dao *UserFeedsDAO) SelectOffsetMaxList(ctx context.Context, user_id int64,
         and user_message_box_id >= read_inbox_max_id
   		and d.peer_id = m.peer_id and d.user_id = m.user_id and d.peer_type = m.peer_type
         order by m.id asc limit ?) t group by peer_id`
-		values dataobject.OffsetItemList
+		values []*feeds.OffsetItemDo
 		args   []interface{}
 		cArr   []string
 	)
@@ -151,11 +152,11 @@ func (dao *UserFeedsDAO) SelectUnreadCountList(ctx context.Context, user_id int6
 // SelectChatList
 // select cp.chat_id, c.photo_id, c.title from chat_participants cp, chats c where cp.state = 0
 // and cp.user_id in (?) and c.id = cp.chat_id and c.deactivated = 0
-func (dao *UserFeedsDAO) SelectChatList(ctx context.Context, user_id int64) (rList []dataobject.UserChatDO, err error) {
+func (dao *UserFeedsDAO) SelectChatList(ctx context.Context, user_id int64) (rList []*feeds.UserChatDO, err error) {
 	var (
 		query = `select cp.chat_id, c.photo_id, c.title from chat_participants cp, chats c where cp.state = 0 
         and cp.user_id in (?) and c.id = cp.chat_id and c.deactivated = 0`
-		values []dataobject.UserChatDO
+		values []*feeds.UserChatDO
 	)
 	err = dao.db.QueryRowsPartial(ctx, &values, query, user_id)
 
@@ -171,7 +172,7 @@ func (dao *UserFeedsDAO) SelectChatList(ctx context.Context, user_id int64) (rLi
 
 // DeleteFromListElseValue - delete all user chats except selected
 // elete from user_feeds where user_id = ? and chat_id not in (?,?,?)
-func (dao *UserFeedsDAO) DeleteFromListElseValue(ctx context.Context, user_id int64, chats []dataobject.FeedInsertItemDO) (rowsAffected int64, err error) {
+func (dao *UserFeedsDAO) DeleteFromListElseValue(ctx context.Context, user_id int64, chats []*feeds.FeedInsertItemDO) (rowsAffected int64, err error) {
 	var (
 		query   = `delete from user_feeds where user_id = ?`
 		rResult sql.Result
@@ -179,7 +180,7 @@ func (dao *UserFeedsDAO) DeleteFromListElseValue(ctx context.Context, user_id in
 	if len(chats) != 0 {
 		query += " and chat_id not in"
 	} else {
-		chats = make([]dataobject.FeedInsertItemDO, 0)
+		chats = make([]*feeds.FeedInsertItemDO, 0)
 	}
 	var args []interface{}
 	args = append(args, user_id)
@@ -187,7 +188,7 @@ func (dao *UserFeedsDAO) DeleteFromListElseValue(ctx context.Context, user_id in
 	var cArr []string
 	for i := range chats {
 		cArr = append(cArr, "?")
-		args = append(args, chats[i].ChatID)
+		args = append(args, chats[i].GetChatId())
 	}
 	q := strings.Join(cArr, ",")
 	if q != "" {
@@ -211,7 +212,7 @@ func (dao *UserFeedsDAO) DeleteFromListElseValue(ctx context.Context, user_id in
 
 // InsertList
 // insert into user_feeds (user_id, chat_id) values (?,?),(?,?),(?,?) on duplicate key update id = last_insert_id(id)
-func (dao *UserFeedsDAO) InsertList(ctx context.Context, user_id int64, chats []dataobject.FeedInsertItemDO) (rowsAffected int64, err error) {
+func (dao *UserFeedsDAO) InsertList(ctx context.Context, user_id int64, chats []*feeds.FeedInsertItemDO) (rowsAffected int64, err error) {
 	var (
 		query   = `insert into user_feeds (user_id, chat_id, peer_type) values `
 		rResult sql.Result
@@ -223,7 +224,7 @@ func (dao *UserFeedsDAO) InsertList(ctx context.Context, user_id int64, chats []
 	var cArr []string
 	for i := range chats {
 		cArr = append(cArr, "(?,?,?)")
-		args = append(args, user_id, chats[i].ChatID, chats[i].PeerType)
+		args = append(args, user_id, chats[i].GetChatId(), chats[i].GetPeerType())
 	}
 	q := strings.Join(cArr, ",")
 	query += q + " on duplicate key update id = last_insert_id(id)"

@@ -24,7 +24,7 @@ func (s *Service) GetFeedList(ctx context.Context, in json.RawMessage) (interfac
 
 // UpdateFeedList
 // update user_feeds list
-// req chats: [] dataobject.FeedInsertItemDO { chat_id: int64, peer_type: int32 }, resp: nil
+// req chats: [ { chat_id: int64, peer_type: int32 } ], resp: nil
 func (s *Service) UpdateFeedList(ctx context.Context, in json.RawMessage) (interface{}, error) {
 	c := core.New(ctx, s.svcCtx)
 	c.Logger.Debugf("feeds.UpdateFeedList - metadata: %s, request: %s", c.MD.DebugString(), string(in))
@@ -40,7 +40,7 @@ func (s *Service) UpdateFeedList(ctx context.Context, in json.RawMessage) (inter
 
 // ReadHistory
 // need for updating unread messages count
-// req: [] ChatMaxID { chat_id: int64, max_id: int32, peer_type: int32 }
+// req: [ { chat_id: int64, max_id: int32, peer_type: int32 } ]
 // resp: ReadHistoryResp { pts: int32, pts_count: int32, chat_id: int64, peer_type: int32 }
 func (s *Service) ReadHistory(ctx context.Context, in json.RawMessage) (interface{}, error) {
 	c := core.New(ctx, s.svcCtx)
@@ -94,7 +94,7 @@ func (s *Service) GetHistory(ctx context.Context, in json.RawMessage) (interface
 
 // GetHistoryCounter
 // count unread messages in feeds
-// req: nil, resp: GetHistoryCounterResp { count: int32 }
+// req: nil, resp: { count: int32 }
 func (s *Service) GetHistoryCounter(ctx context.Context, in json.RawMessage) (interface{}, error) {
 	c := core.New(ctx, s.svcCtx)
 	c.Logger.Debugf("feeds.GetHistoryCounter - metadata: %s, request: %s", c.MD.DebugString(), string(in))

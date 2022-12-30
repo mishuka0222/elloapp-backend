@@ -3,7 +3,8 @@ package tests
 import (
 	"context"
 	"github.com/stretchr/testify/assert"
-	"github.com/teamgram/teamgram-server/app/bff/feeds/internal/dao"
+	"github.com/teamgram/teamgram-server/app/service/biz/feeds/feeds"
+	"github.com/teamgram/teamgram-server/app/service/biz/feeds/internal/dao"
 	"log"
 	"testing"
 )
@@ -11,7 +12,12 @@ import (
 func TestInsertListDAO(t *testing.T) {
 
 	d := dao.New(newConfDao())
-	l, err := d.UserFeedsDAO.InsertList(context.Background(), 777062, []int64{12, 11, 1, 14})
+	l, err := d.UserFeedsDAO.InsertList(context.Background(), 777062, []*feeds.FeedInsertItemDO{
+		{ChatId: 12, PeerType: 2},
+		{ChatId: 11, PeerType: 2},
+		{ChatId: 1, PeerType: 2},
+		{ChatId: 14, PeerType: 2},
+	})
 	if err != nil {
 		t.Fatal(err)
 	}
@@ -95,7 +101,11 @@ func TestSelectOffsetMaxListDAO(t *testing.T) {
 func TestDeleteFromListElseValueDAO(t *testing.T) {
 
 	d := dao.New(newConfDao())
-	l, err := d.UserFeedsDAO.DeleteFromListElseValue(context.Background(), 777062, []int64{12, 11, 1})
+	l, err := d.UserFeedsDAO.DeleteFromListElseValue(context.Background(), 777062, []*feeds.FeedInsertItemDO{
+		{ChatId: 12, PeerType: 2},
+		{ChatId: 11, PeerType: 2},
+		{ChatId: 1, PeerType: 2},
+	})
 	if err != nil {
 		t.Fatal(err)
 	}

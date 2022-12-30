@@ -324,8 +324,8 @@ func (s *Server) Initialize() error {
 					RpcServerConf: c.RpcServerConf,
 				}, map[op_srv.ServiceID]op_srv.OperationServer{
 					op_srv.Feeds: feeds_helper.New(feeds_helper.Config{
-						Mysql:         c.Mysql,
 						MessageClient: c.BizServiceClient,
+						FeedsClient:   c.BizServiceClient,
 					}, messagesCore),
 					op_srv.AuthorizationCustomize: authorizationCustom,
 				}))

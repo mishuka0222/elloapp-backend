@@ -2,16 +2,13 @@ package core
 
 import (
 	"encoding/json"
+	"github.com/teamgram/teamgram-server/app/service/biz/feeds/feeds"
 )
-
-type GetHistoryCounterResp struct {
-	Count int32 `json:"count"`
-}
 
 // GetHistoryCounter
 // count unread messages in feeds
-// req: nil, resp: GetHistoryCounterResp { count: int32 }
-func (c *FeedCore) GetHistoryCounter(_ json.RawMessage) (*GetHistoryCounterResp, error) {
+// req: nil, resp: { count: int32 }
+func (c *FeedCore) GetHistoryCounter(_ json.RawMessage) (*feeds.GetHistoryCounterResp, error) {
 
 	/*l, err := c.svcCtx.Dao.SelectFeedList(c.ctx, c.MD.UserId)
 	if err != nil {
@@ -32,16 +29,5 @@ func (c *FeedCore) GetHistoryCounter(_ json.RawMessage) (*GetHistoryCounterResp,
 			count += mCnt.V
 		}
 	}*/
-
-	readInbox, err := c.svcCtx.Dao.UserFeedsDAO.SelectUnreadCountList(c.ctx, c.MD.UserId)
-	if err != nil {
-		return nil, err
-	}
-	var count int32
-	for _, it := range readInbox {
-		if it.Unread > 0 {
-			count += it.Unread
-		}
-	}
-	return &GetHistoryCounterResp{count}, nil
+	return c.svcCtx.Dao.FeedsClient.FeedsGetHistoryCounter(c.ctx, &feeds.GetHistoryCounterReq{UserId: c.MD.GetUserId()})
 }

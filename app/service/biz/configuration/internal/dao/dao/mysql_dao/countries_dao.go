@@ -4,7 +4,7 @@ import (
 	"context"
 	"database/sql"
 	"github.com/teamgram/marmota/pkg/stores/sqlx"
-	"github.com/teamgram/teamgram-server/app/bff/configuration/internal/dao/dataobject"
+	"github.com/teamgram/teamgram-server/app/service/biz/configuration/internal/dao/dataobject"
 	"github.com/zeromicro/go-zero/core/logx"
 )
 

@@ -2,7 +2,7 @@ package tests
 
 import (
 	"context"
-	"github.com/teamgram/teamgram-server/app/bff/configuration/internal/dao"
+	"github.com/teamgram/teamgram-server/app/service/biz/configuration/internal/dao"
 	"log"
 	"testing"
 )

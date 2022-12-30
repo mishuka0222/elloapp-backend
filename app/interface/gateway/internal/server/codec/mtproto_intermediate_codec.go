@@ -24,7 +24,7 @@ import (
 	"fmt"
 	"io"
 
-	"github.com/teamgram/proto/mtproto"
+	"gitlab.com/merehead/elloapp/backend/elloapp_backend/mtproto"
 
 	log "github.com/zeromicro/go-zero/core/logx"
 )
@@ -38,7 +38,6 @@ import (
 // then packet length is encoded always by four bytes as in the original version,
 // but the sequence number and CRC32 are omitted,
 // thus decreasing total packet size by 8 bytes.
-//
 type IntermediateCodec struct {
 	conn io.ReadWriteCloser
 }

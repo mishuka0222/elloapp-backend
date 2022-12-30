@@ -19,19 +19,19 @@
 package svc
 
 import (
-	kafka "github.com/teamgram/marmota/pkg/mq"
-	"github.com/teamgram/marmota/pkg/net/rpcx"
-	"github.com/teamgram/marmota/pkg/stores/sqlx"
-	inbox_client "github.com/teamgram/teamgram-server/app/messenger/msg/inbox/client"
-	"github.com/teamgram/teamgram-server/app/messenger/msg/internal/dao"
-	"github.com/teamgram/teamgram-server/app/messenger/msg/msg/internal/config"
-	"github.com/teamgram/teamgram-server/app/messenger/msg/msg/plugin"
-	sync_client "github.com/teamgram/teamgram-server/app/messenger/sync/client"
-	chat_client "github.com/teamgram/teamgram-server/app/service/biz/chat/client"
-	dialog_client "github.com/teamgram/teamgram-server/app/service/biz/dialog/client"
-	user_client "github.com/teamgram/teamgram-server/app/service/biz/user/client"
-	idgen_client "github.com/teamgram/teamgram-server/app/service/idgen/client"
 	"github.com/zeromicro/go-zero/core/stores/kv"
+	inbox_client "gitlab.com/merehead/elloapp/backend/elloapp_backend/app/messenger/msg/inbox/client"
+	"gitlab.com/merehead/elloapp/backend/elloapp_backend/app/messenger/msg/internal/dao"
+	"gitlab.com/merehead/elloapp/backend/elloapp_backend/app/messenger/msg/msg/internal/config"
+	"gitlab.com/merehead/elloapp/backend/elloapp_backend/app/messenger/msg/msg/plugin"
+	sync_client "gitlab.com/merehead/elloapp/backend/elloapp_backend/app/messenger/sync/client"
+	chat_client "gitlab.com/merehead/elloapp/backend/elloapp_backend/app/service/biz/chat/client"
+	dialog_client "gitlab.com/merehead/elloapp/backend/elloapp_backend/app/service/biz/dialog/client"
+	user_client "gitlab.com/merehead/elloapp/backend/elloapp_backend/app/service/biz/user/client"
+	idgen_client "gitlab.com/merehead/elloapp/backend/elloapp_backend/app/service/idgen/client"
+	kafka "gitlab.com/merehead/elloapp/backend/elloapp_backend/pkg2/mq"
+	"gitlab.com/merehead/elloapp/backend/elloapp_backend/pkg2/net/rpcx"
+	"gitlab.com/merehead/elloapp/backend/elloapp_backend/pkg2/stores/sqlx"
 )
 
 type ServiceContext struct {

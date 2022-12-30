@@ -3,8 +3,8 @@ package tests
 import (
 	"context"
 	"github.com/stretchr/testify/assert"
-	"github.com/teamgram/teamgram-server/app/service/biz/feeds/feeds"
-	"github.com/teamgram/teamgram-server/app/service/biz/feeds/internal/dao"
+	"gitlab.com/merehead/elloapp/backend/elloapp_backend/app/service/biz/feeds/feeds"
+	"gitlab.com/merehead/elloapp/backend/elloapp_backend/app/service/biz/feeds/internal/dao"
 	"log"
 	"testing"
 )

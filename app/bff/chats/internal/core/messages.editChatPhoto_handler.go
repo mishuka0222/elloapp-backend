@@ -21,10 +21,10 @@ package core
 import (
 	"math/rand"
 
-	"github.com/teamgram/proto/mtproto"
-	msgpb "github.com/teamgram/teamgram-server/app/messenger/msg/msg/msg"
-	chatpb "github.com/teamgram/teamgram-server/app/service/biz/chat/chat"
-	mediapb "github.com/teamgram/teamgram-server/app/service/media/media"
+	msgpb "gitlab.com/merehead/elloapp/backend/elloapp_backend/app/messenger/msg/msg/msg"
+	chatpb "gitlab.com/merehead/elloapp/backend/elloapp_backend/app/service/biz/chat/chat"
+	mediapb "gitlab.com/merehead/elloapp/backend/elloapp_backend/app/service/media/media"
+	"gitlab.com/merehead/elloapp/backend/elloapp_backend/mtproto"
 )
 
 // MessagesEditChatPhoto

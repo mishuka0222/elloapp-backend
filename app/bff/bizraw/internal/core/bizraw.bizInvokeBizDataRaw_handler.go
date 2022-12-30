@@ -2,7 +2,7 @@ package core
 
 import (
 	"encoding/json"
-	"github.com/teamgram/proto/mtproto"
+	"gitlab.com/merehead/elloapp/backend/elloapp_backend/mtproto"
 )
 
 type Operation struct {

@@ -25,8 +25,8 @@ import (
 	"io"
 	"math/rand"
 
-	"github.com/teamgram/proto/mtproto"
-	"github.com/teamgram/proto/mtproto/crypto"
+	"gitlab.com/merehead/elloapp/backend/elloapp_backend/mtproto"
+	"gitlab.com/merehead/elloapp/backend/elloapp_backend/mtproto/crypto"
 
 	log "github.com/zeromicro/go-zero/core/logx"
 )
@@ -40,7 +40,6 @@ import (
 // then packet length is encoded always by four bytes as in the original version,
 // but the sequence number and CRC32 are omitted,
 // thus decreasing total packet size by 8 bytes.
-//
 type PaddedIntermediateCodec struct {
 	conn io.ReadWriteCloser
 }

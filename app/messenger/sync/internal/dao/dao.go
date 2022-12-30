@@ -10,16 +10,16 @@
 package dao
 
 import (
-	kafka "github.com/teamgram/marmota/pkg/mq"
-	"github.com/teamgram/marmota/pkg/net/rpcx"
-	"github.com/teamgram/marmota/pkg/stores/sqlx"
-	sync_client "github.com/teamgram/teamgram-server/app/messenger/sync/client"
-	"github.com/teamgram/teamgram-server/app/messenger/sync/internal/config"
-	chat_client "github.com/teamgram/teamgram-server/app/service/biz/chat/client"
-	idgen_client "github.com/teamgram/teamgram-server/app/service/idgen/client"
-	status_client "github.com/teamgram/teamgram-server/app/service/status/client"
 	"github.com/zeromicro/go-zero/core/stores/kv"
 	"github.com/zeromicro/go-zero/zrpc"
+	sync_client "gitlab.com/merehead/elloapp/backend/elloapp_backend/app/messenger/sync/client"
+	"gitlab.com/merehead/elloapp/backend/elloapp_backend/app/messenger/sync/internal/config"
+	chat_client "gitlab.com/merehead/elloapp/backend/elloapp_backend/app/service/biz/chat/client"
+	idgen_client "gitlab.com/merehead/elloapp/backend/elloapp_backend/app/service/idgen/client"
+	status_client "gitlab.com/merehead/elloapp/backend/elloapp_backend/app/service/status/client"
+	kafka "gitlab.com/merehead/elloapp/backend/elloapp_backend/pkg2/mq"
+	"gitlab.com/merehead/elloapp/backend/elloapp_backend/pkg2/net/rpcx"
+	"gitlab.com/merehead/elloapp/backend/elloapp_backend/pkg2/stores/sqlx"
 )
 
 type Dao struct {

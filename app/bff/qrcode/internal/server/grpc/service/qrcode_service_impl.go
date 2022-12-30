@@ -13,8 +13,8 @@ package service
 import (
 	"context"
 
-	"github.com/teamgram/proto/mtproto"
-	"github.com/teamgram/teamgram-server/app/bff/qrcode/internal/core"
+	"gitlab.com/merehead/elloapp/backend/elloapp_backend/app/bff/qrcode/internal/core"
+	"gitlab.com/merehead/elloapp/backend/elloapp_backend/mtproto"
 )
 
 // AuthExportLoginToken

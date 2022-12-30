@@ -19,7 +19,7 @@
 package model
 
 import (
-	"github.com/teamgram/proto/mtproto"
+	"gitlab.com/merehead/elloapp/backend/elloapp_backend/mtproto"
 )
 
 // upload.saveFilePart#b304a621 file_id:long file_part:int bytes:bytes = Bool;

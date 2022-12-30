@@ -11,7 +11,7 @@
 package dataobject
 
 import (
-	dialog_helper "github.com/teamgram/teamgram-server/app/service/biz/dialog"
+	dialog_helper "gitlab.com/merehead/elloapp/backend/elloapp_backend/app/service/biz/dialog"
 )
 
 type (

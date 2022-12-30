@@ -11,9 +11,9 @@
 package tos_helper
 
 import (
-	"github.com/teamgram/teamgram-server/app/bff/tos/internal/config"
-	"github.com/teamgram/teamgram-server/app/bff/tos/internal/server/grpc/service"
-	"github.com/teamgram/teamgram-server/app/bff/tos/internal/svc"
+	"gitlab.com/merehead/elloapp/backend/elloapp_backend/app/bff/tos/internal/config"
+	"gitlab.com/merehead/elloapp/backend/elloapp_backend/app/bff/tos/internal/server/grpc/service"
+	"gitlab.com/merehead/elloapp/backend/elloapp_backend/app/bff/tos/internal/svc"
 )
 
 type (

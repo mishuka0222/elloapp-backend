@@ -2,8 +2,8 @@ package client
 
 import (
 	"context"
-	"github.com/teamgram/teamgram-server/app/service/biz/authorization/authorization"
 	"github.com/zeromicro/go-zero/zrpc"
+	"gitlab.com/merehead/elloapp/backend/elloapp_backend/app/service/biz/authorization/authorization"
 )
 
 type RPCAuthorizationClient interface {

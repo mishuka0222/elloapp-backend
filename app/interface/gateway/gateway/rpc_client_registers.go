@@ -13,7 +13,7 @@ package gateway
 import (
 	"reflect"
 
-	"github.com/teamgram/proto/mtproto"
+	"gitlab.com/merehead/elloapp/backend/elloapp_backend/mtproto"
 )
 
 var _ *mtproto.Bool

@@ -10,9 +10,9 @@
 package grpc
 
 import (
-	"github.com/teamgram/teamgram-server/app/service/status/internal/server/grpc/service"
-	"github.com/teamgram/teamgram-server/app/service/status/internal/svc"
-	"github.com/teamgram/teamgram-server/app/service/status/status"
+	"gitlab.com/merehead/elloapp/backend/elloapp_backend/app/service/status/internal/server/grpc/service"
+	"gitlab.com/merehead/elloapp/backend/elloapp_backend/app/service/status/internal/svc"
+	"gitlab.com/merehead/elloapp/backend/elloapp_backend/app/service/status/status"
 
 	"github.com/zeromicro/go-zero/core/logx"
 	"github.com/zeromicro/go-zero/zrpc"

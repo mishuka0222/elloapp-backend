@@ -14,8 +14,8 @@ import (
 
 	"github.com/zeromicro/go-zero/core/jsonx"
 
-	"github.com/teamgram/proto/mtproto"
-	"github.com/teamgram/teamgram-server/app/service/biz/dialog/dialog"
+	"gitlab.com/merehead/elloapp/backend/elloapp_backend/app/service/biz/dialog/dialog"
+	"gitlab.com/merehead/elloapp/backend/elloapp_backend/mtproto"
 )
 
 func getEmptyDraftMessage() string {

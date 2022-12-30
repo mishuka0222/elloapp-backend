@@ -10,8 +10,8 @@
 package core
 
 import (
-	"github.com/teamgram/teamgram-server/app/service/biz/user/user"
 	"github.com/zeromicro/go-zero/core/mr"
+	"gitlab.com/merehead/elloapp/backend/elloapp_backend/app/service/biz/user/user"
 )
 
 // UserCheckBlockUserList

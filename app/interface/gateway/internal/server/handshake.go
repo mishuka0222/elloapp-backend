@@ -28,10 +28,10 @@ import (
 	"math/big"
 	"time"
 
-	"github.com/teamgram/marmota/pkg/hack"
-	"github.com/teamgram/marmota/pkg/hex2"
-	"github.com/teamgram/proto/mtproto"
-	"github.com/teamgram/proto/mtproto/crypto"
+	"gitlab.com/merehead/elloapp/backend/elloapp_backend/mtproto"
+	"gitlab.com/merehead/elloapp/backend/elloapp_backend/mtproto/crypto"
+	"gitlab.com/merehead/elloapp/backend/elloapp_backend/pkg2/hack"
+	"gitlab.com/merehead/elloapp/backend/elloapp_backend/pkg2/hex2"
 
 	"github.com/zeromicro/go-zero/core/logx"
 )

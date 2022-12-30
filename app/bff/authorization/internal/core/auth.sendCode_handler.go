@@ -21,11 +21,11 @@ package core
 import (
 	"context"
 
-	"github.com/teamgram/proto/mtproto"
-	"github.com/teamgram/teamgram-server/app/bff/authorization/internal/logic"
-	"github.com/teamgram/teamgram-server/app/bff/authorization/internal/model"
-	userpb "github.com/teamgram/teamgram-server/app/service/biz/user/user"
-	statuspb "github.com/teamgram/teamgram-server/app/service/status/status"
+	"gitlab.com/merehead/elloapp/backend/elloapp_backend/app/bff/authorization/internal/logic"
+	"gitlab.com/merehead/elloapp/backend/elloapp_backend/app/bff/authorization/internal/model"
+	userpb "gitlab.com/merehead/elloapp/backend/elloapp_backend/app/service/biz/user/user"
+	statuspb "gitlab.com/merehead/elloapp/backend/elloapp_backend/app/service/status/status"
+	"gitlab.com/merehead/elloapp/backend/elloapp_backend/mtproto"
 
 	"google.golang.org/grpc/status"
 )

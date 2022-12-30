@@ -19,8 +19,8 @@
 package main
 
 import (
-	"github.com/teamgram/marmota/pkg/commands"
-	"github.com/teamgram/teamgram-server/app/bff/bff/internal/server"
+	"gitlab.com/merehead/elloapp/backend/elloapp_backend/app/bff/bff/internal/server"
+	"gitlab.com/merehead/elloapp/backend/elloapp_backend/pkg2/commands"
 )
 
 func main() {

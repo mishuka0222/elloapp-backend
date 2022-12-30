@@ -16,13 +16,13 @@ package idgen
 import (
 	"fmt"
 
-	"github.com/teamgram/proto/mtproto"
+	"gitlab.com/merehead/elloapp/backend/elloapp_backend/mtproto"
 
 	"github.com/gogo/protobuf/jsonpb"
 	"github.com/gogo/protobuf/types"
 )
 
-//////////////////////////////////////////////////////////////////////////////////////////
+// ////////////////////////////////////////////////////////////////////////////////////////
 var _ *types.Int32Value
 var _ *mtproto.Bool
 var _ fmt.GoStringer
@@ -78,9 +78,9 @@ func CheckClassID(classId int32) (ok bool) {
 
 //----------------------------------------------------------------------------------------------------------------
 
-//----------------------------------------------------------------------------------------------------------------
+// ----------------------------------------------------------------------------------------------------------------
 // TLIdgenNextId
-///////////////////////////////////////////////////////////////////////////////
+// /////////////////////////////////////////////////////////////////////////////
 func (m *TLIdgenNextId) Encode(layer int32) []byte {
 	x := mtproto.NewEncodeBuf(512)
 	// x.Int(int32(CRC32_idgen_nextId))
@@ -125,7 +125,7 @@ func (m *TLIdgenNextId) DebugString() string {
 }
 
 // TLIdgenNextIds
-///////////////////////////////////////////////////////////////////////////////
+// /////////////////////////////////////////////////////////////////////////////
 func (m *TLIdgenNextIds) Encode(layer int32) []byte {
 	x := mtproto.NewEncodeBuf(512)
 	// x.Int(int32(CRC32_idgen_nextIds))
@@ -173,7 +173,7 @@ func (m *TLIdgenNextIds) DebugString() string {
 }
 
 // TLIdgenGetCurrentSeqId
-///////////////////////////////////////////////////////////////////////////////
+// /////////////////////////////////////////////////////////////////////////////
 func (m *TLIdgenGetCurrentSeqId) Encode(layer int32) []byte {
 	x := mtproto.NewEncodeBuf(512)
 	// x.Int(int32(CRC32_idgen_getCurrentSeqId))
@@ -221,7 +221,7 @@ func (m *TLIdgenGetCurrentSeqId) DebugString() string {
 }
 
 // TLIdgenSetCurrentSeqId
-///////////////////////////////////////////////////////////////////////////////
+// /////////////////////////////////////////////////////////////////////////////
 func (m *TLIdgenSetCurrentSeqId) Encode(layer int32) []byte {
 	x := mtproto.NewEncodeBuf(512)
 	// x.Int(int32(CRC32_idgen_setCurrentSeqId))
@@ -271,7 +271,7 @@ func (m *TLIdgenSetCurrentSeqId) DebugString() string {
 }
 
 // TLIdgenGetNextSeqId
-///////////////////////////////////////////////////////////////////////////////
+// /////////////////////////////////////////////////////////////////////////////
 func (m *TLIdgenGetNextSeqId) Encode(layer int32) []byte {
 	x := mtproto.NewEncodeBuf(512)
 	// x.Int(int32(CRC32_idgen_getNextSeqId))
@@ -319,7 +319,7 @@ func (m *TLIdgenGetNextSeqId) DebugString() string {
 }
 
 // TLIdgenGetNextNSeqId
-///////////////////////////////////////////////////////////////////////////////
+// /////////////////////////////////////////////////////////////////////////////
 func (m *TLIdgenGetNextNSeqId) Encode(layer int32) []byte {
 	x := mtproto.NewEncodeBuf(512)
 	// x.Int(int32(CRC32_idgen_getNextNSeqId))
@@ -368,9 +368,9 @@ func (m *TLIdgenGetNextNSeqId) DebugString() string {
 	return dbgString
 }
 
-//----------------------------------------------------------------------------------------------------------------
+// ----------------------------------------------------------------------------------------------------------------
 // Vector_Long
-///////////////////////////////////////////////////////////////////////////////
+// /////////////////////////////////////////////////////////////////////////////
 func (m *Vector_Long) Encode(layer int32) []byte {
 	x := mtproto.NewEncodeBuf(512)
 	x.VectorLong(m.Datas)

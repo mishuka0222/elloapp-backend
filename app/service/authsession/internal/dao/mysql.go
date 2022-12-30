@@ -19,8 +19,8 @@
 package dao
 
 import (
-	"github.com/teamgram/marmota/pkg/stores/sqlx"
-	"github.com/teamgram/teamgram-server/app/service/authsession/internal/dal/dao/mysql_dao"
+	"gitlab.com/merehead/elloapp/backend/elloapp_backend/app/service/authsession/internal/dal/dao/mysql_dao"
+	"gitlab.com/merehead/elloapp/backend/elloapp_backend/pkg2/stores/sqlx"
 )
 
 type Mysql struct {

@@ -21,17 +21,17 @@ package core
 import (
 	"context"
 	"fmt"
-	"github.com/teamgram/teamgram-server/app/bff/authorization/internal/logic"
+	"gitlab.com/merehead/elloapp/backend/elloapp_backend/app/bff/authorization/internal/logic"
 	"golang.org/x/crypto/bcrypt"
 	"log"
 
-	"github.com/teamgram/proto/mtproto"
-	"github.com/teamgram/proto/mtproto/crypto"
-	//"github.com/teamgram/teamgram-server/app/bff/authorization/internal/model"
-	"github.com/teamgram/teamgram-server/app/service/authsession/authsession"
-	userpb "github.com/teamgram/teamgram-server/app/service/biz/user/user"
-	usernamepb "github.com/teamgram/teamgram-server/app/service/biz/username/username"
-	"github.com/teamgram/teamgram-server/pkg/env2"
+	"gitlab.com/merehead/elloapp/backend/elloapp_backend/mtproto"
+	"gitlab.com/merehead/elloapp/backend/elloapp_backend/mtproto/crypto"
+	//"gitlab.com/merehead/elloapp/backend/elloapp_backend/app/bff/authorization/internal/model"
+	"gitlab.com/merehead/elloapp/backend/elloapp_backend/app/service/authsession/authsession"
+	userpb "gitlab.com/merehead/elloapp/backend/elloapp_backend/app/service/biz/user/user"
+	usernamepb "gitlab.com/merehead/elloapp/backend/elloapp_backend/app/service/biz/username/username"
+	"gitlab.com/merehead/elloapp/backend/elloapp_backend/pkg/env2"
 )
 
 /*
@@ -200,10 +200,10 @@ func (c *AuthorizationCore) AuthSignUp(in *mtproto.TLAuthSignUp) (*mtproto.Auth_
 		c.Logger.Errorf("username error: %v", err_un)
 		// return nil, err
 	}
-	_, err_un=c.svcCtx.Dao.UsernameUpdateUsername(c.ctx, &usernamepb.TLUsernameUpdateUsername{
-		PeerType:             mtproto.PEER_USER,
-		PeerId:               user.Id(),
-		Username:             user.Phone(),
+	_, err_un = c.svcCtx.Dao.UsernameUpdateUsername(c.ctx, &usernamepb.TLUsernameUpdateUsername{
+		PeerType: mtproto.PEER_USER,
+		PeerId:   user.Id(),
+		Username: user.Phone(),
 	})
 	if err_un != nil {
 		c.Logger.Errorf("username error: %v", err_un)

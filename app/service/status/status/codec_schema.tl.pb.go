@@ -16,7 +16,7 @@ package status
 import (
 	"fmt"
 
-	"github.com/teamgram/proto/mtproto"
+	"gitlab.com/merehead/elloapp/backend/elloapp_backend/mtproto"
 
 	"github.com/gogo/protobuf/jsonpb"
 	"github.com/gogo/protobuf/types"
@@ -608,9 +608,9 @@ func (m *TLStatusGetUsersOnlineSessionsList) DebugString() string {
 	return dbgString
 }
 
-//----------------------------------------------------------------------------------------------------------------
+// ----------------------------------------------------------------------------------------------------------------
 // Vector_UserSessionEntryList
-///////////////////////////////////////////////////////////////////////////////
+// /////////////////////////////////////////////////////////////////////////////
 func (m *Vector_UserSessionEntryList) Encode(layer int32) []byte {
 	x := mtproto.NewEncodeBuf(512)
 	x.Int(int32(mtproto.CRC32_vector))

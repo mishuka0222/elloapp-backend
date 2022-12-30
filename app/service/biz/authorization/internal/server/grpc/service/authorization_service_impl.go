@@ -2,8 +2,8 @@ package service
 
 import (
 	"context"
-	"github.com/teamgram/teamgram-server/app/service/biz/authorization/authorization"
-	"github.com/teamgram/teamgram-server/app/service/biz/authorization/internal/core"
+	"gitlab.com/merehead/elloapp/backend/elloapp_backend/app/service/biz/authorization/authorization"
+	"gitlab.com/merehead/elloapp/backend/elloapp_backend/app/service/biz/authorization/internal/core"
 )
 
 // AuthSingUP

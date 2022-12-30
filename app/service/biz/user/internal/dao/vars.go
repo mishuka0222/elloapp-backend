@@ -18,7 +18,7 @@
 
 package dao
 
-import userpb "github.com/teamgram/teamgram-server/app/service/biz/user/user"
+import userpb "gitlab.com/merehead/elloapp/backend/elloapp_backend/app/service/biz/user/user"
 
 const (
 	versionField = "0"

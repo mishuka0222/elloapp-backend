@@ -9,9 +9,9 @@ package sync_client
 import (
 	"context"
 	"fmt"
-	kafka "github.com/teamgram/marmota/pkg/mq"
-	"github.com/teamgram/proto/mtproto"
-	"github.com/teamgram/teamgram-server/app/messenger/sync/sync"
+	"gitlab.com/merehead/elloapp/backend/elloapp_backend/app/messenger/sync/sync"
+	"gitlab.com/merehead/elloapp/backend/elloapp_backend/mtproto"
+	kafka "gitlab.com/merehead/elloapp/backend/elloapp_backend/pkg2/mq"
 
 	"github.com/gogo/protobuf/proto"
 	"github.com/zeromicro/go-zero/core/jsonx"

@@ -10,9 +10,9 @@
 package core
 
 import (
-	"github.com/teamgram/proto/mtproto"
-	"github.com/teamgram/teamgram-server/app/service/biz/username/internal/dal/dataobject"
-	"github.com/teamgram/teamgram-server/app/service/biz/username/username"
+	"gitlab.com/merehead/elloapp/backend/elloapp_backend/app/service/biz/username/internal/dal/dataobject"
+	"gitlab.com/merehead/elloapp/backend/elloapp_backend/app/service/biz/username/username"
+	"gitlab.com/merehead/elloapp/backend/elloapp_backend/mtproto"
 )
 
 // UsernameGetListByUsernameList

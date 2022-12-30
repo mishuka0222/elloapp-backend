@@ -9,7 +9,7 @@ import (
 	_ "github.com/gogo/protobuf/gogoproto"
 	proto "github.com/gogo/protobuf/proto"
 	_ "github.com/gogo/protobuf/types"
-	mtproto "github.com/teamgram/proto/mtproto"
+	mtproto "gitlab.com/merehead/elloapp/backend/elloapp_backend/mtproto"
 	grpc "google.golang.org/grpc"
 	codes "google.golang.org/grpc/codes"
 	status "google.golang.org/grpc/status"
@@ -68,12 +68,11 @@ func (TLConstructor) EnumDescriptor() ([]byte, []int) {
 	return fileDescriptor_de28ee98d4359e5d, []int{0}
 }
 
-//--------------------------------------------------------------------------------------------
+// --------------------------------------------------------------------------------------------
 // phoneCodeTransaction flags:# auth_key_id:long session_id:long phone:string phone_number_registered:flags.0?true phone_code:string phone_code_hash:string phone_code_expired:int phone_code_extra_data:string sent_code_type:int flash_call_pattern:string next_code_type:int state:int = PhoneCodeTransaction;
 //
 // PhoneCodeTransaction <--
-//  + TL_phoneCodeTransaction
-//
+//   - TL_phoneCodeTransaction
 type PhoneCodeTransaction struct {
 	PredicateName         string        `protobuf:"bytes,1,opt,name=predicate_name,json=predicateName,proto3" json:"predicate_name,omitempty"`
 	Constructor           TLConstructor `protobuf:"varint,2,opt,name=constructor,proto3,enum=code.TLConstructor" json:"constructor,omitempty"`
@@ -273,7 +272,7 @@ func (m *TLPhoneCodeTransaction) GetData2() *PhoneCodeTransaction {
 	return nil
 }
 
-//--------------------------------------------------------------------------------------------
+// --------------------------------------------------------------------------------------------
 // code.createPhoneCode flags:# auth_key_id:long session_id:long phone:string phone_number_registered:flags.0?true sent_code_type:int next_code_type:int state:int = PhoneCodeTransaction;
 type TLCodeCreatePhoneCode struct {
 	Constructor           TLConstructor `protobuf:"varint,1,opt,name=constructor,proto3,enum=code.TLConstructor" json:"constructor,omitempty"`
@@ -378,7 +377,7 @@ func (m *TLCodeCreatePhoneCode) GetState() int32 {
 	return 0
 }
 
-//--------------------------------------------------------------------------------------------
+// --------------------------------------------------------------------------------------------
 // code.getPhoneCode auth_key_id:long phone:string phone_code_hash:string = PhoneCodeTransaction;
 type TLCodeGetPhoneCode struct {
 	Constructor          TLConstructor `protobuf:"varint,1,opt,name=constructor,proto3,enum=code.TLConstructor" json:"constructor,omitempty"`
@@ -451,7 +450,7 @@ func (m *TLCodeGetPhoneCode) GetPhoneCodeHash() string {
 	return ""
 }
 
-//--------------------------------------------------------------------------------------------
+// --------------------------------------------------------------------------------------------
 // code.deletePhoneCode auth_key_id:long phone:string phone_code_hash:string = Bool;
 type TLCodeDeletePhoneCode struct {
 	Constructor          TLConstructor `protobuf:"varint,1,opt,name=constructor,proto3,enum=code.TLConstructor" json:"constructor,omitempty"`
@@ -524,7 +523,7 @@ func (m *TLCodeDeletePhoneCode) GetPhoneCodeHash() string {
 	return ""
 }
 
-//--------------------------------------------------------------------------------------------
+// --------------------------------------------------------------------------------------------
 // code.updatePhoneCodeData auth_key_id:long phone:string phone_code_hash:string code_data:PhoneCodeTransaction = Bool;
 type TLCodeUpdatePhoneCodeData struct {
 	Constructor          TLConstructor         `protobuf:"varint,1,opt,name=constructor,proto3,enum=code.TLConstructor" json:"constructor,omitempty"`

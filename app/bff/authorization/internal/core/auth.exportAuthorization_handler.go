@@ -21,8 +21,8 @@ package core
 import (
 	"strconv"
 
-	"github.com/teamgram/marmota/pkg/hack"
-	"github.com/teamgram/proto/mtproto"
+	"gitlab.com/merehead/elloapp/backend/elloapp_backend/mtproto"
+	"gitlab.com/merehead/elloapp/backend/elloapp_backend/pkg2/hack"
 )
 
 // AuthExportAuthorization

@@ -17,8 +17,8 @@ import (
 	"strings"
 	"time"
 
-	"github.com/teamgram/teamgram-server/app/service/dfs/internal/model"
-	"github.com/teamgram/teamgram-server/app/service/dfs/internal/svc"
+	"gitlab.com/merehead/elloapp/backend/elloapp_backend/app/service/dfs/internal/model"
+	"gitlab.com/merehead/elloapp/backend/elloapp_backend/app/service/dfs/internal/svc"
 
 	"github.com/zeromicro/go-zero/core/logx"
 	"github.com/zeromicro/go-zero/rest/httpx"

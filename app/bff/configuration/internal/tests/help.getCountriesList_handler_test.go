@@ -2,8 +2,8 @@ package tests
 
 import (
 	"context"
-	"github.com/teamgram/proto/mtproto"
 	"github.com/zeromicro/go-zero/core/logx"
+	"gitlab.com/merehead/elloapp/backend/elloapp_backend/mtproto"
 	"testing"
 )
 

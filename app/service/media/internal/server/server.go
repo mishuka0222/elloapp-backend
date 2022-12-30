@@ -12,9 +12,9 @@ package server
 import (
 	"flag"
 
-	"github.com/teamgram/teamgram-server/app/service/media/internal/config"
-	"github.com/teamgram/teamgram-server/app/service/media/internal/server/grpc"
-	"github.com/teamgram/teamgram-server/app/service/media/internal/svc"
+	"gitlab.com/merehead/elloapp/backend/elloapp_backend/app/service/media/internal/config"
+	"gitlab.com/merehead/elloapp/backend/elloapp_backend/app/service/media/internal/server/grpc"
+	"gitlab.com/merehead/elloapp/backend/elloapp_backend/app/service/media/internal/svc"
 
 	"github.com/zeromicro/go-zero/core/conf"
 	"github.com/zeromicro/go-zero/core/logx"

@@ -23,7 +23,7 @@ import (
 	"reflect"
 	"time"
 
-	"github.com/teamgram/proto/mtproto"
+	"gitlab.com/merehead/elloapp/backend/elloapp_backend/mtproto"
 
 	"github.com/zeromicro/go-zero/core/logx"
 )
@@ -375,59 +375,59 @@ func (c *session) checkBadMsgNotification(gatewayId string, excludeMsgIdToo bool
 }
 
 /*
- // tdesktop ------------------------------------------------------------------------------------------
+	 // tdesktop ------------------------------------------------------------------------------------------
 
-	case mtpc_msgs_state_req: {
-		if (badTime) {
-			DEBUG_LOG(("Message Info: skipping with bad time..."));
-			return HandleResult::Ignored;
-		}
-		MTPMsgsStateReq msg;
-		msg.read(from, end);
-		auto &ids = msg.c_msgs_state_req().vmsg_ids.v;
-		auto idsCount = ids.size();
-		DEBUG_LOG(("Message Info: msgs_state_req received, ids: %1").arg(LogIdsVector(ids)));
-		if (!idsCount) return HandleResult::Success;
+		case mtpc_msgs_state_req: {
+			if (badTime) {
+				DEBUG_LOG(("Message Info: skipping with bad time..."));
+				return HandleResult::Ignored;
+			}
+			MTPMsgsStateReq msg;
+			msg.read(from, end);
+			auto &ids = msg.c_msgs_state_req().vmsg_ids.v;
+			auto idsCount = ids.size();
+			DEBUG_LOG(("Message Info: msgs_state_req received, ids: %1").arg(LogIdsVector(ids)));
+			if (!idsCount) return HandleResult::Success;
 
-		QByteArray info(idsCount, Qt::Uninitialized);
-		{
-			QReadLocker lock(sessionData->receivedIdsMutex());
-			auto &receivedIds = sessionData->receivedIdsSet();
-			auto minRecv = receivedIds.min();
-			auto maxRecv = receivedIds.max();
+			QByteArray info(idsCount, Qt::Uninitialized);
+			{
+				QReadLocker lock(sessionData->receivedIdsMutex());
+				auto &receivedIds = sessionData->receivedIdsSet();
+				auto minRecv = receivedIds.min();
+				auto maxRecv = receivedIds.max();
 
-			QReadLocker locker(sessionData->wereAckedMutex());
-			const auto &wereAcked = sessionData->wereAckedMap();
-			const auto wereAckedEnd = wereAcked.cend();
+				QReadLocker locker(sessionData->wereAckedMutex());
+				const auto &wereAcked = sessionData->wereAckedMap();
+				const auto wereAckedEnd = wereAcked.cend();
 
-			for (uint32 i = 0, l = idsCount; i < l; ++i) {
-				char state = 0;
-				uint64 reqMsgId = ids[i].v;
-				if (reqMsgId < minRecv) {
-					state |= 0x01;
-				} else if (reqMsgId > maxRecv) {
-					state |= 0x03;
-				} else {
-					auto msgIdState = receivedIds.lookup(reqMsgId);
-					if (msgIdState == ReceivedMsgIds::State::NotFound) {
-						state |= 0x02;
+				for (uint32 i = 0, l = idsCount; i < l; ++i) {
+					char state = 0;
+					uint64 reqMsgId = ids[i].v;
+					if (reqMsgId < minRecv) {
+						state |= 0x01;
+					} else if (reqMsgId > maxRecv) {
+						state |= 0x03;
 					} else {
-						state |= 0x04;
-						if (wereAcked.constFind(reqMsgId) != wereAckedEnd) {
-							state |= 0x80; // we know, that server knows, that we received request
-						}
-						if (msgIdState == ReceivedMsgIds::State::NeedsAck) { // need ack, so we sent ack
-							state |= 0x08;
+						auto msgIdState = receivedIds.lookup(reqMsgId);
+						if (msgIdState == ReceivedMsgIds::State::NotFound) {
+							state |= 0x02;
 						} else {
-							state |= 0x10;
+							state |= 0x04;
+							if (wereAcked.constFind(reqMsgId) != wereAckedEnd) {
+								state |= 0x80; // we know, that server knows, that we received request
+							}
+							if (msgIdState == ReceivedMsgIds::State::NeedsAck) { // need ack, so we sent ack
+								state |= 0x08;
+							} else {
+								state |= 0x10;
+							}
 						}
 					}
+					info[i] = state;
 				}
-				info[i] = state;
 			}
-		}
-		emit sendMsgsStateInfoAsync(msgId, info);
-	} return HandleResult::Success;
+			emit sendMsgsStateInfoAsync(msgId, info);
+		} return HandleResult::Success;
 */
 func (c *session) onMsgsStateReq(gatewayId string, msgId *inboxMsg, request *mtproto.TLMsgsStateReq) {
 	logx.Infof("onMsgsStateReq - request data: {sess: %s, gatewayId: %s, md: %s, msg_id: %d, seq_no: %d, request: {%s}}",
@@ -502,55 +502,57 @@ func (c *session) onMsgsStateReq(gatewayId string, msgId *inboxMsg, request *mtp
 	msgId.state = RECEIVED | NEED_NO_ACK
 }
 
-/*****************************************************************************************************************
+/*
+****************************************************************************************************************
 // resend
 // 注意：服务端要处理这种情况，和文档不太一样
 //
-mtpRequestId Session::resend(quint64 msgId, qint64 msCanWait, bool forceContainer, bool sendMsgStateInfo) {
-	SecureRequest request;
-	{
-		QWriteLocker locker(data.haveSentMutex());
-		auto &haveSent = data.haveSentMap();
 
-		auto i = haveSent.find(msgId);
-		if (i == haveSent.end()) {
-			if (sendMsgStateInfo) {
-				char cantResend[2] = {1, 0};
-				DEBUG_LOG(("Message Info: cant resend %1, request not found").arg(msgId));
+	mtpRequestId Session::resend(quint64 msgId, qint64 msCanWait, bool forceContainer, bool sendMsgStateInfo) {
+		SecureRequest request;
+		{
+			QWriteLocker locker(data.haveSentMutex());
+			auto &haveSent = data.haveSentMap();
 
-				auto info = std::string(cantResend, cantResend + 1);
-				return _instance->sendProtocolMessage(
-					dcWithShift,
-					MTPMsgsStateInfo(
-						MTP_msgs_state_info(
-							MTP_long(msgId),
-							MTP_string(std::move(info)))));
+			auto i = haveSent.find(msgId);
+			if (i == haveSent.end()) {
+				if (sendMsgStateInfo) {
+					char cantResend[2] = {1, 0};
+					DEBUG_LOG(("Message Info: cant resend %1, request not found").arg(msgId));
+
+					auto info = std::string(cantResend, cantResend + 1);
+					return _instance->sendProtocolMessage(
+						dcWithShift,
+						MTPMsgsStateInfo(
+							MTP_msgs_state_info(
+								MTP_long(msgId),
+								MTP_string(std::move(info)))));
+				}
+				return 0;
 			}
+
+			request = i.value();
+			haveSent.erase(i);
+		}
+		if (request.isSentContainer()) { // for container just resend all messages we can
+			DEBUG_LOG(("Message Info: resending container from haveSent, msgId %1").arg(msgId));
+			const mtpMsgId *ids = (const mtpMsgId *)(request->constData() + 8);
+			for (uint32 i = 0, l = (request->size() - 8) >> 1; i < l; ++i) {
+				resend(ids[i], 10, true);
+			}
+			return 0xFFFFFFFF;
+		} else if (!request.isStateRequest()) {
+			request->msDate = forceContainer ? 0 : getms(true);
+			sendPrepared(request, msCanWait, false);
+			{
+				QWriteLocker locker(data.toResendMutex());
+				data.toResendMap().insert(msgId, request->requestId);
+			}
+			return request->requestId;
+		} else {
 			return 0;
 		}
-
-		request = i.value();
-		haveSent.erase(i);
 	}
-	if (request.isSentContainer()) { // for container just resend all messages we can
-		DEBUG_LOG(("Message Info: resending container from haveSent, msgId %1").arg(msgId));
-		const mtpMsgId *ids = (const mtpMsgId *)(request->constData() + 8);
-		for (uint32 i = 0, l = (request->size() - 8) >> 1; i < l; ++i) {
-			resend(ids[i], 10, true);
-		}
-		return 0xFFFFFFFF;
-	} else if (!request.isStateRequest()) {
-		request->msDate = forceContainer ? 0 : getms(true);
-		sendPrepared(request, msCanWait, false);
-		{
-			QWriteLocker locker(data.toResendMutex());
-			data.toResendMap().insert(msgId, request->requestId);
-		}
-		return request->requestId;
-	} else {
-		return 0;
-	}
-}
 */
 func (c *session) onMsgsStateInfo(gatewayId string, msgId *inboxMsg, request *mtproto.TLMsgsStateInfo) {
 	logx.Infof("onMsgsStateInfo - request data: {sess: %s, gatewayId: %s, md: %s, msg_id: %d, seq_no: %d, request: {%s}}",
@@ -780,7 +782,7 @@ func (c *session) onMsgNewDetailInfo(gatewayId string, msgId *inboxMsg, request 
 	// NOTE(@benqi): not received by server
 }
 
-///////////////////////////////////////////////////////////////////////////////////////////////////////////
+// /////////////////////////////////////////////////////////////////////////////////////////////////////////
 func (c *session) notifyMsgsStateInfo(gatewayId string, inMsg *inboxMsg) {
 	// TODO(@benqi): if aced and < resendSize, send rsp.
 	msgsStateInfo := mtproto.MakeTLMsgsStateInfo(&mtproto.MsgsStateInfo{
@@ -817,7 +819,6 @@ func (c *session) notifyMsgsAllInfo() {
 // Currently, status is always zero. This may change in future.
 //
 // This message does not require an acknowledgment.
-//
 func (c *session) notifyMsgDetailedInfo(inMsg *inboxMsg) {
 }
 

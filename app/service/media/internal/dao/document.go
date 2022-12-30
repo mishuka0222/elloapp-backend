@@ -23,11 +23,11 @@ import (
 	"fmt"
 	"time"
 
-	"github.com/teamgram/marmota/pkg/hack"
-	"github.com/teamgram/marmota/pkg/stores/sqlc"
-	"github.com/teamgram/marmota/pkg/stores/sqlx"
-	"github.com/teamgram/proto/mtproto"
-	"github.com/teamgram/teamgram-server/app/service/media/internal/dal/dataobject"
+	"gitlab.com/merehead/elloapp/backend/elloapp_backend/app/service/media/internal/dal/dataobject"
+	"gitlab.com/merehead/elloapp/backend/elloapp_backend/mtproto"
+	"gitlab.com/merehead/elloapp/backend/elloapp_backend/pkg2/hack"
+	"gitlab.com/merehead/elloapp/backend/elloapp_backend/pkg2/stores/sqlc"
+	"gitlab.com/merehead/elloapp/backend/elloapp_backend/pkg2/stores/sqlx"
 
 	"github.com/zeromicro/go-zero/core/jsonx"
 	"github.com/zeromicro/go-zero/core/logx"
@@ -44,6 +44,7 @@ func genCacheDocumentKey(id int64) string {
 
 /*
 document#1e87342b flags:#
+
 	id:long
 	access_hash:long
 	file_reference:bytes

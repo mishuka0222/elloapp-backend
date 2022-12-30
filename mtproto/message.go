@@ -25,7 +25,7 @@ import (
 	"fmt"
 	"reflect"
 
-	"github.com/teamgram/proto/mtproto/crypto"
+	"gitlab.com/merehead/elloapp/backend/elloapp_backend/mtproto/crypto"
 )
 
 const (

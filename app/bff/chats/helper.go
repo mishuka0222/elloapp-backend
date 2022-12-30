@@ -11,9 +11,9 @@
 package chats_helper
 
 import (
-	"github.com/teamgram/teamgram-server/app/bff/chats/internal/config"
-	"github.com/teamgram/teamgram-server/app/bff/chats/internal/server/grpc/service"
-	"github.com/teamgram/teamgram-server/app/bff/chats/internal/svc"
+	"gitlab.com/merehead/elloapp/backend/elloapp_backend/app/bff/chats/internal/config"
+	"gitlab.com/merehead/elloapp/backend/elloapp_backend/app/bff/chats/internal/server/grpc/service"
+	"gitlab.com/merehead/elloapp/backend/elloapp_backend/app/bff/chats/internal/svc"
 )
 
 type (

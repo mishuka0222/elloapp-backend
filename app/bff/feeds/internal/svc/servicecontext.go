@@ -1,9 +1,9 @@
 package svc
 
 import (
-	"github.com/teamgram/teamgram-server/app/bff/feeds/internal/config"
-	"github.com/teamgram/teamgram-server/app/bff/feeds/internal/dao"
-	messages_helper "github.com/teamgram/teamgram-server/app/bff/messages"
+	"gitlab.com/merehead/elloapp/backend/elloapp_backend/app/bff/feeds/internal/config"
+	"gitlab.com/merehead/elloapp/backend/elloapp_backend/app/bff/feeds/internal/dao"
+	messages_helper "gitlab.com/merehead/elloapp/backend/elloapp_backend/app/bff/messages"
 )
 
 type ServiceContext struct {

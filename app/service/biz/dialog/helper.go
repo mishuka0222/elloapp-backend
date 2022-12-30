@@ -11,11 +11,11 @@
 package dialog_helper
 
 import (
-	"github.com/teamgram/teamgram-server/app/service/biz/dialog/internal/config"
-	"github.com/teamgram/teamgram-server/app/service/biz/dialog/internal/dal/dao/mysql_dao"
-	"github.com/teamgram/teamgram-server/app/service/biz/dialog/internal/dal/dataobject"
-	"github.com/teamgram/teamgram-server/app/service/biz/dialog/internal/server/grpc/service"
-	"github.com/teamgram/teamgram-server/app/service/biz/dialog/internal/svc"
+	"gitlab.com/merehead/elloapp/backend/elloapp_backend/app/service/biz/dialog/internal/config"
+	"gitlab.com/merehead/elloapp/backend/elloapp_backend/app/service/biz/dialog/internal/dal/dao/mysql_dao"
+	"gitlab.com/merehead/elloapp/backend/elloapp_backend/app/service/biz/dialog/internal/dal/dataobject"
+	"gitlab.com/merehead/elloapp/backend/elloapp_backend/app/service/biz/dialog/internal/server/grpc/service"
+	"gitlab.com/merehead/elloapp/backend/elloapp_backend/app/service/biz/dialog/internal/svc"
 )
 
 type (

@@ -16,7 +16,7 @@ package updates
 import (
 	"fmt"
 
-	"github.com/teamgram/proto/mtproto"
+	"gitlab.com/merehead/elloapp/backend/elloapp_backend/mtproto"
 
 	"github.com/gogo/protobuf/jsonpb"
 	"github.com/gogo/protobuf/types"
@@ -174,7 +174,7 @@ func (m *TLChannelDifference) To_ChannelDifference() *ChannelDifference {
 	return m.Data2
 }
 
-//// flags
+// // flags
 func (m *TLChannelDifference) SetFinal(v bool) { m.Data2.Final = v }
 func (m *TLChannelDifference) GetFinal() bool  { return m.Data2.Final }
 

@@ -18,12 +18,12 @@ import (
 	"math/rand"
 	"time"
 
-	"github.com/teamgram/marmota/pkg/bytes2"
-	"github.com/teamgram/proto/mtproto"
-	"github.com/teamgram/teamgram-server/app/service/dfs/dfs"
-	"github.com/teamgram/teamgram-server/app/service/dfs/internal/dao"
-	"github.com/teamgram/teamgram-server/app/service/dfs/internal/imaging"
-	"github.com/teamgram/teamgram-server/app/service/dfs/internal/model"
+	"gitlab.com/merehead/elloapp/backend/elloapp_backend/app/service/dfs/dfs"
+	"gitlab.com/merehead/elloapp/backend/elloapp_backend/app/service/dfs/internal/dao"
+	"gitlab.com/merehead/elloapp/backend/elloapp_backend/app/service/dfs/internal/imaging"
+	"gitlab.com/merehead/elloapp/backend/elloapp_backend/app/service/dfs/internal/model"
+	"gitlab.com/merehead/elloapp/backend/elloapp_backend/mtproto"
+	"gitlab.com/merehead/elloapp/backend/elloapp_backend/pkg2/bytes2"
 )
 
 // DfsUploadWallPaperFile

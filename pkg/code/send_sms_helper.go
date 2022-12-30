@@ -21,8 +21,8 @@ package code
 import (
 	"context"
 
-	"github.com/teamgram/teamgram-server/pkg/code/conf"
-	"github.com/teamgram/teamgram-server/pkg/code/none"
+	"gitlab.com/merehead/elloapp/backend/elloapp_backend/pkg/code/conf"
+	"gitlab.com/merehead/elloapp/backend/elloapp_backend/pkg/code/none"
 )
 
 type VerifyCodeInterface interface {

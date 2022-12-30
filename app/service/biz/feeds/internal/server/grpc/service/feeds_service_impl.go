@@ -2,8 +2,8 @@ package service
 
 import (
 	"context"
-	"github.com/teamgram/teamgram-server/app/service/biz/feeds/feeds"
-	"github.com/teamgram/teamgram-server/app/service/biz/feeds/internal/core"
+	"gitlab.com/merehead/elloapp/backend/elloapp_backend/app/service/biz/feeds/feeds"
+	"gitlab.com/merehead/elloapp/backend/elloapp_backend/app/service/biz/feeds/internal/core"
 )
 
 // FeedsGetFeedList

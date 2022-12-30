@@ -19,10 +19,10 @@
 package config
 
 import (
-	kafka "github.com/teamgram/marmota/pkg/mq"
-	"github.com/teamgram/teamgram-server/pkg/code/conf"
 	"github.com/zeromicro/go-zero/core/stores/kv"
 	"github.com/zeromicro/go-zero/zrpc"
+	"gitlab.com/merehead/elloapp/backend/elloapp_backend/pkg/code/conf"
+	kafka "gitlab.com/merehead/elloapp/backend/elloapp_backend/pkg2/mq"
 )
 
 type Config struct {

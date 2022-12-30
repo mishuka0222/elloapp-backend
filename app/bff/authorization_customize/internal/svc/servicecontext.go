@@ -1,9 +1,9 @@
 package svc
 
 import (
-	"github.com/teamgram/teamgram-server/app/bff/authorization"
-	"github.com/teamgram/teamgram-server/app/bff/authorization_customize/internal/config"
-	"github.com/teamgram/teamgram-server/app/bff/authorization_customize/internal/dao"
+	"gitlab.com/merehead/elloapp/backend/elloapp_backend/app/bff/authorization"
+	"gitlab.com/merehead/elloapp/backend/elloapp_backend/app/bff/authorization_customize/internal/config"
+	"gitlab.com/merehead/elloapp/backend/elloapp_backend/app/bff/authorization_customize/internal/dao"
 )
 
 type ServiceContext struct {

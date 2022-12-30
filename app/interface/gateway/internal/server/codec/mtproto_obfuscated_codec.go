@@ -21,8 +21,8 @@ package codec
 import (
 	"io"
 
-	"github.com/teamgram/marmota/pkg/net2"
-	"github.com/teamgram/proto/mtproto/crypto"
+	"gitlab.com/merehead/elloapp/backend/elloapp_backend/mtproto/crypto"
+	"gitlab.com/merehead/elloapp/backend/elloapp_backend/pkg2/net2"
 
 	log "github.com/zeromicro/go-zero/core/logx"
 )

@@ -23,7 +23,7 @@ import (
 	"fmt"
 	"time"
 
-	"github.com/teamgram/proto/mtproto"
+	"gitlab.com/merehead/elloapp/backend/elloapp_backend/mtproto"
 
 	"github.com/zeromicro/go-zero/core/logx"
 )
@@ -96,7 +96,7 @@ func (c serverIdCtx) Equal(id string) bool {
 	return c.gatewayId == id
 }
 
-//////////////////////////////////////////////////////////////////////////////////////////////////////////
+// ////////////////////////////////////////////////////////////////////////////////////////////////////////
 type sessionCallback interface {
 	getCacheSalt() *mtproto.TLFutureSalt
 
@@ -126,7 +126,8 @@ type sessionCallback interface {
 	trySetOffline()
 }
 
-/** tdesktop's SessionData:
+/*
+* tdesktop's SessionData:
 
 PreRequestMap _toSend; // map of request_id -> request, that is waiting to be sent
 RequestMap _haveSent; // map of msg_id -> request, that was sent, msDate = 0 for msgs_state_req (no resend / state req), msDate = 0, seqNo = 0 for containers
@@ -137,7 +138,6 @@ QMap<mtpMsgId, bool> _stateRequest; // set of msg_id's, whose state should be re
 
 QMap<mtpRequestId, SerializedMessage> _receivedResponses; // map of request_id -> response that should be processed in the main thread
 QList<SerializedMessage> _receivedUpdates; // list of updates that should be processed in the main thread
-
 */
 type session struct {
 	sessionId       int64
@@ -458,7 +458,7 @@ func (c *session) sessionClosed() bool {
 	return c.connState == kStateClose
 }
 
-//============================================================================================
+// ============================================================================================
 // return false, will delete this clientSession
 func (c *session) onTimer() bool {
 	date := time.Now().Unix()
@@ -501,7 +501,7 @@ func (c *session) onTimer() bool {
 	return true
 }
 
-//============================================================================================
+// ============================================================================================
 func (c *session) encodeMessage(messageId int64, confirm bool, tl mtproto.TLObject) ([]byte, error) {
 	salt := c.cb.getCacheSalt().GetSalt()
 	seqNo := c.generateMessageSeqNo(confirm)

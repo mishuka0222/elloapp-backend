@@ -11,7 +11,7 @@
 package sync_helper
 
 import (
-	"github.com/teamgram/teamgram-server/app/messenger/sync/internal/server"
+	"gitlab.com/merehead/elloapp/backend/elloapp_backend/app/messenger/sync/internal/server"
 )
 
 var (

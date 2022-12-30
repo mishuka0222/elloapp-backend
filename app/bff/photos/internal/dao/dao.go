@@ -21,10 +21,10 @@ package dao
 import (
 	kafka "github.com/teamgram/marmota/pkg/mq"
 	"github.com/teamgram/marmota/pkg/net/rpcx"
-	"github.com/teamgram/teamgram-server/app/bff/photos/internal/config"
-	sync_client "github.com/teamgram/teamgram-server/app/messenger/sync/client"
-	user_client "github.com/teamgram/teamgram-server/app/service/biz/user/client"
-	media_client "github.com/teamgram/teamgram-server/app/service/media/client"
+	"gitlab.com/merehead/elloapp/backend/elloapp_backend/app/bff/photos/internal/config"
+	sync_client "gitlab.com/merehead/elloapp/backend/elloapp_backend/app/messenger/sync/client"
+	user_client "gitlab.com/merehead/elloapp/backend/elloapp_backend/app/service/biz/user/client"
+	media_client "gitlab.com/merehead/elloapp/backend/elloapp_backend/app/service/media/client"
 )
 
 type Dao struct {

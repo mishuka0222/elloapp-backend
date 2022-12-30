@@ -14,7 +14,7 @@ import (
 	"context"
 
 	"github.com/teamgram/proto/mtproto"
-	"github.com/teamgram/teamgram-server/app/interface/session/session"
+	"gitlab.com/merehead/elloapp/backend/elloapp_backend/app/interface/session/session"
 
 	"github.com/zeromicro/go-zero/zrpc"
 )

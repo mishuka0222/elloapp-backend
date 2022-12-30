@@ -12,9 +12,9 @@ import (
 	"strconv"
 	"strings"
 
-	"github.com/teamgram/teamgram-server/pkg/goffmpeg/ffmpeg"
-	"github.com/teamgram/teamgram-server/pkg/goffmpeg/models"
-	"github.com/teamgram/teamgram-server/pkg/goffmpeg/utils"
+	"gitlab.com/merehead/elloapp/backend/elloapp_backend/pkg/goffmpeg/ffmpeg"
+	"gitlab.com/merehead/elloapp/backend/elloapp_backend/pkg/goffmpeg/models"
+	"gitlab.com/merehead/elloapp/backend/elloapp_backend/pkg/goffmpeg/utils"
 )
 
 // Transcoder Main struct

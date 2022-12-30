@@ -14,13 +14,13 @@ import (
 
 	"github.com/teamgram/proto/mtproto"
 	"github.com/teamgram/proto/mtproto/rpc/metadata"
-	"github.com/teamgram/teamgram-server/app/messenger/sync/sync"
-	"github.com/teamgram/teamgram-server/app/service/biz/dialog/dialog"
-	userpb "github.com/teamgram/teamgram-server/app/service/biz/user/user"
-	"github.com/teamgram/teamgram-server/app/service/biz/username/username"
-	mediapb "github.com/teamgram/teamgram-server/app/service/media/media"
-	"github.com/teamgram/teamgram-server/pkg/mention"
-	"github.com/teamgram/teamgram-server/pkg/phonenumber"
+	"gitlab.com/merehead/elloapp/backend/elloapp_backend/app/messenger/sync/sync"
+	"gitlab.com/merehead/elloapp/backend/elloapp_backend/app/service/biz/dialog/dialog"
+	userpb "gitlab.com/merehead/elloapp/backend/elloapp_backend/app/service/biz/user/user"
+	"gitlab.com/merehead/elloapp/backend/elloapp_backend/app/service/biz/username/username"
+	mediapb "gitlab.com/merehead/elloapp/backend/elloapp_backend/app/service/media/media"
+	"gitlab.com/merehead/elloapp/backend/elloapp_backend/pkg/mention"
+	"gitlab.com/merehead/elloapp/backend/elloapp_backend/pkg/phonenumber"
 
 	"mvdan.cc/xurls/v2"
 )
@@ -257,7 +257,6 @@ func (c *MessagesCore) makeMediaByInputMedia(media *mtproto.InputMedia) (message
 }
 
 // TODO(@benqi): mention...
-//
 func (c *MessagesCore) fixMessageEntities(fromId int64, peer *mtproto.PeerUtil, noWebpage bool, message *mtproto.Message, hasBot bool) (*mtproto.Message, error) {
 	var (
 		entities mtproto.MessageEntitySlice

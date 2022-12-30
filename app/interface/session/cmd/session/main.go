@@ -12,7 +12,7 @@ package main
 
 import (
 	"github.com/teamgram/marmota/pkg/commands"
-	session_helper "github.com/teamgram/teamgram-server/app/interface/session"
+	session_helper "gitlab.com/merehead/elloapp/backend/elloapp_backend/app/interface/session"
 )
 
 func main() {

@@ -12,7 +12,7 @@ package main
 
 import (
 	"github.com/teamgram/marmota/pkg/commands"
-	dfs_helper "github.com/teamgram/teamgram-server/app/service/dfs"
+	dfs_helper "gitlab.com/merehead/elloapp/backend/elloapp_backend/app/service/dfs"
 )
 
 func main() {

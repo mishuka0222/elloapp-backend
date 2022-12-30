@@ -6,9 +6,9 @@ import (
 	"errors"
 	"fmt"
 	"github.com/teamgram/marmota/pkg/stores/sqlx"
-	"github.com/teamgram/teamgram-server/app/service/biz/feeds/feeds"
-	"github.com/teamgram/teamgram-server/app/service/biz/feeds/internal/dao/dataobject"
 	"github.com/zeromicro/go-zero/core/logx"
+	"gitlab.com/merehead/elloapp/backend/elloapp_backend/app/service/biz/feeds/feeds"
+	"gitlab.com/merehead/elloapp/backend/elloapp_backend/app/service/biz/feeds/internal/dao/dataobject"
 	"strings"
 )
 

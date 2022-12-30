@@ -12,9 +12,9 @@ package dao
 import (
 	"github.com/teamgram/marmota/pkg/stores/sqlc"
 	"github.com/teamgram/marmota/pkg/stores/sqlx"
-	dfs_client "github.com/teamgram/teamgram-server/app/service/dfs/client"
-	"github.com/teamgram/teamgram-server/app/service/media/internal/config"
 	"github.com/zeromicro/go-zero/zrpc"
+	dfs_client "gitlab.com/merehead/elloapp/backend/elloapp_backend/app/service/dfs/client"
+	"gitlab.com/merehead/elloapp/backend/elloapp_backend/app/service/media/internal/config"
 )
 
 type Dao struct {

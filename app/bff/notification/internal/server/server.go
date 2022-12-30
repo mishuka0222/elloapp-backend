@@ -21,9 +21,9 @@ package server
 import (
 	"flag"
 
-	"github.com/teamgram/teamgram-server/app/bff/notification/internal/config"
-	"github.com/teamgram/teamgram-server/app/bff/notification/internal/server/grpc"
-	"github.com/teamgram/teamgram-server/app/bff/notification/internal/svc"
+	"gitlab.com/merehead/elloapp/backend/elloapp_backend/app/bff/notification/internal/config"
+	"gitlab.com/merehead/elloapp/backend/elloapp_backend/app/bff/notification/internal/server/grpc"
+	"gitlab.com/merehead/elloapp/backend/elloapp_backend/app/bff/notification/internal/svc"
 
 	"github.com/zeromicro/go-zero/core/conf"
 	"github.com/zeromicro/go-zero/core/logx"

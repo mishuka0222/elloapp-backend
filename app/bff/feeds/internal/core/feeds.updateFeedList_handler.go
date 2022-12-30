@@ -2,8 +2,8 @@ package core
 
 import (
 	"encoding/json"
-	"github.com/teamgram/teamgram-server/app/service/biz/feeds/feeds"
-	"github.com/teamgram/teamgram-server/mtproto/rpc/metadata"
+	"gitlab.com/merehead/elloapp/backend/elloapp_backend/app/service/biz/feeds/feeds"
+	"gitlab.com/merehead/elloapp/backend/elloapp_backend/mtproto/rpc/metadata"
 )
 
 // UpdateFeedList

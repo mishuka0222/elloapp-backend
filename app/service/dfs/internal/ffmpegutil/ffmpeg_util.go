@@ -26,9 +26,9 @@ import (
 	"math"
 	"sync"
 
-	"github.com/teamgram/teamgram-server/pkg/goffmpeg/models"
-	"github.com/teamgram/teamgram-server/pkg/goffmpeg/transcoder"
-	"github.com/teamgram/teamgram-server/pkg/goffmpeg/utils"
+	"gitlab.com/merehead/elloapp/backend/elloapp_backend/pkg/goffmpeg/models"
+	"gitlab.com/merehead/elloapp/backend/elloapp_backend/pkg/goffmpeg/transcoder"
+	"gitlab.com/merehead/elloapp/backend/elloapp_backend/pkg/goffmpeg/utils"
 
 	"github.com/zeromicro/go-zero/core/logx"
 )

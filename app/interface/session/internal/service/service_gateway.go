@@ -22,8 +22,8 @@ import (
 	"context"
 
 	"github.com/teamgram/proto/mtproto"
-	sessionpb "github.com/teamgram/teamgram-server/app/interface/session/session"
-	"github.com/teamgram/teamgram-server/app/service/authsession/authsession"
+	sessionpb "gitlab.com/merehead/elloapp/backend/elloapp_backend/app/interface/session/session"
+	"gitlab.com/merehead/elloapp/backend/elloapp_backend/app/service/authsession/authsession"
 
 	"github.com/zeromicro/go-zero/core/logx"
 )

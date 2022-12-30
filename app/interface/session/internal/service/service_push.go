@@ -22,7 +22,7 @@ import (
 	"context"
 
 	"github.com/teamgram/proto/mtproto"
-	sessionpb "github.com/teamgram/teamgram-server/app/interface/session/session"
+	sessionpb "gitlab.com/merehead/elloapp/backend/elloapp_backend/app/interface/session/session"
 
 	"github.com/zeromicro/go-zero/core/logx"
 )

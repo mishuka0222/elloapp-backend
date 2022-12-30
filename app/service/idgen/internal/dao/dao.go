@@ -13,8 +13,8 @@ import (
 	"log"
 
 	"github.com/bwmarrin/snowflake"
-	"github.com/teamgram/teamgram-server/app/service/idgen/internal/config"
 	"github.com/zeromicro/go-zero/core/stores/kv"
+	"gitlab.com/merehead/elloapp/backend/elloapp_backend/app/service/idgen/internal/config"
 )
 
 type Dao struct {

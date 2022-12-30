@@ -14,8 +14,8 @@ import (
 	"context"
 
 	"github.com/teamgram/proto/mtproto"
-	"github.com/teamgram/teamgram-server/app/messenger/msg/msg/internal/core"
-	"github.com/teamgram/teamgram-server/app/messenger/msg/msg/msg"
+	"gitlab.com/merehead/elloapp/backend/elloapp_backend/app/messenger/msg/msg/internal/core"
+	"gitlab.com/merehead/elloapp/backend/elloapp_backend/app/messenger/msg/msg/msg"
 )
 
 // MsgSendMessage

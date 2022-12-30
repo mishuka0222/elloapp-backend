@@ -9,8 +9,8 @@ package main
 import (
 	"context"
 
-	username_client "github.com/teamgram/teamgram-server/app/service/biz/username/client"
-	"github.com/teamgram/teamgram-server/app/service/biz/username/username"
+	username_client "gitlab.com/merehead/elloapp/backend/elloapp_backend/app/service/biz/username/client"
+	"gitlab.com/merehead/elloapp/backend/elloapp_backend/app/service/biz/username/username"
 
 	"github.com/zeromicro/go-zero/core/conf"
 	"github.com/zeromicro/go-zero/core/logx"

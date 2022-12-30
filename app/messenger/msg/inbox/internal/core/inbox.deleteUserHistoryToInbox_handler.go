@@ -20,8 +20,8 @@ package core
 
 import (
 	"github.com/teamgram/proto/mtproto"
-	"github.com/teamgram/teamgram-server/app/messenger/msg/inbox/inbox"
-	"github.com/teamgram/teamgram-server/app/messenger/sync/sync"
+	"gitlab.com/merehead/elloapp/backend/elloapp_backend/app/messenger/msg/inbox/inbox"
+	"gitlab.com/merehead/elloapp/backend/elloapp_backend/app/messenger/sync/sync"
 )
 
 // InboxDeleteUserHistoryToInbox

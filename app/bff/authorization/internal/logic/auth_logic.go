@@ -24,10 +24,10 @@ import (
 	"time"
 
 	"github.com/teamgram/proto/mtproto"
-	"github.com/teamgram/teamgram-server/app/bff/authorization/internal/dao"
-	"github.com/teamgram/teamgram-server/app/bff/authorization/internal/model"
-	"github.com/teamgram/teamgram-server/pkg/code"
 	"github.com/zeromicro/go-zero/core/logx"
+	"gitlab.com/merehead/elloapp/backend/elloapp_backend/app/bff/authorization/internal/dao"
+	"gitlab.com/merehead/elloapp/backend/elloapp_backend/app/bff/authorization/internal/model"
+	"gitlab.com/merehead/elloapp/backend/elloapp_backend/pkg/code"
 )
 
 type AuthLogic struct {

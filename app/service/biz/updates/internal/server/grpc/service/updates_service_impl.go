@@ -14,8 +14,8 @@ import (
 	"context"
 
 	"github.com/teamgram/proto/mtproto"
-	"github.com/teamgram/teamgram-server/app/service/biz/updates/internal/core"
-	"github.com/teamgram/teamgram-server/app/service/biz/updates/updates"
+	"gitlab.com/merehead/elloapp/backend/elloapp_backend/app/service/biz/updates/internal/core"
+	"gitlab.com/merehead/elloapp/backend/elloapp_backend/app/service/biz/updates/updates"
 )
 
 // UpdatesGetState

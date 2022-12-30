@@ -11,8 +11,8 @@ package core
 
 import (
 	"github.com/teamgram/proto/mtproto"
-	"github.com/teamgram/teamgram-server/app/service/biz/message/internal/dal/dataobject"
-	"github.com/teamgram/teamgram-server/app/service/biz/message/message"
+	"gitlab.com/merehead/elloapp/backend/elloapp_backend/app/service/biz/message/internal/dal/dataobject"
+	"gitlab.com/merehead/elloapp/backend/elloapp_backend/app/service/biz/message/message"
 )
 
 // MessageGetUserMessageListByDataIdList

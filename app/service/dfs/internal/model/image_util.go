@@ -23,7 +23,7 @@ import (
 	"strings"
 
 	"github.com/teamgram/proto/mtproto"
-	// "github.com/teamgram/teamgram-server/model"
+	// "gitlab.com/merehead/elloapp/backend/elloapp_backend/model"
 )
 
 func GetFileExtName(filePath string) string {

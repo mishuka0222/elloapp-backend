@@ -23,15 +23,15 @@ import (
 	"github.com/oschwald/geoip2-golang"
 	kafka "github.com/teamgram/marmota/pkg/mq"
 	"github.com/teamgram/marmota/pkg/net/rpcx"
-	"github.com/teamgram/teamgram-server/app/bff/authorization/internal/config"
-	msg_client "github.com/teamgram/teamgram-server/app/messenger/msg/msg/client"
-	sync_client "github.com/teamgram/teamgram-server/app/messenger/sync/client"
-	authsession_client "github.com/teamgram/teamgram-server/app/service/authsession/client"
-	chat_client "github.com/teamgram/teamgram-server/app/service/biz/chat/client"
-	user_client "github.com/teamgram/teamgram-server/app/service/biz/user/client"
-	username_client "github.com/teamgram/teamgram-server/app/service/biz/username/client"
-	status_client "github.com/teamgram/teamgram-server/app/service/status/client"
 	"github.com/zeromicro/go-zero/core/stores/kv"
+	"gitlab.com/merehead/elloapp/backend/elloapp_backend/app/bff/authorization/internal/config"
+	msg_client "gitlab.com/merehead/elloapp/backend/elloapp_backend/app/messenger/msg/msg/client"
+	sync_client "gitlab.com/merehead/elloapp/backend/elloapp_backend/app/messenger/sync/client"
+	authsession_client "gitlab.com/merehead/elloapp/backend/elloapp_backend/app/service/authsession/client"
+	chat_client "gitlab.com/merehead/elloapp/backend/elloapp_backend/app/service/biz/chat/client"
+	user_client "gitlab.com/merehead/elloapp/backend/elloapp_backend/app/service/biz/user/client"
+	username_client "gitlab.com/merehead/elloapp/backend/elloapp_backend/app/service/biz/username/client"
+	status_client "gitlab.com/merehead/elloapp/backend/elloapp_backend/app/service/status/client"
 )
 
 var (

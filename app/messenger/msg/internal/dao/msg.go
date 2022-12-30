@@ -23,7 +23,7 @@ import (
 	"github.com/zeromicro/go-zero/core/logx"
 
 	"github.com/teamgram/proto/mtproto"
-	"github.com/teamgram/teamgram-server/app/messenger/msg/internal/dal/dataobject"
+	"gitlab.com/merehead/elloapp/backend/elloapp_backend/app/messenger/msg/internal/dal/dataobject"
 
 	"github.com/zeromicro/go-zero/core/jsonx"
 )

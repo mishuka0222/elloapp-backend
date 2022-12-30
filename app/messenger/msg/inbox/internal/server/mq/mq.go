@@ -25,9 +25,9 @@ import (
 	"strings"
 
 	kafka "github.com/teamgram/marmota/pkg/mq"
-	"github.com/teamgram/teamgram-server/app/messenger/msg/inbox/inbox"
-	"github.com/teamgram/teamgram-server/app/messenger/msg/inbox/internal/core"
-	"github.com/teamgram/teamgram-server/app/messenger/msg/inbox/internal/svc"
+	"gitlab.com/merehead/elloapp/backend/elloapp_backend/app/messenger/msg/inbox/inbox"
+	"gitlab.com/merehead/elloapp/backend/elloapp_backend/app/messenger/msg/inbox/internal/core"
+	"gitlab.com/merehead/elloapp/backend/elloapp_backend/app/messenger/msg/inbox/internal/svc"
 
 	"github.com/gogo/protobuf/proto"
 	"github.com/zeromicro/go-zero/core/logx"

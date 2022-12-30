@@ -12,7 +12,7 @@ import (
 	"time"
 
 	"github.com/teamgram/proto/mtproto"
-	"github.com/teamgram/teamgram-server/app/messenger/sync/internal/dal/dataobject"
+	"gitlab.com/merehead/elloapp/backend/elloapp_backend/app/messenger/sync/internal/dal/dataobject"
 )
 
 func (d *Dao) AddSeqToUpdatesQueue(ctx context.Context, authId, userId int64, updateType int32, updateData []byte) int32 {

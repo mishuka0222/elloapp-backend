@@ -2,7 +2,7 @@ package core
 
 import (
 	"errors"
-	"github.com/teamgram/teamgram-server/app/service/biz/authorization/authorization"
+	"gitlab.com/merehead/elloapp/backend/elloapp_backend/app/service/biz/authorization/authorization"
 )
 
 // AuthSingUP

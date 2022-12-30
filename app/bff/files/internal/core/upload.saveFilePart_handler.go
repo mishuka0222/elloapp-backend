@@ -20,7 +20,7 @@ package core
 
 import (
 	"github.com/teamgram/proto/mtproto"
-	"github.com/teamgram/teamgram-server/app/service/dfs/dfs"
+	"gitlab.com/merehead/elloapp/backend/elloapp_backend/app/service/dfs/dfs"
 )
 
 // UploadSaveFilePart

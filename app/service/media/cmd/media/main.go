@@ -13,7 +13,7 @@ package main
 import (
 	"github.com/teamgram/marmota/pkg/commands"
 
-	"github.com/teamgram/teamgram-server/app/service/media/internal/server"
+	"gitlab.com/merehead/elloapp/backend/elloapp_backend/app/service/media/internal/server"
 )
 
 func main() {

@@ -12,8 +12,8 @@ package core
 import (
 	"github.com/gogo/protobuf/types"
 	"github.com/teamgram/proto/mtproto"
-	"github.com/teamgram/teamgram-server/app/service/biz/user/internal/dal/dataobject"
-	"github.com/teamgram/teamgram-server/app/service/biz/user/user"
+	"gitlab.com/merehead/elloapp/backend/elloapp_backend/app/service/biz/user/internal/dal/dataobject"
+	"gitlab.com/merehead/elloapp/backend/elloapp_backend/app/service/biz/user/user"
 )
 
 func makePeerNotifySettingsByDO(do *dataobject.UserNotifySettingsDO) (settings *mtproto.PeerNotifySettings) {

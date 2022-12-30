@@ -12,8 +12,8 @@ package core
 import (
 	"context"
 	"github.com/teamgram/proto/mtproto/rpc/metadata"
-	"github.com/teamgram/teamgram-server/app/service/biz/authorization/internal/svc"
 	"github.com/zeromicro/go-zero/core/logx"
+	"gitlab.com/merehead/elloapp/backend/elloapp_backend/app/service/biz/authorization/internal/svc"
 )
 
 type AuthorizationCore struct {

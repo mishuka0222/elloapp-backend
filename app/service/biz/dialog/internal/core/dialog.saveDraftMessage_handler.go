@@ -12,8 +12,8 @@ package core
 import (
 	"github.com/teamgram/marmota/pkg/hack"
 	"github.com/teamgram/proto/mtproto"
-	"github.com/teamgram/teamgram-server/app/service/biz/dialog/dialog"
 	"github.com/zeromicro/go-zero/core/jsonx"
+	"gitlab.com/merehead/elloapp/backend/elloapp_backend/app/service/biz/dialog/dialog"
 )
 
 // DialogSaveDraftMessage

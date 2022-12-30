@@ -10,8 +10,8 @@
 package svc
 
 import (
-	"github.com/teamgram/teamgram-server/app/service/biz/updates/internal/config"
-	"github.com/teamgram/teamgram-server/app/service/biz/updates/internal/dao"
+	"gitlab.com/merehead/elloapp/backend/elloapp_backend/app/service/biz/updates/internal/config"
+	"gitlab.com/merehead/elloapp/backend/elloapp_backend/app/service/biz/updates/internal/dao"
 )
 
 type ServiceContext struct {

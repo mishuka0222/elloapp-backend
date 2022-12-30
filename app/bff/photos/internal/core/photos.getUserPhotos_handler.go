@@ -20,8 +20,8 @@ package core
 
 import (
 	"github.com/teamgram/proto/mtproto"
-	userpb "github.com/teamgram/teamgram-server/app/service/biz/user/user"
-	mediapb "github.com/teamgram/teamgram-server/app/service/media/media"
+	userpb "gitlab.com/merehead/elloapp/backend/elloapp_backend/app/service/biz/user/user"
+	mediapb "gitlab.com/merehead/elloapp/backend/elloapp_backend/app/service/media/media"
 )
 
 // PhotosGetUserPhotos

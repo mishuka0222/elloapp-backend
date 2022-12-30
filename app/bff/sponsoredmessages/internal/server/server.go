@@ -21,9 +21,9 @@ package server
 import (
 	"flag"
 
-	"github.com/teamgram/teamgram-server/app/bff/sponsoredmessages/internal/config"
-	"github.com/teamgram/teamgram-server/app/bff/sponsoredmessages/internal/server/grpc"
-	"github.com/teamgram/teamgram-server/app/bff/sponsoredmessages/internal/svc"
+	"gitlab.com/merehead/elloapp/backend/elloapp_backend/app/bff/sponsoredmessages/internal/config"
+	"gitlab.com/merehead/elloapp/backend/elloapp_backend/app/bff/sponsoredmessages/internal/server/grpc"
+	"gitlab.com/merehead/elloapp/backend/elloapp_backend/app/bff/sponsoredmessages/internal/svc"
 
 	"github.com/zeromicro/go-zero/core/conf"
 	"github.com/zeromicro/go-zero/core/logx"

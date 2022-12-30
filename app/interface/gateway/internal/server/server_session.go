@@ -21,7 +21,7 @@ package server
 import (
 	"context"
 	"github.com/teamgram/proto/mtproto"
-	"github.com/teamgram/teamgram-server/app/interface/gateway/gateway"
+	"gitlab.com/merehead/elloapp/backend/elloapp_backend/app/interface/gateway/gateway"
 
 	"github.com/zeromicro/go-zero/core/logx"
 )

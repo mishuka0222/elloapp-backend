@@ -12,8 +12,8 @@ package grpc
 
 import (
 	"github.com/teamgram/proto/mtproto"
-	"github.com/teamgram/teamgram-server/app/bff/tos/internal/server/grpc/service"
-	"github.com/teamgram/teamgram-server/app/bff/tos/internal/svc"
+	"gitlab.com/merehead/elloapp/backend/elloapp_backend/app/bff/tos/internal/server/grpc/service"
+	"gitlab.com/merehead/elloapp/backend/elloapp_backend/app/bff/tos/internal/svc"
 
 	"github.com/zeromicro/go-zero/core/logx"
 	"github.com/zeromicro/go-zero/zrpc"

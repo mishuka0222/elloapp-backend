@@ -24,10 +24,10 @@ import (
 	"time"
 
 	"github.com/teamgram/proto/mtproto"
-	"github.com/teamgram/teamgram-server/app/bff/qrcode/internal/model"
-	"github.com/teamgram/teamgram-server/app/messenger/sync/sync"
-	"github.com/teamgram/teamgram-server/app/service/authsession/authsession"
-	userpb "github.com/teamgram/teamgram-server/app/service/biz/user/user"
+	"gitlab.com/merehead/elloapp/backend/elloapp_backend/app/bff/qrcode/internal/model"
+	"gitlab.com/merehead/elloapp/backend/elloapp_backend/app/messenger/sync/sync"
+	"gitlab.com/merehead/elloapp/backend/elloapp_backend/app/service/authsession/authsession"
+	userpb "gitlab.com/merehead/elloapp/backend/elloapp_backend/app/service/biz/user/user"
 )
 
 // AuthAcceptLoginToken

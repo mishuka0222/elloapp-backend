@@ -21,7 +21,7 @@ package main
 import (
 	"fmt"
 
-	"github.com/teamgram/teamgram-server/pkg/mention"
+	"gitlab.com/merehead/elloapp/backend/elloapp_backend/pkg/mention"
 )
 
 var testRuneStr = []rune(`1) a b (@ababab)

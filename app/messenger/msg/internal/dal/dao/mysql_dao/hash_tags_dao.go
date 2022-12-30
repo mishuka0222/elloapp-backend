@@ -15,7 +15,7 @@ import (
 	"database/sql"
 
 	"github.com/teamgram/marmota/pkg/stores/sqlx"
-	"github.com/teamgram/teamgram-server/app/messenger/msg/internal/dal/dataobject"
+	"gitlab.com/merehead/elloapp/backend/elloapp_backend/app/messenger/msg/internal/dal/dataobject"
 
 	"github.com/zeromicro/go-zero/core/logx"
 )

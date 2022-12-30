@@ -14,10 +14,10 @@ import (
 
 	"github.com/teamgram/proto/mtproto"
 	"github.com/teamgram/proto/mtproto/rpc/metadata"
-	"github.com/teamgram/teamgram-server/app/interface/session/session"
-	"github.com/teamgram/teamgram-server/app/messenger/sync/internal/svc"
-	"github.com/teamgram/teamgram-server/app/messenger/sync/sync"
-	"github.com/teamgram/teamgram-server/app/service/status/status"
+	"gitlab.com/merehead/elloapp/backend/elloapp_backend/app/interface/session/session"
+	"gitlab.com/merehead/elloapp/backend/elloapp_backend/app/messenger/sync/internal/svc"
+	"gitlab.com/merehead/elloapp/backend/elloapp_backend/app/messenger/sync/sync"
+	"gitlab.com/merehead/elloapp/backend/elloapp_backend/app/service/status/status"
 
 	"github.com/zeromicro/go-zero/core/logx"
 )

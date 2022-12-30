@@ -11,9 +11,9 @@
 package photos_helper
 
 import (
-	"github.com/teamgram/teamgram-server/app/bff/photos/internal/config"
-	"github.com/teamgram/teamgram-server/app/bff/photos/internal/server/grpc/service"
-	"github.com/teamgram/teamgram-server/app/bff/photos/internal/svc"
+	"gitlab.com/merehead/elloapp/backend/elloapp_backend/app/bff/photos/internal/config"
+	"gitlab.com/merehead/elloapp/backend/elloapp_backend/app/bff/photos/internal/server/grpc/service"
+	"gitlab.com/merehead/elloapp/backend/elloapp_backend/app/bff/photos/internal/svc"
 )
 
 type (

@@ -25,8 +25,8 @@ import (
 	"sync"
 
 	"github.com/teamgram/proto/mtproto"
-	"github.com/teamgram/teamgram-server/app/interface/session/internal/config"
-	"github.com/teamgram/teamgram-server/app/interface/session/internal/dao"
+	"gitlab.com/merehead/elloapp/backend/elloapp_backend/app/interface/session/internal/config"
+	"gitlab.com/merehead/elloapp/backend/elloapp_backend/app/interface/session/internal/dao"
 
 	"github.com/zeromicro/go-zero/core/discov"
 	"github.com/zeromicro/go-zero/core/logx"

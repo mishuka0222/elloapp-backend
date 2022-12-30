@@ -21,9 +21,9 @@ package service
 import (
 	"context"
 	"github.com/teamgram/proto/mtproto"
-	"github.com/teamgram/teamgram-server/app/interface/gateway/client"
-	"github.com/teamgram/teamgram-server/app/interface/gateway/gateway"
 	"github.com/zeromicro/go-zero/zrpc"
+	"gitlab.com/merehead/elloapp/backend/elloapp_backend/app/interface/gateway/client"
+	"gitlab.com/merehead/elloapp/backend/elloapp_backend/app/interface/gateway/gateway"
 
 	"github.com/zeromicro/go-zero/core/logx"
 )

@@ -24,7 +24,7 @@ import (
 	"github.com/zeromicro/go-zero/core/logx"
 
 	"github.com/teamgram/proto/mtproto/rpc/metadata"
-	"github.com/teamgram/teamgram-server/app/bff/autodownload/internal/svc"
+	"gitlab.com/merehead/elloapp/backend/elloapp_backend/app/bff/autodownload/internal/svc"
 )
 
 type AutoDownloadCore struct {

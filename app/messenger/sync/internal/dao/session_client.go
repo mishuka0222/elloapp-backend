@@ -24,8 +24,8 @@ import (
 	"sync/atomic"
 	"time"
 
-	session_client "github.com/teamgram/teamgram-server/app/interface/session/client"
-	"github.com/teamgram/teamgram-server/app/interface/session/session"
+	session_client "gitlab.com/merehead/elloapp/backend/elloapp_backend/app/interface/session/client"
+	"gitlab.com/merehead/elloapp/backend/elloapp_backend/app/interface/session/session"
 
 	"github.com/zeromicro/go-zero/core/discov"
 	"github.com/zeromicro/go-zero/core/logx"

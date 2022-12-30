@@ -4,7 +4,7 @@ import (
 	"encoding/json"
 	"github.com/gogo/protobuf/types"
 	"github.com/teamgram/proto/mtproto"
-	"github.com/teamgram/teamgram-server/app/service/biz/feeds/feeds"
+	"gitlab.com/merehead/elloapp/backend/elloapp_backend/app/service/biz/feeds/feeds"
 	"sort"
 )
 

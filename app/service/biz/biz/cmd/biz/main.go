@@ -21,7 +21,7 @@ package main
 import (
 	"github.com/teamgram/marmota/pkg/commands"
 
-	"github.com/teamgram/teamgram-server/app/service/biz/biz/internal/server"
+	"gitlab.com/merehead/elloapp/backend/elloapp_backend/app/service/biz/biz/internal/server"
 )
 
 func main() {

@@ -1,4 +1,4 @@
-module github.com/teamgram/teamgram-server
+module gitlab.com/merehead/elloapp/backend/elloapp_backend
 
 go 1.17
 

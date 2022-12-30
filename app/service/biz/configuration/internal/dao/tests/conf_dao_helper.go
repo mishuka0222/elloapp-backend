@@ -2,8 +2,8 @@ package tests
 
 import (
 	"flag"
-	"github.com/teamgram/teamgram-server/app/service/biz/configuration/internal/config"
 	"github.com/zeromicro/go-zero/core/conf"
+	"gitlab.com/merehead/elloapp/backend/elloapp_backend/app/service/biz/configuration/internal/config"
 )
 
 var configFile = flag.String("f", "../../../etc/configuration.yaml", "the config file")

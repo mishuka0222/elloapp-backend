@@ -2,8 +2,8 @@ package dao
 
 import (
 	"github.com/teamgram/marmota/pkg/net/rpcx"
-	"github.com/teamgram/teamgram-server/app/bff/configuration/internal/config"
-	configuration_client "github.com/teamgram/teamgram-server/app/service/biz/configuration/client"
+	"gitlab.com/merehead/elloapp/backend/elloapp_backend/app/bff/configuration/internal/config"
+	configuration_client "gitlab.com/merehead/elloapp/backend/elloapp_backend/app/service/biz/configuration/client"
 )
 
 type Dao struct {

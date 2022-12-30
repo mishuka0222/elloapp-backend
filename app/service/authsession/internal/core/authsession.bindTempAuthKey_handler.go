@@ -12,7 +12,7 @@ package core
 import (
 	"github.com/teamgram/proto/mtproto"
 	"github.com/teamgram/proto/mtproto/crypto"
-	"github.com/teamgram/teamgram-server/app/service/authsession/authsession"
+	"gitlab.com/merehead/elloapp/backend/elloapp_backend/app/service/authsession/authsession"
 )
 
 /*

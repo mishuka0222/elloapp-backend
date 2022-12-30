@@ -2,7 +2,7 @@ package core
 
 import (
 	"encoding/json"
-	"github.com/teamgram/teamgram-server/app/service/biz/feeds/feeds"
+	"gitlab.com/merehead/elloapp/backend/elloapp_backend/app/service/biz/feeds/feeds"
 )
 
 // GetHistoryCounter

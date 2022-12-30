@@ -11,9 +11,9 @@
 package miscellaneous_helper
 
 import (
-	"github.com/teamgram/teamgram-server/app/bff/miscellaneous/internal/config"
-	"github.com/teamgram/teamgram-server/app/bff/miscellaneous/internal/server/grpc/service"
-	"github.com/teamgram/teamgram-server/app/bff/miscellaneous/internal/svc"
+	"gitlab.com/merehead/elloapp/backend/elloapp_backend/app/bff/miscellaneous/internal/config"
+	"gitlab.com/merehead/elloapp/backend/elloapp_backend/app/bff/miscellaneous/internal/server/grpc/service"
+	"gitlab.com/merehead/elloapp/backend/elloapp_backend/app/bff/miscellaneous/internal/svc"
 )
 
 type (

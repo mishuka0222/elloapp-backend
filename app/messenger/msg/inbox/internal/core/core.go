@@ -23,9 +23,9 @@ import (
 
 	"github.com/teamgram/proto/mtproto"
 	"github.com/teamgram/proto/mtproto/rpc/metadata"
-	"github.com/teamgram/teamgram-server/app/messenger/msg/inbox/internal/svc"
-	chatpb "github.com/teamgram/teamgram-server/app/service/biz/chat/chat"
-	userpb "github.com/teamgram/teamgram-server/app/service/biz/user/user"
+	"gitlab.com/merehead/elloapp/backend/elloapp_backend/app/messenger/msg/inbox/internal/svc"
+	chatpb "gitlab.com/merehead/elloapp/backend/elloapp_backend/app/service/biz/chat/chat"
+	userpb "gitlab.com/merehead/elloapp/backend/elloapp_backend/app/service/biz/user/user"
 
 	"github.com/zeromicro/go-zero/core/logx"
 )

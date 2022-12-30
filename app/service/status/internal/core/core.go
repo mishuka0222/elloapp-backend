@@ -14,7 +14,7 @@ import (
 	"fmt"
 
 	"github.com/teamgram/proto/mtproto/rpc/metadata"
-	"github.com/teamgram/teamgram-server/app/service/status/internal/svc"
+	"gitlab.com/merehead/elloapp/backend/elloapp_backend/app/service/status/internal/svc"
 
 	"github.com/zeromicro/go-zero/core/logx"
 )

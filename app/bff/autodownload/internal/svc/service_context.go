@@ -19,7 +19,7 @@
 package svc
 
 import (
-	"github.com/teamgram/teamgram-server/app/bff/autodownload/internal/config"
+	"gitlab.com/merehead/elloapp/backend/elloapp_backend/app/bff/autodownload/internal/config"
 )
 
 type ServiceContext struct {

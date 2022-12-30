@@ -31,8 +31,8 @@ import (
 	"github.com/teamgram/marmota/pkg/sync2"
 	"github.com/teamgram/proto/mtproto"
 	"github.com/teamgram/proto/mtproto/rpc/metadata"
-	"github.com/teamgram/teamgram-server/app/service/authsession/authsession"
-	"github.com/teamgram/teamgram-server/app/service/status/status"
+	"gitlab.com/merehead/elloapp/backend/elloapp_backend/app/service/authsession/authsession"
+	"gitlab.com/merehead/elloapp/backend/elloapp_backend/app/service/status/status"
 
 	"github.com/zeromicro/go-zero/core/logx"
 )
@@ -60,7 +60,7 @@ func (m *rpcApiMessage) DebugString() string {
 	}
 }
 
-///////////////////////////////////////////////////////////////////////////////////
+// /////////////////////////////////////////////////////////////////////////////////
 type sessionData struct {
 	gatewayId string
 	clientIp  string
@@ -111,7 +111,7 @@ func (c *connData) DebugString() string {
 	return fmt.Sprintf("{isNew: %d, gatewayId: %s, sessionId: %d}", c.isNew, c.gatewayId, c.sessionId)
 }
 
-///////////////////////////////////////////////////////////////////////////////////
+// /////////////////////////////////////////////////////////////////////////////////
 const (
 	keyIdNew     = 0
 	keyLoaded    = 1
@@ -384,7 +384,7 @@ func (s *authSessions) delOnline() {
 	s.onlineExpired = 0
 }
 
-///////////////////////////////////////////////////////////////////////////////////////////////
+// /////////////////////////////////////////////////////////////////////////////////////////////
 func (s *authSessions) String() string {
 	return fmt.Sprintf("{auth_key_id: %d, user_id: %d, layer: %d}", s.authKeyId, s.AuthUserId, s.Layer)
 }
@@ -492,7 +492,7 @@ func (s *authSessions) onTimer() {
 	}()
 }
 
-/////////////////////////////////////////////////////////////////////////////////////////////////////
+// ///////////////////////////////////////////////////////////////////////////////////////////////////
 // client
 func (s *authSessions) sessionClientNew(gatewayId string, sessionId int64) error {
 	select {
@@ -551,7 +551,7 @@ func (s *authSessions) syncDataArrived(needAndroidPush bool, data *messageData) 
 	return nil
 }
 
-/////////////////////////////////////////////////////////////////////////////////////////////////////
+// ///////////////////////////////////////////////////////////////////////////////////////////////////
 func (s *authSessions) onSessionNew(connMsg *connData) {
 	sess, ok := s.sessions[connMsg.sessionId]
 	if !ok {

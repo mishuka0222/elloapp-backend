@@ -2,8 +2,8 @@ package service
 
 import (
 	"context"
-	"github.com/teamgram/teamgram-server/app/service/biz/configuration/configuration"
-	"github.com/teamgram/teamgram-server/app/service/biz/configuration/internal/core"
+	"gitlab.com/merehead/elloapp/backend/elloapp_backend/app/service/biz/configuration/configuration"
+	"gitlab.com/merehead/elloapp/backend/elloapp_backend/app/service/biz/configuration/internal/core"
 )
 
 // ConfigurationGetCountryList

@@ -14,8 +14,8 @@ import (
 	"context"
 
 	"github.com/teamgram/proto/mtproto"
-	"github.com/teamgram/teamgram-server/app/messenger/sync/internal/core"
-	"github.com/teamgram/teamgram-server/app/messenger/sync/sync"
+	"gitlab.com/merehead/elloapp/backend/elloapp_backend/app/messenger/sync/internal/core"
+	"gitlab.com/merehead/elloapp/backend/elloapp_backend/app/messenger/sync/sync"
 )
 
 // SyncUpdatesMe

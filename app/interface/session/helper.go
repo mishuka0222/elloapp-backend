@@ -11,8 +11,8 @@
 package session_helper
 
 import (
-	"github.com/teamgram/teamgram-server/app/interface/session/internal/server"
 	"github.com/zeromicro/go-zero/zrpc"
+	"gitlab.com/merehead/elloapp/backend/elloapp_backend/app/interface/session/internal/server"
 )
 
 func init() {

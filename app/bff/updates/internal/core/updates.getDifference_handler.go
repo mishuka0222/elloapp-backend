@@ -19,13 +19,13 @@
 package core
 
 import (
-	"github.com/teamgram/teamgram-server/app/service/authsession/authsession"
+	"gitlab.com/merehead/elloapp/backend/elloapp_backend/app/service/authsession/authsession"
 	"time"
 
 	"github.com/teamgram/proto/mtproto"
-	chatpb "github.com/teamgram/teamgram-server/app/service/biz/chat/chat"
-	"github.com/teamgram/teamgram-server/app/service/biz/updates/updates"
-	userpb "github.com/teamgram/teamgram-server/app/service/biz/user/user"
+	chatpb "gitlab.com/merehead/elloapp/backend/elloapp_backend/app/service/biz/chat/chat"
+	"gitlab.com/merehead/elloapp/backend/elloapp_backend/app/service/biz/updates/updates"
+	userpb "gitlab.com/merehead/elloapp/backend/elloapp_backend/app/service/biz/user/user"
 )
 
 // UpdatesGetDifference

@@ -19,8 +19,8 @@
 package http
 
 import (
-	"github.com/teamgram/teamgram-server/app/service/dfs/internal/svc"
 	"github.com/zeromicro/go-zero/rest"
+	"gitlab.com/merehead/elloapp/backend/elloapp_backend/app/service/dfs/internal/svc"
 	"net/http"
 )
 

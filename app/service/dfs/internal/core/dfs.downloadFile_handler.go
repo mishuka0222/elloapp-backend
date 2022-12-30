@@ -13,9 +13,9 @@ import (
 	"fmt"
 	"time"
 
-	"github.com/teamgram/proto/mtproto"
-	"github.com/teamgram/teamgram-server/app/service/dfs/dfs"
-	"github.com/teamgram/teamgram-server/app/service/dfs/internal/model"
+	"gitlab.com/merehead/elloapp/backend/elloapp_backend/app/service/dfs/dfs"
+	"gitlab.com/merehead/elloapp/backend/elloapp_backend/app/service/dfs/internal/model"
+	"gitlab.com/merehead/elloapp/backend/elloapp_backend/mtproto"
 )
 
 // DfsDownloadFile

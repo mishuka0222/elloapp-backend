@@ -13,9 +13,9 @@ package service
 import (
 	"context"
 
-	"github.com/teamgram/proto/mtproto"
-	"github.com/teamgram/teamgram-server/app/service/biz/message/internal/core"
-	"github.com/teamgram/teamgram-server/app/service/biz/message/message"
+	"gitlab.com/merehead/elloapp/backend/elloapp_backend/app/service/biz/message/internal/core"
+	"gitlab.com/merehead/elloapp/backend/elloapp_backend/app/service/biz/message/message"
+	"gitlab.com/merehead/elloapp/backend/elloapp_backend/mtproto"
 )
 
 // MessageGetUserMessage

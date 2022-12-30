@@ -19,9 +19,9 @@
 package svc
 
 import (
-	"github.com/teamgram/teamgram-server/app/bff/notification/internal/config"
-	"github.com/teamgram/teamgram-server/app/bff/notification/internal/dao"
-	"github.com/teamgram/teamgram-server/app/bff/notification/plugin"
+	"gitlab.com/merehead/elloapp/backend/elloapp_backend/app/bff/notification/internal/config"
+	"gitlab.com/merehead/elloapp/backend/elloapp_backend/app/bff/notification/internal/dao"
+	"gitlab.com/merehead/elloapp/backend/elloapp_backend/app/bff/notification/plugin"
 )
 
 type ServiceContext struct {

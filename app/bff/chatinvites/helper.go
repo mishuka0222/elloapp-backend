@@ -11,9 +11,9 @@
 package chatinvites_helper
 
 import (
-	"github.com/teamgram/teamgram-server/app/bff/chatinvites/internal/config"
-	"github.com/teamgram/teamgram-server/app/bff/chatinvites/internal/server/grpc/service"
-	"github.com/teamgram/teamgram-server/app/bff/chatinvites/internal/svc"
+	"gitlab.com/merehead/elloapp/backend/elloapp_backend/app/bff/chatinvites/internal/config"
+	"gitlab.com/merehead/elloapp/backend/elloapp_backend/app/bff/chatinvites/internal/server/grpc/service"
+	"gitlab.com/merehead/elloapp/backend/elloapp_backend/app/bff/chatinvites/internal/svc"
 )
 
 type (

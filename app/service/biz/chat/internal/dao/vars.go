@@ -19,7 +19,7 @@
 package dao
 
 import (
-	chatpb "github.com/teamgram/teamgram-server/app/service/biz/chat/chat"
+	chatpb "gitlab.com/merehead/elloapp/backend/elloapp_backend/app/service/biz/chat/chat"
 )
 
 type idxId struct {

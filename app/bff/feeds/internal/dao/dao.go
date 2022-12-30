@@ -19,10 +19,10 @@
 package dao
 
 import (
-	"github.com/teamgram/marmota/pkg/net/rpcx"
-	"github.com/teamgram/teamgram-server/app/bff/feeds/internal/config"
-	feeds_client "github.com/teamgram/teamgram-server/app/service/biz/feeds/client"
-	message_client "github.com/teamgram/teamgram-server/app/service/biz/message/client"
+	"gitlab.com/merehead/elloapp/backend/elloapp_backend/app/bff/feeds/internal/config"
+	feeds_client "gitlab.com/merehead/elloapp/backend/elloapp_backend/app/service/biz/feeds/client"
+	message_client "gitlab.com/merehead/elloapp/backend/elloapp_backend/app/service/biz/message/client"
+	"gitlab.com/merehead/elloapp/backend/elloapp_backend/pkg2/net/rpcx"
 )
 
 type Dao struct {

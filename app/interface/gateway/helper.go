@@ -11,8 +11,8 @@
 package gateway_helper
 
 import (
-	"github.com/teamgram/teamgram-server/app/interface/gateway/internal/server/server"
 	"github.com/zeromicro/go-zero/zrpc"
+	"gitlab.com/merehead/elloapp/backend/elloapp_backend/app/interface/gateway/internal/server/server"
 )
 
 func init() {

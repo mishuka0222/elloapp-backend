@@ -1,7 +1,7 @@
 package mysql_dao
 
 import (
-	"github.com/teamgram/marmota/pkg/stores/sqlx"
+	"gitlab.com/merehead/elloapp/backend/elloapp_backend/pkg2/stores/sqlx"
 )
 
 type Mysql struct {

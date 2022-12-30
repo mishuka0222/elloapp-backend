@@ -4,7 +4,7 @@ import (
 	"context"
 	"encoding/json"
 
-	"github.com/teamgram/teamgram-server/app/bff/feeds/internal/svc"
+	"gitlab.com/merehead/elloapp/backend/elloapp_backend/app/bff/feeds/internal/svc"
 )
 
 type Service struct {

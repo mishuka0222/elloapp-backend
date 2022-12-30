@@ -11,7 +11,7 @@
 package service
 
 import (
-	"github.com/teamgram/teamgram-server/app/service/status/internal/svc"
+	"gitlab.com/merehead/elloapp/backend/elloapp_backend/app/service/status/internal/svc"
 )
 
 type Service struct {

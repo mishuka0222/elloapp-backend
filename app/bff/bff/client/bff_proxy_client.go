@@ -13,9 +13,9 @@ import (
 	"strings"
 	"time"
 
-	"github.com/teamgram/marmota/pkg/net/rpcx"
-	"github.com/teamgram/proto/mtproto"
-	"github.com/teamgram/proto/mtproto/rpc/metadata"
+	"gitlab.com/merehead/elloapp/backend/elloapp_backend/mtproto"
+	"gitlab.com/merehead/elloapp/backend/elloapp_backend/mtproto/rpc/metadata"
+	"gitlab.com/merehead/elloapp/backend/elloapp_backend/pkg2/net/rpcx"
 
 	"github.com/gogo/protobuf/jsonpb"
 	"github.com/zeromicro/go-zero/core/logx"

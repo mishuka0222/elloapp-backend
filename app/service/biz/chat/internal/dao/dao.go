@@ -19,13 +19,13 @@
 package dao
 
 import (
-	"github.com/teamgram/marmota/pkg/net/rpcx"
-	"github.com/teamgram/teamgram-server/app/service/biz/chat/plugin"
+	"gitlab.com/merehead/elloapp/backend/elloapp_backend/app/service/biz/chat/plugin"
+	"gitlab.com/merehead/elloapp/backend/elloapp_backend/pkg2/net/rpcx"
 
-	"github.com/teamgram/marmota/pkg/stores/sqlc"
-	"github.com/teamgram/marmota/pkg/stores/sqlx"
-	"github.com/teamgram/teamgram-server/app/service/biz/chat/internal/config"
-	media_client "github.com/teamgram/teamgram-server/app/service/media/client"
+	"gitlab.com/merehead/elloapp/backend/elloapp_backend/app/service/biz/chat/internal/config"
+	media_client "gitlab.com/merehead/elloapp/backend/elloapp_backend/app/service/media/client"
+	"gitlab.com/merehead/elloapp/backend/elloapp_backend/pkg2/stores/sqlc"
+	"gitlab.com/merehead/elloapp/backend/elloapp_backend/pkg2/stores/sqlx"
 )
 
 // Dao dao.

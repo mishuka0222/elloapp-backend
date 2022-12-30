@@ -10,10 +10,10 @@
 package core
 
 import (
-	"github.com/teamgram/proto/mtproto"
-	"github.com/teamgram/teamgram-server/app/service/biz/updates/internal/dal/dataobject"
-	"github.com/teamgram/teamgram-server/app/service/biz/updates/updates"
 	"github.com/zeromicro/go-zero/core/jsonx"
+	"gitlab.com/merehead/elloapp/backend/elloapp_backend/app/service/biz/updates/internal/dal/dataobject"
+	"gitlab.com/merehead/elloapp/backend/elloapp_backend/app/service/biz/updates/updates"
+	"gitlab.com/merehead/elloapp/backend/elloapp_backend/mtproto"
 	"time"
 )
 

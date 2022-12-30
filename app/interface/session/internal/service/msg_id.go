@@ -21,7 +21,7 @@ package service
 import (
 	"time"
 
-	"github.com/teamgram/marmota/pkg/sync2"
+	"gitlab.com/merehead/elloapp/backend/elloapp_backend/pkg2/sync2"
 )
 
 var msgIdSeq = sync2.NewAtomicInt64(0)

@@ -11,11 +11,11 @@
 package authorization_helper
 
 import (
-	"github.com/teamgram/teamgram-server/app/bff/authorization/internal/config"
-	"github.com/teamgram/teamgram-server/app/bff/authorization/internal/server/grpc/service"
-	"github.com/teamgram/teamgram-server/app/bff/authorization/internal/svc"
-	"github.com/teamgram/teamgram-server/app/bff/authorization/plugin"
-	"github.com/teamgram/teamgram-server/pkg/code"
+	"gitlab.com/merehead/elloapp/backend/elloapp_backend/app/bff/authorization/internal/config"
+	"gitlab.com/merehead/elloapp/backend/elloapp_backend/app/bff/authorization/internal/server/grpc/service"
+	"gitlab.com/merehead/elloapp/backend/elloapp_backend/app/bff/authorization/internal/svc"
+	"gitlab.com/merehead/elloapp/backend/elloapp_backend/app/bff/authorization/plugin"
+	"gitlab.com/merehead/elloapp/backend/elloapp_backend/pkg/code"
 )
 
 type (

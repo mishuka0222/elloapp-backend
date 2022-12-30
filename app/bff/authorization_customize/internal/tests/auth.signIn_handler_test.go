@@ -3,11 +3,11 @@ package tests
 import (
 	"context"
 	"encoding/json"
-	"github.com/teamgram/proto/mtproto/rpc/metadata"
-	"github.com/teamgram/teamgram-server/app/bff/authorization_customize/internal/core"
-	"github.com/teamgram/teamgram-server/app/bff/authorization_customize/internal/service"
-	op_srv "github.com/teamgram/teamgram-server/app/bff/bizraw/service"
 	"github.com/zeromicro/go-zero/core/logx"
+	"gitlab.com/merehead/elloapp/backend/elloapp_backend/app/bff/authorization_customize/internal/core"
+	"gitlab.com/merehead/elloapp/backend/elloapp_backend/app/bff/authorization_customize/internal/service"
+	op_srv "gitlab.com/merehead/elloapp/backend/elloapp_backend/app/bff/bizraw/service"
+	"gitlab.com/merehead/elloapp/backend/elloapp_backend/mtproto/rpc/metadata"
 	"testing"
 )
 

@@ -19,11 +19,11 @@
 package grpc
 
 import (
-	"github.com/teamgram/teamgram-server/app/messenger/msg/msg/internal/server/grpc/service"
-	"github.com/teamgram/teamgram-server/app/messenger/msg/msg/internal/svc"
-	msgpb "github.com/teamgram/teamgram-server/app/messenger/msg/msg/msg"
 	"github.com/zeromicro/go-zero/core/logx"
 	"github.com/zeromicro/go-zero/zrpc"
+	"gitlab.com/merehead/elloapp/backend/elloapp_backend/app/messenger/msg/msg/internal/server/grpc/service"
+	"gitlab.com/merehead/elloapp/backend/elloapp_backend/app/messenger/msg/msg/internal/svc"
+	msgpb "gitlab.com/merehead/elloapp/backend/elloapp_backend/app/messenger/msg/msg/msg"
 	"google.golang.org/grpc"
 )
 

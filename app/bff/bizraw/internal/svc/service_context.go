@@ -19,8 +19,8 @@
 package svc
 
 import (
-	"github.com/teamgram/teamgram-server/app/bff/bizraw/internal/config"
-	op_srv "github.com/teamgram/teamgram-server/app/bff/bizraw/service"
+	"gitlab.com/merehead/elloapp/backend/elloapp_backend/app/bff/bizraw/internal/config"
+	op_srv "gitlab.com/merehead/elloapp/backend/elloapp_backend/app/bff/bizraw/service"
 )
 
 type ServiceContext struct {

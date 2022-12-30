@@ -21,7 +21,7 @@ package conf
 import (
 	"fmt"
 
-	"github.com/teamgram/proto/mtproto"
+	"gitlab.com/merehead/elloapp/backend/elloapp_backend/mtproto"
 )
 
 type MessageEntityConfig struct {

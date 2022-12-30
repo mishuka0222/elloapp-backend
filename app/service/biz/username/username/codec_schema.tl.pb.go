@@ -16,7 +16,7 @@ package username
 import (
 	"fmt"
 
-	"github.com/teamgram/proto/mtproto"
+	"gitlab.com/merehead/elloapp/backend/elloapp_backend/mtproto"
 
 	"github.com/gogo/protobuf/jsonpb"
 	"github.com/gogo/protobuf/types"
@@ -627,7 +627,7 @@ func (m *TLUsernameData) To_UsernameData() *UsernameData {
 	return m.Data2
 }
 
-//// flags
+// // flags
 func (m *TLUsernameData) SetUsername(v string) { m.Data2.Username = v }
 func (m *TLUsernameData) GetUsername() string  { return m.Data2.Username }
 
@@ -1326,9 +1326,9 @@ func (m *TLUsernameSearch) DebugString() string {
 	return dbgString
 }
 
-//----------------------------------------------------------------------------------------------------------------
+// ----------------------------------------------------------------------------------------------------------------
 // Vector_UsernameData
-///////////////////////////////////////////////////////////////////////////////
+// /////////////////////////////////////////////////////////////////////////////
 func (m *Vector_UsernameData) Encode(layer int32) []byte {
 	x := mtproto.NewEncodeBuf(512)
 	x.Int(int32(mtproto.CRC32_vector))

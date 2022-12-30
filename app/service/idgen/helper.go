@@ -11,7 +11,7 @@
 package idgen_helper
 
 import (
-	"github.com/teamgram/teamgram-server/app/service/idgen/internal/server"
+	"gitlab.com/merehead/elloapp/backend/elloapp_backend/app/service/idgen/internal/server"
 )
 
 var (

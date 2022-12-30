@@ -9,7 +9,7 @@ import (
 	_ "github.com/gogo/protobuf/gogoproto"
 	proto "github.com/gogo/protobuf/proto"
 	_ "github.com/gogo/protobuf/types"
-	mtproto "github.com/teamgram/proto/mtproto"
+	mtproto "gitlab.com/merehead/elloapp/backend/elloapp_backend/mtproto"
 	grpc "google.golang.org/grpc"
 	codes "google.golang.org/grpc/codes"
 	status "google.golang.org/grpc/status"
@@ -113,12 +113,11 @@ func (TLConstructor) EnumDescriptor() ([]byte, []int) {
 	return fileDescriptor_7cbc1347c4a76ecf, []int{0}
 }
 
-//--------------------------------------------------------------------------------------------
+// --------------------------------------------------------------------------------------------
 // clientSession auth_key_id:long ip:string layer:int api_id:int device_model:string system_version:string app_version:string system_lang_code:string lang_pack:string lang_code:string proxy:string params:string = ClientSession;
 //
 // ClientSession <--
-//  + TL_clientSession
-//
+//   - TL_clientSession
 type ClientSession struct {
 	PredicateName        string        `protobuf:"bytes,1,opt,name=predicate_name,json=predicateName,proto3" json:"predicate_name,omitempty"`
 	Constructor          TLConstructor `protobuf:"varint,2,opt,name=constructor,proto3,enum=authsession.TLConstructor" json:"constructor,omitempty"`
@@ -318,12 +317,11 @@ func (m *TLClientSession) GetData2() *ClientSession {
 	return nil
 }
 
-//--------------------------------------------------------------------------------------------
+// --------------------------------------------------------------------------------------------
 // authKeyStateData auth_key_id:long user_id:long key_state:int layer:int client_type:int android_push_session_id:long = AuthKeyStateData;
 //
 // AuthKeyStateData <--
-//  + TL_authKeyStateData
-//
+//   - TL_authKeyStateData
 type AuthKeyStateData struct {
 	PredicateName        string        `protobuf:"bytes,1,opt,name=predicate_name,json=predicateName,proto3" json:"predicate_name,omitempty"`
 	Constructor          TLConstructor `protobuf:"varint,2,opt,name=constructor,proto3,enum=authsession.TLConstructor" json:"constructor,omitempty"`
@@ -475,7 +473,7 @@ func (m *TLAuthKeyStateData) GetData2() *AuthKeyStateData {
 	return nil
 }
 
-//--------------------------------------------------------------------------------------------
+// --------------------------------------------------------------------------------------------
 // authsession.getAuthorizations user_id:long exclude_auth_keyId:long = account.Authorizations;
 type TLAuthsessionGetAuthorizations struct {
 	Constructor          TLConstructor `protobuf:"varint,1,opt,name=constructor,proto3,enum=authsession.TLConstructor" json:"constructor,omitempty"`
@@ -540,7 +538,7 @@ func (m *TLAuthsessionGetAuthorizations) GetExcludeAuthKeyId() int64 {
 	return 0
 }
 
-//--------------------------------------------------------------------------------------------
+// --------------------------------------------------------------------------------------------
 // authsession.resetAuthorization user_id:long auth_key_id:long hash:long = Vector<long>;
 type TLAuthsessionResetAuthorization struct {
 	Constructor          TLConstructor `protobuf:"varint,1,opt,name=constructor,proto3,enum=authsession.TLConstructor" json:"constructor,omitempty"`
@@ -613,7 +611,7 @@ func (m *TLAuthsessionResetAuthorization) GetHash() int64 {
 	return 0
 }
 
-//--------------------------------------------------------------------------------------------
+// --------------------------------------------------------------------------------------------
 // authsession.getLayer auth_key_id:long = Int32;
 type TLAuthsessionGetLayer struct {
 	Constructor          TLConstructor `protobuf:"varint,1,opt,name=constructor,proto3,enum=authsession.TLConstructor" json:"constructor,omitempty"`
@@ -670,7 +668,7 @@ func (m *TLAuthsessionGetLayer) GetAuthKeyId() int64 {
 	return 0
 }
 
-//--------------------------------------------------------------------------------------------
+// --------------------------------------------------------------------------------------------
 // authsession.getLangPack auth_key_id:long = String;
 type TLAuthsessionGetLangPack struct {
 	Constructor          TLConstructor `protobuf:"varint,1,opt,name=constructor,proto3,enum=authsession.TLConstructor" json:"constructor,omitempty"`
@@ -727,7 +725,7 @@ func (m *TLAuthsessionGetLangPack) GetAuthKeyId() int64 {
 	return 0
 }
 
-//--------------------------------------------------------------------------------------------
+// --------------------------------------------------------------------------------------------
 // authsession.getClient auth_key_id:long = String;
 type TLAuthsessionGetClient struct {
 	Constructor          TLConstructor `protobuf:"varint,1,opt,name=constructor,proto3,enum=authsession.TLConstructor" json:"constructor,omitempty"`
@@ -784,7 +782,7 @@ func (m *TLAuthsessionGetClient) GetAuthKeyId() int64 {
 	return 0
 }
 
-//--------------------------------------------------------------------------------------------
+// --------------------------------------------------------------------------------------------
 // authsession.getLangCode auth_key_id:long = String;
 type TLAuthsessionGetLangCode struct {
 	Constructor          TLConstructor `protobuf:"varint,1,opt,name=constructor,proto3,enum=authsession.TLConstructor" json:"constructor,omitempty"`
@@ -841,7 +839,7 @@ func (m *TLAuthsessionGetLangCode) GetAuthKeyId() int64 {
 	return 0
 }
 
-//--------------------------------------------------------------------------------------------
+// --------------------------------------------------------------------------------------------
 // authsession.getUserId auth_key_id:long = Int64;
 type TLAuthsessionGetUserId struct {
 	Constructor          TLConstructor `protobuf:"varint,1,opt,name=constructor,proto3,enum=authsession.TLConstructor" json:"constructor,omitempty"`
@@ -898,7 +896,7 @@ func (m *TLAuthsessionGetUserId) GetAuthKeyId() int64 {
 	return 0
 }
 
-//--------------------------------------------------------------------------------------------
+// --------------------------------------------------------------------------------------------
 // authsession.getPushSessionId user_id:long auth_key_id:long token_type:int = Int64;
 type TLAuthsessionGetPushSessionId struct {
 	Constructor          TLConstructor `protobuf:"varint,1,opt,name=constructor,proto3,enum=authsession.TLConstructor" json:"constructor,omitempty"`
@@ -971,7 +969,7 @@ func (m *TLAuthsessionGetPushSessionId) GetTokenType() int32 {
 	return 0
 }
 
-//--------------------------------------------------------------------------------------------
+// --------------------------------------------------------------------------------------------
 // authsession.getFutureSalts auth_key_id:long num:int = FutureSalts;
 type TLAuthsessionGetFutureSalts struct {
 	Constructor          TLConstructor `protobuf:"varint,1,opt,name=constructor,proto3,enum=authsession.TLConstructor" json:"constructor,omitempty"`
@@ -1036,7 +1034,7 @@ func (m *TLAuthsessionGetFutureSalts) GetNum() int32 {
 	return 0
 }
 
-//--------------------------------------------------------------------------------------------
+// --------------------------------------------------------------------------------------------
 // authsession.queryAuthKey auth_key_id:long = AuthKeyInfo;
 type TLAuthsessionQueryAuthKey struct {
 	Constructor          TLConstructor `protobuf:"varint,1,opt,name=constructor,proto3,enum=authsession.TLConstructor" json:"constructor,omitempty"`
@@ -1093,7 +1091,7 @@ func (m *TLAuthsessionQueryAuthKey) GetAuthKeyId() int64 {
 	return 0
 }
 
-//--------------------------------------------------------------------------------------------
+// --------------------------------------------------------------------------------------------
 // authsession.setAuthKey auth_key:AuthKeyInfo future_salt:FutureSalt expires_in:int = Bool;
 type TLAuthsessionSetAuthKey struct {
 	Constructor          TLConstructor        `protobuf:"varint,1,opt,name=constructor,proto3,enum=authsession.TLConstructor" json:"constructor,omitempty"`
@@ -1166,7 +1164,7 @@ func (m *TLAuthsessionSetAuthKey) GetExpiresIn() int32 {
 	return 0
 }
 
-//--------------------------------------------------------------------------------------------
+// --------------------------------------------------------------------------------------------
 // authsession.bindAuthKeyUser auth_key_id:long user_id:long = Int64;
 type TLAuthsessionBindAuthKeyUser struct {
 	Constructor          TLConstructor `protobuf:"varint,1,opt,name=constructor,proto3,enum=authsession.TLConstructor" json:"constructor,omitempty"`
@@ -1231,7 +1229,7 @@ func (m *TLAuthsessionBindAuthKeyUser) GetUserId() int64 {
 	return 0
 }
 
-//--------------------------------------------------------------------------------------------
+// --------------------------------------------------------------------------------------------
 // authsession.unbindAuthKeyUser auth_key_id:long user_id:long = Bool;
 type TLAuthsessionUnbindAuthKeyUser struct {
 	Constructor          TLConstructor `protobuf:"varint,1,opt,name=constructor,proto3,enum=authsession.TLConstructor" json:"constructor,omitempty"`
@@ -1296,7 +1294,7 @@ func (m *TLAuthsessionUnbindAuthKeyUser) GetUserId() int64 {
 	return 0
 }
 
-//--------------------------------------------------------------------------------------------
+// --------------------------------------------------------------------------------------------
 // authsession.getPermAuthKeyId auth_key_id:long= Int64;
 type TLAuthsessionGetPermAuthKeyId struct {
 	Constructor          TLConstructor `protobuf:"varint,1,opt,name=constructor,proto3,enum=authsession.TLConstructor" json:"constructor,omitempty"`
@@ -1353,7 +1351,7 @@ func (m *TLAuthsessionGetPermAuthKeyId) GetAuthKeyId() int64 {
 	return 0
 }
 
-//--------------------------------------------------------------------------------------------
+// --------------------------------------------------------------------------------------------
 // authsession.bindTempAuthKey perm_auth_key_id:long nonce:long expires_at:int encrypted_message:bytes = Bool;
 type TLAuthsessionBindTempAuthKey struct {
 	Constructor          TLConstructor `protobuf:"varint,1,opt,name=constructor,proto3,enum=authsession.TLConstructor" json:"constructor,omitempty"`
@@ -1434,7 +1432,7 @@ func (m *TLAuthsessionBindTempAuthKey) GetEncryptedMessage() []byte {
 	return nil
 }
 
-//--------------------------------------------------------------------------------------------
+// --------------------------------------------------------------------------------------------
 // authsession.setClientSessionInfo data:ClientSession = Bool;
 type TLAuthsessionSetClientSessionInfo struct {
 	Constructor          TLConstructor  `protobuf:"varint,1,opt,name=constructor,proto3,enum=authsession.TLConstructor" json:"constructor,omitempty"`
@@ -1491,7 +1489,7 @@ func (m *TLAuthsessionSetClientSessionInfo) GetData() *ClientSession {
 	return nil
 }
 
-//--------------------------------------------------------------------------------------------
+// --------------------------------------------------------------------------------------------
 // authsession.getAuthorization auth_key_id:long = Authorization;
 type TLAuthsessionGetAuthorization struct {
 	Constructor          TLConstructor `protobuf:"varint,1,opt,name=constructor,proto3,enum=authsession.TLConstructor" json:"constructor,omitempty"`
@@ -1548,7 +1546,7 @@ func (m *TLAuthsessionGetAuthorization) GetAuthKeyId() int64 {
 	return 0
 }
 
-//--------------------------------------------------------------------------------------------
+// --------------------------------------------------------------------------------------------
 // authsession.getAuthStateData auth_key_id:long = AuthKeyStateData;
 type TLAuthsessionGetAuthStateData struct {
 	Constructor          TLConstructor `protobuf:"varint,1,opt,name=constructor,proto3,enum=authsession.TLConstructor" json:"constructor,omitempty"`
@@ -1605,7 +1603,7 @@ func (m *TLAuthsessionGetAuthStateData) GetAuthKeyId() int64 {
 	return 0
 }
 
-//--------------------------------------------------------------------------------------------
+// --------------------------------------------------------------------------------------------
 // Vector api result type
 type Vector_Long struct {
 	Datas                []int64  `protobuf:"varint,1,rep,packed,name=datas,proto3" json:"datas,omitempty"`

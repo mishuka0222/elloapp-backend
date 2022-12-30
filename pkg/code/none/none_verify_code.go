@@ -21,8 +21,8 @@ package none
 import (
 	"context"
 
-	"github.com/teamgram/proto/mtproto"
-	"github.com/teamgram/teamgram-server/pkg/code/conf"
+	"gitlab.com/merehead/elloapp/backend/elloapp_backend/mtproto"
+	"gitlab.com/merehead/elloapp/backend/elloapp_backend/pkg/code/conf"
 )
 
 func New(c *conf.SmsVerifyCodeConfig) *noneVerifyCode {

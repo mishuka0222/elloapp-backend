@@ -22,10 +22,10 @@ import (
 	"flag"
 	"syscall"
 
-	"github.com/teamgram/marmota/pkg/commands"
-	"github.com/teamgram/teamgram-server/app/interface/gateway/internal/config"
-	"github.com/teamgram/teamgram-server/app/interface/gateway/internal/server"
-	"github.com/teamgram/teamgram-server/app/interface/gateway/internal/server/grpc"
+	"gitlab.com/merehead/elloapp/backend/elloapp_backend/app/interface/gateway/internal/config"
+	"gitlab.com/merehead/elloapp/backend/elloapp_backend/app/interface/gateway/internal/server"
+	"gitlab.com/merehead/elloapp/backend/elloapp_backend/app/interface/gateway/internal/server/grpc"
+	"gitlab.com/merehead/elloapp/backend/elloapp_backend/pkg2/commands"
 
 	"github.com/zeromicro/go-zero/core/conf"
 	"github.com/zeromicro/go-zero/core/logx"

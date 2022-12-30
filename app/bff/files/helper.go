@@ -11,11 +11,11 @@
 package files_helper
 
 import (
-	"github.com/teamgram/teamgram-server/app/bff/files/internal/config"
-	"github.com/teamgram/teamgram-server/app/bff/files/internal/server/grpc/service"
-	"github.com/teamgram/teamgram-server/app/bff/files/internal/svc"
-	"github.com/teamgram/teamgram-server/app/bff/files/plugin"
 	"github.com/zeromicro/go-zero/zrpc"
+	"gitlab.com/merehead/elloapp/backend/elloapp_backend/app/bff/files/internal/config"
+	"gitlab.com/merehead/elloapp/backend/elloapp_backend/app/bff/files/internal/server/grpc/service"
+	"gitlab.com/merehead/elloapp/backend/elloapp_backend/app/bff/files/internal/svc"
+	"gitlab.com/merehead/elloapp/backend/elloapp_backend/app/bff/files/plugin"
 )
 
 type (

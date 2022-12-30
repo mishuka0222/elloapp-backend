@@ -4,7 +4,7 @@ import (
 	"bytes"
 	"strings"
 
-	"github.com/teamgram/teamgram-server/pkg/goffmpeg/utils"
+	"gitlab.com/merehead/elloapp/backend/elloapp_backend/pkg/goffmpeg/utils"
 )
 
 // Configuration ...

@@ -1,9 +1,9 @@
 package tests
 
 import (
-	feeds_client "github.com/teamgram/teamgram-server/app/service/biz/feeds/client"
 	"github.com/zeromicro/go-zero/core/discov"
 	"github.com/zeromicro/go-zero/zrpc"
+	feeds_client "gitlab.com/merehead/elloapp/backend/elloapp_backend/app/service/biz/feeds/client"
 )
 
 func NewRPCClient() feeds_client.FeedsClient {

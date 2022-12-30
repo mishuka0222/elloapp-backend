@@ -10,10 +10,10 @@
 package dao
 
 import (
-	"github.com/teamgram/marmota/pkg/net/rpcx"
-	"github.com/teamgram/marmota/pkg/stores/sqlx"
-	"github.com/teamgram/teamgram-server/app/service/biz/updates/internal/config"
-	idgen_client "github.com/teamgram/teamgram-server/app/service/idgen/client"
+	"gitlab.com/merehead/elloapp/backend/elloapp_backend/app/service/biz/updates/internal/config"
+	idgen_client "gitlab.com/merehead/elloapp/backend/elloapp_backend/app/service/idgen/client"
+	"gitlab.com/merehead/elloapp/backend/elloapp_backend/pkg2/net/rpcx"
+	"gitlab.com/merehead/elloapp/backend/elloapp_backend/pkg2/stores/sqlx"
 
 	"github.com/zeromicro/go-zero/core/stores/kv"
 )

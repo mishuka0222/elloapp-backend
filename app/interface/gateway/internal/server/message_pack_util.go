@@ -19,7 +19,7 @@
 package server
 
 import (
-	"github.com/teamgram/proto/mtproto"
+	"gitlab.com/merehead/elloapp/backend/elloapp_backend/mtproto"
 )
 
 func parseFromIncomingMessage(b []byte) (msgId int64, obj mtproto.TLObject, err error) {

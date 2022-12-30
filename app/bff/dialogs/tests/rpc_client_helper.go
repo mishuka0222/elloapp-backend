@@ -1,9 +1,9 @@
 package tests
 
 import (
-	dialogs_client "github.com/teamgram/teamgram-server/app/bff/dialogs/client"
 	"github.com/zeromicro/go-zero/core/discov"
 	"github.com/zeromicro/go-zero/zrpc"
+	dialogs_client "gitlab.com/merehead/elloapp/backend/elloapp_backend/app/bff/dialogs/client"
 )
 
 func NewRPCClient() dialogs_client.DialogsClient {

@@ -16,7 +16,7 @@ package dialog
 import (
 	"fmt"
 
-	"github.com/teamgram/proto/mtproto"
+	"gitlab.com/merehead/elloapp/backend/elloapp_backend/mtproto"
 
 	"github.com/gogo/protobuf/jsonpb"
 	"github.com/gogo/protobuf/types"
@@ -2466,9 +2466,9 @@ func (m *TLDialogSetHistoryTTL) DebugString() string {
 	return dbgString
 }
 
-//----------------------------------------------------------------------------------------------------------------
+// ----------------------------------------------------------------------------------------------------------------
 // Vector_PeerWithDraftMessage
-///////////////////////////////////////////////////////////////////////////////
+// /////////////////////////////////////////////////////////////////////////////
 func (m *Vector_PeerWithDraftMessage) Encode(layer int32) []byte {
 	x := mtproto.NewEncodeBuf(512)
 	x.Int(int32(mtproto.CRC32_vector))
@@ -2503,7 +2503,7 @@ func (m *Vector_PeerWithDraftMessage) DebugString() string {
 }
 
 // Vector_DialogPeer
-///////////////////////////////////////////////////////////////////////////////
+// /////////////////////////////////////////////////////////////////////////////
 func (m *Vector_DialogPeer) Encode(layer int32) []byte {
 	x := mtproto.NewEncodeBuf(512)
 	x.Int(int32(mtproto.CRC32_vector))
@@ -2538,7 +2538,7 @@ func (m *Vector_DialogPeer) DebugString() string {
 }
 
 // Vector_DialogExt
-///////////////////////////////////////////////////////////////////////////////
+// /////////////////////////////////////////////////////////////////////////////
 func (m *Vector_DialogExt) Encode(layer int32) []byte {
 	x := mtproto.NewEncodeBuf(512)
 	x.Int(int32(mtproto.CRC32_vector))
@@ -2573,7 +2573,7 @@ func (m *Vector_DialogExt) DebugString() string {
 }
 
 // Vector_DialogFilterExt
-///////////////////////////////////////////////////////////////////////////////
+// /////////////////////////////////////////////////////////////////////////////
 func (m *Vector_DialogFilterExt) Encode(layer int32) []byte {
 	x := mtproto.NewEncodeBuf(512)
 	x.Int(int32(mtproto.CRC32_vector))
@@ -2608,7 +2608,7 @@ func (m *Vector_DialogFilterExt) DebugString() string {
 }
 
 // Vector_DialogPinnedExt
-///////////////////////////////////////////////////////////////////////////////
+// /////////////////////////////////////////////////////////////////////////////
 func (m *Vector_DialogPinnedExt) Encode(layer int32) []byte {
 	x := mtproto.NewEncodeBuf(512)
 	x.Int(int32(mtproto.CRC32_vector))
@@ -2643,7 +2643,7 @@ func (m *Vector_DialogPinnedExt) DebugString() string {
 }
 
 // Vector_Long
-///////////////////////////////////////////////////////////////////////////////
+// /////////////////////////////////////////////////////////////////////////////
 func (m *Vector_Long) Encode(layer int32) []byte {
 	x := mtproto.NewEncodeBuf(512)
 	x.VectorLong(m.Datas)

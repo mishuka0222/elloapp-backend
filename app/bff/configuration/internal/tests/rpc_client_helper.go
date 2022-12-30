@@ -1,9 +1,9 @@
 package tests
 
 import (
-	configuration_client "github.com/teamgram/teamgram-server/app/bff/configuration/client"
 	"github.com/zeromicro/go-zero/core/discov"
 	"github.com/zeromicro/go-zero/zrpc"
+	configuration_client "gitlab.com/merehead/elloapp/backend/elloapp_backend/app/bff/configuration/client"
 )
 
 func NewRPCClient() configuration_client.ConfigurationClient {

@@ -10,8 +10,8 @@
 package grpc
 
 import (
-	"github.com/teamgram/teamgram-server/app/interface/gateway/gateway"
-	"github.com/teamgram/teamgram-server/app/interface/gateway/internal/server"
+	"gitlab.com/merehead/elloapp/backend/elloapp_backend/app/interface/gateway/gateway"
+	"gitlab.com/merehead/elloapp/backend/elloapp_backend/app/interface/gateway/internal/server"
 
 	"github.com/zeromicro/go-zero/core/logx"
 	"github.com/zeromicro/go-zero/zrpc"

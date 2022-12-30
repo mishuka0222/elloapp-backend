@@ -3,7 +3,7 @@ package service
 import (
 	"context"
 	"encoding/json"
-	"github.com/teamgram/teamgram-server/app/bff/feeds/internal/core"
+	"gitlab.com/merehead/elloapp/backend/elloapp_backend/app/bff/feeds/internal/core"
 )
 
 // GetFeedList

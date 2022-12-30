@@ -7,7 +7,7 @@
 package chat
 
 import (
-	"github.com/teamgram/proto/mtproto"
+	"gitlab.com/merehead/elloapp/backend/elloapp_backend/mtproto"
 )
 
 func (m *ImmutableChatParticipant) IsChatMemberNormal() bool {

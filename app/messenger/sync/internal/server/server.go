@@ -12,10 +12,10 @@ package server
 import (
 	"flag"
 
-	kafka "github.com/teamgram/marmota/pkg/mq"
-	"github.com/teamgram/teamgram-server/app/messenger/sync/internal/config"
-	"github.com/teamgram/teamgram-server/app/messenger/sync/internal/server/mq"
-	"github.com/teamgram/teamgram-server/app/messenger/sync/internal/svc"
+	"gitlab.com/merehead/elloapp/backend/elloapp_backend/app/messenger/sync/internal/config"
+	"gitlab.com/merehead/elloapp/backend/elloapp_backend/app/messenger/sync/internal/server/mq"
+	"gitlab.com/merehead/elloapp/backend/elloapp_backend/app/messenger/sync/internal/svc"
+	kafka "gitlab.com/merehead/elloapp/backend/elloapp_backend/pkg2/mq"
 
 	"github.com/zeromicro/go-zero/core/conf"
 	"github.com/zeromicro/go-zero/core/logx"

@@ -11,10 +11,9 @@ package core
 
 import (
 	"context"
-	"github.com/teamgram/proto/mtproto/rpc/metadata"
-	"github.com/teamgram/teamgram-server/app/bff/feeds/internal/svc"
 	"github.com/zeromicro/go-zero/core/logx"
-	// "github.com/teamgram/proto/mtproto/rpc/metadata"
+	"gitlab.com/merehead/elloapp/backend/elloapp_backend/app/bff/feeds/internal/svc"
+	"gitlab.com/merehead/elloapp/backend/elloapp_backend/mtproto/rpc/metadata"
 )
 
 type FeedCore struct {

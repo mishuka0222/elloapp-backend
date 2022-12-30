@@ -25,9 +25,9 @@ import (
 	"io/ioutil"
 	"os"
 
-	"github.com/teamgram/marmota/pkg/commands"
-	"github.com/teamgram/teamgram-server/app/service/dfs/internal/config"
-	"github.com/teamgram/teamgram-server/app/service/dfs/internal/dao"
+	"gitlab.com/merehead/elloapp/backend/elloapp_backend/app/service/dfs/internal/config"
+	"gitlab.com/merehead/elloapp/backend/elloapp_backend/app/service/dfs/internal/dao"
+	"gitlab.com/merehead/elloapp/backend/elloapp_backend/pkg2/commands"
 
 	"github.com/zeromicro/go-zero/core/logx"
 )

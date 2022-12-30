@@ -27,8 +27,8 @@ import (
 	"net/http"
 	"time"
 
-	"github.com/teamgram/marmota/pkg/net2"
-	"github.com/teamgram/proto/mtproto"
+	"gitlab.com/merehead/elloapp/backend/elloapp_backend/mtproto"
+	"gitlab.com/merehead/elloapp/backend/elloapp_backend/pkg2/net2"
 
 	log "github.com/zeromicro/go-zero/core/logx"
 )

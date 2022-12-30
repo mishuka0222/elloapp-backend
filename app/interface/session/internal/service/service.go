@@ -21,12 +21,12 @@ package service
 import (
 	"context"
 	"fmt"
-	"github.com/teamgram/marmota/pkg/net/ip"
+	"gitlab.com/merehead/elloapp/backend/elloapp_backend/pkg2/net/ip"
 	"sync"
 
-	"github.com/teamgram/proto/mtproto"
-	"github.com/teamgram/teamgram-server/app/interface/session/internal/config"
-	"github.com/teamgram/teamgram-server/app/interface/session/internal/dao"
+	"gitlab.com/merehead/elloapp/backend/elloapp_backend/app/interface/session/internal/config"
+	"gitlab.com/merehead/elloapp/backend/elloapp_backend/app/interface/session/internal/dao"
+	"gitlab.com/merehead/elloapp/backend/elloapp_backend/mtproto"
 
 	"github.com/zeromicro/go-zero/core/discov"
 	"github.com/zeromicro/go-zero/core/logx"

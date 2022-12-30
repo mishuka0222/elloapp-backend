@@ -11,7 +11,7 @@
 package authsession_helper
 
 import (
-	"github.com/teamgram/teamgram-server/app/service/authsession/internal/server"
+	"gitlab.com/merehead/elloapp/backend/elloapp_backend/app/service/authsession/internal/server"
 )
 
 var (

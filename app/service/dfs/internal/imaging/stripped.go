@@ -22,7 +22,7 @@ import (
 	"image"
 	"io"
 
-	"github.com/teamgram/teamgram-server/app/service/dfs/internal/imaging/jpeg"
+	"gitlab.com/merehead/elloapp/backend/elloapp_backend/app/service/dfs/internal/imaging/jpeg"
 )
 
 func EncodeStripped(w io.Writer, img image.Image, quality int) error {

@@ -11,12 +11,12 @@ package server
 
 import (
 	"flag"
-	"github.com/teamgram/teamgram-server/app/service/dfs/internal/server/http"
 	"github.com/zeromicro/go-zero/rest"
+	"gitlab.com/merehead/elloapp/backend/elloapp_backend/app/service/dfs/internal/server/http"
 
-	"github.com/teamgram/teamgram-server/app/service/dfs/internal/config"
-	"github.com/teamgram/teamgram-server/app/service/dfs/internal/server/grpc"
-	"github.com/teamgram/teamgram-server/app/service/dfs/internal/svc"
+	"gitlab.com/merehead/elloapp/backend/elloapp_backend/app/service/dfs/internal/config"
+	"gitlab.com/merehead/elloapp/backend/elloapp_backend/app/service/dfs/internal/server/grpc"
+	"gitlab.com/merehead/elloapp/backend/elloapp_backend/app/service/dfs/internal/svc"
 
 	"github.com/zeromicro/go-zero/core/conf"
 	"github.com/zeromicro/go-zero/core/logx"

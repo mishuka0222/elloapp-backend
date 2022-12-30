@@ -1,0 +1,29 @@
+syntax = "proto3";
+
+option java_multiple_files = true;
+option java_package = "configuration_service";
+option java_outer_classname = "ZProtoConfigurationService";
+option optimize_for = CODE_SIZE;
+option go_package = "configuration";
+
+
+package configuration;
+
+message GetCountryListReq {
+  string lang_code = 1;
+}
+
+message CountryDO {
+  string name = 1;
+  string flag = 2;
+  string code = 3;
+}
+
+message GetCountryListResp {
+  repeated CountryDO data = 1;
+}
+
+
+service RPCConfiguration {
+  rpc configuration_getCountryList(GetCountryListReq) returns (GetCountryListResp);
+}

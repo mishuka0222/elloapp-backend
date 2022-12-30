@@ -6,8 +6,8 @@ import (
 	"github.com/stretchr/testify/assert"
 	"github.com/teamgram/proto/mtproto/rpc/metadata"
 	op_srv "github.com/teamgram/teamgram-server/app/bff/bizraw/service"
-	"github.com/teamgram/teamgram-server/app/bff/feeds/internal/dao/dataobject"
 	"github.com/teamgram/teamgram-server/app/bff/feeds/internal/service"
+	"github.com/teamgram/teamgram-server/app/service/biz/feeds/feeds"
 	"github.com/zeromicro/go-zero/core/logx"
 	"testing"
 )
@@ -60,7 +60,7 @@ func TestGetFeedList(t *testing.T) {
 	if err != nil {
 		t.Fatal(err)
 	}
-	var feedList []dataobject.UserChatDO
+	var feedList []*feeds.UserChatDO
 	if err := json.Unmarshal(data.Data, &feedList); err != nil {
 		t.Fatal(err)
 	}

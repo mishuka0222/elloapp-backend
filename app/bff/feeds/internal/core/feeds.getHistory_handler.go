@@ -4,7 +4,7 @@ import (
 	"encoding/json"
 	"github.com/gogo/protobuf/types"
 	"github.com/teamgram/proto/mtproto"
-	"github.com/teamgram/teamgram-server/app/bff/feeds/internal/dao/dataobject"
+	"github.com/teamgram/teamgram-server/app/service/biz/feeds/feeds"
 	"sort"
 )
 
@@ -42,31 +42,12 @@ func (c *FeedCore) GetHistory(in json.RawMessage) (*GetHistoryResp, error) {
 	if limit <= 0 {
 		limit = 45
 	}
-
-	feedsList, err := c.svcCtx.Dao.SelectFeedList(c.ctx, c.MD.UserId)
+	data, err := c.svcCtx.FeedsClient.FeedsGetFeedsOffsetList(c.ctx,
+		&feeds.GetFeedsOffsetListReq{UserId: c.MD.GetUserId(), Limit: limit, Before: req.Before})
 	if err != nil {
 		return nil, err
 	}
-	if len(feedsList) == 0 {
-		return nil, nil
-	}
-	chatIdList := make([]int64, len(feedsList))
-	for _, it := range feedsList {
-		chatIdList = append(chatIdList, it.ChatID)
-	}
-
-	var offsetList dataobject.OffsetItemList
-	if req.Before == 0 {
-		offsetList, err = c.svcCtx.Dao.UserFeedsDAO.SelectOffsetMaxList(c.ctx, c.MD.UserId, chatIdList, limit)
-		if err != nil {
-			return nil, err
-		}
-	} else {
-		offsetList, err = c.svcCtx.Dao.UserFeedsDAO.SelectOffsetMinList(c.ctx, c.MD.UserId, chatIdList, limit, req.Before)
-		if err != nil {
-			return nil, err
-		}
-	}
+	offsetList := data.GetData()
 	if len(offsetList) == 0 {
 		return nil, nil
 	}
@@ -82,12 +63,12 @@ func (c *FeedCore) GetHistory(in json.RawMessage) (*GetHistoryResp, error) {
 			Constructor: mtproto.CRC32_messages_getHistory,
 			Peer: (&mtproto.InputPeer{
 				Constructor: mtproto.CRC32_inputPeerChat,
-				ChatId:      it.PeerID,
+				ChatId:      it.GetPeerId(),
 			}).To_InputPeerChat().To_InputPeer(),
-			OffsetId: it.OffsetMin,
-			Limit:    it.Count,
-			MinId:    it.OffsetMin,
-			MaxId:    it.OffsetMax,
+			OffsetId: it.GetOffsetMin(),
+			Limit:    it.GetCount(),
+			MinId:    it.GetOffsetMin(),
+			MaxId:    it.GetOffsetMax(),
 		}
 
 		history, err := c.svcCtx.MessagesCore.MessagesGetHistory(c.ctx, in)
@@ -99,7 +80,7 @@ func (c *FeedCore) GetHistory(in json.RawMessage) (*GetHistoryResp, error) {
 		resp.Chats = append(resp.Chats, history.Chats...)
 		resp.Users = append(resp.Users, history.Users...)
 		resp.ChatIdInfo = append(resp.ChatIdInfo, ChatIdInfo{
-			ChatID:         it.PeerID,
+			ChatID:         it.GetPeerId(),
 			Inexact:        history.Inexact,
 			Count:          history.Count,
 			NextRate:       history.NextRate,

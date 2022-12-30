@@ -19,11 +19,11 @@
 package core
 
 import (
-	"github.com/teamgram/marmota/pkg/utils"
 	chatpb "gitlab.com/merehead/elloapp/backend/elloapp_backend/app/service/biz/chat/chat"
 	"gitlab.com/merehead/elloapp/backend/elloapp_backend/app/service/biz/dialog/dialog"
 	userpb "gitlab.com/merehead/elloapp/backend/elloapp_backend/app/service/biz/user/user"
 	"gitlab.com/merehead/elloapp/backend/elloapp_backend/mtproto"
+	"gitlab.com/merehead/elloapp/backend/elloapp_backend/pkg2/utils"
 
 	"github.com/zeromicro/go-zero/core/mr"
 )

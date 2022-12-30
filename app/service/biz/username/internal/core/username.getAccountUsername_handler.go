@@ -12,7 +12,7 @@ package core
 import (
 	"context"
 	"fmt"
-	"github.com/teamgram/marmota/pkg/stores/sqlx"
+	"gitlab.com/merehead/elloapp/backend/elloapp_backend/pkg2/stores/sqlx"
 
 	"gitlab.com/merehead/elloapp/backend/elloapp_backend/app/service/biz/username/internal/dal/dataobject"
 	"gitlab.com/merehead/elloapp/backend/elloapp_backend/app/service/biz/username/username"

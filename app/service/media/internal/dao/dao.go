@@ -10,11 +10,11 @@
 package dao
 
 import (
-	"github.com/teamgram/marmota/pkg/stores/sqlc"
-	"github.com/teamgram/marmota/pkg/stores/sqlx"
 	"github.com/zeromicro/go-zero/zrpc"
 	dfs_client "gitlab.com/merehead/elloapp/backend/elloapp_backend/app/service/dfs/client"
 	"gitlab.com/merehead/elloapp/backend/elloapp_backend/app/service/media/internal/config"
+	"gitlab.com/merehead/elloapp/backend/elloapp_backend/pkg2/stores/sqlc"
+	"gitlab.com/merehead/elloapp/backend/elloapp_backend/pkg2/stores/sqlx"
 )
 
 type Dao struct {

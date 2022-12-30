@@ -19,9 +19,9 @@
 package config
 
 import (
-	kafka "github.com/teamgram/marmota/pkg/mq"
 	"github.com/zeromicro/go-zero/core/stores/kv"
 	"github.com/zeromicro/go-zero/zrpc"
+	kafka "gitlab.com/merehead/elloapp/backend/elloapp_backend/pkg2/mq"
 )
 
 type Config struct {

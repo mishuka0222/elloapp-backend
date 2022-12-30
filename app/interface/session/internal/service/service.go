@@ -21,7 +21,7 @@ package service
 import (
 	"context"
 	"fmt"
-	"github.com/teamgram/marmota/pkg/net/ip"
+	"gitlab.com/merehead/elloapp/backend/elloapp_backend/pkg2/net/ip"
 	"sync"
 
 	"gitlab.com/merehead/elloapp/backend/elloapp_backend/app/interface/session/internal/config"

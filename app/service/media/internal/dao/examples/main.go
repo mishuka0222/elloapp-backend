@@ -10,11 +10,11 @@ import (
 	"context"
 	"flag"
 	"fmt"
-	"github.com/teamgram/marmota/pkg/stores/sqlx"
 	"github.com/zeromicro/go-zero/core/conf"
 	"gitlab.com/merehead/elloapp/backend/elloapp_backend/app/service/media/internal/config"
 	"gitlab.com/merehead/elloapp/backend/elloapp_backend/app/service/media/internal/svc"
 	"gitlab.com/merehead/elloapp/backend/elloapp_backend/mtproto"
+	"gitlab.com/merehead/elloapp/backend/elloapp_backend/pkg2/stores/sqlx"
 )
 
 var (

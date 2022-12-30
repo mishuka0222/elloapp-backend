@@ -23,8 +23,8 @@ import (
 	"image"
 	"strings"
 
-	"github.com/teamgram/marmota/pkg/bytes2"
 	"gitlab.com/merehead/elloapp/backend/elloapp_backend/mtproto"
+	"gitlab.com/merehead/elloapp/backend/elloapp_backend/pkg2/bytes2"
 
 	"github.com/disintegration/imaging"
 	"github.com/zeromicro/go-zero/core/logx"

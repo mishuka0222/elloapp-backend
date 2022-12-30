@@ -27,9 +27,9 @@ import (
 	"io"
 	"net"
 
-	"github.com/teamgram/marmota/pkg/net/ip"
-	"github.com/teamgram/marmota/pkg/net2"
 	"gitlab.com/merehead/elloapp/backend/elloapp_backend/mtproto/crypto"
+	"gitlab.com/merehead/elloapp/backend/elloapp_backend/pkg2/net/ip"
+	"gitlab.com/merehead/elloapp/backend/elloapp_backend/pkg2/net2"
 
 	log "github.com/zeromicro/go-zero/core/logx"
 )

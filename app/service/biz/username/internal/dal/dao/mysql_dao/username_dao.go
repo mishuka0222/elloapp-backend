@@ -16,8 +16,8 @@ import (
 	"fmt"
 	"strings"
 
-	"github.com/teamgram/marmota/pkg/stores/sqlx"
 	"gitlab.com/merehead/elloapp/backend/elloapp_backend/app/service/biz/username/internal/dal/dataobject"
+	"gitlab.com/merehead/elloapp/backend/elloapp_backend/pkg2/stores/sqlx"
 
 	"github.com/zeromicro/go-zero/core/logx"
 )

@@ -11,8 +11,8 @@
 package main
 
 import (
-	"github.com/teamgram/marmota/pkg/commands"
 	session_helper "gitlab.com/merehead/elloapp/backend/elloapp_backend/app/interface/session"
+	"gitlab.com/merehead/elloapp/backend/elloapp_backend/pkg2/commands"
 )
 
 func main() {

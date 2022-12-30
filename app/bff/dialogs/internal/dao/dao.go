@@ -19,8 +19,6 @@
 package dao
 
 import (
-	kafka "github.com/teamgram/marmota/pkg/mq"
-	"github.com/teamgram/marmota/pkg/net/rpcx"
 	"gitlab.com/merehead/elloapp/backend/elloapp_backend/app/bff/dialogs/internal/config"
 	sync_client "gitlab.com/merehead/elloapp/backend/elloapp_backend/app/messenger/sync/client"
 	chat_client "gitlab.com/merehead/elloapp/backend/elloapp_backend/app/service/biz/chat/client"
@@ -28,6 +26,8 @@ import (
 	message_client "gitlab.com/merehead/elloapp/backend/elloapp_backend/app/service/biz/message/client"
 	updates_client "gitlab.com/merehead/elloapp/backend/elloapp_backend/app/service/biz/updates/client"
 	user_client "gitlab.com/merehead/elloapp/backend/elloapp_backend/app/service/biz/user/client"
+	kafka "gitlab.com/merehead/elloapp/backend/elloapp_backend/pkg2/mq"
+	"gitlab.com/merehead/elloapp/backend/elloapp_backend/pkg2/net/rpcx"
 )
 
 type Dao struct {

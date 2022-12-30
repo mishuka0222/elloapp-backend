@@ -24,10 +24,10 @@ import (
 	"fmt"
 	"strings"
 
-	kafka "github.com/teamgram/marmota/pkg/mq"
 	"gitlab.com/merehead/elloapp/backend/elloapp_backend/app/messenger/msg/inbox/inbox"
 	"gitlab.com/merehead/elloapp/backend/elloapp_backend/app/messenger/msg/inbox/internal/core"
 	"gitlab.com/merehead/elloapp/backend/elloapp_backend/app/messenger/msg/inbox/internal/svc"
+	kafka "gitlab.com/merehead/elloapp/backend/elloapp_backend/pkg2/mq"
 
 	"github.com/gogo/protobuf/proto"
 	"github.com/zeromicro/go-zero/core/logx"

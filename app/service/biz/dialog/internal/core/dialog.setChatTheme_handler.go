@@ -19,9 +19,9 @@
 package core
 
 import (
-	"github.com/teamgram/marmota/pkg/stores/sqlx"
 	"gitlab.com/merehead/elloapp/backend/elloapp_backend/app/service/biz/dialog/dialog"
 	"gitlab.com/merehead/elloapp/backend/elloapp_backend/mtproto"
+	"gitlab.com/merehead/elloapp/backend/elloapp_backend/pkg2/stores/sqlx"
 )
 
 // DialogSetChatTheme

@@ -17,8 +17,8 @@ import (
 	"gitlab.com/merehead/elloapp/backend/elloapp_backend/mtproto"
 	"strings"
 
-	"github.com/teamgram/marmota/pkg/stores/sqlx"
 	"gitlab.com/merehead/elloapp/backend/elloapp_backend/app/service/biz/user/internal/dal/dataobject"
+	"gitlab.com/merehead/elloapp/backend/elloapp_backend/pkg2/stores/sqlx"
 
 	"github.com/zeromicro/go-zero/core/logx"
 )

@@ -10,7 +10,7 @@
 package core
 
 import (
-	// "github.com/teamgram/marmota/pkg/container2"
+	// "gitlab.com/merehead/elloapp/backend/elloapp_backend/pkg2/container2"
 	"gitlab.com/merehead/elloapp/backend/elloapp_backend/app/messenger/sync/sync"
 	"gitlab.com/merehead/elloapp/backend/elloapp_backend/mtproto"
 	// channelpb "gitlab.com/merehead/elloapp/backend/elloapp_backend/app/service/biz/channel/channel"

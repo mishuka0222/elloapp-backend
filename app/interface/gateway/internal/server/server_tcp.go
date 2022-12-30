@@ -28,12 +28,12 @@ import (
 	"strings"
 	"sync"
 
-	"github.com/teamgram/marmota/pkg/hack"
-	"github.com/teamgram/marmota/pkg/net2"
-	"github.com/teamgram/marmota/pkg/timer2"
 	"gitlab.com/merehead/elloapp/backend/elloapp_backend/app/interface/gateway/internal/server/codec"
 	sessionpb "gitlab.com/merehead/elloapp/backend/elloapp_backend/app/interface/session/session"
 	"gitlab.com/merehead/elloapp/backend/elloapp_backend/mtproto"
+	"gitlab.com/merehead/elloapp/backend/elloapp_backend/pkg2/hack"
+	"gitlab.com/merehead/elloapp/backend/elloapp_backend/pkg2/net2"
+	"gitlab.com/merehead/elloapp/backend/elloapp_backend/pkg2/timer2"
 
 	"github.com/zeromicro/go-zero/core/logx"
 )

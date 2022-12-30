@@ -21,8 +21,6 @@ package dao
 import (
 	"flag"
 	"github.com/oschwald/geoip2-golang"
-	kafka "github.com/teamgram/marmota/pkg/mq"
-	"github.com/teamgram/marmota/pkg/net/rpcx"
 	"github.com/zeromicro/go-zero/core/stores/kv"
 	"gitlab.com/merehead/elloapp/backend/elloapp_backend/app/bff/authorization/internal/config"
 	msg_client "gitlab.com/merehead/elloapp/backend/elloapp_backend/app/messenger/msg/msg/client"
@@ -32,6 +30,8 @@ import (
 	user_client "gitlab.com/merehead/elloapp/backend/elloapp_backend/app/service/biz/user/client"
 	username_client "gitlab.com/merehead/elloapp/backend/elloapp_backend/app/service/biz/username/client"
 	status_client "gitlab.com/merehead/elloapp/backend/elloapp_backend/app/service/status/client"
+	kafka "gitlab.com/merehead/elloapp/backend/elloapp_backend/pkg2/mq"
+	"gitlab.com/merehead/elloapp/backend/elloapp_backend/pkg2/net/rpcx"
 )
 
 var (

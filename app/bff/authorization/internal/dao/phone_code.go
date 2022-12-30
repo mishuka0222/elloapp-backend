@@ -22,10 +22,10 @@ import (
 	"context"
 	"time"
 
-	"github.com/teamgram/marmota/pkg/random2"
 	"gitlab.com/merehead/elloapp/backend/elloapp_backend/app/bff/authorization/internal/model"
 	"gitlab.com/merehead/elloapp/backend/elloapp_backend/mtproto"
 	"gitlab.com/merehead/elloapp/backend/elloapp_backend/mtproto/crypto"
+	"gitlab.com/merehead/elloapp/backend/elloapp_backend/pkg2/random2"
 
 	"github.com/zeromicro/go-zero/core/logx"
 )

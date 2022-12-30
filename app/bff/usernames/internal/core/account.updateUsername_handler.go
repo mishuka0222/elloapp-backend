@@ -19,12 +19,12 @@
 package core
 
 import (
-	"github.com/teamgram/marmota/pkg/strings2"
-	"github.com/teamgram/marmota/pkg/utils"
 	"gitlab.com/merehead/elloapp/backend/elloapp_backend/app/messenger/sync/sync"
 	userpb "gitlab.com/merehead/elloapp/backend/elloapp_backend/app/service/biz/user/user"
 	"gitlab.com/merehead/elloapp/backend/elloapp_backend/app/service/biz/username/username"
 	"gitlab.com/merehead/elloapp/backend/elloapp_backend/mtproto"
+	"gitlab.com/merehead/elloapp/backend/elloapp_backend/pkg2/strings2"
+	"gitlab.com/merehead/elloapp/backend/elloapp_backend/pkg2/utils"
 )
 
 // AccountUpdateUsername

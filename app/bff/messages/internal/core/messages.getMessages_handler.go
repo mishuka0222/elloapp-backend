@@ -19,11 +19,11 @@
 package core
 
 import (
-	"github.com/teamgram/marmota/pkg/container2/linkedmap"
 	chatpb "gitlab.com/merehead/elloapp/backend/elloapp_backend/app/service/biz/chat/chat"
 	"gitlab.com/merehead/elloapp/backend/elloapp_backend/app/service/biz/message/message"
 	userpb "gitlab.com/merehead/elloapp/backend/elloapp_backend/app/service/biz/user/user"
 	"gitlab.com/merehead/elloapp/backend/elloapp_backend/mtproto"
+	"gitlab.com/merehead/elloapp/backend/elloapp_backend/pkg2/container2/linkedmap"
 )
 
 // MessagesGetMessages

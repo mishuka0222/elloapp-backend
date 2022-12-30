@@ -16,11 +16,11 @@ import (
 	"math/rand"
 	"time"
 
-	"github.com/teamgram/marmota/pkg/bytes2"
 	"gitlab.com/merehead/elloapp/backend/elloapp_backend/app/service/dfs/dfs"
 	"gitlab.com/merehead/elloapp/backend/elloapp_backend/app/service/dfs/internal/imaging"
 	"gitlab.com/merehead/elloapp/backend/elloapp_backend/app/service/dfs/internal/model"
 	"gitlab.com/merehead/elloapp/backend/elloapp_backend/mtproto"
+	"gitlab.com/merehead/elloapp/backend/elloapp_backend/pkg2/bytes2"
 
 	"github.com/zeromicro/go-zero/core/contextx"
 	"github.com/zeromicro/go-zero/core/threading"

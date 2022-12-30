@@ -11,8 +11,8 @@
 package main
 
 import (
-	"github.com/teamgram/marmota/pkg/commands"
 	dfs_helper "gitlab.com/merehead/elloapp/backend/elloapp_backend/app/service/dfs"
+	"gitlab.com/merehead/elloapp/backend/elloapp_backend/pkg2/commands"
 )
 
 func main() {

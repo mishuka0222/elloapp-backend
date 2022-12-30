@@ -10,10 +10,10 @@
 package svc
 
 import (
-	"github.com/teamgram/marmota/pkg/stores/sqlc"
-	"github.com/teamgram/marmota/pkg/stores/sqlx"
 	"gitlab.com/merehead/elloapp/backend/elloapp_backend/app/service/biz/username/internal/config"
 	"gitlab.com/merehead/elloapp/backend/elloapp_backend/app/service/biz/username/internal/dao"
+	"gitlab.com/merehead/elloapp/backend/elloapp_backend/pkg2/stores/sqlc"
+	"gitlab.com/merehead/elloapp/backend/elloapp_backend/pkg2/stores/sqlx"
 )
 
 type ServiceContext struct {

@@ -19,9 +19,9 @@
 package core
 
 import (
-	"github.com/teamgram/proto/mtproto"
 	"gitlab.com/merehead/elloapp/backend/elloapp_backend/app/service/biz/message/internal/dal/dataobject"
 	"gitlab.com/merehead/elloapp/backend/elloapp_backend/app/service/biz/message/message"
+	"gitlab.com/merehead/elloapp/backend/elloapp_backend/mtproto"
 	"math"
 )
 

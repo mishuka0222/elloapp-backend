@@ -3,8 +3,8 @@ package core
 import (
 	"encoding/json"
 	"github.com/gogo/protobuf/types"
-	"github.com/teamgram/proto/mtproto"
 	"gitlab.com/merehead/elloapp/backend/elloapp_backend/app/service/biz/feeds/feeds"
+	"gitlab.com/merehead/elloapp/backend/elloapp_backend/mtproto"
 	"sort"
 )
 

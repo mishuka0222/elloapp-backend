@@ -9,8 +9,8 @@ package dao
 import (
 	"context"
 
-	"github.com/teamgram/proto/mtproto"
 	"gitlab.com/merehead/elloapp/backend/elloapp_backend/app/service/biz/chat/internal/dal/dataobject"
+	"gitlab.com/merehead/elloapp/backend/elloapp_backend/mtproto"
 	"gitlab.com/merehead/elloapp/backend/elloapp_backend/pkg/env2"
 )
 

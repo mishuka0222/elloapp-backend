@@ -13,9 +13,9 @@ package service
 import (
 	"context"
 
-	"github.com/teamgram/proto/mtproto"
 	"gitlab.com/merehead/elloapp/backend/elloapp_backend/app/messenger/sync/internal/core"
 	"gitlab.com/merehead/elloapp/backend/elloapp_backend/app/messenger/sync/sync"
+	"gitlab.com/merehead/elloapp/backend/elloapp_backend/mtproto"
 )
 
 // SyncUpdatesMe

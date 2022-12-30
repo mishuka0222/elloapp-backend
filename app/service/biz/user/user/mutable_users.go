@@ -7,7 +7,7 @@
 package user
 
 import (
-	"github.com/teamgram/proto/mtproto"
+	"gitlab.com/merehead/elloapp/backend/elloapp_backend/mtproto"
 )
 
 func (m *Vector_ImmutableUser) GetUnsafeUser(selfId, id int64) (*mtproto.User, error) {

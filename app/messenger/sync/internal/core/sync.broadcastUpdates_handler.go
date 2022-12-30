@@ -11,8 +11,8 @@ package core
 
 import (
 	// "github.com/teamgram/marmota/pkg/container2"
-	"github.com/teamgram/proto/mtproto"
 	"gitlab.com/merehead/elloapp/backend/elloapp_backend/app/messenger/sync/sync"
+	"gitlab.com/merehead/elloapp/backend/elloapp_backend/mtproto"
 	// channelpb "gitlab.com/merehead/elloapp/backend/elloapp_backend/app/service/biz/channel/channel"
 	chatpb "gitlab.com/merehead/elloapp/backend/elloapp_backend/app/service/biz/chat/chat"
 )

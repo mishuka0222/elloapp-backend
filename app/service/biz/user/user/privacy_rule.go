@@ -19,7 +19,7 @@
 package user
 
 import (
-	"github.com/teamgram/proto/mtproto"
+	"gitlab.com/merehead/elloapp/backend/elloapp_backend/mtproto"
 )
 
 const (
@@ -268,14 +268,14 @@ func CheckPrivacyIsAllow(selfId int64,
 }
 
 /*
-	privacyValueAllowContacts#fffe1bac = PrivacyRule;
-	privacyValueAllowAll#65427b82 = PrivacyRule;
-	privacyValueAllowUsers#4d5bbe0c users:Vector<int> = PrivacyRule;
-	privacyValueDisallowContacts#f888fa1a = PrivacyRule;
-	privacyValueDisallowAll#8b73e763 = PrivacyRule;
-	privacyValueDisallowUsers#c7f49b7 users:Vector<int> = PrivacyRule;
-	privacyValueAllowChatParticipants#18be796b chats:Vector<int> = PrivacyRule;
-	privacyValueDisallowChatParticipants#acae0690 chats:Vector<int> = PrivacyRule;
+privacyValueAllowContacts#fffe1bac = PrivacyRule;
+privacyValueAllowAll#65427b82 = PrivacyRule;
+privacyValueAllowUsers#4d5bbe0c users:Vector<int> = PrivacyRule;
+privacyValueDisallowContacts#f888fa1a = PrivacyRule;
+privacyValueDisallowAll#8b73e763 = PrivacyRule;
+privacyValueDisallowUsers#c7f49b7 users:Vector<int> = PrivacyRule;
+privacyValueAllowChatParticipants#18be796b chats:Vector<int> = PrivacyRule;
+privacyValueDisallowChatParticipants#acae0690 chats:Vector<int> = PrivacyRule;
 */
 func privacyIsAllow(rules []*mtproto.PrivacyRule, userId int64, isContact bool) bool {
 	ruleType := RULE_TYPE_INVALID

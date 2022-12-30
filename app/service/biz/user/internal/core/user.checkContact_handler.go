@@ -11,8 +11,8 @@ package core
 
 import (
 	"github.com/teamgram/marmota/pkg/container2"
-	"github.com/teamgram/proto/mtproto"
 	"gitlab.com/merehead/elloapp/backend/elloapp_backend/app/service/biz/user/user"
+	"gitlab.com/merehead/elloapp/backend/elloapp_backend/mtproto"
 )
 
 // UserCheckContact

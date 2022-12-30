@@ -2,8 +2,8 @@ package service
 
 import (
 	"context"
-	"github.com/teamgram/proto/mtproto"
 	"gitlab.com/merehead/elloapp/backend/elloapp_backend/app/bff/bizraw/internal/core"
+	"gitlab.com/merehead/elloapp/backend/elloapp_backend/mtproto"
 )
 
 // BizInvokeBizDataRaw

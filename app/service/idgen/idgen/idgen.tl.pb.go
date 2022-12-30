@@ -9,7 +9,7 @@ import (
 	_ "github.com/gogo/protobuf/gogoproto"
 	proto "github.com/gogo/protobuf/proto"
 	_ "github.com/gogo/protobuf/types"
-	mtproto "github.com/teamgram/proto/mtproto"
+	mtproto "gitlab.com/merehead/elloapp/backend/elloapp_backend/mtproto"
 	grpc "google.golang.org/grpc"
 	codes "google.golang.org/grpc/codes"
 	status "google.golang.org/grpc/status"
@@ -71,7 +71,7 @@ func (TLConstructor) EnumDescriptor() ([]byte, []int) {
 	return fileDescriptor_6875902fed70331d, []int{0}
 }
 
-//--------------------------------------------------------------------------------------------
+// --------------------------------------------------------------------------------------------
 // idgen.nextId = Int64;
 type TLIdgenNextId struct {
 	Constructor          TLConstructor `protobuf:"varint,1,opt,name=constructor,proto3,enum=idgen.TLConstructor" json:"constructor,omitempty"`
@@ -120,7 +120,7 @@ func (m *TLIdgenNextId) GetConstructor() TLConstructor {
 	return CRC32_UNKNOWN
 }
 
-//--------------------------------------------------------------------------------------------
+// --------------------------------------------------------------------------------------------
 // idgen.nextIds num:int = Vector<long>;
 type TLIdgenNextIds struct {
 	Constructor          TLConstructor `protobuf:"varint,1,opt,name=constructor,proto3,enum=idgen.TLConstructor" json:"constructor,omitempty"`
@@ -177,7 +177,7 @@ func (m *TLIdgenNextIds) GetNum() int32 {
 	return 0
 }
 
-//--------------------------------------------------------------------------------------------
+// --------------------------------------------------------------------------------------------
 // idgen.getCurrentSeqId key:string = Int64;
 type TLIdgenGetCurrentSeqId struct {
 	Constructor          TLConstructor `protobuf:"varint,1,opt,name=constructor,proto3,enum=idgen.TLConstructor" json:"constructor,omitempty"`
@@ -234,7 +234,7 @@ func (m *TLIdgenGetCurrentSeqId) GetKey() string {
 	return ""
 }
 
-//--------------------------------------------------------------------------------------------
+// --------------------------------------------------------------------------------------------
 // idgen.setCurrentSeqId key:string id:long = Bool;
 type TLIdgenSetCurrentSeqId struct {
 	Constructor          TLConstructor `protobuf:"varint,1,opt,name=constructor,proto3,enum=idgen.TLConstructor" json:"constructor,omitempty"`
@@ -299,7 +299,7 @@ func (m *TLIdgenSetCurrentSeqId) GetId() int64 {
 	return 0
 }
 
-//--------------------------------------------------------------------------------------------
+// --------------------------------------------------------------------------------------------
 // idgen.getNextSeqId key:string = Int64;
 type TLIdgenGetNextSeqId struct {
 	Constructor          TLConstructor `protobuf:"varint,1,opt,name=constructor,proto3,enum=idgen.TLConstructor" json:"constructor,omitempty"`
@@ -356,7 +356,7 @@ func (m *TLIdgenGetNextSeqId) GetKey() string {
 	return ""
 }
 
-//--------------------------------------------------------------------------------------------
+// --------------------------------------------------------------------------------------------
 // idgen.getNextNSeqId key:string n:int = Int64;
 type TLIdgenGetNextNSeqId struct {
 	Constructor          TLConstructor `protobuf:"varint,1,opt,name=constructor,proto3,enum=idgen.TLConstructor" json:"constructor,omitempty"`
@@ -421,7 +421,7 @@ func (m *TLIdgenGetNextNSeqId) GetN() int32 {
 	return 0
 }
 
-//--------------------------------------------------------------------------------------------
+// --------------------------------------------------------------------------------------------
 // Vector api result type
 type Vector_Long struct {
 	Datas                []int64  `protobuf:"varint,1,rep,packed,name=datas,proto3" json:"datas,omitempty"`

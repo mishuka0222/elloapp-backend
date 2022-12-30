@@ -21,7 +21,7 @@ package core
 import (
 	"container/list"
 
-	"github.com/teamgram/proto/mtproto"
+	"gitlab.com/merehead/elloapp/backend/elloapp_backend/mtproto"
 )
 
 func equalPeer(p, o *mtproto.Peer) bool {

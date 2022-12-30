@@ -16,13 +16,13 @@ package gateway
 import (
 	"fmt"
 
-	"github.com/teamgram/proto/mtproto"
+	"gitlab.com/merehead/elloapp/backend/elloapp_backend/mtproto"
 
 	"github.com/gogo/protobuf/jsonpb"
 	"github.com/gogo/protobuf/types"
 )
 
-//////////////////////////////////////////////////////////////////////////////////////////
+// ////////////////////////////////////////////////////////////////////////////////////////
 var _ *types.Int32Value
 var _ *mtproto.Bool
 var _ fmt.GoStringer
@@ -53,9 +53,9 @@ func CheckClassID(classId int32) (ok bool) {
 
 //----------------------------------------------------------------------------------------------------------------
 
-//----------------------------------------------------------------------------------------------------------------
+// ----------------------------------------------------------------------------------------------------------------
 // TLGatewaySendDataToGateway
-///////////////////////////////////////////////////////////////////////////////
+// /////////////////////////////////////////////////////////////////////////////
 func (m *TLGatewaySendDataToGateway) Encode(layer int32) []byte {
 	x := mtproto.NewEncodeBuf(512)
 	// x.Int(int32(CRC32_gateway_sendDataToGateway))

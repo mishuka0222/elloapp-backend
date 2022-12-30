@@ -21,7 +21,7 @@ package server
 import (
 	"strconv"
 
-	"github.com/teamgram/proto/mtproto"
+	"gitlab.com/merehead/elloapp/backend/elloapp_backend/mtproto"
 )
 
 func (s *Server) GetAuthKey(authKeyId int64) *mtproto.AuthKeyInfo {

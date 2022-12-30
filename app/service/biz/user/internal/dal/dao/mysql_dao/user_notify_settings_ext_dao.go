@@ -14,7 +14,7 @@ import (
 	"context"
 	"database/sql"
 	"fmt"
-	"github.com/teamgram/proto/mtproto"
+	"gitlab.com/merehead/elloapp/backend/elloapp_backend/mtproto"
 	"strings"
 
 	"github.com/teamgram/marmota/pkg/stores/sqlx"

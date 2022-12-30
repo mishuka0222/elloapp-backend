@@ -11,12 +11,12 @@ package dao
 
 import (
 	"github.com/teamgram/marmota/pkg/cache"
-	"github.com/teamgram/proto/mtproto"
-	"github.com/teamgram/proto/mtproto/rpc/metadata"
 	bff_proxy_client "gitlab.com/merehead/elloapp/backend/elloapp_backend/app/bff/bff/client"
 	"gitlab.com/merehead/elloapp/backend/elloapp_backend/app/interface/session/internal/config"
 	authsession_client "gitlab.com/merehead/elloapp/backend/elloapp_backend/app/service/authsession/client"
 	status_client "gitlab.com/merehead/elloapp/backend/elloapp_backend/app/service/status/client"
+	"gitlab.com/merehead/elloapp/backend/elloapp_backend/mtproto"
+	"gitlab.com/merehead/elloapp/backend/elloapp_backend/mtproto/rpc/metadata"
 
 	"github.com/zeromicro/go-zero/zrpc"
 )

@@ -9,7 +9,7 @@ import (
 	_ "github.com/gogo/protobuf/gogoproto"
 	proto "github.com/gogo/protobuf/proto"
 	_ "github.com/gogo/protobuf/types"
-	mtproto "github.com/teamgram/proto/mtproto"
+	mtproto "gitlab.com/merehead/elloapp/backend/elloapp_backend/mtproto"
 	grpc "google.golang.org/grpc"
 	codes "google.golang.org/grpc/codes"
 	status "google.golang.org/grpc/status"
@@ -117,8 +117,7 @@ func (TLConstructor) EnumDescriptor() ([]byte, []int) {
 }
 
 // InboxMessageData <--
-//  + TL_inboxMessageData
-//
+//   - TL_inboxMessageData
 type InboxMessageData struct {
 	PredicateName        string           `protobuf:"bytes,1,opt,name=predicate_name,json=predicateName,proto3" json:"predicate_name,omitempty"`
 	Constructor          TLConstructor    `protobuf:"varint,2,opt,name=constructor,proto3,enum=inbox.TLConstructor" json:"constructor,omitempty"`
@@ -246,8 +245,7 @@ func (m *TLInboxMessageData) GetData2() *InboxMessageData {
 }
 
 // InboxMessageId <--
-//  + TL_inboxMessageId
-//
+//   - TL_inboxMessageId
 type InboxMessageId struct {
 	PredicateName        string        `protobuf:"bytes,1,opt,name=predicate_name,json=predicateName,proto3" json:"predicate_name,omitempty"`
 	Constructor          TLConstructor `protobuf:"varint,2,opt,name=constructor,proto3,enum=inbox.TLConstructor" json:"constructor,omitempty"`
@@ -366,7 +364,7 @@ func (m *TLInboxMessageId) GetData2() *InboxMessageId {
 	return nil
 }
 
-//--------------------------------------------------------------------------------------------
+// --------------------------------------------------------------------------------------------
 type TLInboxSendUserMessageToInbox struct {
 	Constructor          TLConstructor     `protobuf:"varint,1,opt,name=constructor,proto3,enum=inbox.TLConstructor" json:"constructor,omitempty"`
 	FromId               int64             `protobuf:"varint,3,opt,name=from_id,json=fromId,proto3" json:"from_id,omitempty"`
@@ -438,7 +436,7 @@ func (m *TLInboxSendUserMessageToInbox) GetMessage() *InboxMessageData {
 	return nil
 }
 
-//--------------------------------------------------------------------------------------------
+// --------------------------------------------------------------------------------------------
 type TLInboxSendChatMessageToInbox struct {
 	Constructor          TLConstructor     `protobuf:"varint,1,opt,name=constructor,proto3,enum=inbox.TLConstructor" json:"constructor,omitempty"`
 	FromId               int64             `protobuf:"varint,3,opt,name=from_id,json=fromId,proto3" json:"from_id,omitempty"`
@@ -510,7 +508,7 @@ func (m *TLInboxSendChatMessageToInbox) GetMessage() *InboxMessageData {
 	return nil
 }
 
-//--------------------------------------------------------------------------------------------
+// --------------------------------------------------------------------------------------------
 type TLInboxSendChannelMessageToInbox struct {
 	Constructor          TLConstructor       `protobuf:"varint,1,opt,name=constructor,proto3,enum=inbox.TLConstructor" json:"constructor,omitempty"`
 	FromId               int64               `protobuf:"varint,3,opt,name=from_id,json=fromId,proto3" json:"from_id,omitempty"`
@@ -582,7 +580,7 @@ func (m *TLInboxSendChannelMessageToInbox) GetMessage() *mtproto.MessageBox {
 	return nil
 }
 
-//--------------------------------------------------------------------------------------------
+// --------------------------------------------------------------------------------------------
 type TLInboxSendUserMultiMessageToInbox struct {
 	Constructor          TLConstructor       `protobuf:"varint,1,opt,name=constructor,proto3,enum=inbox.TLConstructor" json:"constructor,omitempty"`
 	FromId               int64               `protobuf:"varint,3,opt,name=from_id,json=fromId,proto3" json:"from_id,omitempty"`
@@ -654,7 +652,7 @@ func (m *TLInboxSendUserMultiMessageToInbox) GetMessage() []*InboxMessageData {
 	return nil
 }
 
-//--------------------------------------------------------------------------------------------
+// --------------------------------------------------------------------------------------------
 type TLInboxSendChatMultiMessageToInbox struct {
 	Constructor          TLConstructor       `protobuf:"varint,1,opt,name=constructor,proto3,enum=inbox.TLConstructor" json:"constructor,omitempty"`
 	FromId               int64               `protobuf:"varint,3,opt,name=from_id,json=fromId,proto3" json:"from_id,omitempty"`
@@ -726,7 +724,7 @@ func (m *TLInboxSendChatMultiMessageToInbox) GetMessage() []*InboxMessageData {
 	return nil
 }
 
-//--------------------------------------------------------------------------------------------
+// --------------------------------------------------------------------------------------------
 type TLInboxSendChannelMultiMessageToInbox struct {
 	Constructor          TLConstructor         `protobuf:"varint,1,opt,name=constructor,proto3,enum=inbox.TLConstructor" json:"constructor,omitempty"`
 	FromId               int64                 `protobuf:"varint,3,opt,name=from_id,json=fromId,proto3" json:"from_id,omitempty"`
@@ -798,7 +796,7 @@ func (m *TLInboxSendChannelMultiMessageToInbox) GetMessage() []*mtproto.MessageB
 	return nil
 }
 
-//--------------------------------------------------------------------------------------------
+// --------------------------------------------------------------------------------------------
 type TLInboxEditUserMessageToInbox struct {
 	Constructor          TLConstructor    `protobuf:"varint,1,opt,name=constructor,proto3,enum=inbox.TLConstructor" json:"constructor,omitempty"`
 	FromId               int64            `protobuf:"varint,3,opt,name=from_id,json=fromId,proto3" json:"from_id,omitempty"`
@@ -870,7 +868,7 @@ func (m *TLInboxEditUserMessageToInbox) GetMessage() *mtproto.Message {
 	return nil
 }
 
-//--------------------------------------------------------------------------------------------
+// --------------------------------------------------------------------------------------------
 type TLInboxEditChatMessageToInbox struct {
 	Constructor          TLConstructor    `protobuf:"varint,1,opt,name=constructor,proto3,enum=inbox.TLConstructor" json:"constructor,omitempty"`
 	FromId               int64            `protobuf:"varint,3,opt,name=from_id,json=fromId,proto3" json:"from_id,omitempty"`
@@ -942,7 +940,7 @@ func (m *TLInboxEditChatMessageToInbox) GetMessage() *mtproto.Message {
 	return nil
 }
 
-//--------------------------------------------------------------------------------------------
+// --------------------------------------------------------------------------------------------
 type TLInboxEditChannelMessageToInbox struct {
 	Constructor          TLConstructor    `protobuf:"varint,1,opt,name=constructor,proto3,enum=inbox.TLConstructor" json:"constructor,omitempty"`
 	FromId               int64            `protobuf:"varint,3,opt,name=from_id,json=fromId,proto3" json:"from_id,omitempty"`
@@ -1030,7 +1028,7 @@ func (m *TLInboxEditChannelMessageToInbox) GetMessage() *mtproto.Message {
 	return nil
 }
 
-//--------------------------------------------------------------------------------------------
+// --------------------------------------------------------------------------------------------
 type TLInboxDeleteMessagesToInbox struct {
 	Constructor          TLConstructor `protobuf:"varint,1,opt,name=constructor,proto3,enum=inbox.TLConstructor" json:"constructor,omitempty"`
 	FromId               int64         `protobuf:"varint,3,opt,name=from_id,json=fromId,proto3" json:"from_id,omitempty"`
@@ -1110,7 +1108,7 @@ func (m *TLInboxDeleteMessagesToInbox) GetId() []int64 {
 	return nil
 }
 
-//--------------------------------------------------------------------------------------------
+// --------------------------------------------------------------------------------------------
 type TLInboxDeleteChannelMessagesToInbox struct {
 	Constructor          TLConstructor `protobuf:"varint,1,opt,name=constructor,proto3,enum=inbox.TLConstructor" json:"constructor,omitempty"`
 	FromId               int64         `protobuf:"varint,3,opt,name=from_id,json=fromId,proto3" json:"from_id,omitempty"`
@@ -1198,7 +1196,7 @@ func (m *TLInboxDeleteChannelMessagesToInbox) GetId() []int32 {
 	return nil
 }
 
-//--------------------------------------------------------------------------------------------
+// --------------------------------------------------------------------------------------------
 type TLInboxDeleteUserHistoryToInbox struct {
 	Constructor          TLConstructor `protobuf:"varint,1,opt,name=constructor,proto3,enum=inbox.TLConstructor" json:"constructor,omitempty"`
 	FromId               int64         `protobuf:"varint,3,opt,name=from_id,json=fromId,proto3" json:"from_id,omitempty"`
@@ -1278,7 +1276,7 @@ func (m *TLInboxDeleteUserHistoryToInbox) GetMaxId() int32 {
 	return 0
 }
 
-//--------------------------------------------------------------------------------------------
+// --------------------------------------------------------------------------------------------
 type TLInboxDeleteChatHistoryToInbox struct {
 	Constructor          TLConstructor `protobuf:"varint,1,opt,name=constructor,proto3,enum=inbox.TLConstructor" json:"constructor,omitempty"`
 	FromId               int64         `protobuf:"varint,3,opt,name=from_id,json=fromId,proto3" json:"from_id,omitempty"`
@@ -1350,7 +1348,7 @@ func (m *TLInboxDeleteChatHistoryToInbox) GetMaxId() int32 {
 	return 0
 }
 
-//--------------------------------------------------------------------------------------------
+// --------------------------------------------------------------------------------------------
 type TLInboxReadUserMediaUnreadToInbox struct {
 	Constructor          TLConstructor     `protobuf:"varint,1,opt,name=constructor,proto3,enum=inbox.TLConstructor" json:"constructor,omitempty"`
 	FromId               int64             `protobuf:"varint,3,opt,name=from_id,json=fromId,proto3" json:"from_id,omitempty"`
@@ -1422,7 +1420,7 @@ func (m *TLInboxReadUserMediaUnreadToInbox) GetId() []*InboxMessageId {
 	return nil
 }
 
-//--------------------------------------------------------------------------------------------
+// --------------------------------------------------------------------------------------------
 type TLInboxReadChatMediaUnreadToInbox struct {
 	Constructor          TLConstructor     `protobuf:"varint,1,opt,name=constructor,proto3,enum=inbox.TLConstructor" json:"constructor,omitempty"`
 	FromId               int64             `protobuf:"varint,3,opt,name=from_id,json=fromId,proto3" json:"from_id,omitempty"`
@@ -1494,7 +1492,7 @@ func (m *TLInboxReadChatMediaUnreadToInbox) GetId() []*InboxMessageId {
 	return nil
 }
 
-//--------------------------------------------------------------------------------------------
+// --------------------------------------------------------------------------------------------
 type TLInboxReadChannelMediaUnreadToInbox struct {
 	Constructor          TLConstructor `protobuf:"varint,1,opt,name=constructor,proto3,enum=inbox.TLConstructor" json:"constructor,omitempty"`
 	FromId               int64         `protobuf:"varint,3,opt,name=from_id,json=fromId,proto3" json:"from_id,omitempty"`
@@ -1566,7 +1564,7 @@ func (m *TLInboxReadChannelMediaUnreadToInbox) GetId() []int32 {
 	return nil
 }
 
-//--------------------------------------------------------------------------------------------
+// --------------------------------------------------------------------------------------------
 type TLInboxUpdateHistoryReaded struct {
 	Constructor          TLConstructor `protobuf:"varint,1,opt,name=constructor,proto3,enum=inbox.TLConstructor" json:"constructor,omitempty"`
 	FromId               int64         `protobuf:"varint,3,opt,name=from_id,json=fromId,proto3" json:"from_id,omitempty"`
@@ -1654,7 +1652,7 @@ func (m *TLInboxUpdateHistoryReaded) GetSender() int64 {
 	return 0
 }
 
-//--------------------------------------------------------------------------------------------
+// --------------------------------------------------------------------------------------------
 type TLInboxUpdatePinnedMessage struct {
 	Constructor          TLConstructor `protobuf:"varint,1,opt,name=constructor,proto3,enum=inbox.TLConstructor" json:"constructor,omitempty"`
 	UserId               int64         `protobuf:"varint,3,opt,name=user_id,json=userId,proto3" json:"user_id,omitempty"`
@@ -1750,7 +1748,7 @@ func (m *TLInboxUpdatePinnedMessage) GetDialogMessageId() int64 {
 	return 0
 }
 
-//--------------------------------------------------------------------------------------------
+// --------------------------------------------------------------------------------------------
 type TLInboxUnpinAllMessages struct {
 	Constructor          TLConstructor `protobuf:"varint,1,opt,name=constructor,proto3,enum=inbox.TLConstructor" json:"constructor,omitempty"`
 	UserId               int64         `protobuf:"varint,3,opt,name=user_id,json=userId,proto3" json:"user_id,omitempty"`

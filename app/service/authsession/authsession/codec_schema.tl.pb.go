@@ -16,7 +16,7 @@ package authsession
 import (
 	"fmt"
 
-	"github.com/teamgram/proto/mtproto"
+	"gitlab.com/merehead/elloapp/backend/elloapp_backend/mtproto"
 
 	"github.com/gogo/protobuf/jsonpb"
 	"github.com/gogo/protobuf/types"
@@ -1433,9 +1433,9 @@ func (m *TLAuthsessionGetAuthStateData) DebugString() string {
 	return dbgString
 }
 
-//----------------------------------------------------------------------------------------------------------------
+// ----------------------------------------------------------------------------------------------------------------
 // Vector_Long
-///////////////////////////////////////////////////////////////////////////////
+// /////////////////////////////////////////////////////////////////////////////
 func (m *Vector_Long) Encode(layer int32) []byte {
 	x := mtproto.NewEncodeBuf(512)
 	x.VectorLong(m.Datas)

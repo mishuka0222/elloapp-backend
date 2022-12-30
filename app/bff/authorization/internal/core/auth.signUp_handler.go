@@ -25,8 +25,8 @@ import (
 	"golang.org/x/crypto/bcrypt"
 	"log"
 
-	"github.com/teamgram/proto/mtproto"
-	"github.com/teamgram/proto/mtproto/crypto"
+	"gitlab.com/merehead/elloapp/backend/elloapp_backend/mtproto"
+	"gitlab.com/merehead/elloapp/backend/elloapp_backend/mtproto/crypto"
 	//"gitlab.com/merehead/elloapp/backend/elloapp_backend/app/bff/authorization/internal/model"
 	"gitlab.com/merehead/elloapp/backend/elloapp_backend/app/service/authsession/authsession"
 	userpb "gitlab.com/merehead/elloapp/backend/elloapp_backend/app/service/biz/user/user"

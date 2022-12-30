@@ -2,10 +2,10 @@ package tests
 
 import (
 	"context"
-	"github.com/teamgram/proto/mtproto/rpc/metadata"
 	op_srv "gitlab.com/merehead/elloapp/backend/elloapp_backend/app/bff/bizraw/service"
 	"gitlab.com/merehead/elloapp/backend/elloapp_backend/app/bff/feeds/internal/service"
 	"gitlab.com/merehead/elloapp/backend/elloapp_backend/app/service/biz/feeds/feeds"
+	"gitlab.com/merehead/elloapp/backend/elloapp_backend/mtproto/rpc/metadata"
 	"testing"
 )
 

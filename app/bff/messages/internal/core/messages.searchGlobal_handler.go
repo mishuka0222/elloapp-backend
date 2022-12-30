@@ -19,10 +19,10 @@
 package core
 
 import (
-	"github.com/teamgram/proto/mtproto"
 	chatpb "gitlab.com/merehead/elloapp/backend/elloapp_backend/app/service/biz/chat/chat"
 	messagepb "gitlab.com/merehead/elloapp/backend/elloapp_backend/app/service/biz/message/message"
 	userpb "gitlab.com/merehead/elloapp/backend/elloapp_backend/app/service/biz/user/user"
+	"gitlab.com/merehead/elloapp/backend/elloapp_backend/mtproto"
 	"math"
 )
 

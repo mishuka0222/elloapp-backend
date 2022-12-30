@@ -11,8 +11,8 @@ package core
 
 import (
 	"fmt"
-	"github.com/teamgram/proto/mtproto"
 	"gitlab.com/merehead/elloapp/backend/elloapp_backend/app/service/idgen/idgen"
+	"gitlab.com/merehead/elloapp/backend/elloapp_backend/mtproto"
 	"strconv"
 )
 

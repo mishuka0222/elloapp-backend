@@ -7,7 +7,7 @@
 package message
 
 import (
-	"github.com/teamgram/proto/mtproto"
+	"gitlab.com/merehead/elloapp/backend/elloapp_backend/mtproto"
 )
 
 func (m *Vector_MessageBox) Visit(toUserId int64,

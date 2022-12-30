@@ -19,9 +19,9 @@
 package core
 
 import (
-	"github.com/teamgram/proto/mtproto"
 	"gitlab.com/merehead/elloapp/backend/elloapp_backend/app/bff/authorization/internal/logic"
 	"gitlab.com/merehead/elloapp/backend/elloapp_backend/app/bff/authorization/internal/model"
+	"gitlab.com/merehead/elloapp/backend/elloapp_backend/mtproto"
 )
 
 /*

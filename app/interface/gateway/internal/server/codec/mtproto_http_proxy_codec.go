@@ -28,7 +28,7 @@ import (
 	"time"
 
 	"github.com/teamgram/marmota/pkg/net2"
-	"github.com/teamgram/proto/mtproto"
+	"gitlab.com/merehead/elloapp/backend/elloapp_backend/mtproto"
 
 	log "github.com/zeromicro/go-zero/core/logx"
 )

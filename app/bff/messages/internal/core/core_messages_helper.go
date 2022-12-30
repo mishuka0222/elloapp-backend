@@ -12,13 +12,13 @@ import (
 	"sort"
 	"time"
 
-	"github.com/teamgram/proto/mtproto"
-	"github.com/teamgram/proto/mtproto/rpc/metadata"
 	"gitlab.com/merehead/elloapp/backend/elloapp_backend/app/messenger/sync/sync"
 	"gitlab.com/merehead/elloapp/backend/elloapp_backend/app/service/biz/dialog/dialog"
 	userpb "gitlab.com/merehead/elloapp/backend/elloapp_backend/app/service/biz/user/user"
 	"gitlab.com/merehead/elloapp/backend/elloapp_backend/app/service/biz/username/username"
 	mediapb "gitlab.com/merehead/elloapp/backend/elloapp_backend/app/service/media/media"
+	"gitlab.com/merehead/elloapp/backend/elloapp_backend/mtproto"
+	"gitlab.com/merehead/elloapp/backend/elloapp_backend/mtproto/rpc/metadata"
 	"gitlab.com/merehead/elloapp/backend/elloapp_backend/pkg/mention"
 	"gitlab.com/merehead/elloapp/backend/elloapp_backend/pkg/phonenumber"
 

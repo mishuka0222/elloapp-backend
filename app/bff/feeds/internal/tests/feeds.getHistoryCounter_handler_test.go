@@ -3,10 +3,10 @@ package tests
 import (
 	"context"
 	"encoding/json"
-	"github.com/teamgram/proto/mtproto/rpc/metadata"
 	"github.com/zeromicro/go-zero/core/logx"
 	op_srv "gitlab.com/merehead/elloapp/backend/elloapp_backend/app/bff/bizraw/service"
 	"gitlab.com/merehead/elloapp/backend/elloapp_backend/app/bff/feeds/internal/service"
+	"gitlab.com/merehead/elloapp/backend/elloapp_backend/mtproto/rpc/metadata"
 	"testing"
 )
 

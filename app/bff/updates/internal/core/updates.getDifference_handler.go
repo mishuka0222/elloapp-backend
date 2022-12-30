@@ -22,10 +22,10 @@ import (
 	"gitlab.com/merehead/elloapp/backend/elloapp_backend/app/service/authsession/authsession"
 	"time"
 
-	"github.com/teamgram/proto/mtproto"
 	chatpb "gitlab.com/merehead/elloapp/backend/elloapp_backend/app/service/biz/chat/chat"
 	"gitlab.com/merehead/elloapp/backend/elloapp_backend/app/service/biz/updates/updates"
 	userpb "gitlab.com/merehead/elloapp/backend/elloapp_backend/app/service/biz/user/user"
+	"gitlab.com/merehead/elloapp/backend/elloapp_backend/mtproto"
 )
 
 // UpdatesGetDifference

@@ -23,9 +23,9 @@ import (
 	"fmt"
 	"github.com/teamgram/marmota/pkg/net2"
 	"github.com/teamgram/marmota/pkg/timer2"
-	"github.com/teamgram/proto/mtproto"
 	"github.com/zeromicro/go-zero/core/logx"
 	sessionpb "gitlab.com/merehead/elloapp/backend/elloapp_backend/app/interface/session/session"
+	"gitlab.com/merehead/elloapp/backend/elloapp_backend/mtproto"
 	"strconv"
 
 	"github.com/teamgram/marmota/pkg/cache"

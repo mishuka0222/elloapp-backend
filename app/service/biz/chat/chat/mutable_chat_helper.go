@@ -9,7 +9,7 @@ package chat
 import (
 	"time"
 
-	"github.com/teamgram/proto/mtproto"
+	"gitlab.com/merehead/elloapp/backend/elloapp_backend/mtproto"
 )
 
 func (m *MutableChat) Id() int64 {

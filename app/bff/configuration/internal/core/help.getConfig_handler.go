@@ -20,8 +20,8 @@ package core
 
 import (
 	"github.com/gogo/protobuf/proto"
-	"github.com/teamgram/proto/mtproto"
 	"github.com/zeromicro/go-zero/core/jsonx"
+	"gitlab.com/merehead/elloapp/backend/elloapp_backend/mtproto"
 	"os"
 	"time"
 )

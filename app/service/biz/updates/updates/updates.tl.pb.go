@@ -9,7 +9,7 @@ import (
 	_ "github.com/gogo/protobuf/gogoproto"
 	proto "github.com/gogo/protobuf/proto"
 	types "github.com/gogo/protobuf/types"
-	mtproto "github.com/teamgram/proto/mtproto"
+	mtproto "gitlab.com/merehead/elloapp/backend/elloapp_backend/mtproto"
 	grpc "google.golang.org/grpc"
 	codes "google.golang.org/grpc/codes"
 	status "google.golang.org/grpc/status"
@@ -77,12 +77,11 @@ func (TLConstructor) EnumDescriptor() ([]byte, []int) {
 	return fileDescriptor_a220846e90de680d, []int{0}
 }
 
-//--------------------------------------------------------------------------------------------
+// --------------------------------------------------------------------------------------------
 // channelDifference flags:# final:flags.0?true pts:int new_messages:Vector<Message> other_updates:Vector<Update> = ChannelDifference;
 //
 // ChannelDifference <--
-//  + TL_channelDifference
-//
+//   - TL_channelDifference
 type ChannelDifference struct {
 	PredicateName        string             `protobuf:"bytes,1,opt,name=predicate_name,json=predicateName,proto3" json:"predicate_name,omitempty"`
 	Constructor          TLConstructor      `protobuf:"varint,2,opt,name=constructor,proto3,enum=updates.TLConstructor" json:"constructor,omitempty"`
@@ -218,18 +217,17 @@ func (m *TLChannelDifference) GetData2() *ChannelDifference {
 	return nil
 }
 
-//--------------------------------------------------------------------------------------------
+// --------------------------------------------------------------------------------------------
 // differenceEmpty state:updates.State = Difference;
 // difference new_messages:Vector<Message> other_updates:Vector<Update> state:updates.State = Difference;
 // differenceSlice new_messages:Vector<Message> other_updates:Vector<Update> intermediate_state:updates.State = Difference;
 // differenceTooLong pts:int = Difference;
 //
 // Difference <--
-//  + TL_differenceEmpty
-//  + TL_difference
-//  + TL_differenceSlice
-//  + TL_differenceTooLong
-//
+//   - TL_differenceEmpty
+//   - TL_difference
+//   - TL_differenceSlice
+//   - TL_differenceTooLong
 type Difference struct {
 	PredicateName        string                 `protobuf:"bytes,1,opt,name=predicate_name,json=predicateName,proto3" json:"predicate_name,omitempty"`
 	Constructor          TLConstructor          `protobuf:"varint,2,opt,name=constructor,proto3,enum=updates.TLConstructor" json:"constructor,omitempty"`
@@ -517,7 +515,7 @@ func (m *TLDifferenceTooLong) GetData2() *Difference {
 	return nil
 }
 
-//--------------------------------------------------------------------------------------------
+// --------------------------------------------------------------------------------------------
 // updates.getState auth_key_id:long user_id:long = updates.State;
 type TLUpdatesGetState struct {
 	Constructor          TLConstructor `protobuf:"varint,1,opt,name=constructor,proto3,enum=updates.TLConstructor" json:"constructor,omitempty"`
@@ -582,7 +580,7 @@ func (m *TLUpdatesGetState) GetUserId() int64 {
 	return 0
 }
 
-//--------------------------------------------------------------------------------------------
+// --------------------------------------------------------------------------------------------
 // updates.getDifferenceV2 flags:# auth_key_id:long user_id:long pts:int pts_total_limit:flags.0?int date:long = Difference;
 type TLUpdatesGetDifferenceV2 struct {
 	Constructor          TLConstructor     `protobuf:"varint,1,opt,name=constructor,proto3,enum=updates.TLConstructor" json:"constructor,omitempty"`
@@ -671,7 +669,7 @@ func (m *TLUpdatesGetDifferenceV2) GetDate() int64 {
 	return 0
 }
 
-//--------------------------------------------------------------------------------------------
+// --------------------------------------------------------------------------------------------
 // updates.getChannelDifferenceV2 auth_key_id:long user_id:long channel_id:long pts:int limit:int = ChannelDifference;
 type TLUpdatesGetChannelDifferenceV2 struct {
 	Constructor          TLConstructor `protobuf:"varint,1,opt,name=constructor,proto3,enum=updates.TLConstructor" json:"constructor,omitempty"`

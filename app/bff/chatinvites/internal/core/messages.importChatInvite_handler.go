@@ -21,9 +21,9 @@ package core
 import (
 	"math/rand"
 
-	"github.com/teamgram/proto/mtproto"
 	msgpb "gitlab.com/merehead/elloapp/backend/elloapp_backend/app/messenger/msg/msg/msg"
 	chatpb "gitlab.com/merehead/elloapp/backend/elloapp_backend/app/service/biz/chat/chat"
+	"gitlab.com/merehead/elloapp/backend/elloapp_backend/mtproto"
 )
 
 // MessagesImportChatInvite

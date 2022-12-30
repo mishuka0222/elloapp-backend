@@ -2,7 +2,6 @@ package server
 
 import (
 	"flag"
-	"github.com/teamgram/proto/mtproto"
 	account_helper "gitlab.com/merehead/elloapp/backend/elloapp_backend/app/bff/account"
 	authorization_helper "gitlab.com/merehead/elloapp/backend/elloapp_backend/app/bff/authorization"
 	"gitlab.com/merehead/elloapp/backend/elloapp_backend/app/bff/authorization_customize"
@@ -30,6 +29,7 @@ import (
 	updates_helper "gitlab.com/merehead/elloapp/backend/elloapp_backend/app/bff/updates"
 	usernames_helper "gitlab.com/merehead/elloapp/backend/elloapp_backend/app/bff/usernames"
 	users_helper "gitlab.com/merehead/elloapp/backend/elloapp_backend/app/bff/users"
+	"gitlab.com/merehead/elloapp/backend/elloapp_backend/mtproto"
 
 	"github.com/zeromicro/go-zero/core/conf"
 	"github.com/zeromicro/go-zero/core/logx"

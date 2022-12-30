@@ -9,7 +9,7 @@ package chat
 import (
 	"github.com/teamgram/marmota/pkg/random2"
 	"github.com/teamgram/marmota/pkg/utils"
-	"github.com/teamgram/proto/mtproto"
+	"gitlab.com/merehead/elloapp/backend/elloapp_backend/mtproto"
 	"gitlab.com/merehead/elloapp/backend/elloapp_backend/pkg/env2"
 	"strings"
 )

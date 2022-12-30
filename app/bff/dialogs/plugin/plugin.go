@@ -21,8 +21,8 @@ package plugin
 import (
 	"context"
 
-	"github.com/teamgram/proto/mtproto"
 	"gitlab.com/merehead/elloapp/backend/elloapp_backend/app/service/biz/dialog/dialog"
+	"gitlab.com/merehead/elloapp/backend/elloapp_backend/mtproto"
 )
 
 type DialogsPlugin interface {

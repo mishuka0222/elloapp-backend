@@ -16,7 +16,7 @@ package user
 import (
 	"fmt"
 
-	"github.com/teamgram/proto/mtproto"
+	"gitlab.com/merehead/elloapp/backend/elloapp_backend/mtproto"
 
 	"github.com/gogo/protobuf/jsonpb"
 	"github.com/gogo/protobuf/types"
@@ -482,7 +482,7 @@ func (m *TLBotData) To_BotData() *BotData {
 	return m.Data2
 }
 
-//// flags
+// // flags
 func (m *TLBotData) SetId(v int64) { m.Data2.Id = v }
 func (m *TLBotData) GetId() int64  { return m.Data2.Id }
 
@@ -702,7 +702,7 @@ func (m *TLContactData) To_ContactData() *ContactData {
 	return m.Data2
 }
 
-//// flags
+// // flags
 func (m *TLContactData) SetUserId(v int64) { m.Data2.UserId = v }
 func (m *TLContactData) GetUserId() int64  { return m.Data2.UserId }
 
@@ -897,7 +897,7 @@ func (m *TLImmutableUser) To_ImmutableUser() *ImmutableUser {
 	return m.Data2
 }
 
-//// flags
+// // flags
 func (m *TLImmutableUser) SetUser(v *UserData) { m.Data2.User = v }
 func (m *TLImmutableUser) GetUser() *UserData  { return m.Data2.User }
 
@@ -1573,7 +1573,7 @@ func (m *TLUserData) To_UserData() *UserData {
 	return m.Data2
 }
 
-//// flags
+// // flags
 func (m *TLUserData) SetId(v int64) { m.Data2.Id = v }
 func (m *TLUserData) GetId() int64  { return m.Data2.Id }
 
@@ -5310,9 +5310,9 @@ func (m *TLUserUpdateEmojiStatus) DebugString() string {
 	return dbgString
 }
 
-//----------------------------------------------------------------------------------------------------------------
+// ----------------------------------------------------------------------------------------------------------------
 // Vector_LastSeenData
-///////////////////////////////////////////////////////////////////////////////
+// /////////////////////////////////////////////////////////////////////////////
 func (m *Vector_LastSeenData) Encode(layer int32) []byte {
 	x := mtproto.NewEncodeBuf(512)
 	x.Int(int32(mtproto.CRC32_vector))
@@ -5347,7 +5347,7 @@ func (m *Vector_LastSeenData) DebugString() string {
 }
 
 // Vector_ImmutableUser
-///////////////////////////////////////////////////////////////////////////////
+// /////////////////////////////////////////////////////////////////////////////
 func (m *Vector_ImmutableUser) Encode(layer int32) []byte {
 	x := mtproto.NewEncodeBuf(512)
 	x.Int(int32(mtproto.CRC32_vector))
@@ -5382,7 +5382,7 @@ func (m *Vector_ImmutableUser) DebugString() string {
 }
 
 // Vector_PeerPeerNotifySettings
-///////////////////////////////////////////////////////////////////////////////
+// /////////////////////////////////////////////////////////////////////////////
 func (m *Vector_PeerPeerNotifySettings) Encode(layer int32) []byte {
 	x := mtproto.NewEncodeBuf(512)
 	x.Int(int32(mtproto.CRC32_vector))
@@ -5417,7 +5417,7 @@ func (m *Vector_PeerPeerNotifySettings) DebugString() string {
 }
 
 // Vector_PrivacyRule
-///////////////////////////////////////////////////////////////////////////////
+// /////////////////////////////////////////////////////////////////////////////
 func (m *Vector_PrivacyRule) Encode(layer int32) []byte {
 	x := mtproto.NewEncodeBuf(512)
 	x.Int(int32(mtproto.CRC32_vector))
@@ -5452,7 +5452,7 @@ func (m *Vector_PrivacyRule) DebugString() string {
 }
 
 // Vector_PredefinedUser
-///////////////////////////////////////////////////////////////////////////////
+// /////////////////////////////////////////////////////////////////////////////
 func (m *Vector_PredefinedUser) Encode(layer int32) []byte {
 	x := mtproto.NewEncodeBuf(512)
 	x.Int(int32(mtproto.CRC32_vector))
@@ -5487,7 +5487,7 @@ func (m *Vector_PredefinedUser) DebugString() string {
 }
 
 // Vector_Long
-///////////////////////////////////////////////////////////////////////////////
+// /////////////////////////////////////////////////////////////////////////////
 func (m *Vector_Long) Encode(layer int32) []byte {
 	x := mtproto.NewEncodeBuf(512)
 	x.VectorLong(m.Datas)
@@ -5512,7 +5512,7 @@ func (m *Vector_Long) DebugString() string {
 }
 
 // Vector_PeerBlocked
-///////////////////////////////////////////////////////////////////////////////
+// /////////////////////////////////////////////////////////////////////////////
 func (m *Vector_PeerBlocked) Encode(layer int32) []byte {
 	x := mtproto.NewEncodeBuf(512)
 	x.Int(int32(mtproto.CRC32_vector))
@@ -5547,7 +5547,7 @@ func (m *Vector_PeerBlocked) DebugString() string {
 }
 
 // Vector_ContactData
-///////////////////////////////////////////////////////////////////////////////
+// /////////////////////////////////////////////////////////////////////////////
 func (m *Vector_ContactData) Encode(layer int32) []byte {
 	x := mtproto.NewEncodeBuf(512)
 	x.Int(int32(mtproto.CRC32_vector))

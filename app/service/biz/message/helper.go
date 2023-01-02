@@ -1,12 +1,12 @@
 package message_helper
 
 import (
-	"gitlab.com/merehead/elloapp/backend/elloapp_backend/app/service/biz/message/internal/config"
-	"gitlab.com/merehead/elloapp/backend/elloapp_backend/app/service/biz/message/internal/dal/dao/mysql_dao"
-	"gitlab.com/merehead/elloapp/backend/elloapp_backend/app/service/biz/message/internal/dal/dataobject"
-	"gitlab.com/merehead/elloapp/backend/elloapp_backend/app/service/biz/message/internal/plugin"
-	"gitlab.com/merehead/elloapp/backend/elloapp_backend/app/service/biz/message/internal/server/grpc/service"
-	"gitlab.com/merehead/elloapp/backend/elloapp_backend/app/service/biz/message/internal/svc"
+	"gitlab.com/merehead/elloapp/backend/elloapp_tg_backend/app/service/biz/message/internal/config"
+	"gitlab.com/merehead/elloapp/backend/elloapp_tg_backend/app/service/biz/message/internal/dal/dao/mysql_dao"
+	"gitlab.com/merehead/elloapp/backend/elloapp_tg_backend/app/service/biz/message/internal/dal/dataobject"
+	"gitlab.com/merehead/elloapp/backend/elloapp_tg_backend/app/service/biz/message/internal/plugin"
+	"gitlab.com/merehead/elloapp/backend/elloapp_tg_backend/app/service/biz/message/internal/server/grpc/service"
+	"gitlab.com/merehead/elloapp/backend/elloapp_tg_backend/app/service/biz/message/internal/svc"
 )
 
 type (

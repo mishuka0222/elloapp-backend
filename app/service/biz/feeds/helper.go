@@ -1,9 +1,9 @@
 package feeds_helper
 
 import (
-	"gitlab.com/merehead/elloapp/backend/elloapp_backend/app/service/biz/feeds/internal/config"
-	"gitlab.com/merehead/elloapp/backend/elloapp_backend/app/service/biz/feeds/internal/server/grpc/service"
-	"gitlab.com/merehead/elloapp/backend/elloapp_backend/app/service/biz/feeds/internal/svc"
+	"gitlab.com/merehead/elloapp/backend/elloapp_tg_backend/app/service/biz/feeds/internal/config"
+	"gitlab.com/merehead/elloapp/backend/elloapp_tg_backend/app/service/biz/feeds/internal/server/grpc/service"
+	"gitlab.com/merehead/elloapp/backend/elloapp_tg_backend/app/service/biz/feeds/internal/svc"
 )
 
 type (

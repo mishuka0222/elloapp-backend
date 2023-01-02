@@ -4,12 +4,12 @@ import (
 	"context"
 	"time"
 
-	user_client "gitlab.com/merehead/elloapp/backend/elloapp_backend/app/service/biz/user/client"
-	userpb "gitlab.com/merehead/elloapp/backend/elloapp_backend/app/service/biz/user/user"
-	media_client "gitlab.com/merehead/elloapp/backend/elloapp_backend/app/service/media/client"
-	mediapb "gitlab.com/merehead/elloapp/backend/elloapp_backend/app/service/media/media"
-	"gitlab.com/merehead/elloapp/backend/elloapp_backend/mtproto"
-	"gitlab.com/merehead/elloapp/backend/elloapp_backend/pkg/phonenumber"
+	user_client "gitlab.com/merehead/elloapp/backend/elloapp_tg_backend/app/service/biz/user/client"
+	userpb "gitlab.com/merehead/elloapp/backend/elloapp_tg_backend/app/service/biz/user/user"
+	media_client "gitlab.com/merehead/elloapp/backend/elloapp_tg_backend/app/service/media/client"
+	mediapb "gitlab.com/merehead/elloapp/backend/elloapp_tg_backend/app/service/media/media"
+	"gitlab.com/merehead/elloapp/backend/elloapp_tg_backend/mtproto"
+	"gitlab.com/merehead/elloapp/backend/elloapp_tg_backend/pkg/phonenumber"
 
 	"github.com/zeromicro/go-zero/core/logx"
 )

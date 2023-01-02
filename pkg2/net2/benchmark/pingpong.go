@@ -5,7 +5,7 @@ import (
 	"net"
 
 	"github.com/zeromicro/go-zero/core/logx"
-	"gitlab.com/merehead/elloapp/backend/elloapp_backend/pkg2/net2"
+	"gitlab.com/merehead/elloapp/backend/elloapp_tg_backend/pkg2/net2"
 )
 
 func init() {

@@ -1,9 +1,9 @@
 package grpc
 
 import (
-	"gitlab.com/merehead/elloapp/backend/elloapp_backend/app/service/biz/updates/internal/server/grpc/service"
-	"gitlab.com/merehead/elloapp/backend/elloapp_backend/app/service/biz/updates/internal/svc"
-	"gitlab.com/merehead/elloapp/backend/elloapp_backend/app/service/biz/updates/updates"
+	"gitlab.com/merehead/elloapp/backend/elloapp_tg_backend/app/service/biz/updates/internal/server/grpc/service"
+	"gitlab.com/merehead/elloapp/backend/elloapp_tg_backend/app/service/biz/updates/internal/svc"
+	"gitlab.com/merehead/elloapp/backend/elloapp_tg_backend/app/service/biz/updates/updates"
 
 	"github.com/zeromicro/go-zero/core/logx"
 	"github.com/zeromicro/go-zero/zrpc"

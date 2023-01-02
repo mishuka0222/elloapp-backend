@@ -1,7 +1,7 @@
 package service
 
 import (
-	"gitlab.com/merehead/elloapp/backend/elloapp_backend/app/service/biz/username/internal/svc"
+	"gitlab.com/merehead/elloapp/backend/elloapp_tg_backend/app/service/biz/username/internal/svc"
 )
 
 type Service struct {

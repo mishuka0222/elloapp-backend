@@ -1,7 +1,7 @@
 package dao
 
 import (
-	"gitlab.com/merehead/elloapp/backend/elloapp_backend/app/service/biz/code/internal/config"
+	"gitlab.com/merehead/elloapp/backend/elloapp_tg_backend/app/service/biz/code/internal/config"
 
 	"github.com/zeromicro/go-zero/core/stores/kv"
 )

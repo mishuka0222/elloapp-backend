@@ -1,11 +1,11 @@
 package svc
 
 import (
-	"gitlab.com/merehead/elloapp/backend/elloapp_backend/app/bff/authorization/internal/config"
-	"gitlab.com/merehead/elloapp/backend/elloapp_backend/app/bff/authorization/internal/dao"
-	"gitlab.com/merehead/elloapp/backend/elloapp_backend/app/bff/authorization/internal/logic"
-	"gitlab.com/merehead/elloapp/backend/elloapp_backend/app/bff/authorization/plugin"
-	"gitlab.com/merehead/elloapp/backend/elloapp_backend/pkg/code"
+	"gitlab.com/merehead/elloapp/backend/elloapp_tg_backend/app/bff/authorization/internal/config"
+	"gitlab.com/merehead/elloapp/backend/elloapp_tg_backend/app/bff/authorization/internal/dao"
+	"gitlab.com/merehead/elloapp/backend/elloapp_tg_backend/app/bff/authorization/internal/logic"
+	"gitlab.com/merehead/elloapp/backend/elloapp_tg_backend/app/bff/authorization/plugin"
+	"gitlab.com/merehead/elloapp/backend/elloapp_tg_backend/pkg/code"
 )
 
 type ServiceContext struct {

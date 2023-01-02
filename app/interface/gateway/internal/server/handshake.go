@@ -10,10 +10,10 @@ import (
 	"math/big"
 	"time"
 
-	"gitlab.com/merehead/elloapp/backend/elloapp_backend/mtproto"
-	"gitlab.com/merehead/elloapp/backend/elloapp_backend/mtproto/crypto"
-	"gitlab.com/merehead/elloapp/backend/elloapp_backend/pkg2/hack"
-	"gitlab.com/merehead/elloapp/backend/elloapp_backend/pkg2/hex2"
+	"gitlab.com/merehead/elloapp/backend/elloapp_tg_backend/mtproto"
+	"gitlab.com/merehead/elloapp/backend/elloapp_tg_backend/mtproto/crypto"
+	"gitlab.com/merehead/elloapp/backend/elloapp_tg_backend/pkg2/hack"
+	"gitlab.com/merehead/elloapp/backend/elloapp_tg_backend/pkg2/hex2"
 
 	"github.com/zeromicro/go-zero/core/logx"
 )

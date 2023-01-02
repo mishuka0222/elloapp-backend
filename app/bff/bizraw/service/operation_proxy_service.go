@@ -5,7 +5,7 @@ import (
 	"encoding/json"
 	"errors"
 	log "github.com/zeromicro/go-zero/core/logx"
-	"gitlab.com/merehead/elloapp/backend/elloapp_backend/mtproto"
+	"gitlab.com/merehead/elloapp/backend/elloapp_tg_backend/mtproto"
 )
 
 type Service struct {

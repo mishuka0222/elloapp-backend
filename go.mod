@@ -1,4 +1,4 @@
-module gitlab.com/merehead/elloapp/backend/elloapp_backend
+module gitlab.com/merehead/elloapp/backend/elloapp_tg_backend
 
 go 1.17
 

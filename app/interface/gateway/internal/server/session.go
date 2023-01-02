@@ -5,15 +5,13 @@ import (
 	"os"
 	"strings"
 
-	"gitlab.com/merehead/elloapp/backend/elloapp_backend/app/interface/gateway/internal/config"
-	"gitlab.com/merehead/elloapp/backend/elloapp_backend/app/interface/session/client"
-
 	"github.com/zeromicro/go-zero/core/discov"
 	"github.com/zeromicro/go-zero/core/hash"
 	"github.com/zeromicro/go-zero/core/logx"
 	"github.com/zeromicro/go-zero/core/netx"
 	"github.com/zeromicro/go-zero/core/stringx"
 	"github.com/zeromicro/go-zero/zrpc"
+	"gitlab.com/merehead/elloapp/backend/elloapp_tg_backend/app/interface/gateway/internal/config"
 )
 
 const (

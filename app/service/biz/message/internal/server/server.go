@@ -3,9 +3,9 @@ package server
 import (
 	"flag"
 
-	"gitlab.com/merehead/elloapp/backend/elloapp_backend/app/service/biz/message/internal/config"
-	"gitlab.com/merehead/elloapp/backend/elloapp_backend/app/service/biz/message/internal/server/grpc"
-	"gitlab.com/merehead/elloapp/backend/elloapp_backend/app/service/biz/message/internal/svc"
+	"gitlab.com/merehead/elloapp/backend/elloapp_tg_backend/app/service/biz/message/internal/config"
+	"gitlab.com/merehead/elloapp/backend/elloapp_tg_backend/app/service/biz/message/internal/server/grpc"
+	"gitlab.com/merehead/elloapp/backend/elloapp_tg_backend/app/service/biz/message/internal/svc"
 
 	"github.com/zeromicro/go-zero/core/conf"
 	"github.com/zeromicro/go-zero/core/logx"

@@ -4,7 +4,7 @@ import (
 	"errors"
 	"flag"
 	"fmt"
-	"gitlab.com/merehead/elloapp/backend/elloapp_backend/pkg2/version"
+	"gitlab.com/merehead/elloapp/backend/elloapp_tg_backend/pkg2/version"
 	"math/rand"
 	"os"
 	"os/signal"

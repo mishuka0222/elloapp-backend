@@ -3,9 +3,9 @@ package service
 import (
 	"context"
 
-	"gitlab.com/merehead/elloapp/backend/elloapp_backend/app/service/biz/code/code"
-	"gitlab.com/merehead/elloapp/backend/elloapp_backend/app/service/biz/code/internal/core"
-	"gitlab.com/merehead/elloapp/backend/elloapp_backend/mtproto"
+	"gitlab.com/merehead/elloapp/backend/elloapp_tg_backend/app/service/biz/code/code"
+	"gitlab.com/merehead/elloapp/backend/elloapp_tg_backend/app/service/biz/code/internal/core"
+	"gitlab.com/merehead/elloapp/backend/elloapp_tg_backend/mtproto"
 )
 
 // CodeCreatePhoneCode

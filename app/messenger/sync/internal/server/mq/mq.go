@@ -6,10 +6,10 @@ import (
 	"fmt"
 	"strings"
 
-	"gitlab.com/merehead/elloapp/backend/elloapp_backend/app/messenger/sync/internal/core"
-	"gitlab.com/merehead/elloapp/backend/elloapp_backend/app/messenger/sync/internal/svc"
-	"gitlab.com/merehead/elloapp/backend/elloapp_backend/app/messenger/sync/sync"
-	kafka "gitlab.com/merehead/elloapp/backend/elloapp_backend/pkg2/mq"
+	"gitlab.com/merehead/elloapp/backend/elloapp_tg_backend/app/messenger/sync/internal/core"
+	"gitlab.com/merehead/elloapp/backend/elloapp_tg_backend/app/messenger/sync/internal/svc"
+	"gitlab.com/merehead/elloapp/backend/elloapp_tg_backend/app/messenger/sync/sync"
+	kafka "gitlab.com/merehead/elloapp/backend/elloapp_tg_backend/pkg2/mq"
 
 	"github.com/gogo/protobuf/proto"
 	"github.com/zeromicro/go-zero/core/logx"

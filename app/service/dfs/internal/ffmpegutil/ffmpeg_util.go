@@ -8,9 +8,9 @@ import (
 	"math"
 	"sync"
 
-	"gitlab.com/merehead/elloapp/backend/elloapp_backend/pkg/goffmpeg/models"
-	"gitlab.com/merehead/elloapp/backend/elloapp_backend/pkg/goffmpeg/transcoder"
-	"gitlab.com/merehead/elloapp/backend/elloapp_backend/pkg/goffmpeg/utils"
+	"gitlab.com/merehead/elloapp/backend/elloapp_tg_backend/pkg/goffmpeg/models"
+	"gitlab.com/merehead/elloapp/backend/elloapp_tg_backend/pkg/goffmpeg/transcoder"
+	"gitlab.com/merehead/elloapp/backend/elloapp_tg_backend/pkg/goffmpeg/utils"
 
 	"github.com/zeromicro/go-zero/core/logx"
 )

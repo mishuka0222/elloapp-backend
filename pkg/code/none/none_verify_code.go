@@ -3,8 +3,8 @@ package none
 import (
 	"context"
 
-	"gitlab.com/merehead/elloapp/backend/elloapp_backend/mtproto"
-	"gitlab.com/merehead/elloapp/backend/elloapp_backend/pkg/code/conf"
+	"gitlab.com/merehead/elloapp/backend/elloapp_tg_backend/mtproto"
+	"gitlab.com/merehead/elloapp/backend/elloapp_tg_backend/pkg/code/conf"
 )
 
 func New(c *conf.SmsVerifyCodeConfig) *noneVerifyCode {

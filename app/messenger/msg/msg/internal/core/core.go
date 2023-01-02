@@ -5,8 +5,8 @@ import (
 
 	"github.com/zeromicro/go-zero/core/logx"
 
-	"gitlab.com/merehead/elloapp/backend/elloapp_backend/app/messenger/msg/msg/internal/svc"
-	"gitlab.com/merehead/elloapp/backend/elloapp_backend/mtproto/rpc/metadata"
+	"gitlab.com/merehead/elloapp/backend/elloapp_tg_backend/app/messenger/msg/msg/internal/svc"
+	"gitlab.com/merehead/elloapp/backend/elloapp_tg_backend/mtproto/rpc/metadata"
 )
 
 type MsgCore struct {

@@ -2,8 +2,8 @@ package core
 
 import (
 	"github.com/zeromicro/go-zero/core/mr"
-	"gitlab.com/merehead/elloapp/backend/elloapp_backend/app/service/biz/user/user"
-	"gitlab.com/merehead/elloapp/backend/elloapp_backend/pkg2/container2"
+	"gitlab.com/merehead/elloapp/backend/elloapp_tg_backend/app/service/biz/user/user"
+	"gitlab.com/merehead/elloapp/backend/elloapp_tg_backend/pkg2/container2"
 )
 
 // UserGetMutableUsers

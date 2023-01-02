@@ -3,7 +3,7 @@ package service
 import (
 	"time"
 
-	"gitlab.com/merehead/elloapp/backend/elloapp_backend/pkg2/sync2"
+	"gitlab.com/merehead/elloapp/backend/elloapp_tg_backend/pkg2/sync2"
 )
 
 var msgIdSeq = sync2.NewAtomicInt64(0)

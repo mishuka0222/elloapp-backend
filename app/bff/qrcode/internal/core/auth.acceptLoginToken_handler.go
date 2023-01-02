@@ -5,11 +5,11 @@ import (
 	"strconv"
 	"time"
 
-	"gitlab.com/merehead/elloapp/backend/elloapp_backend/app/bff/qrcode/internal/model"
-	"gitlab.com/merehead/elloapp/backend/elloapp_backend/app/messenger/sync/sync"
-	"gitlab.com/merehead/elloapp/backend/elloapp_backend/app/service/authsession/authsession"
-	userpb "gitlab.com/merehead/elloapp/backend/elloapp_backend/app/service/biz/user/user"
-	"gitlab.com/merehead/elloapp/backend/elloapp_backend/mtproto"
+	"gitlab.com/merehead/elloapp/backend/elloapp_tg_backend/app/bff/qrcode/internal/model"
+	"gitlab.com/merehead/elloapp/backend/elloapp_tg_backend/app/messenger/sync/sync"
+	"gitlab.com/merehead/elloapp/backend/elloapp_tg_backend/app/service/authsession/authsession"
+	userpb "gitlab.com/merehead/elloapp/backend/elloapp_tg_backend/app/service/biz/user/user"
+	"gitlab.com/merehead/elloapp/backend/elloapp_tg_backend/mtproto"
 )
 
 // AuthAcceptLoginToken

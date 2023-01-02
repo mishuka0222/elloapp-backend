@@ -1,7 +1,7 @@
 package svc
 
 import (
-	"gitlab.com/merehead/elloapp/backend/elloapp_backend/app/bff/sponsoredmessages/internal/config"
+	"gitlab.com/merehead/elloapp/backend/elloapp_tg_backend/app/bff/sponsoredmessages/internal/config"
 )
 
 type ServiceContext struct {

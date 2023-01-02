@@ -1,9 +1,9 @@
 package svc
 
 import (
-	"gitlab.com/merehead/elloapp/backend/elloapp_backend/app/service/dfs/internal/config"
-	"gitlab.com/merehead/elloapp/backend/elloapp_backend/app/service/dfs/internal/dao"
-	"gitlab.com/merehead/elloapp/backend/elloapp_backend/app/service/dfs/internal/ffmpegutil"
+	"gitlab.com/merehead/elloapp/backend/elloapp_tg_backend/app/service/dfs/internal/config"
+	"gitlab.com/merehead/elloapp/backend/elloapp_tg_backend/app/service/dfs/internal/dao"
+	"gitlab.com/merehead/elloapp/backend/elloapp_tg_backend/app/service/dfs/internal/ffmpegutil"
 )
 
 type ServiceContext struct {

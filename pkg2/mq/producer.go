@@ -4,7 +4,7 @@ import (
 	"context"
 	"errors"
 
-	"gitlab.com/merehead/elloapp/backend/elloapp_backend/pkg2/error2"
+	"gitlab.com/merehead/elloapp/backend/elloapp_tg_backend/pkg2/error2"
 
 	"github.com/Shopify/sarama"
 )

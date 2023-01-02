@@ -7,7 +7,7 @@ import (
 	"strconv"
 	"strings"
 
-	"gitlab.com/merehead/elloapp/backend/elloapp_backend/pkg/goffmpeg/models"
+	"gitlab.com/merehead/elloapp/backend/elloapp_tg_backend/pkg/goffmpeg/models"
 )
 
 func DurToSec(dur string) (sec float64) {

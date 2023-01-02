@@ -4,7 +4,7 @@ import (
 	"image"
 	"io"
 
-	"gitlab.com/merehead/elloapp/backend/elloapp_backend/app/service/dfs/internal/imaging/jpeg"
+	"gitlab.com/merehead/elloapp/backend/elloapp_tg_backend/app/service/dfs/internal/imaging/jpeg"
 )
 
 func EncodeStripped(w io.Writer, img image.Image, quality int) error {

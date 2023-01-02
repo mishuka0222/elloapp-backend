@@ -3,7 +3,7 @@ package operation_service
 import (
 	"context"
 	"encoding/json"
-	"gitlab.com/merehead/elloapp/backend/elloapp_backend/mtproto"
+	"gitlab.com/merehead/elloapp/backend/elloapp_tg_backend/mtproto"
 )
 
 type OperationServer interface {

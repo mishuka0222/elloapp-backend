@@ -3,7 +3,7 @@ package main
 import (
 	"fmt"
 
-	"gitlab.com/merehead/elloapp/backend/elloapp_backend/pkg/mention"
+	"gitlab.com/merehead/elloapp/backend/elloapp_tg_backend/pkg/mention"
 )
 
 var testRuneStr = []rune(`1) a b (@ababab)

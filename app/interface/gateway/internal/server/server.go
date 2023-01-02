@@ -4,14 +4,14 @@ import (
 	"context"
 	"fmt"
 	"github.com/zeromicro/go-zero/core/logx"
-	sessionpb "gitlab.com/merehead/elloapp/backend/elloapp_backend/app/interface/session/session"
-	"gitlab.com/merehead/elloapp/backend/elloapp_backend/mtproto"
-	"gitlab.com/merehead/elloapp/backend/elloapp_backend/pkg2/net2"
-	"gitlab.com/merehead/elloapp/backend/elloapp_backend/pkg2/timer2"
+	sessionpb "gitlab.com/merehead/elloapp/backend/elloapp_tg_backend/app/interface/session/session"
+	"gitlab.com/merehead/elloapp/backend/elloapp_tg_backend/mtproto"
+	"gitlab.com/merehead/elloapp/backend/elloapp_tg_backend/pkg2/net2"
+	"gitlab.com/merehead/elloapp/backend/elloapp_tg_backend/pkg2/timer2"
 	"strconv"
 
-	"gitlab.com/merehead/elloapp/backend/elloapp_backend/app/interface/gateway/internal/config"
-	"gitlab.com/merehead/elloapp/backend/elloapp_backend/pkg2/cache"
+	"gitlab.com/merehead/elloapp/backend/elloapp_tg_backend/app/interface/gateway/internal/config"
+	"gitlab.com/merehead/elloapp/backend/elloapp_tg_backend/pkg2/cache"
 )
 
 var (

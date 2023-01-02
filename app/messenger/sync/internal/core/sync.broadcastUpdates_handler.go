@@ -1,11 +1,11 @@
 package core
 
 import (
-	// "gitlab.com/merehead/elloapp/backend/elloapp_backend/pkg2/container2"
-	"gitlab.com/merehead/elloapp/backend/elloapp_backend/app/messenger/sync/sync"
-	"gitlab.com/merehead/elloapp/backend/elloapp_backend/mtproto"
-	// channelpb "gitlab.com/merehead/elloapp/backend/elloapp_backend/app/service/biz/channel/channel"
-	chatpb "gitlab.com/merehead/elloapp/backend/elloapp_backend/app/service/biz/chat/chat"
+	// "gitlab.com/merehead/elloapp/backend/elloapp_tg_backend/pkg2/container2"
+	"gitlab.com/merehead/elloapp/backend/elloapp_tg_backend/app/messenger/sync/sync"
+	"gitlab.com/merehead/elloapp/backend/elloapp_tg_backend/mtproto"
+	// channelpb "gitlab.com/merehead/elloapp/backend/elloapp_tg_backend/app/service/biz/channel/channel"
+	chatpb "gitlab.com/merehead/elloapp/backend/elloapp_tg_backend/app/service/biz/chat/chat"
 )
 
 // SyncBroadcastUpdates

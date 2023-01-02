@@ -4,8 +4,8 @@ import (
 	"fmt"
 	"os"
 
-	"gitlab.com/merehead/elloapp/backend/elloapp_backend/app/service/dfs/internal/imaging"
-	"gitlab.com/merehead/elloapp/backend/elloapp_backend/pkg2/bytes2"
+	"gitlab.com/merehead/elloapp/backend/elloapp_tg_backend/app/service/dfs/internal/imaging"
+	"gitlab.com/merehead/elloapp/backend/elloapp_tg_backend/pkg2/bytes2"
 )
 
 func main() {

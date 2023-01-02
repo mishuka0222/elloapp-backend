@@ -1,7 +1,7 @@
 package core
 
 import (
-	"gitlab.com/merehead/elloapp/backend/elloapp_backend/app/service/status/status"
+	"gitlab.com/merehead/elloapp/backend/elloapp_tg_backend/app/service/status/status"
 
 	"github.com/zeromicro/go-zero/core/jsonx"
 )

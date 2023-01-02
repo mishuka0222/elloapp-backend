@@ -9,7 +9,7 @@ import (
 
 	"golang.org/x/net/websocket"
 
-	"gitlab.com/merehead/elloapp/backend/elloapp_backend/pkg2/random2"
+	"gitlab.com/merehead/elloapp/backend/elloapp_tg_backend/pkg2/random2"
 )
 
 func TestServer(t *testing.T) {

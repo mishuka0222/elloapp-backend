@@ -6,11 +6,11 @@ import (
 	"image"
 	"math/rand"
 
-	"gitlab.com/merehead/elloapp/backend/elloapp_backend/app/service/dfs/dfs"
-	"gitlab.com/merehead/elloapp/backend/elloapp_backend/app/service/dfs/internal/imaging"
-	"gitlab.com/merehead/elloapp/backend/elloapp_backend/app/service/dfs/internal/model"
-	"gitlab.com/merehead/elloapp/backend/elloapp_backend/mtproto"
-	"gitlab.com/merehead/elloapp/backend/elloapp_backend/pkg2/bytes2"
+	"gitlab.com/merehead/elloapp/backend/elloapp_tg_backend/app/service/dfs/dfs"
+	"gitlab.com/merehead/elloapp/backend/elloapp_tg_backend/app/service/dfs/internal/imaging"
+	"gitlab.com/merehead/elloapp/backend/elloapp_tg_backend/app/service/dfs/internal/model"
+	"gitlab.com/merehead/elloapp/backend/elloapp_tg_backend/mtproto"
+	"gitlab.com/merehead/elloapp/backend/elloapp_tg_backend/pkg2/bytes2"
 )
 
 // DfsUploadDocumentFileV2

@@ -12,7 +12,7 @@ import (
 	"image/color"
 	"io"
 
-	"gitlab.com/merehead/elloapp/backend/elloapp_backend/app/service/dfs/internal/imaging/jpeg/imageutil"
+	"gitlab.com/merehead/elloapp/backend/elloapp_tg_backend/app/service/dfs/internal/imaging/jpeg/imageutil"
 )
 
 // TODO(nigeltao): fix up the doc comment style so that sentences start with

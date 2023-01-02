@@ -6,8 +6,8 @@ import (
 
 	"github.com/gogo/protobuf/types"
 
-	"gitlab.com/merehead/elloapp/backend/elloapp_backend/app/service/media/internal/dal/dataobject"
-	"gitlab.com/merehead/elloapp/backend/elloapp_backend/mtproto"
+	"gitlab.com/merehead/elloapp/backend/elloapp_tg_backend/app/service/media/internal/dal/dataobject"
+	"gitlab.com/merehead/elloapp/backend/elloapp_tg_backend/mtproto"
 )
 
 func (m *Dao) GetVideoSizeListList(ctx context.Context, idList []int64) (sizes map[int64][]*mtproto.VideoSize) {

@@ -3,9 +3,9 @@ package core
 import (
 	"context"
 	"github.com/zeromicro/go-zero/core/jsonx"
-	"gitlab.com/merehead/elloapp/backend/elloapp_backend/app/service/biz/chat/chat"
-	"gitlab.com/merehead/elloapp/backend/elloapp_backend/mtproto"
-	"gitlab.com/merehead/elloapp/backend/elloapp_backend/pkg2/stores/sqlx"
+	"gitlab.com/merehead/elloapp/backend/elloapp_tg_backend/app/service/biz/chat/chat"
+	"gitlab.com/merehead/elloapp/backend/elloapp_tg_backend/mtproto"
+	"gitlab.com/merehead/elloapp/backend/elloapp_tg_backend/pkg2/stores/sqlx"
 )
 
 // ChatSetChatAvailableReactions

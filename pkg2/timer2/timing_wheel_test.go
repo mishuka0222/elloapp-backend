@@ -6,7 +6,7 @@ import (
 	"testing"
 	"time"
 
-	"gitlab.com/merehead/elloapp/backend/elloapp_backend/pkg2/sync2"
+	"gitlab.com/merehead/elloapp/backend/elloapp_tg_backend/pkg2/sync2"
 )
 
 func init() {

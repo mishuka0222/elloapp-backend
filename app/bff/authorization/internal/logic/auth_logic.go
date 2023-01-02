@@ -6,10 +6,10 @@ import (
 	"time"
 
 	"github.com/zeromicro/go-zero/core/logx"
-	"gitlab.com/merehead/elloapp/backend/elloapp_backend/app/bff/authorization/internal/dao"
-	"gitlab.com/merehead/elloapp/backend/elloapp_backend/app/bff/authorization/internal/model"
-	"gitlab.com/merehead/elloapp/backend/elloapp_backend/mtproto"
-	"gitlab.com/merehead/elloapp/backend/elloapp_backend/pkg/code"
+	"gitlab.com/merehead/elloapp/backend/elloapp_tg_backend/app/bff/authorization/internal/dao"
+	"gitlab.com/merehead/elloapp/backend/elloapp_tg_backend/app/bff/authorization/internal/model"
+	"gitlab.com/merehead/elloapp/backend/elloapp_tg_backend/mtproto"
+	"gitlab.com/merehead/elloapp/backend/elloapp_tg_backend/pkg/code"
 )
 
 type AuthLogic struct {

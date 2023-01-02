@@ -3,11 +3,11 @@ package server
 import (
 	"flag"
 
-	inbox_helper "gitlab.com/merehead/elloapp/backend/elloapp_backend/app/messenger/msg/inbox"
-	"gitlab.com/merehead/elloapp/backend/elloapp_backend/app/messenger/msg/internal/config"
-	msg_helper "gitlab.com/merehead/elloapp/backend/elloapp_backend/app/messenger/msg/msg"
-	"gitlab.com/merehead/elloapp/backend/elloapp_backend/app/messenger/msg/msg/msg"
-	kafka "gitlab.com/merehead/elloapp/backend/elloapp_backend/pkg2/mq"
+	inbox_helper "gitlab.com/merehead/elloapp/backend/elloapp_tg_backend/app/messenger/msg/inbox"
+	"gitlab.com/merehead/elloapp/backend/elloapp_tg_backend/app/messenger/msg/internal/config"
+	msg_helper "gitlab.com/merehead/elloapp/backend/elloapp_tg_backend/app/messenger/msg/msg"
+	"gitlab.com/merehead/elloapp/backend/elloapp_tg_backend/app/messenger/msg/msg/msg"
+	kafka "gitlab.com/merehead/elloapp/backend/elloapp_tg_backend/pkg2/mq"
 
 	"github.com/zeromicro/go-zero/core/conf"
 	"github.com/zeromicro/go-zero/core/logx"

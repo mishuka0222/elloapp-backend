@@ -1,10 +1,10 @@
 package dao
 
 import (
-	"gitlab.com/merehead/elloapp/backend/elloapp_backend/app/bff/feeds/internal/config"
-	feeds_client "gitlab.com/merehead/elloapp/backend/elloapp_backend/app/service/biz/feeds/client"
-	message_client "gitlab.com/merehead/elloapp/backend/elloapp_backend/app/service/biz/message/client"
-	"gitlab.com/merehead/elloapp/backend/elloapp_backend/pkg2/net/rpcx"
+	"gitlab.com/merehead/elloapp/backend/elloapp_tg_backend/app/bff/feeds/internal/config"
+	feeds_client "gitlab.com/merehead/elloapp/backend/elloapp_tg_backend/app/service/biz/feeds/client"
+	message_client "gitlab.com/merehead/elloapp/backend/elloapp_tg_backend/app/service/biz/message/client"
+	"gitlab.com/merehead/elloapp/backend/elloapp_tg_backend/pkg2/net/rpcx"
 )
 
 type Dao struct {

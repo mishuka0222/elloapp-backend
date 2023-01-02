@@ -3,12 +3,12 @@ package core
 import (
 	"context"
 	"github.com/gogo/protobuf/types"
-	msgpb "gitlab.com/merehead/elloapp/backend/elloapp_backend/app/messenger/msg/msg/msg"
-	chatpb "gitlab.com/merehead/elloapp/backend/elloapp_backend/app/service/biz/chat/chat"
-	"gitlab.com/merehead/elloapp/backend/elloapp_backend/app/service/biz/message/message"
-	userpb "gitlab.com/merehead/elloapp/backend/elloapp_backend/app/service/biz/user/user"
-	"gitlab.com/merehead/elloapp/backend/elloapp_backend/app/service/biz/username/username"
-	"gitlab.com/merehead/elloapp/backend/elloapp_backend/mtproto"
+	msgpb "gitlab.com/merehead/elloapp/backend/elloapp_tg_backend/app/messenger/msg/msg/msg"
+	chatpb "gitlab.com/merehead/elloapp/backend/elloapp_tg_backend/app/service/biz/chat/chat"
+	"gitlab.com/merehead/elloapp/backend/elloapp_tg_backend/app/service/biz/message/message"
+	userpb "gitlab.com/merehead/elloapp/backend/elloapp_tg_backend/app/service/biz/user/user"
+	"gitlab.com/merehead/elloapp/backend/elloapp_tg_backend/app/service/biz/username/username"
+	"gitlab.com/merehead/elloapp/backend/elloapp_tg_backend/mtproto"
 	"time"
 )
 

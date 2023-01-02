@@ -2,7 +2,7 @@ package svc
 
 import (
 	"github.com/zeromicro/go-zero/core/stores/kv"
-	"gitlab.com/merehead/elloapp/backend/elloapp_backend/app/service/status/internal/config"
+	"gitlab.com/merehead/elloapp/backend/elloapp_tg_backend/app/service/status/internal/config"
 )
 
 type ServiceContext struct {

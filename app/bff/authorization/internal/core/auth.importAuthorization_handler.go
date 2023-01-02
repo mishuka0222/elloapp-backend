@@ -2,7 +2,7 @@ package core
 
 import (
 	"github.com/gogo/protobuf/types"
-	"gitlab.com/merehead/elloapp/backend/elloapp_backend/mtproto"
+	"gitlab.com/merehead/elloapp/backend/elloapp_tg_backend/mtproto"
 )
 
 // AuthImportAuthorization

@@ -4,10 +4,10 @@ import (
 	"flag"
 	"syscall"
 
-	"gitlab.com/merehead/elloapp/backend/elloapp_backend/app/interface/gateway/internal/config"
-	"gitlab.com/merehead/elloapp/backend/elloapp_backend/app/interface/gateway/internal/server"
-	"gitlab.com/merehead/elloapp/backend/elloapp_backend/app/interface/gateway/internal/server/grpc"
-	"gitlab.com/merehead/elloapp/backend/elloapp_backend/pkg2/commands"
+	"gitlab.com/merehead/elloapp/backend/elloapp_tg_backend/app/interface/gateway/internal/config"
+	"gitlab.com/merehead/elloapp/backend/elloapp_tg_backend/app/interface/gateway/internal/server"
+	"gitlab.com/merehead/elloapp/backend/elloapp_tg_backend/app/interface/gateway/internal/server/grpc"
+	"gitlab.com/merehead/elloapp/backend/elloapp_tg_backend/pkg2/commands"
 
 	"github.com/zeromicro/go-zero/core/conf"
 	"github.com/zeromicro/go-zero/core/logx"

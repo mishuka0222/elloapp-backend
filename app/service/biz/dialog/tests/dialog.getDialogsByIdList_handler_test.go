@@ -3,7 +3,7 @@ package tests
 import (
 	"context"
 	"fmt"
-	"gitlab.com/merehead/elloapp/backend/elloapp_backend/app/service/biz/dialog/dialog"
+	"gitlab.com/merehead/elloapp/backend/elloapp_tg_backend/app/service/biz/dialog/dialog"
 	"log"
 	"testing"
 )

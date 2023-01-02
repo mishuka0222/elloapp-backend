@@ -2,9 +2,9 @@ package core
 
 import (
 	"github.com/gogo/protobuf/types"
-	msgpb "gitlab.com/merehead/elloapp/backend/elloapp_backend/app/messenger/msg/msg/msg"
-	"gitlab.com/merehead/elloapp/backend/elloapp_backend/app/service/biz/message/message"
-	"gitlab.com/merehead/elloapp/backend/elloapp_backend/mtproto"
+	msgpb "gitlab.com/merehead/elloapp/backend/elloapp_tg_backend/app/messenger/msg/msg/msg"
+	"gitlab.com/merehead/elloapp/backend/elloapp_tg_backend/app/service/biz/message/message"
+	"gitlab.com/merehead/elloapp/backend/elloapp_tg_backend/mtproto"
 	"time"
 )
 

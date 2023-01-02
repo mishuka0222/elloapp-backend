@@ -3,7 +3,7 @@ package core
 import (
 	"container/list"
 
-	"gitlab.com/merehead/elloapp/backend/elloapp_backend/mtproto"
+	"gitlab.com/merehead/elloapp/backend/elloapp_tg_backend/mtproto"
 )
 
 func equalPeer(p, o *mtproto.Peer) bool {

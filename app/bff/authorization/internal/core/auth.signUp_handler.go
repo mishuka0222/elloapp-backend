@@ -3,17 +3,17 @@ package core
 import (
 	"context"
 	"fmt"
-	"gitlab.com/merehead/elloapp/backend/elloapp_backend/app/bff/authorization/internal/logic"
+	"gitlab.com/merehead/elloapp/backend/elloapp_tg_backend/app/bff/authorization/internal/logic"
 	"golang.org/x/crypto/bcrypt"
 	"log"
 
-	"gitlab.com/merehead/elloapp/backend/elloapp_backend/mtproto"
-	"gitlab.com/merehead/elloapp/backend/elloapp_backend/mtproto/crypto"
-	//"gitlab.com/merehead/elloapp/backend/elloapp_backend/app/bff/authorization/internal/model"
-	"gitlab.com/merehead/elloapp/backend/elloapp_backend/app/service/authsession/authsession"
-	userpb "gitlab.com/merehead/elloapp/backend/elloapp_backend/app/service/biz/user/user"
-	usernamepb "gitlab.com/merehead/elloapp/backend/elloapp_backend/app/service/biz/username/username"
-	"gitlab.com/merehead/elloapp/backend/elloapp_backend/pkg/env2"
+	"gitlab.com/merehead/elloapp/backend/elloapp_tg_backend/mtproto"
+	"gitlab.com/merehead/elloapp/backend/elloapp_tg_backend/mtproto/crypto"
+	//"gitlab.com/merehead/elloapp/backend/elloapp_tg_backend/app/bff/authorization/internal/model"
+	"gitlab.com/merehead/elloapp/backend/elloapp_tg_backend/app/service/authsession/authsession"
+	userpb "gitlab.com/merehead/elloapp/backend/elloapp_tg_backend/app/service/biz/user/user"
+	usernamepb "gitlab.com/merehead/elloapp/backend/elloapp_tg_backend/app/service/biz/username/username"
+	"gitlab.com/merehead/elloapp/backend/elloapp_tg_backend/pkg/env2"
 )
 
 /*

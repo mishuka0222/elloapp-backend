@@ -2,7 +2,7 @@ package main
 
 import (
 	"github.com/zeromicro/go-zero/core/logx"
-	"gitlab.com/merehead/elloapp/backend/elloapp_backend/pkg2/commands"
+	"gitlab.com/merehead/elloapp/backend/elloapp_tg_backend/pkg2/commands"
 )
 
 type exapmlesInstance struct {

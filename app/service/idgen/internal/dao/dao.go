@@ -5,7 +5,7 @@ import (
 
 	"github.com/bwmarrin/snowflake"
 	"github.com/zeromicro/go-zero/core/stores/kv"
-	"gitlab.com/merehead/elloapp/backend/elloapp_backend/app/service/idgen/internal/config"
+	"gitlab.com/merehead/elloapp/backend/elloapp_tg_backend/app/service/idgen/internal/config"
 )
 
 type Dao struct {

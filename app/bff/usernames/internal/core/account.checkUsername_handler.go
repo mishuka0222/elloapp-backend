@@ -1,10 +1,10 @@
 package core
 
 import (
-	"gitlab.com/merehead/elloapp/backend/elloapp_backend/app/service/biz/username/username"
-	"gitlab.com/merehead/elloapp/backend/elloapp_backend/mtproto"
-	"gitlab.com/merehead/elloapp/backend/elloapp_backend/pkg2/strings2"
-	"gitlab.com/merehead/elloapp/backend/elloapp_backend/pkg2/utils"
+	"gitlab.com/merehead/elloapp/backend/elloapp_tg_backend/app/service/biz/username/username"
+	"gitlab.com/merehead/elloapp/backend/elloapp_tg_backend/mtproto"
+	"gitlab.com/merehead/elloapp/backend/elloapp_tg_backend/pkg2/strings2"
+	"gitlab.com/merehead/elloapp/backend/elloapp_tg_backend/pkg2/utils"
 )
 
 // AccountCheckUsername

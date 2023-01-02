@@ -7,7 +7,7 @@ import (
 	"fmt"
 	"reflect"
 
-	"gitlab.com/merehead/elloapp/backend/elloapp_backend/mtproto/crypto"
+	"gitlab.com/merehead/elloapp/backend/elloapp_tg_backend/mtproto/crypto"
 )
 
 const (

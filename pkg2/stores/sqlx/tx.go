@@ -5,7 +5,7 @@ import (
 	"database/sql"
 
 	"github.com/zeromicro/go-zero/core/stores/sqlx"
-	"gitlab.com/merehead/elloapp/backend/elloapp_backend/pkg2/stores/sqlx/reflectx"
+	"gitlab.com/merehead/elloapp/backend/elloapp_tg_backend/pkg2/stores/sqlx/reflectx"
 )
 
 type Tx struct {

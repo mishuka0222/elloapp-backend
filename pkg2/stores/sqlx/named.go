@@ -21,7 +21,7 @@ import (
 	"strconv"
 	"unicode"
 
-	"gitlab.com/merehead/elloapp/backend/elloapp_backend/pkg2/stores/sqlx/reflectx"
+	"gitlab.com/merehead/elloapp/backend/elloapp_tg_backend/pkg2/stores/sqlx/reflectx"
 )
 
 func bindAnyArgs(names []string, arg interface{}, m *reflectx.Mapper) ([]interface{}, error) {

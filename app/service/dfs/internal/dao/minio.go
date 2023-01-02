@@ -6,7 +6,7 @@ import (
 	"io"
 	"path/filepath"
 
-	"gitlab.com/merehead/elloapp/backend/elloapp_backend/app/service/dfs/internal/model"
+	"gitlab.com/merehead/elloapp/backend/elloapp_tg_backend/app/service/dfs/internal/model"
 
 	"github.com/minio/minio-go"
 	"github.com/minio/minio-go/pkg/encrypt"

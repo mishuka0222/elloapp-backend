@@ -3,8 +3,8 @@ package core
 import (
 	"strconv"
 
-	"gitlab.com/merehead/elloapp/backend/elloapp_backend/app/service/status/status"
-	"gitlab.com/merehead/elloapp/backend/elloapp_backend/mtproto"
+	"gitlab.com/merehead/elloapp/backend/elloapp_tg_backend/app/service/status/status"
+	"gitlab.com/merehead/elloapp/backend/elloapp_tg_backend/mtproto"
 
 	"github.com/zeromicro/go-zero/core/jsonx"
 )

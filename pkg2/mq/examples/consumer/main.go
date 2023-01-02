@@ -7,7 +7,7 @@ import (
 	"os/signal"
 	"syscall"
 
-	kafka "gitlab.com/merehead/elloapp/backend/elloapp_backend/pkg2/mq"
+	kafka "gitlab.com/merehead/elloapp/backend/elloapp_tg_backend/pkg2/mq"
 )
 
 func main() {

@@ -9,9 +9,9 @@ import (
 	"io"
 	"net"
 
-	"gitlab.com/merehead/elloapp/backend/elloapp_backend/mtproto/crypto"
-	"gitlab.com/merehead/elloapp/backend/elloapp_backend/pkg2/net/ip"
-	"gitlab.com/merehead/elloapp/backend/elloapp_backend/pkg2/net2"
+	"gitlab.com/merehead/elloapp/backend/elloapp_tg_backend/mtproto/crypto"
+	"gitlab.com/merehead/elloapp/backend/elloapp_tg_backend/pkg2/net/ip"
+	"gitlab.com/merehead/elloapp/backend/elloapp_tg_backend/pkg2/net2"
 
 	log "github.com/zeromicro/go-zero/core/logx"
 )

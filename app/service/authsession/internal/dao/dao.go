@@ -3,9 +3,9 @@ package dao
 import (
 	"flag"
 
-	"gitlab.com/merehead/elloapp/backend/elloapp_backend/app/service/authsession/internal/config"
-	"gitlab.com/merehead/elloapp/backend/elloapp_backend/pkg2/stores/sqlc"
-	"gitlab.com/merehead/elloapp/backend/elloapp_backend/pkg2/stores/sqlx"
+	"gitlab.com/merehead/elloapp/backend/elloapp_tg_backend/app/service/authsession/internal/config"
+	"gitlab.com/merehead/elloapp/backend/elloapp_tg_backend/pkg2/stores/sqlc"
+	"gitlab.com/merehead/elloapp/backend/elloapp_tg_backend/pkg2/stores/sqlx"
 
 	"github.com/oschwald/geoip2-golang"
 	"github.com/zeromicro/go-zero/core/stores/kv"

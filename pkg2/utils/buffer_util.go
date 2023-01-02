@@ -3,7 +3,7 @@ package utils
 import (
 	"encoding/hex"
 
-	"gitlab.com/merehead/elloapp/backend/elloapp_backend/pkg2/hack"
+	"gitlab.com/merehead/elloapp/backend/elloapp_tg_backend/pkg2/hack"
 )
 
 func WriteString(x *BufferOutput, s string) {

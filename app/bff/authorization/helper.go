@@ -1,11 +1,11 @@
 package authorization_helper
 
 import (
-	"gitlab.com/merehead/elloapp/backend/elloapp_backend/app/bff/authorization/internal/config"
-	"gitlab.com/merehead/elloapp/backend/elloapp_backend/app/bff/authorization/internal/server/grpc/service"
-	"gitlab.com/merehead/elloapp/backend/elloapp_backend/app/bff/authorization/internal/svc"
-	"gitlab.com/merehead/elloapp/backend/elloapp_backend/app/bff/authorization/plugin"
-	"gitlab.com/merehead/elloapp/backend/elloapp_backend/pkg/code"
+	"gitlab.com/merehead/elloapp/backend/elloapp_tg_backend/app/bff/authorization/internal/config"
+	"gitlab.com/merehead/elloapp/backend/elloapp_tg_backend/app/bff/authorization/internal/server/grpc/service"
+	"gitlab.com/merehead/elloapp/backend/elloapp_tg_backend/app/bff/authorization/internal/svc"
+	"gitlab.com/merehead/elloapp/backend/elloapp_tg_backend/app/bff/authorization/plugin"
+	"gitlab.com/merehead/elloapp/backend/elloapp_tg_backend/pkg/code"
 )
 
 type (

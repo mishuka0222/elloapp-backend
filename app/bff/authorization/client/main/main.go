@@ -6,9 +6,9 @@ import (
 	"fmt"
 	"github.com/zeromicro/go-zero/core/conf"
 	"github.com/zeromicro/go-zero/zrpc"
-	authorization_client "gitlab.com/merehead/elloapp/backend/elloapp_backend/app/bff/authorization/client"
-	"gitlab.com/merehead/elloapp/backend/elloapp_backend/mtproto"
-	"gitlab.com/merehead/elloapp/backend/elloapp_backend/mtproto/rpc/metadata"
+	authorization_client "gitlab.com/merehead/elloapp/backend/elloapp_tg_backend/app/bff/authorization/client"
+	"gitlab.com/merehead/elloapp/backend/elloapp_tg_backend/mtproto"
+	"gitlab.com/merehead/elloapp/backend/elloapp_tg_backend/mtproto/rpc/metadata"
 )
 
 var (

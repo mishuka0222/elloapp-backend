@@ -3,8 +3,8 @@ package core
 import (
 	"fmt"
 
-	"gitlab.com/merehead/elloapp/backend/elloapp_backend/app/service/authsession/authsession"
-	"gitlab.com/merehead/elloapp/backend/elloapp_backend/mtproto"
+	"gitlab.com/merehead/elloapp/backend/elloapp_tg_backend/app/service/authsession/authsession"
+	"gitlab.com/merehead/elloapp/backend/elloapp_tg_backend/mtproto"
 )
 
 // AuthsessionBindAuthKeyUser

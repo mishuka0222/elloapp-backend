@@ -9,12 +9,12 @@ import (
 	"sync"
 	"time"
 
-	"gitlab.com/merehead/elloapp/backend/elloapp_backend/app/service/authsession/authsession"
-	"gitlab.com/merehead/elloapp/backend/elloapp_backend/app/service/status/status"
-	"gitlab.com/merehead/elloapp/backend/elloapp_backend/mtproto"
-	"gitlab.com/merehead/elloapp/backend/elloapp_backend/mtproto/rpc/metadata"
-	"gitlab.com/merehead/elloapp/backend/elloapp_backend/pkg2/queue2"
-	"gitlab.com/merehead/elloapp/backend/elloapp_backend/pkg2/sync2"
+	"gitlab.com/merehead/elloapp/backend/elloapp_tg_backend/app/service/authsession/authsession"
+	"gitlab.com/merehead/elloapp/backend/elloapp_tg_backend/app/service/status/status"
+	"gitlab.com/merehead/elloapp/backend/elloapp_tg_backend/mtproto"
+	"gitlab.com/merehead/elloapp/backend/elloapp_tg_backend/mtproto/rpc/metadata"
+	"gitlab.com/merehead/elloapp/backend/elloapp_tg_backend/pkg2/queue2"
+	"gitlab.com/merehead/elloapp/backend/elloapp_tg_backend/pkg2/sync2"
 
 	"github.com/zeromicro/go-zero/core/logx"
 )

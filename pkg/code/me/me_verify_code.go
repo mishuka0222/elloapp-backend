@@ -6,8 +6,8 @@ import (
 	"io/ioutil"
 	"net/http"
 
-	"gitlab.com/merehead/elloapp/backend/elloapp_backend/pkg/code/conf"
-	"gitlab.com/merehead/elloapp/backend/elloapp_backend/pkg2/hack"
+	"gitlab.com/merehead/elloapp/backend/elloapp_tg_backend/pkg/code/conf"
+	"gitlab.com/merehead/elloapp/backend/elloapp_tg_backend/pkg2/hack"
 
 	"github.com/zeromicro/go-zero/core/logx"
 )

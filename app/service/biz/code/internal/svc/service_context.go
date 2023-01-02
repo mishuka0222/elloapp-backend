@@ -1,8 +1,8 @@
 package svc
 
 import (
-	"gitlab.com/merehead/elloapp/backend/elloapp_backend/app/service/biz/code/internal/config"
-	"gitlab.com/merehead/elloapp/backend/elloapp_backend/app/service/biz/code/internal/dao"
+	"gitlab.com/merehead/elloapp/backend/elloapp_tg_backend/app/service/biz/code/internal/config"
+	"gitlab.com/merehead/elloapp/backend/elloapp_tg_backend/app/service/biz/code/internal/dao"
 )
 
 type ServiceContext struct {

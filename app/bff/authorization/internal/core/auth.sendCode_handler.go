@@ -3,11 +3,11 @@ package core
 import (
 	"context"
 
-	"gitlab.com/merehead/elloapp/backend/elloapp_backend/app/bff/authorization/internal/logic"
-	"gitlab.com/merehead/elloapp/backend/elloapp_backend/app/bff/authorization/internal/model"
-	userpb "gitlab.com/merehead/elloapp/backend/elloapp_backend/app/service/biz/user/user"
-	statuspb "gitlab.com/merehead/elloapp/backend/elloapp_backend/app/service/status/status"
-	"gitlab.com/merehead/elloapp/backend/elloapp_backend/mtproto"
+	"gitlab.com/merehead/elloapp/backend/elloapp_tg_backend/app/bff/authorization/internal/logic"
+	"gitlab.com/merehead/elloapp/backend/elloapp_tg_backend/app/bff/authorization/internal/model"
+	userpb "gitlab.com/merehead/elloapp/backend/elloapp_tg_backend/app/service/biz/user/user"
+	statuspb "gitlab.com/merehead/elloapp/backend/elloapp_tg_backend/app/service/status/status"
+	"gitlab.com/merehead/elloapp/backend/elloapp_tg_backend/mtproto"
 
 	"google.golang.org/grpc/status"
 )

@@ -20,7 +20,8 @@ message AuthSingUpRequest {
   string phone = 6;
   string country_code = 7;
   string avatar = 8;
-
+  string first_name = 9;
+  string last_name = 10;
 }
 
 message AuthSingInRequest {

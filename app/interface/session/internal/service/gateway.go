@@ -4,6 +4,7 @@ import (
 	"context"
 	"github.com/zeromicro/go-zero/zrpc"
 	"gitlab.com/merehead/elloapp/backend/elloapp_tg_backend/app/interface/gateway/gateway"
+	"gitlab.com/merehead/elloapp/backend/elloapp_tg_backend/app/interface/gateway/client"
 	"gitlab.com/merehead/elloapp/backend/elloapp_tg_backend/mtproto"
 
 	"github.com/zeromicro/go-zero/core/logx"

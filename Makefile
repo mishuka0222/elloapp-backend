@@ -4,7 +4,7 @@ SHELL := /bin/bash
 BASEDIR = $(shell pwd)
 
 # build with verison infos
-versionDir="gitlab.com/merehead/elloapp/backend/elloapp_backend/pkg2/version"
+versionDir="gitlab.com/merehead/elloapp/backend/elloapp_tg_backend/pkg2/version"
 gitTag=$(shell if [ "`git describe --tags --abbrev=0 2>/dev/null`" != "" ];then git describe --tags --abbrev=0; else git log --pretty=format:'%h' -n 1; fi)
 gitBranch=$(shell git rev-parse --abbrev-ref HEAD)
 buildDate=$(shell TZ=Asia/Shanghai date +%FT%T%z)

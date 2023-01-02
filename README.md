@@ -14,7 +14,7 @@ Open source [mtproto](https://core.telegram.org/mtproto) server implementation w
 Privatization deployment Before `elloapp`, please make sure that the above five components have been installed. If your server does not have the above components, you must first install Missing components. 
 
 - [Centos9 Stream Build and Install](docs/install-centos-9.md) [@A Feel]
-- [CentOS7 elloapp_backend](docs/install-centos-7.md) [@saeipi]
+- [CentOS7 elloapp_tg_backend](docs/install-centos-7.md) [@saeipi]
 
 If you have the above components, it is recommended to use them directly. If not, it is recommended to use `docker-compose-env.yaml`.
 
@@ -26,8 +26,8 @@ If you have the above components, it is recommended to use them directly. If not
 #### Get source code　
 
 ```
-git clone https://gitlab.com/merehead/elloapp/backend/elloapp_backend.git
-cd elloapp_backend
+git clone https://gitlab.com/merehead/elloapp/backend/elloapp_tg_backend.git
+cd elloapp_tg_backend
 ```
 
 #### Init data
@@ -71,7 +71,7 @@ cd elloappd/bin
 
 ```
 git clone https://github.com/elloapp/elloapp-server.git
-cd elloapp_backend
+cd elloapp_tg_backend
 ```
 
 #### Install depends

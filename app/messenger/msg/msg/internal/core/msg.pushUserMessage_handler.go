@@ -1,20 +1,11 @@
-/*
- * Created from 'scheme.tl' by 'mtprotoc'
- *
- * Copyright (c) 2021-present,  Teamgram Studio (https://teamgram.io).
- *  All rights reserved.
- *
- * Author: teamgramio (teamgram.io@gmail.com)
- */
-
 package core
 
 import (
-	"github.com/teamgram/proto/mtproto"
-	"github.com/teamgram/teamgram-server/app/messenger/msg/inbox/inbox"
-	"github.com/teamgram/teamgram-server/app/messenger/msg/msg/msg"
-	"github.com/teamgram/teamgram-server/app/messenger/sync/sync"
-	userpb "github.com/teamgram/teamgram-server/app/service/biz/user/user"
+	"gitlab.com/merehead/elloapp/backend/elloapp_backend/app/messenger/msg/inbox/inbox"
+	"gitlab.com/merehead/elloapp/backend/elloapp_backend/app/messenger/msg/msg/msg"
+	"gitlab.com/merehead/elloapp/backend/elloapp_backend/app/messenger/sync/sync"
+	userpb "gitlab.com/merehead/elloapp/backend/elloapp_backend/app/service/biz/user/user"
+	"gitlab.com/merehead/elloapp/backend/elloapp_backend/mtproto"
 )
 
 // MsgPushUserMessage

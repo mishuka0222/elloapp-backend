@@ -1,21 +1,3 @@
-// Copyright 2022 Teamgram Authors
-//  All rights reserved.
-//
-// Licensed under the Apache License, Version 2.0 (the "License");
-// you may not use this file except in compliance with the License.
-// You may obtain a copy of the License at
-//
-//   http://www.apache.org/licenses/LICENSE-2.0
-//
-// Unless required by applicable law or agreed to in writing, software
-// distributed under the License is distributed on an "AS IS" BASIS,
-// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-// See the License for the specific language governing permissions and
-// limitations under the License.
-//
-// Author: teamgramio (teamgram.io@gmail.com)
-//
-
 package service
 
 import (
@@ -23,12 +5,12 @@ import (
 	"math/rand"
 	"time"
 
-	"github.com/teamgram/proto/mtproto"
+	"gitlab.com/merehead/elloapp/backend/elloapp_backend/mtproto"
 
 	"github.com/zeromicro/go-zero/core/logx"
 )
 
-/////////////////////////////////////////////////////////////////////////////////////////
+// ///////////////////////////////////////////////////////////////////////////////////////
 func (c *session) checkContainer(msgId int64, seqno int32, container *mtproto.TLMsgContainer) int32 {
 	if c.inQueue.Lookup(msgId) != nil {
 		logx.Errorf("checkContainer - msgId collision: {msg_id: %d, seqno: %d}", msgId, seqno)
@@ -64,8 +46,8 @@ func (c *session) checkContainer(msgId int64, seqno int32, container *mtproto.TL
 	return 0
 }
 
-///////////////////////////////////////////////////////////////////////////////////////////////////////////
-//============================================================================================
+// /////////////////////////////////////////////////////////////////////////////////////////////////////////
+// ============================================================================================
 func (c *session) onNewSessionCreated(gatewayId string, msgId int64) {
 	logx.Infof("onNewSessionCreated - request data: %d", msgId)
 	newSessionCreated := mtproto.MakeTLNewSessionCreated(&mtproto.NewSession{
@@ -83,27 +65,28 @@ func (c *session) onNewSessionCreated(gatewayId string, msgId int64) {
 	})
 }
 
-/* tdesktop
+/*
+	tdesktop
 
-void Instance::Private::performKeyDestroy(ShiftedDcId shiftedDcId) {
-	Expects(isKeysDestroyer());
+	void Instance::Private::performKeyDestroy(ShiftedDcId shiftedDcId) {
+		Expects(isKeysDestroyer());
 
-	_instance->send(MTPDestroy_auth_key(), rpcDone([this, shiftedDcId](const MTPDestroyAuthKeyRes &result) {
-		switch (result.type()) {
-		case mtpc_destroy_auth_key_ok: LOG(("MTP Info: key %1 destroyed.").arg(shiftedDcId)); break;
-		case mtpc_destroy_auth_key_fail: {
-			LOG(("MTP Error: key %1 destruction fail, leave it for now.").arg(shiftedDcId));
-			killSession(shiftedDcId);
-		} break;
-		case mtpc_destroy_auth_key_none: LOG(("MTP Info: key %1 already destroyed.").arg(shiftedDcId)); break;
-		}
-		emit _instance->keyDestroyed(shiftedDcId);
-	}), rpcFail([this, shiftedDcId](const RPCError &error) {
-		LOG(("MTP Error: key %1 destruction resulted in error: %2").arg(shiftedDcId).arg(error.type()));
-		emit _instance->keyDestroyed(shiftedDcId);
-		return true;
-	}), shiftedDcId);
-}
+		_instance->send(MTPDestroy_auth_key(), rpcDone([this, shiftedDcId](const MTPDestroyAuthKeyRes &result) {
+			switch (result.type()) {
+			case mtpc_destroy_auth_key_ok: LOG(("MTP Info: key %1 destroyed.").arg(shiftedDcId)); break;
+			case mtpc_destroy_auth_key_fail: {
+				LOG(("MTP Error: key %1 destruction fail, leave it for now.").arg(shiftedDcId));
+				killSession(shiftedDcId);
+			} break;
+			case mtpc_destroy_auth_key_none: LOG(("MTP Info: key %1 already destroyed.").arg(shiftedDcId)); break;
+			}
+			emit _instance->keyDestroyed(shiftedDcId);
+		}), rpcFail([this, shiftedDcId](const RPCError &error) {
+			LOG(("MTP Error: key %1 destruction resulted in error: %2").arg(shiftedDcId).arg(error.type()));
+			emit _instance->keyDestroyed(shiftedDcId);
+			return true;
+		}), shiftedDcId);
+	}
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 destroy_auth_key#d1435160 = DestroyAuthKeyRes;
@@ -111,7 +94,6 @@ destroy_auth_key#d1435160 = DestroyAuthKeyRes;
 destroy_auth_key_ok#f660e1d4 = DestroyAuthKeyRes;
 destroy_auth_key_none#0a9f2259 = DestroyAuthKeyRes;
 destroy_auth_key_fail#ea109b13 = DestroyAuthKeyRes;
-
 */
 func (c *session) onDestroyAuthKey(gatewayId string, msgId *inboxMsg, destroyAuthKey *mtproto.TLDestroyAuthKey) {
 	logx.Infof("onDestroyAuthKey - request data: {sess: %s, gatewayId: %s, msg_id: %d, seq_no: %d, request: {%s}}",
@@ -301,12 +283,12 @@ func (c *session) onGetFutureSalts(gatewayId string, msgId *inboxMsg, request *m
 }
 
 // sendToClient:
-// 	rpc_answer_unknown#5e2ad36e = RpcDropAnswer;
-// 	rpc_answer_dropped_running#cd78e586 = RpcDropAnswer;
-// 	rpc_answer_dropped#a43ad8b7 msg_id:long seq_no:int bytes:int = RpcDropAnswer;
+//
+//	rpc_answer_unknown#5e2ad36e = RpcDropAnswer;
+//	rpc_answer_dropped_running#cd78e586 = RpcDropAnswer;
+//	rpc_answer_dropped#a43ad8b7 msg_id:long seq_no:int bytes:int = RpcDropAnswer;
 //
 // and both of these responses require an acknowledgment from the client.
-//
 func (c *session) onRpcDropAnswer(gatewayId string, msgId *inboxMsg, request *mtproto.TLRpcDropAnswer) {
 	logx.Infof("onRpcDropAnswer - request data: {sess: %s, gatewayId: %s, msg_id: %d, seq_no: %d, request: {%v}}",
 		c,

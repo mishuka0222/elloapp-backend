@@ -1,12 +1,3 @@
-/*
- * Created from 'scheme.tl' by 'mtprotoc'
- *
- * Copyright (c) 2021-present,  Teamgram Studio (https://teamgram.io).
- *  All rights reserved.
- *
- * Author: teamgramio (teamgram.io@gmail.com)
- */
-
 package core
 
 import (
@@ -14,11 +5,11 @@ import (
 	"math/rand"
 	"time"
 
-	"github.com/teamgram/marmota/pkg/hack"
-	"github.com/teamgram/marmota/pkg/stores/sqlx"
-	"github.com/teamgram/proto/mtproto"
-	"github.com/teamgram/teamgram-server/app/service/biz/user/internal/dal/dataobject"
-	"github.com/teamgram/teamgram-server/app/service/biz/user/user"
+	"gitlab.com/merehead/elloapp/backend/elloapp_backend/app/service/biz/user/internal/dal/dataobject"
+	"gitlab.com/merehead/elloapp/backend/elloapp_backend/app/service/biz/user/user"
+	"gitlab.com/merehead/elloapp/backend/elloapp_backend/mtproto"
+	"gitlab.com/merehead/elloapp/backend/elloapp_backend/pkg2/hack"
+	"gitlab.com/merehead/elloapp/backend/elloapp_backend/pkg2/stores/sqlx"
 )
 
 // UserCreateNewUser

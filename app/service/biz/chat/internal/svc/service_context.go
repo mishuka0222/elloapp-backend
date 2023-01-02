@@ -1,18 +1,9 @@
-/*
- * Created from 'scheme.tl' by 'mtprotoc'
- *
- * Copyright (c) 2021-present,  Teamgram Studio (https://teamgram.io).
- *  All rights reserved.
- *
- * Author: teamgramio (teamgram.io@gmail.com)
- */
-
 package svc
 
 import (
-	"github.com/teamgram/teamgram-server/app/service/biz/chat/internal/config"
-	"github.com/teamgram/teamgram-server/app/service/biz/chat/internal/dao"
-	"github.com/teamgram/teamgram-server/app/service/biz/chat/plugin"
+	"gitlab.com/merehead/elloapp/backend/elloapp_backend/app/service/biz/chat/internal/config"
+	"gitlab.com/merehead/elloapp/backend/elloapp_backend/app/service/biz/chat/internal/dao"
+	"gitlab.com/merehead/elloapp/backend/elloapp_backend/app/service/biz/chat/plugin"
 )
 
 type ServiceContext struct {

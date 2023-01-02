@@ -1,13 +1,3 @@
-/*
- * WARNING! All changes made in this file will be lost!
- * Created from 'scheme.tl' by 'mtprotoc'
- *
- * Copyright (c) 2022-present,  Teamgram Authors.
- *  All rights reserved.
- *
- * Author: Benqi (wubenqi@gmail.com)
- */
-
 // ConstructorList
 // RequestList
 
@@ -16,7 +6,7 @@ package chat
 import (
 	"fmt"
 
-	"github.com/teamgram/proto/mtproto"
+	"gitlab.com/merehead/elloapp/backend/elloapp_backend/mtproto"
 
 	"github.com/gogo/protobuf/jsonpb"
 	"github.com/gogo/protobuf/types"
@@ -430,7 +420,7 @@ func (m *TLChatInvite) To_ChatInviteExt() *ChatInviteExt {
 	return m.Data2
 }
 
-//// flags
+// // flags
 func (m *TLChatInvite) SetRequestNeeded(v bool) { m.Data2.RequestNeeded = v }
 func (m *TLChatInvite) GetRequestNeeded() bool  { return m.Data2.RequestNeeded }
 
@@ -715,7 +705,7 @@ func (m *TLImmutableChat) To_ImmutableChat() *ImmutableChat {
 	return m.Data2
 }
 
-//// flags
+// // flags
 func (m *TLImmutableChat) SetId(v int64) { m.Data2.Id = v }
 func (m *TLImmutableChat) GetId() int64  { return m.Data2.Id }
 
@@ -3223,9 +3213,9 @@ func (m *TLChatSetHistoryTTL) DebugString() string {
 	return dbgString
 }
 
-//----------------------------------------------------------------------------------------------------------------
+// ----------------------------------------------------------------------------------------------------------------
 // Vector_MutableChat
-///////////////////////////////////////////////////////////////////////////////
+// /////////////////////////////////////////////////////////////////////////////
 func (m *Vector_MutableChat) Encode(layer int32) []byte {
 	x := mtproto.NewEncodeBuf(512)
 	x.Int(int32(mtproto.CRC32_vector))
@@ -3260,7 +3250,7 @@ func (m *Vector_MutableChat) DebugString() string {
 }
 
 // Vector_Long
-///////////////////////////////////////////////////////////////////////////////
+// /////////////////////////////////////////////////////////////////////////////
 func (m *Vector_Long) Encode(layer int32) []byte {
 	x := mtproto.NewEncodeBuf(512)
 	x.VectorLong(m.Datas)
@@ -3285,7 +3275,7 @@ func (m *Vector_Long) DebugString() string {
 }
 
 // Vector_UserChatIdList
-///////////////////////////////////////////////////////////////////////////////
+// /////////////////////////////////////////////////////////////////////////////
 func (m *Vector_UserChatIdList) Encode(layer int32) []byte {
 	x := mtproto.NewEncodeBuf(512)
 	x.Int(int32(mtproto.CRC32_vector))
@@ -3320,7 +3310,7 @@ func (m *Vector_UserChatIdList) DebugString() string {
 }
 
 // Vector_ChatAdminWithInvites
-///////////////////////////////////////////////////////////////////////////////
+// /////////////////////////////////////////////////////////////////////////////
 func (m *Vector_ChatAdminWithInvites) Encode(layer int32) []byte {
 	x := mtproto.NewEncodeBuf(512)
 	x.Int(int32(mtproto.CRC32_vector))
@@ -3355,7 +3345,7 @@ func (m *Vector_ChatAdminWithInvites) DebugString() string {
 }
 
 // Vector_ExportedChatInvite
-///////////////////////////////////////////////////////////////////////////////
+// /////////////////////////////////////////////////////////////////////////////
 func (m *Vector_ExportedChatInvite) Encode(layer int32) []byte {
 	x := mtproto.NewEncodeBuf(512)
 	x.Int(int32(mtproto.CRC32_vector))
@@ -3390,7 +3380,7 @@ func (m *Vector_ExportedChatInvite) DebugString() string {
 }
 
 // Vector_ChatInviteImporter
-///////////////////////////////////////////////////////////////////////////////
+// /////////////////////////////////////////////////////////////////////////////
 func (m *Vector_ChatInviteImporter) Encode(layer int32) []byte {
 	x := mtproto.NewEncodeBuf(512)
 	x.Int(int32(mtproto.CRC32_vector))

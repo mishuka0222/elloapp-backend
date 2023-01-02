@@ -1,27 +1,9 @@
-// Copyright 2022 Teamgram Authors
-//  All rights reserved.
-//
-// Licensed under the Apache License, Version 2.0 (the "License");
-// you may not use this file except in compliance with the License.
-// You may obtain a copy of the License at
-//
-//   http://www.apache.org/licenses/LICENSE-2.0
-//
-// Unless required by applicable law or agreed to in writing, software
-// distributed under the License is distributed on an "AS IS" BASIS,
-// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-// See the License for the specific language governing permissions and
-// limitations under the License.
-//
-// Author: teamgramio (teamgram.io@gmail.com)
-//
-
 package core
 
 import (
-	"github.com/teamgram/proto/mtproto"
-	userpb "github.com/teamgram/teamgram-server/app/service/biz/user/user"
-	"github.com/teamgram/teamgram-server/app/service/biz/username/username"
+	userpb "gitlab.com/merehead/elloapp/backend/elloapp_backend/app/service/biz/user/user"
+	"gitlab.com/merehead/elloapp/backend/elloapp_backend/app/service/biz/username/username"
+	"gitlab.com/merehead/elloapp/backend/elloapp_backend/mtproto"
 )
 
 // ContactsSearch
@@ -50,7 +32,7 @@ func (c *ContactsCore) ContactsSearch(in *mtproto.TLContactsSearch) (*mtproto.Co
 		q = q[1:]
 	}
 
-	if len(q) < 5 {
+	if len(q) < 3 {
 		err := mtproto.ErrQueryTooShort
 		c.Logger.Errorf("contacts.search - error: %v", err)
 		return nil, err
@@ -72,7 +54,7 @@ func (c *ContactsCore) ContactsSearch(in *mtproto.TLContactsSearch) (*mtproto.Co
 	//
 
 	// Check query string and limit
-	if len(q) >= 5 && limit > 0 {
+	if len(q) >= 3 && limit > 0 {
 		contacts, _ := c.svcCtx.Dao.UserClient.UserGetContactIdList(c.ctx, &userpb.TLUserGetContactIdList{
 			UserId: c.MD.UserId,
 		})
@@ -127,7 +109,7 @@ func (c *ContactsCore) ContactsSearch(in *mtproto.TLContactsSearch) (*mtproto.Co
 					found.Results = append(found.Results, mtproto.MakePeerChannel(ch.GetId()))
 				}
 			} else {
-				c.Logger.Errorf("contacts.search blocked, License key from https://teamgram.net required to unlock enterprise features.")
+				c.Logger.Errorf("contacts.search blocked, License key from https://elloapp.com required to unlock enterprise features.")
 			}
 		})
 

@@ -1,18 +1,9 @@
-/*
- * Created from 'scheme.tl' by 'mtprotoc'
- *
- * Copyright (c) 2021-present,  Teamgram Studio (https://teamgram.io).
- *  All rights reserved.
- *
- * Author: teamgramio (teamgram.io@gmail.com)
- */
-
 package grpc
 
 import (
-	"github.com/teamgram/teamgram-server/app/service/idgen/idgen"
-	"github.com/teamgram/teamgram-server/app/service/idgen/internal/server/grpc/service"
-	"github.com/teamgram/teamgram-server/app/service/idgen/internal/svc"
+	"gitlab.com/merehead/elloapp/backend/elloapp_backend/app/service/idgen/idgen"
+	"gitlab.com/merehead/elloapp/backend/elloapp_backend/app/service/idgen/internal/server/grpc/service"
+	"gitlab.com/merehead/elloapp/backend/elloapp_backend/app/service/idgen/internal/svc"
 
 	"github.com/zeromicro/go-zero/core/logx"
 	"github.com/zeromicro/go-zero/zrpc"

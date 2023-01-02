@@ -1,13 +1,3 @@
-/*
- * WARNING! All changes made in this file will be lost!
- * Created from 'scheme.tl' by 'mtprotoc'
- *
- * Copyright (c) 2022-present,  Teamgram Authors.
- *  All rights reserved.
- *
- * Author: Benqi (wubenqi@gmail.com)
- */
-
 // ConstructorList
 // RequestList
 
@@ -16,7 +6,7 @@ package message
 import (
 	"fmt"
 
-	"github.com/teamgram/proto/mtproto"
+	"gitlab.com/merehead/elloapp/backend/elloapp_backend/mtproto"
 
 	"github.com/gogo/protobuf/jsonpb"
 	"github.com/gogo/protobuf/types"
@@ -1239,9 +1229,9 @@ func (m *TLMessageGetUnreadMentionsCount) DebugString() string {
 	return dbgString
 }
 
-//----------------------------------------------------------------------------------------------------------------
+// ----------------------------------------------------------------------------------------------------------------
 // Vector_MessageBox
-///////////////////////////////////////////////////////////////////////////////
+// /////////////////////////////////////////////////////////////////////////////
 func (m *Vector_MessageBox) Encode(layer int32) []byte {
 	x := mtproto.NewEncodeBuf(512)
 	x.Int(int32(mtproto.CRC32_vector))
@@ -1276,7 +1266,7 @@ func (m *Vector_MessageBox) DebugString() string {
 }
 
 // Vector_Int
-///////////////////////////////////////////////////////////////////////////////
+// /////////////////////////////////////////////////////////////////////////////
 func (m *Vector_Int) Encode(layer int32) []byte {
 	x := mtproto.NewEncodeBuf(512)
 	x.VectorInt(m.Datas)

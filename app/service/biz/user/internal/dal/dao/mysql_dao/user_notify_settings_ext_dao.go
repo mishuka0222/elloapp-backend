@@ -1,24 +1,14 @@
-/*
- * WARNING! All changes made in this file will be lost!
- * Created from 'scheme.tl' by 'mtprotoc'
- *
- * Copyright (c) 2022-present,  Teamgram Authors.
- *  All rights reserved.
- *
- * Author: teagramio (teagram.io@gmail.com)
- */
-
 package mysql_dao
 
 import (
 	"context"
 	"database/sql"
 	"fmt"
-	"github.com/teamgram/proto/mtproto"
+	"gitlab.com/merehead/elloapp/backend/elloapp_backend/mtproto"
 	"strings"
 
-	"github.com/teamgram/marmota/pkg/stores/sqlx"
-	"github.com/teamgram/teamgram-server/app/service/biz/user/internal/dal/dataobject"
+	"gitlab.com/merehead/elloapp/backend/elloapp_backend/app/service/biz/user/internal/dal/dataobject"
+	"gitlab.com/merehead/elloapp/backend/elloapp_backend/pkg2/stores/sqlx"
 
 	"github.com/zeromicro/go-zero/core/logx"
 )

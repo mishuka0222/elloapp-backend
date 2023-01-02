@@ -1,20 +1,11 @@
-/*
- * Created from 'scheme.tl' by 'mtprotoc'
- *
- * Copyright (c) 2021-present,  Teamgram Studio (https://teamgram.io).
- *  All rights reserved.
- *
- * Author: teamgramio (teamgram.io@gmail.com)
- */
-
 package dao
 
 import (
-	"github.com/teamgram/marmota/pkg/stores/sqlc"
-	"github.com/teamgram/marmota/pkg/stores/sqlx"
-	dfs_client "github.com/teamgram/teamgram-server/app/service/dfs/client"
-	"github.com/teamgram/teamgram-server/app/service/media/internal/config"
 	"github.com/zeromicro/go-zero/zrpc"
+	dfs_client "gitlab.com/merehead/elloapp/backend/elloapp_backend/app/service/dfs/client"
+	"gitlab.com/merehead/elloapp/backend/elloapp_backend/app/service/media/internal/config"
+	"gitlab.com/merehead/elloapp/backend/elloapp_backend/pkg2/stores/sqlc"
+	"gitlab.com/merehead/elloapp/backend/elloapp_backend/pkg2/stores/sqlx"
 )
 
 type Dao struct {

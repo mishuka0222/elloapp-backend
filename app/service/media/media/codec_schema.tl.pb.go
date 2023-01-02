@@ -1,13 +1,3 @@
-/*
- * WARNING! All changes made in this file will be lost!
- * Created from 'scheme.tl' by 'mtprotoc'
- *
- * Copyright (c) 2022-present,  Teamgram Authors.
- *  All rights reserved.
- *
- * Author: Benqi (wubenqi@gmail.com)
- */
-
 // ConstructorList
 // RequestList
 
@@ -16,7 +6,7 @@ package media
 import (
 	"fmt"
 
-	"github.com/teamgram/proto/mtproto"
+	"gitlab.com/merehead/elloapp/backend/elloapp_backend/mtproto"
 
 	"github.com/gogo/protobuf/jsonpb"
 	"github.com/gogo/protobuf/types"
@@ -1372,9 +1362,9 @@ func (m *TLMediaUploadRingtoneFile) DebugString() string {
 	return dbgString
 }
 
-//----------------------------------------------------------------------------------------------------------------
+// ----------------------------------------------------------------------------------------------------------------
 // Vector_PhotoSizeList
-///////////////////////////////////////////////////////////////////////////////
+// /////////////////////////////////////////////////////////////////////////////
 func (m *Vector_PhotoSizeList) Encode(layer int32) []byte {
 	x := mtproto.NewEncodeBuf(512)
 	x.Int(int32(mtproto.CRC32_vector))
@@ -1409,7 +1399,7 @@ func (m *Vector_PhotoSizeList) DebugString() string {
 }
 
 // Vector_Document
-///////////////////////////////////////////////////////////////////////////////
+// /////////////////////////////////////////////////////////////////////////////
 func (m *Vector_Document) Encode(layer int32) []byte {
 	x := mtproto.NewEncodeBuf(512)
 	x.Int(int32(mtproto.CRC32_vector))

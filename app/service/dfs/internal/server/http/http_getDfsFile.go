@@ -1,13 +1,3 @@
-/*
- * WARNING! All changes made in this file will be lost!
- * Created from 'scheme.tl' by 'mtprotoc'
- *
- * Copyright (c) 2022-present,  Teamgram Authors.
- *  All rights reserved.
- *
- * Author: teagramio (teagram.io@gmail.com)
- */
-
 package http
 
 import (
@@ -17,8 +7,8 @@ import (
 	"strings"
 	"time"
 
-	"github.com/teamgram/teamgram-server/app/service/dfs/internal/model"
-	"github.com/teamgram/teamgram-server/app/service/dfs/internal/svc"
+	"gitlab.com/merehead/elloapp/backend/elloapp_backend/app/service/dfs/internal/model"
+	"gitlab.com/merehead/elloapp/backend/elloapp_backend/app/service/dfs/internal/svc"
 
 	"github.com/zeromicro/go-zero/core/logx"
 	"github.com/zeromicro/go-zero/rest/httpx"

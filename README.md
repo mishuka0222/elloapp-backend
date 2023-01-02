@@ -1,34 +1,8 @@
-# Teamgram - Unofficial open source [mtproto](https://core.telegram.org/mtproto) server written in golang
-> open source mtproto server implemented in golang with compatible telegram client.
-
 ## Introduce
 Open source [mtproto](https://core.telegram.org/mtproto) server implementation written in golang, support private deployment.
 
-## Features
-- MTProto 2.0
-  - Abridged
-  - Intermediate
-  - Padded intermediate
-  - Full
-- API Layer: 147
-- private chat
-- basic group
-- contacts
-
-## Architecture
-![Architecture](docs/image/architecture-001.png)
-
-### Documents
-[Diffie–Hellman key exchange](docs/dh-key-exchange.md)
-
-[Creating an Authorization Key](docs/Creating_an_Authorization_Key.md)
-
-[Mobile Protocol: Detailed Description (v.1.0, DEPRECATED)](docs/Mobile_Protocol-Detailed_Description_v.1.0_DEPRECATED.md)
-
-[Encrypted CDNs for Speed and Security](docs/cdn.md) Translate By [@steedfly](https://github.com/steedfly)
-
-## Installing Teamgram 
-`Teamgram` relies on open source high-performance components: 
+## Installing elloapp 
+`elloapp` relies on open source high-performance components: 
 
 - **mysql5.7**
 - [redis](https://redis.io/)
@@ -37,10 +11,10 @@ Open source [mtproto](https://core.telegram.org/mtproto) server implementation w
 - [minio](https://docs.min.io/docs/minio-quickstart-guide.html#GNU/Linux)
 - [ffmpeg](https://www.johnvansickle.com/ffmpeg/)
 
-Privatization deployment Before `Teamgram`, please make sure that the above five components have been installed. If your server does not have the above components, you must first install Missing components. 
+Privatization deployment Before `elloapp`, please make sure that the above five components have been installed. If your server does not have the above components, you must first install Missing components. 
 
 - [Centos9 Stream Build and Install](docs/install-centos-9.md) [@A Feel]
-- [CentOS7 teamgram-server环境搭建](docs/install-centos-7.md) [@saeipi]
+- [CentOS7 elloapp_backend](docs/install-centos-7.md) [@saeipi]
 
 If you have the above components, it is recommended to use them directly. If not, it is recommended to use `docker-compose-env.yaml`.
 
@@ -52,18 +26,18 @@ If you have the above components, it is recommended to use them directly. If not
 #### Get source code　
 
 ```
-git clone https://github.com/teamgram/teamgram-server.git
-cd teamgram-server
+git clone https://gitlab.com/merehead/elloapp/backend/elloapp_backend.git
+cd elloapp_backend
 ```
 
 #### Init data
 - init database
 
 	```
-	1. create database teamgram
-	2. init teamgram database
-	   mysql -uroot teamgram < teamgramd/sql/teamgram2.sql
-	   mysql -uroot teamgram < teamgramd/sql/migrate-*.sql
+	1. create database elloapp
+	2. init elloapp database
+	   mysql -uroot elloapp < elloappd/sql/elloapp2.sql
+	   mysql -uroot elloapp < elloappd/sql/migrate-*.sql
 	```
 
 - init minio buckets
@@ -84,7 +58,7 @@ make
 #### Run
 
 ```
-cd teamgramd/bin
+cd elloappd/bin
 ./runall2.sh
 ```
 
@@ -96,8 +70,8 @@ cd teamgramd/bin
 #### Get source code
 
 ```
-git clone https://github.com/teamgram/teamgram-server.git
-cd teamgram-server
+git clone https://github.com/elloapp/elloapp-server.git
+cd elloapp_backend
 ```
 
 #### Install depends
@@ -118,29 +92,29 @@ cd teamgram-server
   ```
 
   # Copy some files to container
-  docker cp ./teamgramd/sql/ mysql:/teamgramd/sql/
+  docker cp ./elloappd/sql/ mysql:/elloappd/sql/
 
   # get mysql
   docker exec -it mysql /bin/bash
   
-  mysql -uteamgram -h127.0.0.1 -pteamgram teamgram < teamgramd/sql/teamgram2.sql
-  mysql -uteamgram -h127.0.0.1 -pteamgram teamgram < teamgramd/sql/migrate-20220321.sql
-  mysql -uteamgram -h127.0.0.1 -pteamgram teamgram < teamgramd/sql/migrate-20220326.sql
-  mysql -uteamgram -h127.0.0.1 -pteamgram teamgram < teamgramd/sql/migrate-20220328.sql
-  mysql -uteamgram -h127.0.0.1 -pteamgram teamgram < teamgramd/sql/migrate-20220401.sql
-  mysql -uteamgram -h127.0.0.1 -pteamgram teamgram < teamgramd/sql/migrate-20220412.sql
-  mysql -uteamgram -h127.0.0.1 -pteamgram teamgram < teamgramd/sql/migrate-20220419.sql
-  mysql -uteamgram -h127.0.0.1 -pteamgram teamgram < teamgramd/sql/migrate-20220423.sql
-  mysql -uteamgram -h127.0.0.1 -pteamgram teamgram < teamgramd/sql/migrate-20220504.sql
-  mysql -uteamgram -h127.0.0.1 -pteamgram teamgram < teamgramd/sql/migrate-20220721.sql
-  mysql -uteamgram -h127.0.0.1 -pteamgram teamgram < teamgramd/sql/migrate-20220826.sql
-  mysql -uteamgram -h127.0.0.1 -pteamgram teamgram < teamgramd/sql/migrate-20220919.sql
-  mysql -uteamgram -h127.0.0.1 -pteamgram teamgram < teamgramd/sql/migrate-20221008.sql
-  mysql -uteamgram -h127.0.0.1 -pteamgram teamgram < teamgramd/sql/migrate-20221011.sql
-  mysql -uteamgram -h127.0.0.1 -pteamgram teamgram < teamgramd/sql/migrate-20221016.sql
-  mysql -uteamgram -h127.0.0.1 -pteamgram teamgram < teamgramd/sql/migrate-20221023.sql
-  mysql -uteamgram -h127.0.0.1 -pteamgram teamgram < teamgramd/sql/migrate-20221101.sql
-  mysql -uteamgram -h127.0.0.1 -pteamgram teamgram < teamgramd/sql/init.sql
+  mysql -uelloapp -h127.0.0.1 -pelloapp elloapp < elloappd/sql/elloapp2.sql
+  mysql -uelloapp -h127.0.0.1 -pelloapp elloapp < elloappd/sql/migrate-20220321.sql
+  mysql -uelloapp -h127.0.0.1 -pelloapp elloapp < elloappd/sql/migrate-20220326.sql
+  mysql -uelloapp -h127.0.0.1 -pelloapp elloapp < elloappd/sql/migrate-20220328.sql
+  mysql -uelloapp -h127.0.0.1 -pelloapp elloapp < elloappd/sql/migrate-20220401.sql
+  mysql -uelloapp -h127.0.0.1 -pelloapp elloapp < elloappd/sql/migrate-20220412.sql
+  mysql -uelloapp -h127.0.0.1 -pelloapp elloapp < elloappd/sql/migrate-20220419.sql
+  mysql -uelloapp -h127.0.0.1 -pelloapp elloapp < elloappd/sql/migrate-20220423.sql
+  mysql -uelloapp -h127.0.0.1 -pelloapp elloapp < elloappd/sql/migrate-20220504.sql
+  mysql -uelloapp -h127.0.0.1 -pelloapp elloapp < elloappd/sql/migrate-20220721.sql
+  mysql -uelloapp -h127.0.0.1 -pelloapp elloapp < elloappd/sql/migrate-20220826.sql
+  mysql -uelloapp -h127.0.0.1 -pelloapp elloapp < elloappd/sql/migrate-20220919.sql
+  mysql -uelloapp -h127.0.0.1 -pelloapp elloapp < elloappd/sql/migrate-20221008.sql
+  mysql -uelloapp -h127.0.0.1 -pelloapp elloapp < elloappd/sql/migrate-20221011.sql
+  mysql -uelloapp -h127.0.0.1 -pelloapp elloapp < elloappd/sql/migrate-20221016.sql
+  mysql -uelloapp -h127.0.0.1 -pelloapp elloapp < elloappd/sql/migrate-20221023.sql
+  mysql -uelloapp -h127.0.0.1 -pelloapp elloapp < elloappd/sql/migrate-20221101.sql
+  mysql -uelloapp -h127.0.0.1 -pelloapp elloapp < elloappd/sql/init.sql
   
   # quit docker mysql
   exit
@@ -177,29 +151,3 @@ cd teamgram-server
 # run docker-compose
 docker-compose up -d
 ```
-	
-## Compatible clients
-**Important**: default signIn verify code is **12345**
-
-[Android client for Teamgram](clients/teamgram-android.md)
-
-[iOS client for Teamgram](clients/teamgram-ios.md)
-
-[tdesktop for Teamgram](clients/teamgram-tdesktop.md)
-
-## Feedback
-Please report bugs, concerns, suggestions by issues, or join telegram group [Teamgram中文社区](https://t.me/+S1_22-6EM1BaffXS) Or [Teamgram](https://t.me/+TjD5LZJ5XLRlCYLF) to discuss problems around source code.
-
-## Notes
-If need enterprise edition:
-
-- sticker/theme/wallpaper/reactions/2fa/secretchat/sms/push(apns/web/fcm)/web...
-- channel/megagroup
-- audiocall/videocall/groupcall/`rtmp live stream`
-- bots
-
-please PM the **[author](https://t.me/benqi)**
-
-## Give a Star! ⭐
-
-If you like or are using this project to learn or start your solution, please give it a star. Thanks!

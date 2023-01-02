@@ -22,23 +22,21 @@ Thumbs.db
 *.log
 *.swp
 *.swo
-*.proto
-*.tl
 
 #deploy data
 
 data/*
 !data/.gitkeep
 
-teamgramd/bin/*
-!teamgramd/bin/config.json
-!teamgramd/bin/killall.sh
-!teamgramd/bin/runall2.sh
-!teamgramd/bin/runall-docker.sh
-!teamgramd/bin/server_pkcs1.key
+elloappd/bin/*
+!elloappd/bin/config.json
+!elloappd/bin/killall.sh
+!elloappd/bin/runall2.sh
+!elloappd/bin/runall-docker.sh
+!elloappd/bin/server_pkcs1.key
 
-teamgramd/logs/*
-!teamgramd/logs/.gitkeep
+elloappd/logs/*
+!elloappd/logs/.gitkeep
 
 /app/messenger/biz_server
 /app/bff/account/cmd/account/account
@@ -49,3 +47,5 @@ teamgramd/logs/*
 /app/interface/gateway/cmd/gateway/gateway
 /app/service/biz/username/cmd/username/username
 /app/service/media/internal/dao/examples/examples
+
+_temp

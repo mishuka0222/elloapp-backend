@@ -1,17 +1,7 @@
-/*
- * WARNING! All changes made in this file will be lost!
- * Created from 'scheme.tl' by 'mtprotoc'
- *
- * Copyright (c) 2021-present,  Teamgram Studio (https://teamgram.io).
- *  All rights reserved.
- *
- * Author: teamgramio (teamgram.io@gmail.com)
- */
-
 package service
 
 import (
-	"github.com/teamgram/teamgram-server/app/messenger/msg/inbox/internal/svc"
+	"gitlab.com/merehead/elloapp/backend/elloapp_backend/app/messenger/msg/inbox/internal/svc"
 )
 
 type Service struct {

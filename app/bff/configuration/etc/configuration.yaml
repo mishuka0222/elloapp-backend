@@ -1,2 +1,11 @@
 Name: bff.configuration
 ListenOn: 0.0.0.0:21220
+Mysql:
+  Addr: 127.0.0.1:3306
+  DSN: root:@tcp(127.0.0.1:3306)/elloapp?charset=utf8mb4&parseTime=true
+  Active: 64
+  Idle: 64
+  IdleTimeout: 4h
+  QueryTimeout: 5s
+  ExecTimeout: 5s
+  TranTimeout: 5s

@@ -1,41 +1,29 @@
-// Copyright 2022 Teamgram Authors
-//  All rights reserved.
-//
-// Licensed under the Apache License, Version 2.0 (the "License");
-// you may not use this file except in compliance with the License.
-// You may obtain a copy of the License at
-//
-//   http://www.apache.org/licenses/LICENSE-2.0
-//
-// Unless required by applicable law or agreed to in writing, software
-// distributed under the License is distributed on an "AS IS" BASIS,
-// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-// See the License for the specific language governing permissions and
-// limitations under the License.
-//
-// Author: teamgramio (teamgram.io@gmail.com)
-//
-
 package server
 
 import (
 	"flag"
+	authorization_helper "gitlab.com/merehead/elloapp/backend/elloapp_backend/app/service/biz/authorization"
+	"gitlab.com/merehead/elloapp/backend/elloapp_backend/app/service/biz/authorization/authorization"
+	configuration_helper "gitlab.com/merehead/elloapp/backend/elloapp_backend/app/service/biz/configuration"
+	"gitlab.com/merehead/elloapp/backend/elloapp_backend/app/service/biz/configuration/configuration"
+	feeds_helper "gitlab.com/merehead/elloapp/backend/elloapp_backend/app/service/biz/feeds"
+	"gitlab.com/merehead/elloapp/backend/elloapp_backend/app/service/biz/feeds/feeds"
 
-	"github.com/teamgram/teamgram-server/app/service/biz/biz/internal/config"
-	chat_helper "github.com/teamgram/teamgram-server/app/service/biz/chat"
-	"github.com/teamgram/teamgram-server/app/service/biz/chat/chat"
-	code_helper "github.com/teamgram/teamgram-server/app/service/biz/code"
-	"github.com/teamgram/teamgram-server/app/service/biz/code/code"
-	dialog_helper "github.com/teamgram/teamgram-server/app/service/biz/dialog"
-	"github.com/teamgram/teamgram-server/app/service/biz/dialog/dialog"
-	message_helper "github.com/teamgram/teamgram-server/app/service/biz/message"
-	"github.com/teamgram/teamgram-server/app/service/biz/message/message"
-	updates_helper "github.com/teamgram/teamgram-server/app/service/biz/updates"
-	"github.com/teamgram/teamgram-server/app/service/biz/updates/updates"
-	user_helper "github.com/teamgram/teamgram-server/app/service/biz/user"
-	"github.com/teamgram/teamgram-server/app/service/biz/user/user"
-	username_helper "github.com/teamgram/teamgram-server/app/service/biz/username"
-	"github.com/teamgram/teamgram-server/app/service/biz/username/username"
+	"gitlab.com/merehead/elloapp/backend/elloapp_backend/app/service/biz/biz/internal/config"
+	chat_helper "gitlab.com/merehead/elloapp/backend/elloapp_backend/app/service/biz/chat"
+	"gitlab.com/merehead/elloapp/backend/elloapp_backend/app/service/biz/chat/chat"
+	code_helper "gitlab.com/merehead/elloapp/backend/elloapp_backend/app/service/biz/code"
+	"gitlab.com/merehead/elloapp/backend/elloapp_backend/app/service/biz/code/code"
+	dialog_helper "gitlab.com/merehead/elloapp/backend/elloapp_backend/app/service/biz/dialog"
+	"gitlab.com/merehead/elloapp/backend/elloapp_backend/app/service/biz/dialog/dialog"
+	message_helper "gitlab.com/merehead/elloapp/backend/elloapp_backend/app/service/biz/message"
+	"gitlab.com/merehead/elloapp/backend/elloapp_backend/app/service/biz/message/message"
+	updates_helper "gitlab.com/merehead/elloapp/backend/elloapp_backend/app/service/biz/updates"
+	"gitlab.com/merehead/elloapp/backend/elloapp_backend/app/service/biz/updates/updates"
+	user_helper "gitlab.com/merehead/elloapp/backend/elloapp_backend/app/service/biz/user"
+	"gitlab.com/merehead/elloapp/backend/elloapp_backend/app/service/biz/user/user"
+	username_helper "gitlab.com/merehead/elloapp/backend/elloapp_backend/app/service/biz/username"
+	"gitlab.com/merehead/elloapp/backend/elloapp_backend/app/service/biz/username/username"
 
 	"github.com/zeromicro/go-zero/core/conf"
 	"github.com/zeromicro/go-zero/core/logx"
@@ -62,6 +50,34 @@ func (s *Server) Initialize() error {
 	// s.grpcSrv = grpc.New(ctx, c.RpcServerConf)
 
 	s.grpcSrv = zrpc.MustNewServer(c.RpcServerConf, func(grpcServer *grpc.Server) {
+
+		//configuration
+		configuration.RegisterRPCConfigurationServer(
+			grpcServer,
+			configuration_helper.New(
+				configuration_helper.Config{
+					RpcServerConf: c.RpcServerConf,
+					Mysql:         c.Mysql,
+				}))
+
+		// feeds
+		feeds.RegisterRPCFeedsServer(
+			grpcServer,
+			feeds_helper.New(
+				feeds_helper.Config{
+					RpcServerConf: c.RpcServerConf,
+					Mysql:         c.Mysql,
+				}))
+
+		// authorization
+		authorization.RegisterRPCAuthorizationServer(
+			grpcServer,
+			authorization_helper.New(
+				authorization_helper.Config{
+					RpcServerConf: c.RpcServerConf,
+					Mysql:         c.Mysql,
+				}))
+
 		// chat_helper
 		chat.RegisterRPCChatServer(
 			grpcServer,

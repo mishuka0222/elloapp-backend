@@ -1,0 +1,20 @@
+Name: service.authsession
+ListenOn: 0.0.0.0:20450
+Etcd:
+  Hosts: ["etcd:2379"]
+  Key: service.authsession
+Log:
+#  Mode: file
+#  Path: ./logs/authsession
+  Level: debug
+  Mode: console
+  Encoding: plain
+Mysql:
+  DSN: root:@tcp(mysql:3306)/elloapp?charset=utf8mb4&parseTime=true
+  Active: 64
+  Idle: 64
+  IdleTimeout: 4h
+Cache:
+  - Host: redis:6379
+KV:
+  - Host: redis:6379

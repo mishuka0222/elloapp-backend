@@ -1,13 +1,3 @@
-/*
- * WARNING! All changes made in this file will be lost!
- * Created from 'scheme.tl' by 'mtprotoc'
- *
- * Copyright (c) 2022-present,  Teamgram Authors.
- *  All rights reserved.
- *
- * Author: Benqi (wubenqi@gmail.com)
- */
-
 // ConstructorList
 // RequestList
 
@@ -16,7 +6,7 @@ package msg
 import (
 	"fmt"
 
-	"github.com/teamgram/proto/mtproto"
+	"gitlab.com/merehead/elloapp/backend/elloapp_backend/mtproto"
 
 	"github.com/gogo/protobuf/jsonpb"
 	"github.com/gogo/protobuf/types"
@@ -212,7 +202,7 @@ func (m *TLContentMessage) To_ContentMessage() *ContentMessage {
 	return m.Data2
 }
 
-//// flags
+// // flags
 func (m *TLContentMessage) SetId(v int32) { m.Data2.Id = v }
 func (m *TLContentMessage) GetId() int32  { return m.Data2.Id }
 
@@ -397,7 +387,7 @@ func (m *TLOutboxMessage) To_OutboxMessage() *OutboxMessage {
 	return m.Data2
 }
 
-//// flags
+// // flags
 func (m *TLOutboxMessage) SetNoWebpage(v bool) { m.Data2.NoWebpage = v }
 func (m *TLOutboxMessage) GetNoWebpage() bool  { return m.Data2.NoWebpage }
 

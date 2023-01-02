@@ -1,15 +1,9 @@
-// Copyright 2022 Teamgram Authors
-//  All rights reserved.
-//
-// Author: Benqi (wubenqi@gmail.com)
-//
-
 package bff_proxy_client
 
 import (
-	"github.com/teamgram/proto/mtproto"
-	"github.com/teamgram/proto/mtproto/crypto"
 	"github.com/zeromicro/go-zero/core/logx"
+	"gitlab.com/merehead/elloapp/backend/elloapp_backend/mtproto"
+	"gitlab.com/merehead/elloapp/backend/elloapp_backend/mtproto/crypto"
 	"reflect"
 	"time"
 )
@@ -295,6 +289,6 @@ func (c *BFFProxyClient) TryReturnFakeRpcResult(object mtproto.TLObject) (mtprot
 		}).To_Account_WebAuthorizations(), nil
 	}
 
-	logx.Errorf("%s blocked, License key from https://teamgram.net required to unlock enterprise features.", rt.Name())
+	logx.Errorf("%s blocked, License key from https://elloapp.com required to unlock enterprise features.", rt.Name())
 	return nil, mtproto.ErrEnterpriseIsBlocked
 }

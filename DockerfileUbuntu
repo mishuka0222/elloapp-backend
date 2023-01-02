@@ -1,0 +1,41 @@
+FROM golang:1.18-buster as alpine
+
+ARG CMD_PATH
+ENV CMD_PATH=$CMD_PATH
+
+WORKDIR /app
+COPY ./go.mod ./
+COPY ./go.sum ./
+RUN go mod download
+
+ADD ./pkg ./pkg
+ADD ./pkg2 ./pkg2
+ADD ./mtproto ./mtproto
+ADD ./app ./app
+
+ARG CONFIG_PATH
+ENV CONFIG_PATH=$CONFIG_PATH
+COPY ./$CONFIG_PATH ./config.yaml
+
+RUN apt update -y && apt install -y ffmpeg
+RUN mkdir -p "etc2"
+RUN mkdir -p "logs"
+
+RUN go build -v -o ./application ./app/$CMD_PATH
+#COPY ./$CMD_PATH /application
+
+CMD ["./application", "-f=./config.yaml"]
+#RUN go run ./app/service/idgen/cmd/idgen/ -f=./config.yaml
+# CMD ["go", "run", "./app/service/idgen/cmd/idgen/", "-f=./config.yaml"]
+#CMD ["go", "run", "./app/service/idgen/cmd/idgen/", "-f=./config.yaml"]
+
+#FROM ubuntu:latest
+#
+#WORKDIR /app
+#RUN apt update -y && apt install -y ffmpeg
+#COPY --from=alpine /application ./application
+#COPY --from=alpine app/config.yaml ./config.yaml
+#RUN mkdir -p "etc2"
+#RUN mkdir -p "logs"
+#
+#RUN nohup ./application -f=./config.yaml

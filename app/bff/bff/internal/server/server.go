@@ -1,49 +1,35 @@
-// Copyright 2022 Teamgram Authors
-//  All rights reserved.
-//
-// Licensed under the Apache License, Version 2.0 (the "License");
-// you may not use this file except in compliance with the License.
-// You may obtain a copy of the License at
-//
-//   http://www.apache.org/licenses/LICENSE-2.0
-//
-// Unless required by applicable law or agreed to in writing, software
-// distributed under the License is distributed on an "AS IS" BASIS,
-// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-// See the License for the specific language governing permissions and
-// limitations under the License.
-//
-// Author: teamgramio (teamgram.io@gmail.com)
-//
-
 package server
 
 import (
 	"flag"
-	"github.com/teamgram/proto/mtproto"
-	account_helper "github.com/teamgram/teamgram-server/app/bff/account"
-	authorization_helper "github.com/teamgram/teamgram-server/app/bff/authorization"
-	autodownload_helper "github.com/teamgram/teamgram-server/app/bff/autodownload"
-	"github.com/teamgram/teamgram-server/app/bff/bff/internal/config"
-	chatinvites_helper "github.com/teamgram/teamgram-server/app/bff/chatinvites"
-	chats_helper "github.com/teamgram/teamgram-server/app/bff/chats"
-	configuration_helper "github.com/teamgram/teamgram-server/app/bff/configuration"
-	contacts_helper "github.com/teamgram/teamgram-server/app/bff/contacts"
-	dialogs_helper "github.com/teamgram/teamgram-server/app/bff/dialogs"
-	drafts_helper "github.com/teamgram/teamgram-server/app/bff/drafts"
-	files_helper "github.com/teamgram/teamgram-server/app/bff/files"
-	messages_helper "github.com/teamgram/teamgram-server/app/bff/messages"
-	miscellaneous_helper "github.com/teamgram/teamgram-server/app/bff/miscellaneous"
-	notification_helper "github.com/teamgram/teamgram-server/app/bff/notification"
-	nsfw_helper "github.com/teamgram/teamgram-server/app/bff/nsfw"
-	photos_helper "github.com/teamgram/teamgram-server/app/bff/photos"
-	premium_helper "github.com/teamgram/teamgram-server/app/bff/premium"
-	qrcode_helper "github.com/teamgram/teamgram-server/app/bff/qrcode"
-	sponsoredmessages_helper "github.com/teamgram/teamgram-server/app/bff/sponsoredmessages"
-	tos_helper "github.com/teamgram/teamgram-server/app/bff/tos"
-	updates_helper "github.com/teamgram/teamgram-server/app/bff/updates"
-	usernames_helper "github.com/teamgram/teamgram-server/app/bff/usernames"
-	users_helper "github.com/teamgram/teamgram-server/app/bff/users"
+	account_helper "gitlab.com/merehead/elloapp/backend/elloapp_backend/app/bff/account"
+	authorization_helper "gitlab.com/merehead/elloapp/backend/elloapp_backend/app/bff/authorization"
+	"gitlab.com/merehead/elloapp/backend/elloapp_backend/app/bff/authorization_customize"
+	autodownload_helper "gitlab.com/merehead/elloapp/backend/elloapp_backend/app/bff/autodownload"
+	"gitlab.com/merehead/elloapp/backend/elloapp_backend/app/bff/bff/internal/config"
+	bizraw_helper "gitlab.com/merehead/elloapp/backend/elloapp_backend/app/bff/bizraw"
+	op_srv "gitlab.com/merehead/elloapp/backend/elloapp_backend/app/bff/bizraw/service"
+	chatinvites_helper "gitlab.com/merehead/elloapp/backend/elloapp_backend/app/bff/chatinvites"
+	chats_helper "gitlab.com/merehead/elloapp/backend/elloapp_backend/app/bff/chats"
+	configuration_helper "gitlab.com/merehead/elloapp/backend/elloapp_backend/app/bff/configuration"
+	contacts_helper "gitlab.com/merehead/elloapp/backend/elloapp_backend/app/bff/contacts"
+	dialogs_helper "gitlab.com/merehead/elloapp/backend/elloapp_backend/app/bff/dialogs"
+	drafts_helper "gitlab.com/merehead/elloapp/backend/elloapp_backend/app/bff/drafts"
+	feeds_helper "gitlab.com/merehead/elloapp/backend/elloapp_backend/app/bff/feeds"
+	files_helper "gitlab.com/merehead/elloapp/backend/elloapp_backend/app/bff/files"
+	messages_helper "gitlab.com/merehead/elloapp/backend/elloapp_backend/app/bff/messages"
+	miscellaneous_helper "gitlab.com/merehead/elloapp/backend/elloapp_backend/app/bff/miscellaneous"
+	notification_helper "gitlab.com/merehead/elloapp/backend/elloapp_backend/app/bff/notification"
+	nsfw_helper "gitlab.com/merehead/elloapp/backend/elloapp_backend/app/bff/nsfw"
+	photos_helper "gitlab.com/merehead/elloapp/backend/elloapp_backend/app/bff/photos"
+	premium_helper "gitlab.com/merehead/elloapp/backend/elloapp_backend/app/bff/premium"
+	qrcode_helper "gitlab.com/merehead/elloapp/backend/elloapp_backend/app/bff/qrcode"
+	sponsoredmessages_helper "gitlab.com/merehead/elloapp/backend/elloapp_backend/app/bff/sponsoredmessages"
+	tos_helper "gitlab.com/merehead/elloapp/backend/elloapp_backend/app/bff/tos"
+	updates_helper "gitlab.com/merehead/elloapp/backend/elloapp_backend/app/bff/updates"
+	usernames_helper "gitlab.com/merehead/elloapp/backend/elloapp_backend/app/bff/usernames"
+	users_helper "gitlab.com/merehead/elloapp/backend/elloapp_backend/app/bff/users"
+	"gitlab.com/merehead/elloapp/backend/elloapp_backend/mtproto"
 
 	"github.com/zeromicro/go-zero/core/conf"
 	"github.com/zeromicro/go-zero/core/logx"
@@ -70,6 +56,7 @@ func (s *Server) Initialize() error {
 	// s.grpcSrv = grpc.New(ctx, c.RpcServerConf)
 
 	s.grpcSrv = zrpc.MustNewServer(c.RpcServerConf, func(grpcServer *grpc.Server) {
+
 		// tos_helper
 		mtproto.RegisterRPCTosServer(
 			grpcServer,
@@ -81,7 +68,8 @@ func (s *Server) Initialize() error {
 		mtproto.RegisterRPCConfigurationServer(
 			grpcServer,
 			configuration_helper.New(configuration_helper.Config{
-				RpcServerConf: c.RpcServerConf,
+				RpcServerConf:       c.RpcServerConf,
+				ConfigurationClient: c.BizServiceClient,
 			}))
 
 		// qrcode_helper
@@ -103,22 +91,29 @@ func (s *Server) Initialize() error {
 			}))
 
 		// authorization_helper
+		authorizationService := authorization_helper.New(
+			authorization_helper.Config{
+				RpcServerConf:     c.RpcServerConf,
+				KV:                c.KV,
+				Code:              c.Code,
+				UserClient:        c.BizServiceClient,
+				UsernameClient:    c.BizServiceClient,
+				AuthsessionClient: c.AuthSessionClient,
+				ChatClient:        c.BizServiceClient,
+				StatusClient:      c.StatusClient,
+				SyncClient:        c.SyncClient,
+				MsgClient:         c.MsgClient,
+			},
+			nil,
+			nil)
 		mtproto.RegisterRPCAuthorizationServer(
 			grpcServer,
-			authorization_helper.New(
-				authorization_helper.Config{
-					RpcServerConf:     c.RpcServerConf,
-					KV:                c.KV,
-					Code:              c.Code,
-					UserClient:        c.BizServiceClient,
-					AuthsessionClient: c.AuthSessionClient,
-					ChatClient:        c.BizServiceClient,
-					StatusClient:      c.StatusClient,
-					SyncClient:        c.SyncClient,
-					MsgClient:         c.MsgClient,
-				},
-				nil,
-				nil))
+			authorizationService)
+
+		authorizationCustom := authorization_customize_helper.New(
+			authorization_customize_helper.Config{
+				AuthorizationClient: c.BizServiceClient,
+			}, authorizationService)
 
 		// premium_helper
 		mtproto.RegisterRPCPremiumServer(
@@ -219,20 +214,22 @@ func (s *Server) Initialize() error {
 			}))
 
 		// messages_helper
+
+		messagesCore := messages_helper.New(messages_helper.Config{
+			RpcServerConf:  c.RpcServerConf,
+			UserClient:     c.BizServiceClient,
+			ChatClient:     c.BizServiceClient,
+			MsgClient:      c.MsgClient,
+			DialogClient:   c.BizServiceClient,
+			IdgenClient:    c.IdgenClient,
+			MessageClient:  c.BizServiceClient,
+			MediaClient:    c.MediaClient,
+			UsernameClient: c.BizServiceClient,
+			SyncClient:     c.SyncClient,
+		}, nil)
 		mtproto.RegisterRPCMessagesServer(
-			grpcServer,
-			messages_helper.New(messages_helper.Config{
-				RpcServerConf:  c.RpcServerConf,
-				UserClient:     c.BizServiceClient,
-				ChatClient:     c.BizServiceClient,
-				MsgClient:      c.MsgClient,
-				DialogClient:   c.BizServiceClient,
-				IdgenClient:    c.IdgenClient,
-				MessageClient:  c.BizServiceClient,
-				MediaClient:    c.MediaClient,
-				UsernameClient: c.BizServiceClient,
-				SyncClient:     c.SyncClient,
-			}, nil))
+			grpcServer, messagesCore,
+		)
 
 		// notification_helper
 		mtproto.RegisterRPCNotificationServer(
@@ -300,6 +297,21 @@ func (s *Server) Initialize() error {
 				ChatClient:     c.BizServiceClient,
 				SyncClient:     c.SyncClient,
 			}, nil))
+
+		// bizraw_helper
+		mtproto.RegisterRPCBizServer(
+			grpcServer,
+			bizraw_helper.New(
+				bizraw_helper.Config{
+					RpcServerConf: c.RpcServerConf,
+				}, map[op_srv.ServiceID]op_srv.OperationServer{
+					op_srv.Feeds: feeds_helper.New(feeds_helper.Config{
+						MessageClient: c.BizServiceClient,
+						FeedsClient:   c.BizServiceClient,
+					}, messagesCore),
+					op_srv.AuthorizationCustomize: authorizationCustom,
+				}))
+
 	})
 
 	// logx.Must(err)

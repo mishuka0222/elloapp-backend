@@ -1,18 +1,9 @@
-/*
- * Created from 'scheme.tl' by 'mtprotoc'
- *
- * Copyright (c) 2021-present,  Teamgram Studio (https://teamgram.io).
- *  All rights reserved.
- *
- * Author: teamgramio (teamgram.io@gmail.com)
- */
-
 package core
 
 import (
-	"github.com/teamgram/proto/mtproto"
-	"github.com/teamgram/teamgram-server/app/service/dfs/dfs"
-	"github.com/teamgram/teamgram-server/app/service/media/media"
+	"gitlab.com/merehead/elloapp/backend/elloapp_backend/app/service/dfs/dfs"
+	"gitlab.com/merehead/elloapp/backend/elloapp_backend/app/service/media/media"
+	"gitlab.com/merehead/elloapp/backend/elloapp_backend/mtproto"
 )
 
 // MediaUploadThemeFile

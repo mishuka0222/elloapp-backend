@@ -1,0 +1,40 @@
+syntax = "proto3";
+
+option java_multiple_files = true;
+option java_package = "authorization_service";
+option java_outer_classname = "ZProtoAuthorizationService";
+option optimize_for = CODE_SIZE;
+option go_package = "authorization";
+
+
+package authorization;
+
+message AuthSingUpRequest {
+  double balance = 1;
+  string user_name = 2;
+  string first_name = 3;
+  string last_name = 4;
+  string password = 5;
+  string email = 6;
+  string type = 7;
+  string profile = 8;
+  string gender = 9;
+}
+
+message AuthSingInRequest {
+  string user_name = 1;
+  string password = 2;
+}
+
+message AuthSingUpRsp {
+  int64 data = 1;
+}
+
+message AuthSingInRsp {
+  int64 data = 1;
+}
+
+service RPCAuthorization {
+  rpc auth_singIN(AuthSingInRequest) returns (AuthSingInRsp);
+  rpc auth_singUP(AuthSingUpRequest) returns (AuthSingUpRsp);
+}

@@ -1,32 +1,15 @@
-// Copyright 2022 Teamgram Authors
-//  All rights reserved.
-//
-// Licensed under the Apache License, Version 2.0 (the "License");
-// you may not use this file except in compliance with the License.
-// You may obtain a copy of the License at
-//
-//   http://www.apache.org/licenses/LICENSE-2.0
-//
-// Unless required by applicable law or agreed to in writing, software
-// distributed under the License is distributed on an "AS IS" BASIS,
-// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-// See the License for the specific language governing permissions and
-// limitations under the License.
-//
-// Author: teamgramio (teamgram.io@gmail.com)
-//
-
 package logic
 
 import (
 	"context"
+	"fmt"
 	"time"
 
-	"github.com/teamgram/proto/mtproto"
-	"github.com/teamgram/teamgram-server/app/bff/authorization/internal/dao"
-	"github.com/teamgram/teamgram-server/app/bff/authorization/internal/model"
-	"github.com/teamgram/teamgram-server/pkg/code"
 	"github.com/zeromicro/go-zero/core/logx"
+	"gitlab.com/merehead/elloapp/backend/elloapp_backend/app/bff/authorization/internal/dao"
+	"gitlab.com/merehead/elloapp/backend/elloapp_backend/app/bff/authorization/internal/model"
+	"gitlab.com/merehead/elloapp/backend/elloapp_backend/mtproto"
+	"gitlab.com/merehead/elloapp/backend/elloapp_backend/pkg/code"
 )
 
 type AuthLogic struct {
@@ -252,6 +235,66 @@ func (m *AuthLogic) DoAuthSignUp(ctx context.Context, authKeyId int64, phoneNumb
 	}
 
 	now := int32(time.Now().Unix())
+	if now > codeData.PhoneCodeExpired {
+		// TODO(@benqi): update timeout state?
+		err = mtproto.ErrPhoneCodeExpired
+		return
+	}
+
+	// auth.signUp#1b067634 phone_number:string phone_code_hash:string phone_code:string first_name:string last_name:string = auth.Authorization;
+	if phoneCode != nil {
+		if err = m.VerifyCodeInterface.VerifySmsCode(ctx,
+			codeData.PhoneCodeHash,
+			*phoneCode,
+			codeData.PhoneCodeExtraData); err != nil {
+			return
+		}
+		//if m.VerifyCodeInterface != nil {
+		//	err = m.VerifyCodeInterface.VerifySmsCode(ctx, codeData.PhoneCodeHash, *phoneCode, codeData.PhoneCode)
+		//	if err != nil {
+		//		log.Errorf("verifySmsCode error: %v", err)
+		//		err = mtproto.ErrPhoneCodeInvalid
+		//		return
+		//	}
+		//} else if *phoneCode != "12345" {
+		//	log.Errorf("verifySmsCode error: %v", err)
+		//	err = mtproto.ErrPhoneCodeInvalid
+		//	return
+		//}
+	}
+
+	codeData.State = model.CodeStateOk
+
+	/*
+		if !m.AuthCore.UpdatePhoneCodeData(ctx, authKeyId, phoneNumber, phoneCodeHash, codeData) {
+			err = mtproto.ErrInternelServerError
+			return
+		}
+
+		m.PhoneCodeTransaction = codeData
+	*/
+	return
+}
+
+func (m *AuthLogic) DoAuthSignUpV2(ctx context.Context, authKeyId int64, phoneNumber string, phoneCode *string, phoneCodeHash string) (codeData *model.PhoneCodeTransaction, err error) {
+	if codeData, err = m.Dao.GetPhoneCode(ctx, authKeyId, phoneNumber, phoneCodeHash); err != nil {
+		return
+	}
+
+	// TODO(@benqi): 重复请求处理...
+	// check state invalid.
+	// TODO(@benqi): remote client error, state is Ok
+	if codeData.State != model.CodeStateOk &&
+		codeData.State != model.CodeStateSignIn &&
+		codeData.State != model.CodeStateDeleted &&
+		codeData.State != model.CodeStateSignUp {
+		err = mtproto.ErrInputRequestInvalid
+		logx.WithContext(ctx).Errorf("invalid code state(%d) - err: %v", codeData.State, err)
+		return
+	}
+
+	now := int32(time.Now().Unix())
+	fmt.Println("EXPIRED: ", now, codeData.PhoneCodeExpired, now > codeData.PhoneCodeExpired)
 	if now > codeData.PhoneCodeExpired {
 		// TODO(@benqi): update timeout state?
 		err = mtproto.ErrPhoneCodeExpired

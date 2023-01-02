@@ -1,12 +1,3 @@
-/*
- * Created from 'scheme.tl' by 'mtprotoc'
- *
- * Copyright (c) 2021-present,  Teamgram Studio (https://teamgram.io).
- *  All rights reserved.
- *
- * Author: teamgramio (teamgram.io@gmail.com)
- */
-
 package core
 
 import (
@@ -15,11 +6,11 @@ import (
 	"math/rand"
 	"time"
 
-	"github.com/teamgram/proto/mtproto"
-	"github.com/teamgram/teamgram-server/app/service/dfs/dfs"
-	"github.com/teamgram/teamgram-server/app/service/dfs/internal/dao"
-	"github.com/teamgram/teamgram-server/app/service/dfs/internal/imaging"
-	"github.com/teamgram/teamgram-server/app/service/dfs/internal/model"
+	"gitlab.com/merehead/elloapp/backend/elloapp_backend/app/service/dfs/dfs"
+	"gitlab.com/merehead/elloapp/backend/elloapp_backend/app/service/dfs/internal/dao"
+	"gitlab.com/merehead/elloapp/backend/elloapp_backend/app/service/dfs/internal/imaging"
+	"gitlab.com/merehead/elloapp/backend/elloapp_backend/app/service/dfs/internal/model"
+	"gitlab.com/merehead/elloapp/backend/elloapp_backend/mtproto"
 
 	"github.com/gogo/protobuf/types"
 )

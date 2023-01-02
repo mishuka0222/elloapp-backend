@@ -1,12 +1,3 @@
-/*
- * Created from 'scheme.tl' by 'mtprotoc'
- *
- * Copyright (c) 2021-present,  Teamgram Studio (https://teamgram.io).
- *  All rights reserved.
- *
- * Author: teamgramio (teamgram.io@gmail.com)
- */
-
 package core
 
 import (
@@ -14,9 +5,9 @@ import (
 
 	"github.com/zeromicro/go-zero/core/logx"
 
-	"github.com/teamgram/proto/mtproto/rpc/metadata"
-	"github.com/teamgram/teamgram-server/app/service/biz/username/internal/svc"
-	"github.com/teamgram/teamgram-server/app/service/biz/username/username"
+	"gitlab.com/merehead/elloapp/backend/elloapp_backend/app/service/biz/username/internal/svc"
+	"gitlab.com/merehead/elloapp/backend/elloapp_backend/app/service/biz/username/username"
+	"gitlab.com/merehead/elloapp/backend/elloapp_backend/mtproto/rpc/metadata"
 )
 
 var (

@@ -1,13 +1,3 @@
-/*
- * WARNING! All changes made in this file will be lost!
- *   Created from by 'dalgen'
- *
- * Copyright (c) 2022-present,  Teamgram Authors.
- *  All rights reserved.
- *
- * Author: teamgramio (teamgram.io@gmail.com)
- */
-
 package mysql_dao
 
 import (
@@ -17,8 +7,8 @@ import (
 	"strconv"
 	"strings"
 
-	"github.com/teamgram/marmota/pkg/stores/sqlx"
-	"github.com/teamgram/teamgram-server/app/service/biz/message/internal/dal/dataobject"
+	"gitlab.com/merehead/elloapp/backend/elloapp_backend/app/service/biz/message/internal/dal/dataobject"
+	"gitlab.com/merehead/elloapp/backend/elloapp_backend/pkg2/stores/sqlx"
 
 	"github.com/zeromicro/go-zero/core/logx"
 )
@@ -1258,7 +1248,7 @@ func (dao *MessagesDAO) SelectPhoneCallListWithCB(ctx context.Context, user_id i
 }
 
 // Search
-// select user_id, user_message_box_id, dialog_id1, dialog_id2, dialog_message_id, sender_user_id, peer_type, peer_id, random_id, message_filter_type, message_data, message, mentioned, media_unread, pinned, has_reaction, reaction, reaction_date, reaction_unread, date2 from messages where user_id = :user_id and (dialog_id1 = :dialog_id1 and dialog_id2 = :dialog_id2) and user_message_box_id < :user_message_box_id and deleted = 0 and message != '' and message like :q2 order by user_message_box_id desc limit :limit
+// select user_id, user_message_box_id, dialog_id1, dialog_id2, dialog_message_id, sender_user_id, peer_type, peer_id, random_id, message_filter_type, message_data, message, mentioned, media_unread, pinned, has_reaction, reaction, reaction_date, reaction_unread, date2 from messages where user_id = :user_id and (dialog_id1 = :dialog_id1 and dialog_id2 = :dialog_id2) and user_message_box_id < :user_message_box_id and deleted = 0 and message != ” and message like :q2 order by user_message_box_id desc limit :limit
 // TODO(@benqi): sqlmap
 func (dao *MessagesDAO) Search(ctx context.Context, user_id int64, dialog_id1 int64, dialog_id2 int64, user_message_box_id int32, q2 string, limit int32) (rList []dataobject.MessagesDO, err error) {
 	var (
@@ -1278,7 +1268,7 @@ func (dao *MessagesDAO) Search(ctx context.Context, user_id int64, dialog_id1 in
 }
 
 // SearchWithCB
-// select user_id, user_message_box_id, dialog_id1, dialog_id2, dialog_message_id, sender_user_id, peer_type, peer_id, random_id, message_filter_type, message_data, message, mentioned, media_unread, pinned, has_reaction, reaction, reaction_date, reaction_unread, date2 from messages where user_id = :user_id and (dialog_id1 = :dialog_id1 and dialog_id2 = :dialog_id2) and user_message_box_id < :user_message_box_id and deleted = 0 and message != '' and message like :q2 order by user_message_box_id desc limit :limit
+// select user_id, user_message_box_id, dialog_id1, dialog_id2, dialog_message_id, sender_user_id, peer_type, peer_id, random_id, message_filter_type, message_data, message, mentioned, media_unread, pinned, has_reaction, reaction, reaction_date, reaction_unread, date2 from messages where user_id = :user_id and (dialog_id1 = :dialog_id1 and dialog_id2 = :dialog_id2) and user_message_box_id < :user_message_box_id and deleted = 0 and message != ” and message like :q2 order by user_message_box_id desc limit :limit
 // TODO(@benqi): sqlmap
 func (dao *MessagesDAO) SearchWithCB(ctx context.Context, user_id int64, dialog_id1 int64, dialog_id2 int64, user_message_box_id int32, q2 string, limit int32, cb func(i int, v *dataobject.MessagesDO)) (rList []dataobject.MessagesDO, err error) {
 	var (
@@ -1304,7 +1294,7 @@ func (dao *MessagesDAO) SearchWithCB(ctx context.Context, user_id int64, dialog_
 }
 
 // SearchGlobal
-// select user_id, user_message_box_id, dialog_id1, dialog_id2, dialog_message_id, sender_user_id, peer_type, peer_id, random_id, message_filter_type, message_data, message, mentioned, media_unread, pinned, has_reaction, reaction, reaction_date, reaction_unread, date2 from messages where user_id = :user_id and user_message_box_id < :user_message_box_id and deleted = 0 and message != '' and message like :q2 order by user_message_box_id desc limit :limit
+// select user_id, user_message_box_id, dialog_id1, dialog_id2, dialog_message_id, sender_user_id, peer_type, peer_id, random_id, message_filter_type, message_data, message, mentioned, media_unread, pinned, has_reaction, reaction, reaction_date, reaction_unread, date2 from messages where user_id = :user_id and user_message_box_id < :user_message_box_id and deleted = 0 and message != ” and message like :q2 order by user_message_box_id desc limit :limit
 // TODO(@benqi): sqlmap
 func (dao *MessagesDAO) SearchGlobal(ctx context.Context, user_id int64, user_message_box_id int32, q2 string, limit int32) (rList []dataobject.MessagesDO, err error) {
 	var (
@@ -1324,7 +1314,7 @@ func (dao *MessagesDAO) SearchGlobal(ctx context.Context, user_id int64, user_me
 }
 
 // SearchGlobalWithCB
-// select user_id, user_message_box_id, dialog_id1, dialog_id2, dialog_message_id, sender_user_id, peer_type, peer_id, random_id, message_filter_type, message_data, message, mentioned, media_unread, pinned, has_reaction, reaction, reaction_date, reaction_unread, date2 from messages where user_id = :user_id and user_message_box_id < :user_message_box_id and deleted = 0 and message != '' and message like :q2 order by user_message_box_id desc limit :limit
+// select user_id, user_message_box_id, dialog_id1, dialog_id2, dialog_message_id, sender_user_id, peer_type, peer_id, random_id, message_filter_type, message_data, message, mentioned, media_unread, pinned, has_reaction, reaction, reaction_date, reaction_unread, date2 from messages where user_id = :user_id and user_message_box_id < :user_message_box_id and deleted = 0 and message != ” and message like :q2 order by user_message_box_id desc limit :limit
 // TODO(@benqi): sqlmap
 func (dao *MessagesDAO) SearchGlobalWithCB(ctx context.Context, user_id int64, user_message_box_id int32, q2 string, limit int32, cb func(i int, v *dataobject.MessagesDO)) (rList []dataobject.MessagesDO, err error) {
 	var (

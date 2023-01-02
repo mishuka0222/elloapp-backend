@@ -4,10 +4,11 @@ import (
 	"context"
 	"flag"
 	"fmt"
-	"github.com/teamgram/proto/mtproto"
-	authorization_client "github.com/teamgram/teamgram-server/app/bff/authorization/client"
 	"github.com/zeromicro/go-zero/core/conf"
 	"github.com/zeromicro/go-zero/zrpc"
+	authorization_client "gitlab.com/merehead/elloapp/backend/elloapp_backend/app/bff/authorization/client"
+	"gitlab.com/merehead/elloapp/backend/elloapp_backend/mtproto"
+	"gitlab.com/merehead/elloapp/backend/elloapp_backend/mtproto/rpc/metadata"
 )
 
 var (
@@ -25,18 +26,41 @@ func main() {
 	}
 	client := authorization_client.NewAuthorizationClient(cli)
 
-	in := &mtproto.TLAuthSignUp{
-		Constructor:   0,
-		PhoneNumber:   "+86 111 1111 1111",
-		PhoneCodeHash: "1",
+	ctx := context.Background()
+	md := metadata.RpcMetadata{
+		AuthId: 3989972485446262080,
+	}
+	ctx2, err := metadata.RpcMetadataToOutgoing(ctx, &md)
+	if err != nil {
+		fmt.Println("ERROR METADATA CONTEXT: ", err.Error())
+		return
+	}
+
+	in := mtproto.TLAuthSignUp{
+		Constructor:   1,
+		PhoneNumber:   "ramazan",
+		PhoneCodeHash: "12345",
 		FirstName:     "Ramazan",
 		LastName:      "Poyraz",
 	}
-	signIn, err := client.AuthSignUp(context.Background(), in)
+	signIn, err := client.AuthSignUp(ctx2, &in)
 	if err != nil {
 		fmt.Println("ERROR 2 : ", err.Error())
 		return
 	}
 
 	fmt.Println("RESULT: ", signIn)
+
+	//data := mtproto.TLAuthSignIn{
+	//	Constructor:          1,
+	//	PhoneNumber:          "ramazan",
+	//	PhoneCodeHash:        "12345",
+	//}
+	//signININ, err := client.AuthSignIn(ctx2, &data)
+	//if err != nil {
+	//	fmt.Println("ERROR 3 : ", err.Error())
+	//	return
+	//}
+	//
+	//fmt.Println("RESULT2: ", signININ)
 }

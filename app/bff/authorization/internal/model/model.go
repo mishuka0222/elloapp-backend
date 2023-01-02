@@ -1,21 +1,3 @@
-// Copyright 2022 Teamgram Authors
-//  All rights reserved.
-//
-// Licensed under the Apache License, Version 2.0 (the "License");
-// you may not use this file except in compliance with the License.
-// You may obtain a copy of the License at
-//
-//   http://www.apache.org/licenses/LICENSE-2.0
-//
-// Unless required by applicable law or agreed to in writing, software
-// distributed under the License is distributed on an "AS IS" BASIS,
-// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-// See the License for the specific language governing permissions and
-// limitations under the License.
-//
-// Author: teamgramio (teamgram.io@gmail.com)
-//
-
 package model
 
 import (
@@ -25,7 +7,7 @@ import (
 	"io"
 	"strconv"
 
-	"github.com/teamgram/proto/mtproto"
+	"gitlab.com/merehead/elloapp/backend/elloapp_backend/mtproto"
 
 	"github.com/gogo/protobuf/types"
 )
@@ -46,9 +28,11 @@ type PhoneCodeTransaction struct {
 	State                 int    `json:"state"`
 }
 
-/////////////////////////////////////////////////////////////////////////////////////////////////////
+// ///////////////////////////////////////////////////////////////////////////////////////////////////
 // TODO(@benqi): 如果手机号已经注册，检查是否有其他设备在线，有则使用sentCodeTypeApp
-// 				 否则使用sentCodeTypeSms
+//
+//	否则使用sentCodeTypeSms
+//
 // TODO(@benqi): 有则使用sentCodeTypeFlashCall和entCodeTypeCall？？
 func (m *PhoneCodeTransaction) ToAuthSentCode() *mtproto.Auth_SentCode {
 	// TODO(@benqi): only use sms

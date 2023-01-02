@@ -1,39 +1,27 @@
-// Copyright 2022 Teamgram Authors
-//  All rights reserved.
-//
-// Licensed under the Apache License, Version 2.0 (the "License");
-// you may not use this file except in compliance with the License.
-// You may obtain a copy of the License at
-//
-//   http://www.apache.org/licenses/LICENSE-2.0
-//
-// Unless required by applicable law or agreed to in writing, software
-// distributed under the License is distributed on an "AS IS" BASIS,
-// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-// See the License for the specific language governing permissions and
-// limitations under the License.
-//
-// Author: teamgramio (teamgram.io@gmail.com)
-//
-
 package core
 
 import (
 	"context"
 	"fmt"
+	"google.golang.org/grpc/status"
 	"math/rand"
 	"strings"
 	"time"
 
-	"github.com/teamgram/proto/mtproto"
-	"github.com/teamgram/proto/mtproto/rpc/metadata"
-	"github.com/teamgram/teamgram-server/app/bff/authorization/internal/svc"
-	msgpb "github.com/teamgram/teamgram-server/app/messenger/msg/msg/msg"
-	"github.com/teamgram/teamgram-server/pkg/code/conf"
-	"github.com/teamgram/teamgram-server/pkg/env2"
-	"github.com/teamgram/teamgram-server/pkg/phonenumber"
+	"gitlab.com/merehead/elloapp/backend/elloapp_backend/app/bff/authorization/internal/svc"
+	msgpb "gitlab.com/merehead/elloapp/backend/elloapp_backend/app/messenger/msg/msg/msg"
+	"gitlab.com/merehead/elloapp/backend/elloapp_backend/mtproto"
+	"gitlab.com/merehead/elloapp/backend/elloapp_backend/mtproto/rpc/metadata"
+	"gitlab.com/merehead/elloapp/backend/elloapp_backend/pkg/code/conf"
+	"gitlab.com/merehead/elloapp/backend/elloapp_backend/pkg/env2"
+	"gitlab.com/merehead/elloapp/backend/elloapp_backend/pkg/phonenumber"
 
 	"github.com/zeromicro/go-zero/core/logx"
+)
+
+// custom errors
+var (
+	ErrPhoneNumberUsernameInvalid = status.Error(mtproto.ErrBadRequest, "PHONE_NUMBER_USERNAME_INVALID")
 )
 
 type AuthorizationCore struct {
@@ -79,12 +67,21 @@ func checkPhoneNumberInvalid(phone string) (string, error) {
 	return pNumber.GetNormalizeDigits(), nil
 }
 
+// const (
+// 	signInMessageTpl = `Login code: %s. Do not give this code to anyone, even if they say they are from %s!
+
+// This code can be used to log in to your %s account. We never ask it for anything else.
+
+// If you didn't request this code by trying to log in on another device, simply ignore this message.`
+// )
 const (
-	signInMessageTpl = `Login code: %s. Do not give this code to anyone, even if they say they are from %s!
+	signInMessageTpl = `Dear %s. Welcome to %s!
 
-This code can be used to log in to your %s account. We never ask it for anything else.
+Enjoy your journey through secure and encrypted media messenger.
 
-If you didn't request this code by trying to log in on another device, simply ignore this message.`
+Best regards,
+
+%s Team`
 )
 
 func (c *AuthorizationCore) pushSignInMessage(ctx context.Context, signInUserId int64, code string) {

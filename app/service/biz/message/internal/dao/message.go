@@ -1,17 +1,11 @@
-// Copyright (c) 2021-present,  Teamgram Studio (https://teamgram.io).
-//  All rights reserved.
-//
-// Author: teamgramio (teamgram.io@gmail.com)
-//
-
 package dao
 
 import (
 	"context"
 
-	"github.com/teamgram/proto/mtproto"
-	"github.com/teamgram/teamgram-server/app/service/biz/message/internal/dal/dataobject"
 	"github.com/zeromicro/go-zero/core/jsonx"
+	"gitlab.com/merehead/elloapp/backend/elloapp_backend/app/service/biz/message/internal/dal/dataobject"
+	"gitlab.com/merehead/elloapp/backend/elloapp_backend/mtproto"
 )
 
 func (d *Dao) MakeMessageBox(ctx context.Context, selfUserId int64, do *dataobject.MessagesDO) (box *mtproto.MessageBox) {

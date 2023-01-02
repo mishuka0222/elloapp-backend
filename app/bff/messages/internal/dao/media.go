@@ -1,21 +1,15 @@
-// Copyright 2022 Teamgram Authors
-//  All rights reserved.
-//
-// Author: Benqi (wubenqi@gmail.com)
-//
-
 package dao
 
 import (
 	"context"
 	"time"
 
-	"github.com/teamgram/proto/mtproto"
-	user_client "github.com/teamgram/teamgram-server/app/service/biz/user/client"
-	userpb "github.com/teamgram/teamgram-server/app/service/biz/user/user"
-	media_client "github.com/teamgram/teamgram-server/app/service/media/client"
-	mediapb "github.com/teamgram/teamgram-server/app/service/media/media"
-	"github.com/teamgram/teamgram-server/pkg/phonenumber"
+	user_client "gitlab.com/merehead/elloapp/backend/elloapp_backend/app/service/biz/user/client"
+	userpb "gitlab.com/merehead/elloapp/backend/elloapp_backend/app/service/biz/user/user"
+	media_client "gitlab.com/merehead/elloapp/backend/elloapp_backend/app/service/media/client"
+	mediapb "gitlab.com/merehead/elloapp/backend/elloapp_backend/app/service/media/media"
+	"gitlab.com/merehead/elloapp/backend/elloapp_backend/mtproto"
+	"gitlab.com/merehead/elloapp/backend/elloapp_backend/pkg/phonenumber"
 
 	"github.com/zeromicro/go-zero/core/logx"
 )

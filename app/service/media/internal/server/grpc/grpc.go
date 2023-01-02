@@ -1,18 +1,9 @@
-/*
- * Created from 'scheme.tl' by 'mtprotoc'
- *
- * Copyright (c) 2021-present,  Teamgram Studio (https://teamgram.io).
- *  All rights reserved.
- *
- * Author: teamgramio (teamgram.io@gmail.com)
- */
-
 package grpc
 
 import (
-	"github.com/teamgram/teamgram-server/app/service/media/internal/server/grpc/service"
-	"github.com/teamgram/teamgram-server/app/service/media/internal/svc"
-	"github.com/teamgram/teamgram-server/app/service/media/media"
+	"gitlab.com/merehead/elloapp/backend/elloapp_backend/app/service/media/internal/server/grpc/service"
+	"gitlab.com/merehead/elloapp/backend/elloapp_backend/app/service/media/internal/svc"
+	"gitlab.com/merehead/elloapp/backend/elloapp_backend/app/service/media/media"
 
 	"github.com/zeromicro/go-zero/core/logx"
 	"github.com/zeromicro/go-zero/zrpc"

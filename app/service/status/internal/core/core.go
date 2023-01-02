@@ -1,20 +1,11 @@
-/*
- * Created from 'scheme.tl' by 'mtprotoc'
- *
- * Copyright (c) 2021-present,  Teamgram Studio (https://teamgram.io).
- *  All rights reserved.
- *
- * Author: teamgramio (teamgram.io@gmail.com)
- */
-
 package core
 
 import (
 	"context"
 	"fmt"
 
-	"github.com/teamgram/proto/mtproto/rpc/metadata"
-	"github.com/teamgram/teamgram-server/app/service/status/internal/svc"
+	"gitlab.com/merehead/elloapp/backend/elloapp_backend/app/service/status/internal/svc"
+	"gitlab.com/merehead/elloapp/backend/elloapp_backend/mtproto/rpc/metadata"
 
 	"github.com/zeromicro/go-zero/core/logx"
 )

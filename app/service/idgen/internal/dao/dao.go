@@ -1,20 +1,11 @@
-/*
- * Created from 'scheme.tl' by 'mtprotoc'
- *
- * Copyright (c) 2021-present,  Teamgram Studio (https://teamgram.io).
- *  All rights reserved.
- *
- * Author: teamgramio (teamgram.io@gmail.com)
- */
-
 package dao
 
 import (
 	"log"
 
 	"github.com/bwmarrin/snowflake"
-	"github.com/teamgram/teamgram-server/app/service/idgen/internal/config"
 	"github.com/zeromicro/go-zero/core/stores/kv"
+	"gitlab.com/merehead/elloapp/backend/elloapp_backend/app/service/idgen/internal/config"
 )
 
 type Dao struct {

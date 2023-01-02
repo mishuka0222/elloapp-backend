@@ -1,23 +1,14 @@
-/*
- * Created from 'scheme.tl' by 'mtprotoc'
- *
- * Copyright (c) 2021-present,  Teamgram Studio (https://teamgram.io).
- *  All rights reserved.
- *
- * Author: teamgramio (teamgram.io@gmail.com)
- */
-
 package dao
 
 import (
-	inbox_client "github.com/teamgram/teamgram-server/app/messenger/msg/inbox/client"
-	"github.com/teamgram/teamgram-server/app/messenger/msg/msg/plugin"
-	sync_client "github.com/teamgram/teamgram-server/app/messenger/sync/client"
-	// channel_client "github.com/teamgram/teamgram-server/app/service/biz/channel/client"
-	chat_client "github.com/teamgram/teamgram-server/app/service/biz/chat/client"
-	dialog_client "github.com/teamgram/teamgram-server/app/service/biz/dialog/client"
-	user_client "github.com/teamgram/teamgram-server/app/service/biz/user/client"
-	idgen_client "github.com/teamgram/teamgram-server/app/service/idgen/client"
+	inbox_client "gitlab.com/merehead/elloapp/backend/elloapp_backend/app/messenger/msg/inbox/client"
+	"gitlab.com/merehead/elloapp/backend/elloapp_backend/app/messenger/msg/msg/plugin"
+	sync_client "gitlab.com/merehead/elloapp/backend/elloapp_backend/app/messenger/sync/client"
+	// channel_client "gitlab.com/merehead/elloapp/backend/elloapp_backend/app/service/biz/channel/client"
+	chat_client "gitlab.com/merehead/elloapp/backend/elloapp_backend/app/service/biz/chat/client"
+	dialog_client "gitlab.com/merehead/elloapp/backend/elloapp_backend/app/service/biz/dialog/client"
+	user_client "gitlab.com/merehead/elloapp/backend/elloapp_backend/app/service/biz/user/client"
+	idgen_client "gitlab.com/merehead/elloapp/backend/elloapp_backend/app/service/idgen/client"
 
 	"github.com/zeromicro/go-zero/core/stores/kv"
 )

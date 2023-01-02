@@ -1,16 +1,10 @@
-// Copyright (c) 2021-present,  Teamgram Studio (https://teamgram.io).
-//  All rights reserved.
-//
-// Author: teamgramio (teamgram.io@gmail.com)
-//
-
 package dao
 
 import (
 	"context"
 
-	"github.com/teamgram/proto/mtproto"
-	"github.com/teamgram/teamgram-server/app/service/biz/message/internal/dal/dataobject"
+	"gitlab.com/merehead/elloapp/backend/elloapp_backend/app/service/biz/message/internal/dal/dataobject"
+	"gitlab.com/merehead/elloapp/backend/elloapp_backend/mtproto"
 
 	"github.com/zeromicro/go-zero/core/logx"
 )
@@ -36,7 +30,7 @@ func (d *Dao) GetOffsetIdBackwardHistoryMessages(ctx context.Context, userId int
 		_ = rList
 		// logx.WithContext(ctx).Infof("GetOffsetIdBackwardHistoryMessages: %v", rList)
 	case mtproto.PEER_CHANNEL:
-		logx.Errorf("blocked, License key from https://teamgram.net required to unlock enterprise features.")
+		logx.Errorf("blocked, License key from https://elloapp.com required to unlock enterprise features.")
 	}
 
 	messages = mtproto.ToSafeMessageBoxList(messages)
@@ -62,7 +56,7 @@ func (d *Dao) GetOffsetIdForwardHistoryMessages(ctx context.Context, userId int6
 			})
 		_ = rList
 	case mtproto.PEER_CHANNEL:
-		logx.Errorf("blocked, License key from https://teamgram.net required to unlock enterprise features.")
+		logx.Errorf("blocked, License key from https://elloapp.com required to unlock enterprise features.")
 	}
 
 	messages = mtproto.ToSafeMessageBoxList(messages)
@@ -88,7 +82,7 @@ func (d *Dao) GetOffsetDateBackwardHistoryMessages(ctx context.Context, userId i
 			})
 		_ = rList
 	case mtproto.PEER_CHANNEL:
-		logx.Errorf("blocked, License key from https://teamgram.net required to unlock enterprise features.")
+		logx.Errorf("blocked, License key from https://elloapp.com required to unlock enterprise features.")
 	}
 
 	messages = mtproto.ToSafeMessageBoxList(messages)
@@ -114,7 +108,7 @@ func (d *Dao) GetOffsetDateForwardHistoryMessages(ctx context.Context, userId in
 			})
 		_ = rList
 	case mtproto.PEER_CHANNEL:
-		logx.Errorf("blocked, License key from https://teamgram.net required to unlock enterprise features.")
+		logx.Errorf("blocked, License key from https://elloapp.com required to unlock enterprise features.")
 	}
 
 	messages = mtproto.ToSafeMessageBoxList(messages)
@@ -141,7 +135,7 @@ func (d *Dao) GetOffsetIdBackwardUnreadMentions(ctx context.Context, userId int6
 			})
 		_ = rList
 	case mtproto.PEER_CHANNEL:
-		logx.Errorf("blocked, License key from https://teamgram.net required to unlock enterprise features.")
+		logx.Errorf("blocked, License key from https://elloapp.com required to unlock enterprise features.")
 	}
 	return
 }
@@ -165,7 +159,7 @@ func (d *Dao) GetOffsetIdForwardUnreadMentions(ctx context.Context, userId int64
 			})
 		_ = rList
 	case mtproto.PEER_CHANNEL:
-		logx.Errorf("blocked, License key from https://teamgram.net required to unlock enterprise features.")
+		logx.Errorf("blocked, License key from https://elloapp.com required to unlock enterprise features.")
 	}
 	return
 }

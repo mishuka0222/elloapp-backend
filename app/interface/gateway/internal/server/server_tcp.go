@@ -1,21 +1,3 @@
-// Copyright 2022 Teamgram Authors
-//  All rights reserved.
-//
-// Licensed under the Apache License, Version 2.0 (the "License");
-// you may not use this file except in compliance with the License.
-// You may obtain a copy of the License at
-//
-//   http://www.apache.org/licenses/LICENSE-2.0
-//
-// Unless required by applicable law or agreed to in writing, software
-// distributed under the License is distributed on an "AS IS" BASIS,
-// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-// See the License for the specific language governing permissions and
-// limitations under the License.
-//
-// Author: teamgramio (teamgram.io@gmail.com)
-//
-
 package server
 
 import (
@@ -28,12 +10,12 @@ import (
 	"strings"
 	"sync"
 
-	"github.com/teamgram/marmota/pkg/hack"
-	"github.com/teamgram/marmota/pkg/net2"
-	"github.com/teamgram/marmota/pkg/timer2"
-	"github.com/teamgram/proto/mtproto"
-	"github.com/teamgram/teamgram-server/app/interface/gateway/internal/server/codec"
-	sessionpb "github.com/teamgram/teamgram-server/app/interface/session/session"
+	"gitlab.com/merehead/elloapp/backend/elloapp_backend/app/interface/gateway/internal/server/codec"
+	sessionpb "gitlab.com/merehead/elloapp/backend/elloapp_backend/app/interface/session/session"
+	"gitlab.com/merehead/elloapp/backend/elloapp_backend/mtproto"
+	"gitlab.com/merehead/elloapp/backend/elloapp_backend/pkg2/hack"
+	"gitlab.com/merehead/elloapp/backend/elloapp_backend/pkg2/net2"
+	"gitlab.com/merehead/elloapp/backend/elloapp_backend/pkg2/timer2"
 
 	"github.com/zeromicro/go-zero/core/logx"
 )
@@ -193,7 +175,7 @@ func (ctx *connContext) DebugString() string {
 }
 
 // OnNewConnection
-///////////////////////////////////////////////////////////////////////////////////////////////
+// /////////////////////////////////////////////////////////////////////////////////////////////
 func (s *Server) OnNewConnection(conn *net2.TcpConnection) {
 	ctx := newConnContext()
 	ctx.setClientIp(strings.Split(conn.RemoteAddr().String(), ":")[0])
@@ -292,7 +274,7 @@ func (s *Server) OnConnectionClosed(conn *net2.TcpConnection) {
 	}
 }
 
-////////////////////////////////////////////////////////////////////////////////////////////////////
+// //////////////////////////////////////////////////////////////////////////////////////////////////
 func (s *Server) onUnencryptedMessage(ctx *connContext, conn *net2.TcpConnection, mmsg *mtproto.MTPRawMessage) error {
 	logx.Info("receive unencryptedRawMessage: {peer: %s, ctx: %s, mmsg: %s}", conn, ctx.DebugString(), mmsg.DebugString())
 

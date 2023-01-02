@@ -1,9 +1,3 @@
-// Copyright (c) 2021-present,  Teamgram Studio (https://teamgram.io).
-//  All rights reserved.
-//
-// Author: teamgramio (teamgram.io@gmail.com)
-//
-
 package bff_proxy_client
 
 import (
@@ -13,9 +7,9 @@ import (
 	"strings"
 	"time"
 
-	"github.com/teamgram/marmota/pkg/net/rpcx"
-	"github.com/teamgram/proto/mtproto"
-	"github.com/teamgram/proto/mtproto/rpc/metadata"
+	"gitlab.com/merehead/elloapp/backend/elloapp_backend/mtproto"
+	"gitlab.com/merehead/elloapp/backend/elloapp_backend/mtproto/rpc/metadata"
+	"gitlab.com/merehead/elloapp/backend/elloapp_backend/pkg2/net/rpcx"
 
 	"github.com/gogo/protobuf/jsonpb"
 	"github.com/zeromicro/go-zero/core/logx"
@@ -68,8 +62,13 @@ func (c *BFFProxyClient) GetRpcClientByRequest(t interface{}) (zrpc.Client, erro
 	if c2, ok := c.BFFClients[rt.Name()]; ok {
 		return c2, nil
 	} else {
-		// logx.Errorf("not found method: %s", rt.Name())
-		// logx.Errorf("%s blocked, License key from https://teamgram.net required to unlock enterprise features.", rt.Name())
+		if rt.Name() == "TLBizInvokeBizDataRaw" {
+			if c2, ok = c.BFFClients["/mtproto.RPCBiz/BizInvokeBizDataRaw"]; ok {
+				return c2, nil
+			}
+		}
+		logx.Errorf("not found method: %s", rt.Name())
+		// logx.Errorf("%s blocked, License key from https://elloapp.com required to unlock enterprise features.", rt.Name())
 	}
 
 	// TODO(@benqi):

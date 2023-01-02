@@ -1,0 +1,172 @@
+version: "3"
+
+services:
+  idgen:
+    container_name: 'idgen'
+    build:
+      context: .
+      dockerfile: DockerfileUniverse
+      args:
+        - CMD_PATH=service/idgen/cmd/idgen/
+    network_mode: "host"
+    ports:
+      - '20660:20660'
+    volumes:
+      - ./elloappd/etc_dev:/etc
+      - ./elloappd/logs:/logs
+  status:
+    container_name: 'status'
+    build:
+      context: .
+      dockerfile: DockerfileUniverse
+      args:
+        - CMD_PATH=service/status/cmd/status/
+    network_mode: "host"
+    ports:
+      - '20670:20670'
+    volumes:
+      - ./elloappd/etc_dev:/etc
+      - ./elloappd/logs:/logs
+    depends_on:
+      - idgen
+  dfs: # docker-compose -f docker-compose-app.yaml up -d dfs --build
+    container_name: 'dfs'
+    build:
+      context: .
+      dockerfile: DockerfileUbuntu
+      args:
+        - CMD_PATH=service/dfs/cmd/dfs/
+        - CONFIG_PATH=elloappd/etc_dev/dfs.yaml
+    network_mode: "host"
+    ports:
+      - '20640:20640'
+    volumes:
+      - ./elloappd/etc_dev:/etc
+      - ./elloappd/logs:/logs
+    depends_on:
+      - status
+  media:
+    container_name: 'media'
+    build:
+      context: .
+      dockerfile: DockerfileUniverse
+      args:
+        - CMD_PATH=service/media/cmd/media/
+    network_mode: "host"
+    ports:
+      - '20650:20650'
+    volumes:
+      - ./elloappd/etc_dev:/etc
+      - ./elloappd/logs:/logs
+    depends_on:
+      - dfs
+  authsession:
+    container_name: 'authsession'
+    build:
+      context: .
+      dockerfile: DockerfileUniverse
+      args:
+        - CMD_PATH=service/authsession/cmd/authsession/
+    network_mode: "host"
+    ports:
+      - '20450:20450'
+    volumes:
+      - ./elloappd/etc_dev:/etc
+      - ./elloappd/logs:/logs
+    depends_on:
+      - media
+  biz:
+    container_name: 'biz'
+    build:
+      context: .
+      dockerfile: DockerfileUniverse
+      args:
+        - CMD_PATH=service/biz/biz/cmd/biz/
+    network_mode: "host"
+    ports:
+      - '20020:20020'
+    volumes:
+      - ./elloappd/etc_dev:/etc
+      - ./elloappd/logs:/logs
+    depends_on:
+      - authsession
+  msg:
+    container_name: 'msg'
+    build:
+      context: .
+      dockerfile: DockerfileUniverse
+      args:
+        - CMD_PATH=messenger/msg/cmd/msg/
+    network_mode: "host"
+    ports:
+      - '20030:20030'
+    volumes:
+      - ./elloappd/etc_dev:/etc
+      - ./elloappd/logs:/logs
+    depends_on:
+      - biz
+  sync:
+    container_name: 'sync'
+    build:
+      context: .
+      dockerfile: DockerfileUniverse
+      args:
+        - CMD_PATH=messenger/sync/cmd/sync/
+    network_mode: "host"
+    ports:
+      - '20420:20420'
+    volumes:
+      - ./elloappd/etc_dev:/etc
+      - ./elloappd/logs:/logs
+    depends_on:
+      - msg
+  bff:
+    container_name: 'bff'
+    build:
+      context: .
+      dockerfile: DockerfileUniverse
+      args:
+        - CMD_PATH=bff/bff/cmd/bff/
+    network_mode: "host"
+    ports:
+      - '20010:20010'
+    volumes:
+      - ./elloappd/etc_dev:/etc
+      - ./elloappd/logs:/logs
+      - ./elloappd/bin/config.json:/config.json
+    depends_on:
+      - sync
+  session:
+    container_name: 'session'
+    build:
+      context: .
+      dockerfile: DockerfileUniverse
+      args:
+        - CMD_PATH=interface/session/cmd/session/
+    network_mode: "host"
+    ports:
+      - '20120:20120'
+    volumes:
+      - ./elloappd/etc_dev:/etc
+      - ./elloappd/logs:/logs
+    depends_on:
+      - bff
+  gateway:
+    container_name: 'gateway'
+    build:
+      context: .
+      dockerfile: DockerfileUniverse
+      args:
+        - CMD_PATH=interface/gateway/cmd/gateway/
+    network_mode: "host"
+    ports:
+      - "20110:20110"
+      - "10443:10443"
+      - "5222:5222"
+      - "8801:8801"
+    volumes:
+      - ./elloappd/etc_dev:/etc
+      - ./elloappd/logs:/logs
+      - ./elloappd/bin/server_pkcs1.key:/server_pkcs1.key
+    depends_on:
+      - session

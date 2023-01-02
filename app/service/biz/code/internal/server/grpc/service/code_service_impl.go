@@ -1,21 +1,11 @@
-/*
- * WARNING! All changes made in this file will be lost!
- * Created from 'scheme.tl' by 'mtprotoc'
- *
- * Copyright (c) 2021-present,  Teamgram Studio (https://teamgram.io).
- *  All rights reserved.
- *
- * Author: teamgramio (teamgram.io@gmail.com)
- */
-
 package service
 
 import (
 	"context"
 
-	"github.com/teamgram/proto/mtproto"
-	"github.com/teamgram/teamgram-server/app/service/biz/code/code"
-	"github.com/teamgram/teamgram-server/app/service/biz/code/internal/core"
+	"gitlab.com/merehead/elloapp/backend/elloapp_backend/app/service/biz/code/code"
+	"gitlab.com/merehead/elloapp/backend/elloapp_backend/app/service/biz/code/internal/core"
+	"gitlab.com/merehead/elloapp/backend/elloapp_backend/mtproto"
 )
 
 // CodeCreatePhoneCode

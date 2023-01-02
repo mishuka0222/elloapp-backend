@@ -1,16 +1,10 @@
-// Copyright (c) 2021-present,  Teamgram Studio (https://teamgram.io).
-//  All rights reserved.
-//
-// Author: teamgramio (teamgram.io@gmail.com)
-//
-
 package dao
 
 import (
 	"path"
 	"strings"
 
-	"github.com/teamgram/proto/mtproto"
+	"gitlab.com/merehead/elloapp/backend/elloapp_backend/mtproto"
 )
 
 var (

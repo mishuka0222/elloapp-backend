@@ -1,15 +1,9 @@
-// Copyright (c) 2021-present,  Teamgram Studio (https://teamgram.io).
-//  All rights reserved.
-//
-// Author: teamgramio (teamgram.io@gmail.com)
-//
-
 package chat
 
 import (
 	"time"
 
-	"github.com/teamgram/proto/mtproto"
+	"gitlab.com/merehead/elloapp/backend/elloapp_backend/mtproto"
 )
 
 func (m *MutableChat) Id() int64 {

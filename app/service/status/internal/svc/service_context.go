@@ -1,17 +1,8 @@
-/*
- * Created from 'scheme.tl' by 'mtprotoc'
- *
- * Copyright (c) 2021-present,  Teamgram Studio (https://teamgram.io).
- *  All rights reserved.
- *
- * Author: teamgramio (teamgram.io@gmail.com)
- */
-
 package svc
 
 import (
-	"github.com/teamgram/teamgram-server/app/service/status/internal/config"
 	"github.com/zeromicro/go-zero/core/stores/kv"
+	"gitlab.com/merehead/elloapp/backend/elloapp_backend/app/service/status/internal/config"
 )
 
 type ServiceContext struct {

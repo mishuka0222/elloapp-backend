@@ -1,6 +1,7 @@
 package svc
 
 import (
+	"gitlab.com/merehead/elloapp/backend/elloapp_tg_backend/app/bff/authorization"
 	"gitlab.com/merehead/elloapp/backend/elloapp_tg_backend/app/bff/authorization_customize/internal/config"
 	"gitlab.com/merehead/elloapp/backend/elloapp_tg_backend/app/bff/authorization_customize/internal/dao"
 )

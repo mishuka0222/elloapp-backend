@@ -4,7 +4,7 @@ import (
 	"context"
 	"fmt"
 
-	"gitlab.com/merehead/elloapp/backend/elloapp_backend/mtproto"
+	"gitlab.com/merehead/elloapp/backend/elloapp_tg_backend/mtproto"
 
 	"github.com/gogo/protobuf/proto"
 	"github.com/zeromicro/go-zero/core/logx"

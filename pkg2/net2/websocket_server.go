@@ -9,7 +9,7 @@ import (
 	"time"
 
 	log "github.com/zeromicro/go-zero/core/logx"
-	"gitlab.com/merehead/elloapp/backend/elloapp_backend/pkg2/net2/websocket"
+	"gitlab.com/merehead/elloapp/backend/elloapp_tg_backend/pkg2/net2/websocket"
 )
 
 type WebsocketConfig struct {

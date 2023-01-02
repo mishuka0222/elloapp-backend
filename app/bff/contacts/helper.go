@@ -1,10 +1,10 @@
 package contacts_helper
 
 import (
-	"gitlab.com/merehead/elloapp/backend/elloapp_backend/app/bff/contacts/internal/config"
-	"gitlab.com/merehead/elloapp/backend/elloapp_backend/app/bff/contacts/internal/server/grpc/service"
-	"gitlab.com/merehead/elloapp/backend/elloapp_backend/app/bff/contacts/internal/svc"
-	"gitlab.com/merehead/elloapp/backend/elloapp_backend/app/bff/contacts/plugin"
+	"gitlab.com/merehead/elloapp/backend/elloapp_tg_backend/app/bff/contacts/internal/config"
+	"gitlab.com/merehead/elloapp/backend/elloapp_tg_backend/app/bff/contacts/internal/server/grpc/service"
+	"gitlab.com/merehead/elloapp/backend/elloapp_tg_backend/app/bff/contacts/internal/svc"
+	"gitlab.com/merehead/elloapp/backend/elloapp_tg_backend/app/bff/contacts/plugin"
 )
 
 type (

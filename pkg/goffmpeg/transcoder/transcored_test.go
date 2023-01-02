@@ -5,7 +5,7 @@ import (
 
 	"github.com/stretchr/testify/require"
 
-	"gitlab.com/merehead/elloapp/backend/elloapp_backend/pkg/goffmpeg/models"
+	"gitlab.com/merehead/elloapp/backend/elloapp_tg_backend/pkg/goffmpeg/models"
 )
 
 func TestTranscoder(t *testing.T) {

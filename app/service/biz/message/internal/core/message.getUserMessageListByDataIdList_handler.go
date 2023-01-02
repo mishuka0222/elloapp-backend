@@ -1,9 +1,9 @@
 package core
 
 import (
-	"gitlab.com/merehead/elloapp/backend/elloapp_backend/app/service/biz/message/internal/dal/dataobject"
-	"gitlab.com/merehead/elloapp/backend/elloapp_backend/app/service/biz/message/message"
-	"gitlab.com/merehead/elloapp/backend/elloapp_backend/mtproto"
+	"gitlab.com/merehead/elloapp/backend/elloapp_tg_backend/app/service/biz/message/internal/dal/dataobject"
+	"gitlab.com/merehead/elloapp/backend/elloapp_tg_backend/app/service/biz/message/message"
+	"gitlab.com/merehead/elloapp/backend/elloapp_tg_backend/mtproto"
 )
 
 // MessageGetUserMessageListByDataIdList

@@ -1,18 +1,18 @@
 package dao
 
 import (
-	"gitlab.com/merehead/elloapp/backend/elloapp_backend/app/bff/chats/internal/config"
-	msg_client "gitlab.com/merehead/elloapp/backend/elloapp_backend/app/messenger/msg/msg/client"
-	sync_client "gitlab.com/merehead/elloapp/backend/elloapp_backend/app/messenger/sync/client"
-	authsession_client "gitlab.com/merehead/elloapp/backend/elloapp_backend/app/service/authsession/client"
-	chat_client "gitlab.com/merehead/elloapp/backend/elloapp_backend/app/service/biz/chat/client"
-	dialog_client "gitlab.com/merehead/elloapp/backend/elloapp_backend/app/service/biz/dialog/client"
-	message_client "gitlab.com/merehead/elloapp/backend/elloapp_backend/app/service/biz/message/client"
-	user_client "gitlab.com/merehead/elloapp/backend/elloapp_backend/app/service/biz/user/client"
-	idgen_client "gitlab.com/merehead/elloapp/backend/elloapp_backend/app/service/idgen/client"
-	media_client "gitlab.com/merehead/elloapp/backend/elloapp_backend/app/service/media/client"
-	kafka "gitlab.com/merehead/elloapp/backend/elloapp_backend/pkg2/mq"
-	"gitlab.com/merehead/elloapp/backend/elloapp_backend/pkg2/net/rpcx"
+	"gitlab.com/merehead/elloapp/backend/elloapp_tg_backend/app/bff/chats/internal/config"
+	msg_client "gitlab.com/merehead/elloapp/backend/elloapp_tg_backend/app/messenger/msg/msg/client"
+	sync_client "gitlab.com/merehead/elloapp/backend/elloapp_tg_backend/app/messenger/sync/client"
+	authsession_client "gitlab.com/merehead/elloapp/backend/elloapp_tg_backend/app/service/authsession/client"
+	chat_client "gitlab.com/merehead/elloapp/backend/elloapp_tg_backend/app/service/biz/chat/client"
+	dialog_client "gitlab.com/merehead/elloapp/backend/elloapp_tg_backend/app/service/biz/dialog/client"
+	message_client "gitlab.com/merehead/elloapp/backend/elloapp_tg_backend/app/service/biz/message/client"
+	user_client "gitlab.com/merehead/elloapp/backend/elloapp_tg_backend/app/service/biz/user/client"
+	idgen_client "gitlab.com/merehead/elloapp/backend/elloapp_tg_backend/app/service/idgen/client"
+	media_client "gitlab.com/merehead/elloapp/backend/elloapp_tg_backend/app/service/media/client"
+	kafka "gitlab.com/merehead/elloapp/backend/elloapp_tg_backend/pkg2/mq"
+	"gitlab.com/merehead/elloapp/backend/elloapp_tg_backend/pkg2/net/rpcx"
 )
 
 type Dao struct {

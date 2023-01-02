@@ -1,9 +1,9 @@
 package core
 
 import (
-	msgpb "gitlab.com/merehead/elloapp/backend/elloapp_backend/app/messenger/msg/msg/msg"
-	"gitlab.com/merehead/elloapp/backend/elloapp_backend/app/service/biz/dialog/dialog"
-	"gitlab.com/merehead/elloapp/backend/elloapp_backend/mtproto"
+	msgpb "gitlab.com/merehead/elloapp/backend/elloapp_tg_backend/app/messenger/msg/msg/msg"
+	"gitlab.com/merehead/elloapp/backend/elloapp_tg_backend/app/service/biz/dialog/dialog"
+	"gitlab.com/merehead/elloapp/backend/elloapp_tg_backend/mtproto"
 )
 
 // MessagesDeleteHistory

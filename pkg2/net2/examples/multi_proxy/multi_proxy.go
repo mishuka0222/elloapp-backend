@@ -1,7 +1,7 @@
 package main
 
 import (
-	"gitlab.com/merehead/elloapp/backend/elloapp_backend/pkg2/net2/examples/multi_proxy/server"
+	"gitlab.com/merehead/elloapp/backend/elloapp_tg_backend/pkg2/net2/examples/multi_proxy/server"
 )
 
 func main() {

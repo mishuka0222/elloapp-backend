@@ -3,7 +3,7 @@ package tests
 import (
 	"github.com/zeromicro/go-zero/core/discov"
 	"github.com/zeromicro/go-zero/zrpc"
-	bizraw_client "gitlab.com/merehead/elloapp/backend/elloapp_backend/app/service/biz/authorization/client"
+	bizraw_client "gitlab.com/merehead/elloapp/backend/elloapp_tg_backend/app/service/biz/authorization/client"
 )
 
 func NewRPCClient() bizraw_client.RPCAuthorizationClient {

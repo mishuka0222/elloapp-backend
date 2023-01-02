@@ -32,7 +32,7 @@ import (
 	"strings"
 	"sync"
 
-	"gitlab.com/merehead/elloapp/backend/elloapp_backend/pkg2/stores/sqlx/reflectx"
+	"gitlab.com/merehead/elloapp/backend/elloapp_tg_backend/pkg2/stores/sqlx/reflectx"
 )
 
 // Bindvar types supported by Rebind, BindMap and BindStruct.

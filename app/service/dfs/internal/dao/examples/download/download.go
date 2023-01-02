@@ -7,9 +7,9 @@ import (
 	"io/ioutil"
 	"os"
 
-	"gitlab.com/merehead/elloapp/backend/elloapp_backend/app/service/dfs/internal/config"
-	"gitlab.com/merehead/elloapp/backend/elloapp_backend/app/service/dfs/internal/dao"
-	"gitlab.com/merehead/elloapp/backend/elloapp_backend/pkg2/commands"
+	"gitlab.com/merehead/elloapp/backend/elloapp_tg_backend/app/service/dfs/internal/config"
+	"gitlab.com/merehead/elloapp/backend/elloapp_tg_backend/app/service/dfs/internal/dao"
+	"gitlab.com/merehead/elloapp/backend/elloapp_tg_backend/pkg2/commands"
 
 	"github.com/zeromicro/go-zero/core/logx"
 )

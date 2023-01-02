@@ -3,8 +3,8 @@ package code
 import (
 	"context"
 
-	"gitlab.com/merehead/elloapp/backend/elloapp_backend/pkg/code/conf"
-	"gitlab.com/merehead/elloapp/backend/elloapp_backend/pkg/code/none"
+	"gitlab.com/merehead/elloapp/backend/elloapp_tg_backend/pkg/code/conf"
+	"gitlab.com/merehead/elloapp/backend/elloapp_tg_backend/pkg/code/none"
 )
 
 type VerifyCodeInterface interface {

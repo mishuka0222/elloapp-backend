@@ -1,12 +1,12 @@
 package dao
 
 import (
-	"gitlab.com/merehead/elloapp/backend/elloapp_backend/app/bff/photos/internal/config"
-	sync_client "gitlab.com/merehead/elloapp/backend/elloapp_backend/app/messenger/sync/client"
-	user_client "gitlab.com/merehead/elloapp/backend/elloapp_backend/app/service/biz/user/client"
-	media_client "gitlab.com/merehead/elloapp/backend/elloapp_backend/app/service/media/client"
-	kafka "gitlab.com/merehead/elloapp/backend/elloapp_backend/pkg2/mq"
-	"gitlab.com/merehead/elloapp/backend/elloapp_backend/pkg2/net/rpcx"
+	"gitlab.com/merehead/elloapp/backend/elloapp_tg_backend/app/bff/photos/internal/config"
+	sync_client "gitlab.com/merehead/elloapp/backend/elloapp_tg_backend/app/messenger/sync/client"
+	user_client "gitlab.com/merehead/elloapp/backend/elloapp_tg_backend/app/service/biz/user/client"
+	media_client "gitlab.com/merehead/elloapp/backend/elloapp_tg_backend/app/service/media/client"
+	kafka "gitlab.com/merehead/elloapp/backend/elloapp_tg_backend/pkg2/mq"
+	"gitlab.com/merehead/elloapp/backend/elloapp_tg_backend/pkg2/net/rpcx"
 )
 
 type Dao struct {

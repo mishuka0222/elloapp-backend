@@ -2,7 +2,7 @@ package config
 
 import (
 	"github.com/zeromicro/go-zero/core/stores/cache"
-	"gitlab.com/merehead/elloapp/backend/elloapp_backend/pkg2/stores/sqlx"
+	"gitlab.com/merehead/elloapp/backend/elloapp_tg_backend/pkg2/stores/sqlx"
 
 	"github.com/zeromicro/go-zero/zrpc"
 )

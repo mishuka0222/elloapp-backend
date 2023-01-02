@@ -1,13 +1,13 @@
 package core
 
 import (
-	userpb "gitlab.com/merehead/elloapp/backend/elloapp_backend/app/service/biz/user/user"
+	userpb "gitlab.com/merehead/elloapp/backend/elloapp_tg_backend/app/service/biz/user/user"
 	"time"
 
 	"github.com/zeromicro/go-zero/core/contextx"
 	"github.com/zeromicro/go-zero/core/threading"
-	msgpb "gitlab.com/merehead/elloapp/backend/elloapp_backend/app/messenger/msg/msg/msg"
-	"gitlab.com/merehead/elloapp/backend/elloapp_backend/mtproto"
+	msgpb "gitlab.com/merehead/elloapp/backend/elloapp_tg_backend/app/messenger/msg/msg/msg"
+	"gitlab.com/merehead/elloapp/backend/elloapp_tg_backend/mtproto"
 )
 
 // MessagesSendMessage

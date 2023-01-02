@@ -3,12 +3,12 @@ package core
 import (
 	"context"
 
-	chatpb "gitlab.com/merehead/elloapp/backend/elloapp_backend/app/service/biz/chat/chat"
-	"gitlab.com/merehead/elloapp/backend/elloapp_backend/app/service/biz/dialog/dialog"
-	"gitlab.com/merehead/elloapp/backend/elloapp_backend/app/service/biz/message/message"
-	"gitlab.com/merehead/elloapp/backend/elloapp_backend/app/service/biz/updates/updates"
-	userpb "gitlab.com/merehead/elloapp/backend/elloapp_backend/app/service/biz/user/user"
-	"gitlab.com/merehead/elloapp/backend/elloapp_backend/mtproto"
+	chatpb "gitlab.com/merehead/elloapp/backend/elloapp_tg_backend/app/service/biz/chat/chat"
+	"gitlab.com/merehead/elloapp/backend/elloapp_tg_backend/app/service/biz/dialog/dialog"
+	"gitlab.com/merehead/elloapp/backend/elloapp_tg_backend/app/service/biz/message/message"
+	"gitlab.com/merehead/elloapp/backend/elloapp_tg_backend/app/service/biz/updates/updates"
+	userpb "gitlab.com/merehead/elloapp/backend/elloapp_tg_backend/app/service/biz/user/user"
+	"gitlab.com/merehead/elloapp/backend/elloapp_tg_backend/mtproto"
 
 	"github.com/zeromicro/go-zero/core/mr"
 )

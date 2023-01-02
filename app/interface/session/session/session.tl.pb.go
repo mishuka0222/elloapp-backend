@@ -9,7 +9,7 @@ import (
 	_ "github.com/gogo/protobuf/gogoproto"
 	proto "github.com/gogo/protobuf/proto"
 	_ "github.com/gogo/protobuf/types"
-	mtproto "gitlab.com/merehead/elloapp/backend/elloapp_backend/mtproto"
+	mtproto "gitlab.com/merehead/elloapp/backend/elloapp_tg_backend/mtproto"
 	grpc "google.golang.org/grpc"
 	codes "google.golang.org/grpc/codes"
 	status "google.golang.org/grpc/status"

@@ -3,10 +3,10 @@ package core
 import (
 	"time"
 
-	"gitlab.com/merehead/elloapp/backend/elloapp_backend/app/service/biz/code/code"
-	"gitlab.com/merehead/elloapp/backend/elloapp_backend/mtproto"
-	"gitlab.com/merehead/elloapp/backend/elloapp_backend/mtproto/crypto"
-	"gitlab.com/merehead/elloapp/backend/elloapp_backend/pkg2/random2"
+	"gitlab.com/merehead/elloapp/backend/elloapp_tg_backend/app/service/biz/code/code"
+	"gitlab.com/merehead/elloapp/backend/elloapp_tg_backend/mtproto"
+	"gitlab.com/merehead/elloapp/backend/elloapp_tg_backend/mtproto/crypto"
+	"gitlab.com/merehead/elloapp/backend/elloapp_tg_backend/pkg2/random2"
 )
 
 // CodeCreatePhoneCode

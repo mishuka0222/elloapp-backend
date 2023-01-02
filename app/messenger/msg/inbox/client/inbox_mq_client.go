@@ -4,9 +4,9 @@ import (
 	"context"
 	"fmt"
 
-	"gitlab.com/merehead/elloapp/backend/elloapp_backend/app/messenger/msg/inbox/inbox"
-	"gitlab.com/merehead/elloapp/backend/elloapp_backend/mtproto"
-	kafka "gitlab.com/merehead/elloapp/backend/elloapp_backend/pkg2/mq"
+	"gitlab.com/merehead/elloapp/backend/elloapp_tg_backend/app/messenger/msg/inbox/inbox"
+	"gitlab.com/merehead/elloapp/backend/elloapp_tg_backend/mtproto"
+	kafka "gitlab.com/merehead/elloapp/backend/elloapp_tg_backend/pkg2/mq"
 
 	"github.com/gogo/protobuf/proto"
 	"github.com/zeromicro/go-zero/core/jsonx"

@@ -1,8 +1,8 @@
 package core
 
 import (
-	"gitlab.com/merehead/elloapp/backend/elloapp_backend/app/messenger/sync/sync"
-	"gitlab.com/merehead/elloapp/backend/elloapp_backend/mtproto"
+	"gitlab.com/merehead/elloapp/backend/elloapp_tg_backend/app/messenger/sync/sync"
+	"gitlab.com/merehead/elloapp/backend/elloapp_tg_backend/mtproto"
 )
 
 // SyncUpdatesMe

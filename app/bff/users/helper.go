@@ -1,9 +1,9 @@
 package users_helper
 
 import (
-	"gitlab.com/merehead/elloapp/backend/elloapp_backend/app/bff/users/internal/config"
-	"gitlab.com/merehead/elloapp/backend/elloapp_backend/app/bff/users/internal/server/grpc/service"
-	"gitlab.com/merehead/elloapp/backend/elloapp_backend/app/bff/users/internal/svc"
+	"gitlab.com/merehead/elloapp/backend/elloapp_tg_backend/app/bff/users/internal/config"
+	"gitlab.com/merehead/elloapp/backend/elloapp_tg_backend/app/bff/users/internal/server/grpc/service"
+	"gitlab.com/merehead/elloapp/backend/elloapp_tg_backend/app/bff/users/internal/svc"
 )
 
 type (

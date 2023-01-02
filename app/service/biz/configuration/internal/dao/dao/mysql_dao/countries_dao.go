@@ -4,8 +4,8 @@ import (
 	"context"
 	"database/sql"
 	"github.com/zeromicro/go-zero/core/logx"
-	"gitlab.com/merehead/elloapp/backend/elloapp_backend/app/service/biz/configuration/internal/dao/dataobject"
-	"gitlab.com/merehead/elloapp/backend/elloapp_backend/pkg2/stores/sqlx"
+	"gitlab.com/merehead/elloapp/backend/elloapp_tg_backend/app/service/biz/configuration/internal/dao/dataobject"
+	"gitlab.com/merehead/elloapp/backend/elloapp_tg_backend/pkg2/stores/sqlx"
 )
 
 var _ *sql.Result

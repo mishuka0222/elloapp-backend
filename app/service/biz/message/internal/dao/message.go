@@ -4,8 +4,8 @@ import (
 	"context"
 
 	"github.com/zeromicro/go-zero/core/jsonx"
-	"gitlab.com/merehead/elloapp/backend/elloapp_backend/app/service/biz/message/internal/dal/dataobject"
-	"gitlab.com/merehead/elloapp/backend/elloapp_backend/mtproto"
+	"gitlab.com/merehead/elloapp/backend/elloapp_tg_backend/app/service/biz/message/internal/dal/dataobject"
+	"gitlab.com/merehead/elloapp/backend/elloapp_tg_backend/mtproto"
 )
 
 func (d *Dao) MakeMessageBox(ctx context.Context, selfUserId int64, do *dataobject.MessagesDO) (box *mtproto.MessageBox) {

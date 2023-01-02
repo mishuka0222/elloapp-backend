@@ -6,8 +6,8 @@ import (
 	"sync/atomic"
 	"time"
 
-	session_client "gitlab.com/merehead/elloapp/backend/elloapp_backend/app/interface/session/client"
-	"gitlab.com/merehead/elloapp/backend/elloapp_backend/app/interface/session/session"
+	session_client "gitlab.com/merehead/elloapp/backend/elloapp_tg_backend/app/interface/session/client"
+	"gitlab.com/merehead/elloapp/backend/elloapp_tg_backend/app/interface/session/session"
 
 	"github.com/zeromicro/go-zero/core/discov"
 	"github.com/zeromicro/go-zero/core/logx"

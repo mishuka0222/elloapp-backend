@@ -1,7 +1,7 @@
 package svc
 
 import (
-	"gitlab.com/merehead/elloapp/backend/elloapp_backend/app/interface/session/internal/config"
+	"gitlab.com/merehead/elloapp/backend/elloapp_tg_backend/app/interface/session/internal/config"
 )
 
 type ServiceContext struct {

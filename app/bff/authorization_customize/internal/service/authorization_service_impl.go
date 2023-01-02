@@ -3,7 +3,7 @@ package service
 import (
 	"context"
 	"encoding/json"
-	"gitlab.com/merehead/elloapp/backend/elloapp_backend/app/bff/authorization_customize/internal/core"
+	"gitlab.com/merehead/elloapp/backend/elloapp_tg_backend/app/bff/authorization_customize/internal/core"
 )
 
 // AuthSingUP

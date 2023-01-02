@@ -3,9 +3,9 @@ package core
 import (
 	"time"
 
-	"gitlab.com/merehead/elloapp/backend/elloapp_backend/app/service/biz/user/internal/dal/dataobject"
-	"gitlab.com/merehead/elloapp/backend/elloapp_backend/app/service/biz/user/user"
-	"gitlab.com/merehead/elloapp/backend/elloapp_backend/mtproto"
+	"gitlab.com/merehead/elloapp/backend/elloapp_tg_backend/app/service/biz/user/internal/dal/dataobject"
+	"gitlab.com/merehead/elloapp/backend/elloapp_tg_backend/app/service/biz/user/user"
+	"gitlab.com/merehead/elloapp/backend/elloapp_tg_backend/mtproto"
 )
 
 // UserAddContact

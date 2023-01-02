@@ -2,7 +2,7 @@ package plugin
 
 import (
 	"context"
-	"gitlab.com/merehead/elloapp/backend/elloapp_backend/mtproto"
+	"gitlab.com/merehead/elloapp/backend/elloapp_tg_backend/mtproto"
 )
 
 type UsernamesPlugin interface {

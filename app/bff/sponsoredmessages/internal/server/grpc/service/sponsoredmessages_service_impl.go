@@ -3,8 +3,8 @@ package service
 import (
 	"context"
 
-	"gitlab.com/merehead/elloapp/backend/elloapp_backend/app/bff/sponsoredmessages/internal/core"
-	"gitlab.com/merehead/elloapp/backend/elloapp_backend/mtproto"
+	"gitlab.com/merehead/elloapp/backend/elloapp_tg_backend/app/bff/sponsoredmessages/internal/core"
+	"gitlab.com/merehead/elloapp/backend/elloapp_tg_backend/mtproto"
 )
 
 // ChannelsViewSponsoredMessage

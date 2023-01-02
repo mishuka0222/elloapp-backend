@@ -5,8 +5,8 @@ import (
 	"image"
 	"strings"
 
-	"gitlab.com/merehead/elloapp/backend/elloapp_backend/mtproto"
-	"gitlab.com/merehead/elloapp/backend/elloapp_backend/pkg2/bytes2"
+	"gitlab.com/merehead/elloapp/backend/elloapp_tg_backend/mtproto"
+	"gitlab.com/merehead/elloapp/backend/elloapp_tg_backend/pkg2/bytes2"
 
 	"github.com/disintegration/imaging"
 	"github.com/zeromicro/go-zero/core/logx"

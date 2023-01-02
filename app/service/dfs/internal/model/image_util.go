@@ -4,8 +4,8 @@ import (
 	"path"
 	"strings"
 
-	"gitlab.com/merehead/elloapp/backend/elloapp_backend/mtproto"
-	// "gitlab.com/merehead/elloapp/backend/elloapp_backend/model"
+	"gitlab.com/merehead/elloapp/backend/elloapp_tg_backend/mtproto"
+	// "gitlab.com/merehead/elloapp/backend/elloapp_tg_backend/model"
 )
 
 func GetFileExtName(filePath string) string {

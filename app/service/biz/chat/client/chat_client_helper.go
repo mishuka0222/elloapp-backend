@@ -2,10 +2,10 @@ package chat_client
 
 import (
 	"context"
-	"gitlab.com/merehead/elloapp/backend/elloapp_backend/app/service/biz/chat/chat"
+	"gitlab.com/merehead/elloapp/backend/elloapp_tg_backend/app/service/biz/chat/chat"
 
 	"github.com/zeromicro/go-zero/zrpc"
-	"gitlab.com/merehead/elloapp/backend/elloapp_backend/mtproto"
+	"gitlab.com/merehead/elloapp/backend/elloapp_tg_backend/mtproto"
 )
 
 type ChatClientHelper struct {

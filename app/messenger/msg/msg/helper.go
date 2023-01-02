@@ -1,10 +1,10 @@
 package msg_helper
 
 import (
-	"gitlab.com/merehead/elloapp/backend/elloapp_backend/app/messenger/msg/msg/internal/config"
-	"gitlab.com/merehead/elloapp/backend/elloapp_backend/app/messenger/msg/msg/internal/server/grpc/service"
-	"gitlab.com/merehead/elloapp/backend/elloapp_backend/app/messenger/msg/msg/internal/svc"
-	"gitlab.com/merehead/elloapp/backend/elloapp_backend/app/messenger/msg/msg/plugin"
+	"gitlab.com/merehead/elloapp/backend/elloapp_tg_backend/app/messenger/msg/msg/internal/config"
+	"gitlab.com/merehead/elloapp/backend/elloapp_tg_backend/app/messenger/msg/msg/internal/server/grpc/service"
+	"gitlab.com/merehead/elloapp/backend/elloapp_tg_backend/app/messenger/msg/msg/internal/svc"
+	"gitlab.com/merehead/elloapp/backend/elloapp_tg_backend/app/messenger/msg/msg/plugin"
 )
 
 type (

@@ -3,8 +3,8 @@ package service
 import (
 	"context"
 
-	sessionpb "gitlab.com/merehead/elloapp/backend/elloapp_backend/app/interface/session/session"
-	"gitlab.com/merehead/elloapp/backend/elloapp_backend/mtproto"
+	sessionpb "gitlab.com/merehead/elloapp/backend/elloapp_tg_backend/app/interface/session/session"
+	"gitlab.com/merehead/elloapp/backend/elloapp_tg_backend/mtproto"
 
 	"github.com/zeromicro/go-zero/core/logx"
 )

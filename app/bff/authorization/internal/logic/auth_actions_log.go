@@ -2,7 +2,7 @@ package logic
 
 import (
 	"github.com/gogo/protobuf/proto"
-	"gitlab.com/merehead/elloapp/backend/elloapp_backend/mtproto"
+	"gitlab.com/merehead/elloapp/backend/elloapp_tg_backend/mtproto"
 )
 
 const (

@@ -3,7 +3,7 @@ package client
 import (
 	"context"
 	"github.com/zeromicro/go-zero/zrpc"
-	"gitlab.com/merehead/elloapp/backend/elloapp_backend/app/service/biz/authorization/authorization"
+	"gitlab.com/merehead/elloapp/backend/elloapp_tg_backend/app/service/biz/authorization/authorization"
 )
 
 type RPCAuthorizationClient interface {

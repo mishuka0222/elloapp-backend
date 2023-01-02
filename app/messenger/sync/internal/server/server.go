@@ -3,10 +3,10 @@ package server
 import (
 	"flag"
 
-	"gitlab.com/merehead/elloapp/backend/elloapp_backend/app/messenger/sync/internal/config"
-	"gitlab.com/merehead/elloapp/backend/elloapp_backend/app/messenger/sync/internal/server/mq"
-	"gitlab.com/merehead/elloapp/backend/elloapp_backend/app/messenger/sync/internal/svc"
-	kafka "gitlab.com/merehead/elloapp/backend/elloapp_backend/pkg2/mq"
+	"gitlab.com/merehead/elloapp/backend/elloapp_tg_backend/app/messenger/sync/internal/config"
+	"gitlab.com/merehead/elloapp/backend/elloapp_tg_backend/app/messenger/sync/internal/server/mq"
+	"gitlab.com/merehead/elloapp/backend/elloapp_tg_backend/app/messenger/sync/internal/svc"
+	kafka "gitlab.com/merehead/elloapp/backend/elloapp_tg_backend/pkg2/mq"
 
 	"github.com/zeromicro/go-zero/core/conf"
 	"github.com/zeromicro/go-zero/core/logx"

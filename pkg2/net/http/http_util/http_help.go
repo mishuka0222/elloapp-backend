@@ -8,7 +8,7 @@ import (
 	"net/http"
 	"strings"
 
-	"gitlab.com/merehead/elloapp/backend/elloapp_backend/pkg2/net/http/binding"
+	"gitlab.com/merehead/elloapp/backend/elloapp_tg_backend/pkg2/net/http/binding"
 
 	"github.com/zeromicro/go-zero/core/logx"
 )

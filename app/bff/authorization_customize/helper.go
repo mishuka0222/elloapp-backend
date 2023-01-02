@@ -1,10 +1,10 @@
 package authorization_customize_helper
 
 import (
-	authorization_helper "gitlab.com/merehead/elloapp/backend/elloapp_backend/app/bff/authorization"
-	"gitlab.com/merehead/elloapp/backend/elloapp_backend/app/bff/authorization_customize/internal/config"
-	"gitlab.com/merehead/elloapp/backend/elloapp_backend/app/bff/authorization_customize/internal/service"
-	"gitlab.com/merehead/elloapp/backend/elloapp_backend/app/bff/authorization_customize/internal/svc"
+	authorization_helper "gitlab.com/merehead/elloapp/backend/elloapp_tg_backend/app/bff/authorization"
+	"gitlab.com/merehead/elloapp/backend/elloapp_tg_backend/app/bff/authorization_customize/internal/config"
+	"gitlab.com/merehead/elloapp/backend/elloapp_tg_backend/app/bff/authorization_customize/internal/service"
+	"gitlab.com/merehead/elloapp/backend/elloapp_tg_backend/app/bff/authorization_customize/internal/svc"
 )
 
 type (

@@ -3,8 +3,8 @@ package config
 import (
 	"github.com/zeromicro/go-zero/core/stores/kv"
 	"github.com/zeromicro/go-zero/zrpc"
-	kafka "gitlab.com/merehead/elloapp/backend/elloapp_backend/pkg2/mq"
-	"gitlab.com/merehead/elloapp/backend/elloapp_backend/pkg2/stores/sqlx"
+	kafka "gitlab.com/merehead/elloapp/backend/elloapp_tg_backend/pkg2/mq"
+	"gitlab.com/merehead/elloapp/backend/elloapp_tg_backend/pkg2/stores/sqlx"
 )
 
 type Config struct {

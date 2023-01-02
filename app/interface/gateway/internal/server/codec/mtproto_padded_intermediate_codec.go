@@ -7,8 +7,8 @@ import (
 	"io"
 	"math/rand"
 
-	"gitlab.com/merehead/elloapp/backend/elloapp_backend/mtproto"
-	"gitlab.com/merehead/elloapp/backend/elloapp_backend/mtproto/crypto"
+	"gitlab.com/merehead/elloapp/backend/elloapp_tg_backend/mtproto"
+	"gitlab.com/merehead/elloapp/backend/elloapp_tg_backend/mtproto/crypto"
 
 	log "github.com/zeromicro/go-zero/core/logx"
 )

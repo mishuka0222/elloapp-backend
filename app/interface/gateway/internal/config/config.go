@@ -2,7 +2,7 @@ package config
 
 import (
 	"github.com/zeromicro/go-zero/zrpc"
-	"gitlab.com/merehead/elloapp/backend/elloapp_backend/pkg2/net2"
+	"gitlab.com/merehead/elloapp/backend/elloapp_tg_backend/pkg2/net2"
 )
 
 type Config struct {

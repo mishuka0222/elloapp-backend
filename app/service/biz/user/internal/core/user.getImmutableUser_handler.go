@@ -1,7 +1,7 @@
 package core
 
 import (
-	"gitlab.com/merehead/elloapp/backend/elloapp_backend/app/service/biz/user/user"
+	"gitlab.com/merehead/elloapp/backend/elloapp_tg_backend/app/service/biz/user/user"
 )
 
 // UserGetImmutableUser

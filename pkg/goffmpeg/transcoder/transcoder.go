@@ -12,9 +12,9 @@ import (
 	"strconv"
 	"strings"
 
-	"gitlab.com/merehead/elloapp/backend/elloapp_backend/pkg/goffmpeg/ffmpeg"
-	"gitlab.com/merehead/elloapp/backend/elloapp_backend/pkg/goffmpeg/models"
-	"gitlab.com/merehead/elloapp/backend/elloapp_backend/pkg/goffmpeg/utils"
+	"gitlab.com/merehead/elloapp/backend/elloapp_tg_backend/pkg/goffmpeg/ffmpeg"
+	"gitlab.com/merehead/elloapp/backend/elloapp_tg_backend/pkg/goffmpeg/models"
+	"gitlab.com/merehead/elloapp/backend/elloapp_tg_backend/pkg/goffmpeg/utils"
 )
 
 // Transcoder Main struct

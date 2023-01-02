@@ -1,7 +1,7 @@
 package mysql_dao
 
 import (
-	dialog_helper "gitlab.com/merehead/elloapp/backend/elloapp_backend/app/service/biz/dialog"
+	dialog_helper "gitlab.com/merehead/elloapp/backend/elloapp_tg_backend/app/service/biz/dialog"
 )
 
 type (

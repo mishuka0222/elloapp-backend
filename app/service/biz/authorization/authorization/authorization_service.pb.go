@@ -7,6 +7,7 @@ import (
 	context "context"
 	fmt "fmt"
 	proto "github.com/gogo/protobuf/proto"
+	types "github.com/gogo/protobuf/types"
 	grpc "google.golang.org/grpc"
 	codes "google.golang.org/grpc/codes"
 	status "google.golang.org/grpc/status"
@@ -25,15 +26,14 @@ var _ = math.Inf
 const _ = proto.GoGoProtoPackageIsVersion3 // please upgrade the proto package
 
 type AuthSingUpRequest struct {
-	Balance              float64  `protobuf:"fixed64,1,opt,name=balance,proto3" json:"balance,omitempty"`
-	UserName             string   `protobuf:"bytes,2,opt,name=user_name,json=userName,proto3" json:"user_name,omitempty"`
-	FirstName            string   `protobuf:"bytes,3,opt,name=first_name,json=firstName,proto3" json:"first_name,omitempty"`
-	LastName             string   `protobuf:"bytes,4,opt,name=last_name,json=lastName,proto3" json:"last_name,omitempty"`
-	Password             string   `protobuf:"bytes,5,opt,name=password,proto3" json:"password,omitempty"`
-	Email                string   `protobuf:"bytes,6,opt,name=email,proto3" json:"email,omitempty"`
-	Type                 string   `protobuf:"bytes,7,opt,name=type,proto3" json:"type,omitempty"`
-	Profile              string   `protobuf:"bytes,8,opt,name=profile,proto3" json:"profile,omitempty"`
-	Gender               string   `protobuf:"bytes,9,opt,name=gender,proto3" json:"gender,omitempty"`
+	Username             string   `protobuf:"bytes,1,opt,name=username,proto3" json:"username,omitempty"`
+	Password             string   `protobuf:"bytes,2,opt,name=password,proto3" json:"password,omitempty"`
+	Gender               string   `protobuf:"bytes,3,opt,name=gender,proto3" json:"gender,omitempty"`
+	DateOfBirth          string   `protobuf:"bytes,4,opt,name=date_of_birth,json=dateOfBirth,proto3" json:"date_of_birth,omitempty"`
+	Email                string   `protobuf:"bytes,5,opt,name=email,proto3" json:"email,omitempty"`
+	Phone                string   `protobuf:"bytes,6,opt,name=phone,proto3" json:"phone,omitempty"`
+	CountryCode          string   `protobuf:"bytes,7,opt,name=country_code,json=countryCode,proto3" json:"country_code,omitempty"`
+	Avatar               string   `protobuf:"bytes,8,opt,name=avatar,proto3" json:"avatar,omitempty"`
 	XXX_NoUnkeyedLiteral struct{} `json:"-"`
 	XXX_unrecognized     []byte   `json:"-"`
 	XXX_sizecache        int32    `json:"-"`
@@ -63,30 +63,9 @@ func (m *AuthSingUpRequest) XXX_DiscardUnknown() {
 
 var xxx_messageInfo_AuthSingUpRequest proto.InternalMessageInfo
 
-func (m *AuthSingUpRequest) GetBalance() float64 {
+func (m *AuthSingUpRequest) GetUsername() string {
 	if m != nil {
-		return m.Balance
-	}
-	return 0
-}
-
-func (m *AuthSingUpRequest) GetUserName() string {
-	if m != nil {
-		return m.UserName
-	}
-	return ""
-}
-
-func (m *AuthSingUpRequest) GetFirstName() string {
-	if m != nil {
-		return m.FirstName
-	}
-	return ""
-}
-
-func (m *AuthSingUpRequest) GetLastName() string {
-	if m != nil {
-		return m.LastName
+		return m.Username
 	}
 	return ""
 }
@@ -98,27 +77,6 @@ func (m *AuthSingUpRequest) GetPassword() string {
 	return ""
 }
 
-func (m *AuthSingUpRequest) GetEmail() string {
-	if m != nil {
-		return m.Email
-	}
-	return ""
-}
-
-func (m *AuthSingUpRequest) GetType() string {
-	if m != nil {
-		return m.Type
-	}
-	return ""
-}
-
-func (m *AuthSingUpRequest) GetProfile() string {
-	if m != nil {
-		return m.Profile
-	}
-	return ""
-}
-
 func (m *AuthSingUpRequest) GetGender() string {
 	if m != nil {
 		return m.Gender
@@ -126,8 +84,43 @@ func (m *AuthSingUpRequest) GetGender() string {
 	return ""
 }
 
+func (m *AuthSingUpRequest) GetDateOfBirth() string {
+	if m != nil {
+		return m.DateOfBirth
+	}
+	return ""
+}
+
+func (m *AuthSingUpRequest) GetEmail() string {
+	if m != nil {
+		return m.Email
+	}
+	return ""
+}
+
+func (m *AuthSingUpRequest) GetPhone() string {
+	if m != nil {
+		return m.Phone
+	}
+	return ""
+}
+
+func (m *AuthSingUpRequest) GetCountryCode() string {
+	if m != nil {
+		return m.CountryCode
+	}
+	return ""
+}
+
+func (m *AuthSingUpRequest) GetAvatar() string {
+	if m != nil {
+		return m.Avatar
+	}
+	return ""
+}
+
 type AuthSingInRequest struct {
-	UserName             string   `protobuf:"bytes,1,opt,name=user_name,json=userName,proto3" json:"user_name,omitempty"`
+	Username             string   `protobuf:"bytes,1,opt,name=username,proto3" json:"username,omitempty"`
 	Password             string   `protobuf:"bytes,2,opt,name=password,proto3" json:"password,omitempty"`
 	XXX_NoUnkeyedLiteral struct{} `json:"-"`
 	XXX_unrecognized     []byte   `json:"-"`
@@ -158,9 +151,9 @@ func (m *AuthSingInRequest) XXX_DiscardUnknown() {
 
 var xxx_messageInfo_AuthSingInRequest proto.InternalMessageInfo
 
-func (m *AuthSingInRequest) GetUserName() string {
+func (m *AuthSingInRequest) GetUsername() string {
 	if m != nil {
-		return m.UserName
+		return m.Username
 	}
 	return ""
 }
@@ -173,7 +166,8 @@ func (m *AuthSingInRequest) GetPassword() string {
 }
 
 type AuthSingUpRsp struct {
-	Data                 int64    `protobuf:"varint,1,opt,name=data,proto3" json:"data,omitempty"`
+	Email                string   `protobuf:"bytes,1,opt,name=email,proto3" json:"email,omitempty"`
+	ConfirmationExpire   int64    `protobuf:"varint,2,opt,name=confirmation_expire,json=confirmationExpire,proto3" json:"confirmation_expire,omitempty"`
 	XXX_NoUnkeyedLiteral struct{} `json:"-"`
 	XXX_unrecognized     []byte   `json:"-"`
 	XXX_sizecache        int32    `json:"-"`
@@ -203,84 +197,54 @@ func (m *AuthSingUpRsp) XXX_DiscardUnknown() {
 
 var xxx_messageInfo_AuthSingUpRsp proto.InternalMessageInfo
 
-func (m *AuthSingUpRsp) GetData() int64 {
+func (m *AuthSingUpRsp) GetEmail() string {
 	if m != nil {
-		return m.Data
+		return m.Email
 	}
-	return 0
+	return ""
 }
 
-type AuthSingInRsp struct {
-	Data                 int64    `protobuf:"varint,1,opt,name=data,proto3" json:"data,omitempty"`
-	XXX_NoUnkeyedLiteral struct{} `json:"-"`
-	XXX_unrecognized     []byte   `json:"-"`
-	XXX_sizecache        int32    `json:"-"`
-}
-
-func (m *AuthSingInRsp) Reset()         { *m = AuthSingInRsp{} }
-func (m *AuthSingInRsp) String() string { return proto.CompactTextString(m) }
-func (*AuthSingInRsp) ProtoMessage()    {}
-func (*AuthSingInRsp) Descriptor() ([]byte, []int) {
-	return fileDescriptor_e27dc8f5aa0b42d7, []int{3}
-}
-func (m *AuthSingInRsp) XXX_Unmarshal(b []byte) error {
-	return xxx_messageInfo_AuthSingInRsp.Unmarshal(m, b)
-}
-func (m *AuthSingInRsp) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
-	return xxx_messageInfo_AuthSingInRsp.Marshal(b, m, deterministic)
-}
-func (m *AuthSingInRsp) XXX_Merge(src proto.Message) {
-	xxx_messageInfo_AuthSingInRsp.Merge(m, src)
-}
-func (m *AuthSingInRsp) XXX_Size() int {
-	return xxx_messageInfo_AuthSingInRsp.Size(m)
-}
-func (m *AuthSingInRsp) XXX_DiscardUnknown() {
-	xxx_messageInfo_AuthSingInRsp.DiscardUnknown(m)
-}
-
-var xxx_messageInfo_AuthSingInRsp proto.InternalMessageInfo
-
-func (m *AuthSingInRsp) GetData() int64 {
+func (m *AuthSingUpRsp) GetConfirmationExpire() int64 {
 	if m != nil {
-		return m.Data
+		return m.ConfirmationExpire
 	}
 	return 0
 }
 
 func init() {
-	proto.RegisterType((*AuthSingUpRequest)(nil), "mtproto.AuthSingUpRequest")
-	proto.RegisterType((*AuthSingInRequest)(nil), "mtproto.AuthSingInRequest")
-	proto.RegisterType((*AuthSingUpRsp)(nil), "mtproto.AuthSingUpRsp")
-	proto.RegisterType((*AuthSingInRsp)(nil), "mtproto.AuthSingInRsp")
+	proto.RegisterType((*AuthSingUpRequest)(nil), "authorization.AuthSingUpRequest")
+	proto.RegisterType((*AuthSingInRequest)(nil), "authorization.AuthSingInRequest")
+	proto.RegisterType((*AuthSingUpRsp)(nil), "authorization.AuthSingUpRsp")
 }
 
 func init() { proto.RegisterFile("authorization_service.proto", fileDescriptor_e27dc8f5aa0b42d7) }
 
 var fileDescriptor_e27dc8f5aa0b42d7 = []byte{
-	// 345 bytes of a gzipped FileDescriptorProto
-	0x1f, 0x8b, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00, 0x02, 0xff, 0x74, 0x92, 0xcd, 0x4a, 0xc3, 0x40,
-	0x10, 0xc7, 0xd9, 0x7e, 0x67, 0xa4, 0xa0, 0x8b, 0x96, 0x25, 0x45, 0x28, 0xf5, 0xd2, 0x53, 0x0f,
-	0xfa, 0x04, 0xad, 0x20, 0x16, 0xa4, 0x84, 0x94, 0x5e, 0x7a, 0x29, 0xdb, 0x76, 0xdb, 0x06, 0xf2,
-	0xb1, 0xee, 0x6e, 0x14, 0x7d, 0x12, 0x9f, 0x56, 0x64, 0x27, 0x8d, 0x26, 0x1a, 0x6f, 0x33, 0xf3,
-	0x9b, 0x19, 0xfe, 0xff, 0x9d, 0x85, 0x3e, 0x4f, 0xcd, 0x31, 0x51, 0xc1, 0x3b, 0x37, 0x41, 0x12,
-	0xaf, 0xb5, 0x50, 0x2f, 0xc1, 0x56, 0x8c, 0xa5, 0x4a, 0x4c, 0x42, 0xdb, 0x91, 0xc1, 0x60, 0xf8,
-	0x49, 0xe0, 0x62, 0x92, 0x9a, 0xe3, 0x22, 0x88, 0x0f, 0x4b, 0xe9, 0x8b, 0xe7, 0x54, 0x68, 0x43,
-	0x19, 0xb4, 0x37, 0x3c, 0xe4, 0xf1, 0x56, 0x30, 0x32, 0x20, 0x23, 0xe2, 0xe7, 0x29, 0xed, 0x83,
-	0x93, 0x6a, 0xa1, 0xd6, 0x31, 0x8f, 0x04, 0xab, 0x0d, 0xc8, 0xc8, 0xf1, 0x3b, 0xb6, 0x30, 0xe7,
-	0x91, 0xa0, 0xd7, 0x00, 0xfb, 0x40, 0x69, 0x93, 0xd1, 0x3a, 0x52, 0x07, 0x2b, 0x88, 0xfb, 0xe0,
-	0x84, 0x3c, 0xa7, 0x8d, 0x6c, 0xd6, 0x16, 0x10, 0xba, 0xd0, 0x91, 0x5c, 0xeb, 0xd7, 0x44, 0xed,
-	0x58, 0x33, 0x63, 0x79, 0x4e, 0x2f, 0xa1, 0x29, 0x22, 0x1e, 0x84, 0xac, 0x85, 0x20, 0x4b, 0x28,
-	0x85, 0x86, 0x79, 0x93, 0x82, 0xb5, 0xb1, 0x88, 0xb1, 0x15, 0x2e, 0x55, 0xb2, 0x0f, 0x42, 0xc1,
-	0x3a, 0x58, 0xce, 0x53, 0xda, 0x83, 0xd6, 0x41, 0xc4, 0x3b, 0xa1, 0x98, 0x83, 0xe0, 0x94, 0x0d,
-	0x9f, 0x7e, 0xfc, 0xcf, 0xe2, 0xdc, 0x7f, 0xc9, 0x25, 0xf9, 0xe5, 0xb2, 0xa8, 0xb4, 0x56, 0x56,
-	0x3a, 0xbc, 0x81, 0x6e, 0xe1, 0x35, 0xb5, 0xb4, 0x22, 0x77, 0xdc, 0x70, 0x5c, 0x52, 0xf7, 0x31,
-	0x2e, 0x36, 0xcd, 0xe2, 0x7f, 0x9a, 0x6e, 0x3f, 0x08, 0x9c, 0xfb, 0xde, 0xfd, 0xa4, 0x78, 0x44,
-	0x3a, 0x81, 0x33, 0x7b, 0xd5, 0xb5, 0xb6, 0xa3, 0x73, 0xea, 0x8e, 0x4f, 0x67, 0x1c, 0xff, 0xb1,
-	0xe0, 0xf6, 0xaa, 0x98, 0x96, 0xa5, 0x15, 0x4b, 0xaf, 0x62, 0xc5, 0xf7, 0x2f, 0xa8, 0x58, 0x81,
-	0x9e, 0xa6, 0x0f, 0x70, 0x55, 0xf9, 0xb7, 0xa6, 0xee, 0xca, 0xb3, 0xed, 0x25, 0xcd, 0x8b, 0x8c,
-	0x3d, 0xd6, 0x3c, 0xb2, 0xea, 0x96, 0xc6, 0x36, 0x2d, 0x5c, 0x7e, 0xf7, 0x15, 0x00, 0x00, 0xff,
-	0xff, 0xb8, 0xca, 0xaf, 0x00, 0xaa, 0x02, 0x00, 0x00,
+	// 373 bytes of a gzipped FileDescriptorProto
+	0x1f, 0x8b, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00, 0x02, 0xff, 0xa4, 0x92, 0xcd, 0x8e, 0xda, 0x30,
+	0x14, 0x85, 0x15, 0x28, 0x94, 0xba, 0x45, 0x6a, 0xdd, 0x16, 0x59, 0xa1, 0x0b, 0x9a, 0x55, 0x57,
+	0x41, 0x6a, 0x9f, 0x00, 0x10, 0xa8, 0xa8, 0x95, 0x8a, 0x82, 0xe8, 0x82, 0x4d, 0x64, 0x92, 0x9b,
+	0xc4, 0x12, 0xb1, 0x5d, 0xc7, 0xa1, 0xa5, 0x4f, 0x34, 0x4f, 0x37, 0xcf, 0x30, 0x8a, 0xcd, 0x4f,
+	0xa2, 0x19, 0x56, 0xb3, 0x3c, 0xe7, 0x8b, 0xae, 0xef, 0xc9, 0xb9, 0x68, 0x48, 0x4b, 0x9d, 0x09,
+	0xc5, 0xfe, 0x53, 0xcd, 0x04, 0x0f, 0x0b, 0x50, 0x07, 0x16, 0x81, 0x2f, 0x95, 0xd0, 0x02, 0xf7,
+	0x1b, 0xd0, 0x1d, 0xa6, 0x42, 0xa4, 0x7b, 0x18, 0x1b, 0xb8, 0x2b, 0x93, 0x31, 0xe4, 0x52, 0x1f,
+	0xed, 0xb7, 0xde, 0xbd, 0x83, 0xde, 0x4d, 0x4a, 0x9d, 0xad, 0x19, 0x4f, 0x37, 0x32, 0x80, 0x3f,
+	0x25, 0x14, 0x1a, 0xbb, 0xa8, 0x57, 0x16, 0xa0, 0x38, 0xcd, 0x81, 0x38, 0x23, 0xe7, 0xcb, 0xab,
+	0xe0, 0xa2, 0x2b, 0x26, 0x69, 0x51, 0xfc, 0x15, 0x2a, 0x26, 0x2d, 0xcb, 0xce, 0x1a, 0x0f, 0x50,
+	0x37, 0x05, 0x1e, 0x83, 0x22, 0x6d, 0x43, 0x4e, 0x0a, 0x7b, 0xa8, 0x1f, 0x53, 0x0d, 0xa1, 0x48,
+	0xc2, 0x1d, 0x53, 0x3a, 0x23, 0x2f, 0x0c, 0x7e, 0x5d, 0x99, 0xbf, 0x92, 0x69, 0x65, 0xe1, 0x0f,
+	0xa8, 0x03, 0x39, 0x65, 0x7b, 0xd2, 0x31, 0xcc, 0x8a, 0xca, 0x95, 0x99, 0xe0, 0x40, 0xba, 0xd6,
+	0x35, 0x02, 0x7f, 0x46, 0x6f, 0x22, 0x51, 0x72, 0xad, 0x8e, 0x61, 0x24, 0x62, 0x20, 0x2f, 0xed,
+	0xb8, 0x93, 0x37, 0x13, 0x31, 0x54, 0xab, 0xd0, 0x03, 0xd5, 0x54, 0x91, 0x9e, 0x5d, 0xc5, 0x2a,
+	0xef, 0xc7, 0x35, 0xef, 0x92, 0x3f, 0x33, 0xaf, 0xf7, 0x1b, 0xf5, 0x6b, 0x3f, 0xaf, 0x90, 0xd7,
+	0x10, 0x4e, 0x3d, 0xc4, 0x18, 0xbd, 0x8f, 0x04, 0x4f, 0x98, 0xca, 0x6d, 0x5d, 0xf0, 0x4f, 0x32,
+	0x05, 0x66, 0x5a, 0x3b, 0xc0, 0x75, 0x34, 0x37, 0xe4, 0xeb, 0x9d, 0x83, 0xde, 0x06, 0xab, 0xd9,
+	0xa4, 0xde, 0x23, 0x5e, 0x20, 0x64, 0x1f, 0x4b, 0xf9, 0x92, 0xe3, 0x91, 0xdf, 0x68, 0xd9, 0x7f,
+	0x14, 0xca, 0x1d, 0xf8, 0xb6, 0x78, 0xff, 0x5c, 0xbc, 0x3f, 0xaf, 0x8a, 0xc7, 0x3f, 0xaf, 0x73,
+	0x36, 0xf2, 0xe6, 0x9c, 0xcb, 0x31, 0xb8, 0x9f, 0x6e, 0x7f, 0x51, 0xc8, 0xe9, 0x02, 0x7d, 0x7c,
+	0xf2, 0x16, 0xa7, 0xee, 0x76, 0x55, 0xbd, 0xdb, 0xc8, 0xb0, 0xb6, 0xec, 0x7b, 0x6b, 0xe5, 0x6c,
+	0x9b, 0x57, 0xba, 0xeb, 0x9a, 0x2d, 0xbf, 0x3d, 0x04, 0x00, 0x00, 0xff, 0xff, 0xe3, 0x06, 0x47,
+	0x79, 0xda, 0x02, 0x00, 0x00,
 }
 
 // Reference imports to suppress errors if they are not otherwise used.
@@ -295,8 +259,8 @@ const _ = grpc.SupportPackageIsVersion4
 //
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://godoc.org/google.golang.org/grpc#ClientConn.NewStream.
 type RPCAuthorizationClient interface {
-	AuthSingIN(ctx context.Context, in *AuthSingInRequest, opts ...grpc.CallOption) (*AuthSingInRsp, error)
-	AuthSingUP(ctx context.Context, in *AuthSingUpRequest, opts ...grpc.CallOption) (*AuthSingUpRsp, error)
+	AuthSignIn(ctx context.Context, in *AuthSingInRequest, opts ...grpc.CallOption) (*types.Empty, error)
+	AuthSignUp(ctx context.Context, in *AuthSingUpRequest, opts ...grpc.CallOption) (*AuthSingUpRsp, error)
 }
 
 type rPCAuthorizationClient struct {
@@ -307,18 +271,18 @@ func NewRPCAuthorizationClient(cc *grpc.ClientConn) RPCAuthorizationClient {
 	return &rPCAuthorizationClient{cc}
 }
 
-func (c *rPCAuthorizationClient) AuthSingIN(ctx context.Context, in *AuthSingInRequest, opts ...grpc.CallOption) (*AuthSingInRsp, error) {
-	out := new(AuthSingInRsp)
-	err := c.cc.Invoke(ctx, "/mtproto.RPCAuthorization/auth_singIN", in, out, opts...)
+func (c *rPCAuthorizationClient) AuthSignIn(ctx context.Context, in *AuthSingInRequest, opts ...grpc.CallOption) (*types.Empty, error) {
+	out := new(types.Empty)
+	err := c.cc.Invoke(ctx, "/authorization.RPCAuthorization/AuthSignIn", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
 	return out, nil
 }
 
-func (c *rPCAuthorizationClient) AuthSingUP(ctx context.Context, in *AuthSingUpRequest, opts ...grpc.CallOption) (*AuthSingUpRsp, error) {
+func (c *rPCAuthorizationClient) AuthSignUp(ctx context.Context, in *AuthSingUpRequest, opts ...grpc.CallOption) (*AuthSingUpRsp, error) {
 	out := new(AuthSingUpRsp)
-	err := c.cc.Invoke(ctx, "/mtproto.RPCAuthorization/auth_singUP", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/authorization.RPCAuthorization/AuthSignUp", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -327,72 +291,72 @@ func (c *rPCAuthorizationClient) AuthSingUP(ctx context.Context, in *AuthSingUpR
 
 // RPCAuthorizationServer is the server API for RPCAuthorization service.
 type RPCAuthorizationServer interface {
-	AuthSingIN(context.Context, *AuthSingInRequest) (*AuthSingInRsp, error)
-	AuthSingUP(context.Context, *AuthSingUpRequest) (*AuthSingUpRsp, error)
+	AuthSignIn(context.Context, *AuthSingInRequest) (*types.Empty, error)
+	AuthSignUp(context.Context, *AuthSingUpRequest) (*AuthSingUpRsp, error)
 }
 
 // UnimplementedRPCAuthorizationServer can be embedded to have forward compatible implementations.
 type UnimplementedRPCAuthorizationServer struct {
 }
 
-func (*UnimplementedRPCAuthorizationServer) AuthSingIN(ctx context.Context, req *AuthSingInRequest) (*AuthSingInRsp, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method AuthSingIN not implemented")
+func (*UnimplementedRPCAuthorizationServer) AuthSignIn(ctx context.Context, req *AuthSingInRequest) (*types.Empty, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method AuthSignIn not implemented")
 }
-func (*UnimplementedRPCAuthorizationServer) AuthSingUP(ctx context.Context, req *AuthSingUpRequest) (*AuthSingUpRsp, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method AuthSingUP not implemented")
+func (*UnimplementedRPCAuthorizationServer) AuthSignUp(ctx context.Context, req *AuthSingUpRequest) (*AuthSingUpRsp, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method AuthSignUp not implemented")
 }
 
 func RegisterRPCAuthorizationServer(s *grpc.Server, srv RPCAuthorizationServer) {
 	s.RegisterService(&_RPCAuthorization_serviceDesc, srv)
 }
 
-func _RPCAuthorization_AuthSingIN_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+func _RPCAuthorization_AuthSignIn_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(AuthSingInRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(RPCAuthorizationServer).AuthSingIN(ctx, in)
+		return srv.(RPCAuthorizationServer).AuthSignIn(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/mtproto.RPCAuthorization/AuthSingIN",
+		FullMethod: "/authorization.RPCAuthorization/AuthSignIn",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(RPCAuthorizationServer).AuthSingIN(ctx, req.(*AuthSingInRequest))
+		return srv.(RPCAuthorizationServer).AuthSignIn(ctx, req.(*AuthSingInRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
 
-func _RPCAuthorization_AuthSingUP_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+func _RPCAuthorization_AuthSignUp_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(AuthSingUpRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(RPCAuthorizationServer).AuthSingUP(ctx, in)
+		return srv.(RPCAuthorizationServer).AuthSignUp(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/mtproto.RPCAuthorization/AuthSingUP",
+		FullMethod: "/authorization.RPCAuthorization/AuthSignUp",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(RPCAuthorizationServer).AuthSingUP(ctx, req.(*AuthSingUpRequest))
+		return srv.(RPCAuthorizationServer).AuthSignUp(ctx, req.(*AuthSingUpRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
 
 var _RPCAuthorization_serviceDesc = grpc.ServiceDesc{
-	ServiceName: "mtproto.RPCAuthorization",
+	ServiceName: "authorization.RPCAuthorization",
 	HandlerType: (*RPCAuthorizationServer)(nil),
 	Methods: []grpc.MethodDesc{
 		{
-			MethodName: "auth_singIN",
-			Handler:    _RPCAuthorization_AuthSingIN_Handler,
+			MethodName: "AuthSignIn",
+			Handler:    _RPCAuthorization_AuthSignIn_Handler,
 		},
 		{
-			MethodName: "auth_singUP",
-			Handler:    _RPCAuthorization_AuthSingUP_Handler,
+			MethodName: "AuthSignUp",
+			Handler:    _RPCAuthorization_AuthSignUp_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},

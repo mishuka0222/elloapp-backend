@@ -12,6 +12,7 @@ import (
 	"github.com/zeromicro/go-zero/core/stringx"
 	"github.com/zeromicro/go-zero/zrpc"
 	"gitlab.com/merehead/elloapp/backend/elloapp_tg_backend/app/interface/gateway/internal/config"
+	"gitlab.com/merehead/elloapp/backend/elloapp_tg_backend/app/interface/session/client"
 )
 
 const (

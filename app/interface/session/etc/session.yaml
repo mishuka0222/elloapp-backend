@@ -34,7 +34,6 @@ BFFProxyClients:
         Key: messenger.biz_server.phone
   IDMap:
     "/mtproto.RPCBiz": "bff.bff"
-    "/feeds.RPCFeeds": "bff.bff"
     "/mtproto.RPCTos": "bff.bff"
     #"/mtproto.RPCReports": "bff.bff"
     "/mtproto.RPCConfiguration": "bff.bff"
@@ -47,7 +46,7 @@ BFFProxyClients:
     #"/mtproto.RPCTsf": "bff.bff"
     #"/mtproto.RPCTwoFa": "bff.bff"
     #"/mtproto.RPCSeamless": "bff.bff"
-    #"/mtproto.RPCVoipCalls": "bff.bff"
+    "/mtproto.RPCVoipCalls": "bff.bff"
     #"/mtproto.RPCChannels": "bff.bff"
     #"/mtproto.RPCChats": "bff.bff"
     #"/mtproto.RPCDeepLinks": "bff.bff"

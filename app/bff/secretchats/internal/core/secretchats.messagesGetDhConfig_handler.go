@@ -55,7 +55,7 @@ func (c *SecretchatsCore) MessagesGetDhConfig(in *mtproto.TLMessagesGetDhConfig)
 	conf := &mtproto.Messages_DhConfig{
 		Constructor: mtproto.CRC32_messages_dhConfig,
 		Random:      crypto.GenerateNonce(int(in.GetRandomLength())),
-		G:           2,
+		G:           3,
 		P:           dh2048_p,
 		Version:     3,
 	}

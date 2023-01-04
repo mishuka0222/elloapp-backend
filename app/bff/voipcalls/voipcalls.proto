@@ -2,8 +2,18 @@ syntax = "proto3";
 
 option go_package = "voipcalls";
 
-
 package voipcalls;
+
+import "rpc_error_codes.proto";
+import "schema.tl.core_types.proto";
+import "schema.tl.crc32.proto";
+import "schema.tl.handshake.proto";
+import "schema.tl.handshake_service.proto";
+import "schema.tl.sync.proto";
+import "schema.tl.sync_service.proto";
+import "schema.tl.transport.proto";
+import "schema.tl.transport_service.proto";
+import "service.tl.proto";
 
 message TLMessagesDeletePhoneCallHistory {}
 message Messages_AffectedFoundMessages {}

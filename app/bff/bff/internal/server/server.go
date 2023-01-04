@@ -23,6 +23,7 @@ import (
 	photos_helper "gitlab.com/merehead/elloapp/backend/elloapp_tg_backend/app/bff/photos"
 	premium_helper "gitlab.com/merehead/elloapp/backend/elloapp_tg_backend/app/bff/premium"
 	qrcode_helper "gitlab.com/merehead/elloapp/backend/elloapp_tg_backend/app/bff/qrcode"
+	secretchats_helper "gitlab.com/merehead/elloapp/backend/elloapp_tg_backend/app/bff/secretchats"
 	sponsoredmessages_helper "gitlab.com/merehead/elloapp/backend/elloapp_tg_backend/app/bff/sponsoredmessages"
 	tos_helper "gitlab.com/merehead/elloapp/backend/elloapp_tg_backend/app/bff/tos"
 	updates_helper "gitlab.com/merehead/elloapp/backend/elloapp_tg_backend/app/bff/updates"
@@ -57,10 +58,18 @@ func (s *Server) Initialize() error {
 
 	s.grpcSrv = zrpc.MustNewServer(c.RpcServerConf, func(grpcServer *grpc.Server) {
 
+		// secretchats
+		mtproto.RegisterRPCSecretChatsServer(
+			grpcServer,
+			secretchats_helper.New(
+				secretchats_helper.Config{}))
+
+		// voipcalls
 		mtproto.RegisterRPCVoipCallsServer(
 			grpcServer,
 			voipcalls_helper.New(
 				voipcalls_helper.Config{}))
+
 		// tos_helper
 		mtproto.RegisterRPCTosServer(
 			grpcServer,
@@ -114,10 +123,10 @@ func (s *Server) Initialize() error {
 			grpcServer,
 			authorizationService)
 
-		authorizationCustom := authorization_customize_helper.New(
-			authorization_customize_helper.Config{
-				AuthorizationClient: c.BizServiceClient,
-			}, authorizationService)
+		//authorizationCustom := authorization_customize_helper.New(
+		//	authorization_customize_helper.Config{
+		//		AuthorizationClient: c.BizServiceClient,
+		//	}, authorizationService)
 
 		// premium_helper
 		mtproto.RegisterRPCPremiumServer(
@@ -313,7 +322,7 @@ func (s *Server) Initialize() error {
 						MessageClient: c.BizServiceClient,
 						FeedsClient:   c.BizServiceClient,
 					}, messagesCore),
-					op_srv.AuthorizationCustomize: authorizationCustom,
+					//op_srv.AuthorizationCustomize: authorizationCustom,
 				}))
 
 	})

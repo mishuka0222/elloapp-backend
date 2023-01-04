@@ -1,0 +1,37 @@
+syntax = "proto3";
+
+option go_package = "voipcalls";
+
+
+package voipcalls;
+
+message TLMessagesDeletePhoneCallHistory {}
+message Messages_AffectedFoundMessages {}
+message TLPhoneGetCallConfig {}
+message DataJSON {}
+message TLPhoneRequestCall {}
+message Phone_PhoneCall {}
+message TLPhoneAcceptCall {}
+message TLPhoneConfirmCall {}
+message TLPhoneReceivedCall {}
+message Bool {}
+message Updates {}
+message TLPhoneDiscardCall {}
+message TLPhoneSetCallRating {}
+message TLPhoneSaveCallDebug {}
+message TLPhoneSendSignalingData {}
+message TLPhoneSaveCallLog {}
+
+service RPCVoipCalls {
+  rpc MessagesDeletePhoneCallHistory(TLMessagesDeletePhoneCallHistory) returns (Messages_AffectedFoundMessages);
+  rpc PhoneGetCallConfig(TLPhoneGetCallConfig) returns (DataJSON);
+  rpc PhoneRequestCall(TLPhoneRequestCall) returns (Phone_PhoneCall);
+  rpc PhoneAcceptCall(TLPhoneAcceptCall) returns (Phone_PhoneCall);
+  rpc PhoneConfirmCall(TLPhoneConfirmCall) returns (Phone_PhoneCall);
+  rpc PhoneReceivedCall(TLPhoneReceivedCall) returns (Bool);
+  rpc PhoneDiscardCall(TLPhoneDiscardCall) returns (Updates);
+  rpc PhoneSetCallRating(TLPhoneSetCallRating) returns (Updates);
+  rpc PhoneSaveCallDebug(TLPhoneSaveCallDebug) returns (Bool);
+  rpc PhoneSendSignalingData(TLPhoneSendSignalingData) returns (Bool);
+  rpc PhoneSaveCallLog(TLPhoneSaveCallLog) returns (Bool);
+}

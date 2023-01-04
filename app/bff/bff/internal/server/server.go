@@ -4,7 +4,6 @@ import (
 	"flag"
 	account_helper "gitlab.com/merehead/elloapp/backend/elloapp_tg_backend/app/bff/account"
 	authorization_helper "gitlab.com/merehead/elloapp/backend/elloapp_tg_backend/app/bff/authorization"
-	"gitlab.com/merehead/elloapp/backend/elloapp_tg_backend/app/bff/authorization_customize"
 	autodownload_helper "gitlab.com/merehead/elloapp/backend/elloapp_tg_backend/app/bff/autodownload"
 	"gitlab.com/merehead/elloapp/backend/elloapp_tg_backend/app/bff/bff/internal/config"
 	bizraw_helper "gitlab.com/merehead/elloapp/backend/elloapp_tg_backend/app/bff/bizraw"
@@ -29,6 +28,7 @@ import (
 	updates_helper "gitlab.com/merehead/elloapp/backend/elloapp_tg_backend/app/bff/updates"
 	usernames_helper "gitlab.com/merehead/elloapp/backend/elloapp_tg_backend/app/bff/usernames"
 	users_helper "gitlab.com/merehead/elloapp/backend/elloapp_tg_backend/app/bff/users"
+	voipcalls_helper "gitlab.com/merehead/elloapp/backend/elloapp_tg_backend/app/bff/voipcalls"
 	"gitlab.com/merehead/elloapp/backend/elloapp_tg_backend/mtproto"
 
 	"github.com/zeromicro/go-zero/core/conf"
@@ -57,6 +57,10 @@ func (s *Server) Initialize() error {
 
 	s.grpcSrv = zrpc.MustNewServer(c.RpcServerConf, func(grpcServer *grpc.Server) {
 
+		mtproto.RegisterRPCVoipCallsServer(
+			grpcServer,
+			voipcalls_helper.New(
+				voipcalls_helper.Config{}))
 		// tos_helper
 		mtproto.RegisterRPCTosServer(
 			grpcServer,

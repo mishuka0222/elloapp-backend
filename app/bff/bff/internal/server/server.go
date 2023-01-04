@@ -4,7 +4,6 @@ import (
 	"flag"
 	account_helper "gitlab.com/merehead/elloapp/backend/elloapp_tg_backend/app/bff/account"
 	authorization_helper "gitlab.com/merehead/elloapp/backend/elloapp_tg_backend/app/bff/authorization"
-	"gitlab.com/merehead/elloapp/backend/elloapp_tg_backend/app/bff/authorization_customize"
 	autodownload_helper "gitlab.com/merehead/elloapp/backend/elloapp_tg_backend/app/bff/autodownload"
 	"gitlab.com/merehead/elloapp/backend/elloapp_tg_backend/app/bff/bff/internal/config"
 	bizraw_helper "gitlab.com/merehead/elloapp/backend/elloapp_tg_backend/app/bff/bizraw"
@@ -24,11 +23,13 @@ import (
 	photos_helper "gitlab.com/merehead/elloapp/backend/elloapp_tg_backend/app/bff/photos"
 	premium_helper "gitlab.com/merehead/elloapp/backend/elloapp_tg_backend/app/bff/premium"
 	qrcode_helper "gitlab.com/merehead/elloapp/backend/elloapp_tg_backend/app/bff/qrcode"
+	secretchats_helper "gitlab.com/merehead/elloapp/backend/elloapp_tg_backend/app/bff/secretchats"
 	sponsoredmessages_helper "gitlab.com/merehead/elloapp/backend/elloapp_tg_backend/app/bff/sponsoredmessages"
 	tos_helper "gitlab.com/merehead/elloapp/backend/elloapp_tg_backend/app/bff/tos"
 	updates_helper "gitlab.com/merehead/elloapp/backend/elloapp_tg_backend/app/bff/updates"
 	usernames_helper "gitlab.com/merehead/elloapp/backend/elloapp_tg_backend/app/bff/usernames"
 	users_helper "gitlab.com/merehead/elloapp/backend/elloapp_tg_backend/app/bff/users"
+	voipcalls_helper "gitlab.com/merehead/elloapp/backend/elloapp_tg_backend/app/bff/voipcalls"
 	"gitlab.com/merehead/elloapp/backend/elloapp_tg_backend/mtproto"
 
 	"github.com/zeromicro/go-zero/core/conf"
@@ -56,6 +57,18 @@ func (s *Server) Initialize() error {
 	// s.grpcSrv = grpc.New(ctx, c.RpcServerConf)
 
 	s.grpcSrv = zrpc.MustNewServer(c.RpcServerConf, func(grpcServer *grpc.Server) {
+
+		// secretchats
+		mtproto.RegisterRPCSecretChatsServer(
+			grpcServer,
+			secretchats_helper.New(
+				secretchats_helper.Config{}))
+
+		// voipcalls
+		mtproto.RegisterRPCVoipCallsServer(
+			grpcServer,
+			voipcalls_helper.New(
+				voipcalls_helper.Config{}))
 
 		// tos_helper
 		mtproto.RegisterRPCTosServer(
@@ -110,10 +123,10 @@ func (s *Server) Initialize() error {
 			grpcServer,
 			authorizationService)
 
-		authorizationCustom := authorization_customize_helper.New(
-			authorization_customize_helper.Config{
-				AuthorizationClient: c.BizServiceClient,
-			}, authorizationService)
+		//authorizationCustom := authorization_customize_helper.New(
+		//	authorization_customize_helper.Config{
+		//		AuthorizationClient: c.BizServiceClient,
+		//	}, authorizationService)
 
 		// premium_helper
 		mtproto.RegisterRPCPremiumServer(
@@ -309,7 +322,7 @@ func (s *Server) Initialize() error {
 						MessageClient: c.BizServiceClient,
 						FeedsClient:   c.BizServiceClient,
 					}, messagesCore),
-					op_srv.AuthorizationCustomize: authorizationCustom,
+					//op_srv.AuthorizationCustomize: authorizationCustom,
 				}))
 
 	})

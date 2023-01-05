@@ -34,7 +34,7 @@ message TLMakePhoneCallSession {
   int64 admin_id = 1;
   int64 participant_id = 2;
   bytes ga = 3;
-  mtproto.TL_phoneCallProtocol protocol = 4;
+  mtproto.PhoneCallProtocol protocol = 4;
 }
 
 message TLMakePhoneCallSessionByLoad {

@@ -2,12 +2,12 @@ package server
 
 import (
 	"flag"
-	authorization_helper "gitlab.com/merehead/elloapp/backend/elloapp_tg_backend/app/service/biz/authorization"
-	"gitlab.com/merehead/elloapp/backend/elloapp_tg_backend/app/service/biz/authorization/authorization"
 	configuration_helper "gitlab.com/merehead/elloapp/backend/elloapp_tg_backend/app/service/biz/configuration"
 	"gitlab.com/merehead/elloapp/backend/elloapp_tg_backend/app/service/biz/configuration/configuration"
 	feeds_helper "gitlab.com/merehead/elloapp/backend/elloapp_tg_backend/app/service/biz/feeds"
 	"gitlab.com/merehead/elloapp/backend/elloapp_tg_backend/app/service/biz/feeds/feeds"
+	phonecall_helper "gitlab.com/merehead/elloapp/backend/elloapp_tg_backend/app/service/biz/phone_call"
+	"gitlab.com/merehead/elloapp/backend/elloapp_tg_backend/app/service/biz/phone_call/phonecall"
 
 	"gitlab.com/merehead/elloapp/backend/elloapp_tg_backend/app/service/biz/biz/internal/config"
 	chat_helper "gitlab.com/merehead/elloapp/backend/elloapp_tg_backend/app/service/biz/chat"
@@ -51,6 +51,14 @@ func (s *Server) Initialize() error {
 
 	s.grpcSrv = zrpc.MustNewServer(c.RpcServerConf, func(grpcServer *grpc.Server) {
 
+		//phone_call
+		phonecall.RegisterRPCPhoneCallServer(
+			grpcServer,
+			phonecall_helper.New(
+				phonecall_helper.Config{
+					RpcServerConf: c.RpcServerConf,
+				}))
+
 		//configuration
 		configuration.RegisterRPCConfigurationServer(
 			grpcServer,
@@ -69,14 +77,14 @@ func (s *Server) Initialize() error {
 					Mysql:         c.Mysql,
 				}))
 
-		// authorization
-		authorization.RegisterRPCAuthorizationServer(
-			grpcServer,
-			authorization_helper.New(
-				authorization_helper.Config{
-					RpcServerConf: c.RpcServerConf,
-					Mysql:         c.Mysql,
-				}))
+		//// authorization
+		//authorization.RegisterRPCAuthorizationServer(
+		//	grpcServer,
+		//	authorization_helper.New(
+		//		authorization_helper.Config{
+		//			RpcServerConf: c.RpcServerConf,
+		//			Mysql:         c.Mysql,
+		//		}))
 
 		// chat_helper
 		chat.RegisterRPCChatServer(

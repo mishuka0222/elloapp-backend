@@ -1,0 +1,47 @@
+syntax = "proto3";
+
+package phonecall;
+
+import "rpc_error_codes.proto";
+import "schema.tl.core_types.proto";
+import "schema.tl.crc32.proto";
+import "schema.tl.handshake.proto";
+import "schema.tl.handshake_service.proto";
+import "schema.tl.sync.proto";
+import "schema.tl.sync_service.proto";
+import "schema.tl.transport.proto";
+import "schema.tl.transport_service.proto";
+import "service.tl.proto";
+import "my_type.proto";
+
+message PhoneCallSession {
+  int64 id = 1;
+  int64 admin_id = 2;
+  int64 admin_access_hash = 3;
+  int64 participant_id = 4;
+  int64 participant_access_hash = 5;
+  bool  udp_p2p = 6;
+  bool  udp_reflector = 7;
+  int32 min_layer = 8;
+  int32 max_layer = 9;
+  bytes g_a = 10;
+  bytes g_b = 11;
+  int32 state = 12;
+  int64 date = 13;
+}
+
+message TLMakePhoneCallSession {
+  int64 admin_id = 1;
+  int64 participant_id = 2;
+  bytes ga = 3;
+  mtproto.TL_phoneCallProtocol protocol = 4;
+}
+
+message TLMakePhoneCallSessionByLoad {
+  int64 session_id = 1;
+}
+
+service RPCPhoneCall {
+  rpc MakePhoneCallSession(TLMakePhoneCallSession) returns (PhoneCallSession);
+  rpc MakePhoneCallSessionByLoad(TLMakePhoneCallSessionByLoad) returns (PhoneCallSession);
+}

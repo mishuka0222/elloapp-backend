@@ -2,13 +2,22 @@ package core
 
 import (
 	"encoding/hex"
+	"errors"
 	"fmt"
 	"gitlab.com/merehead/elloapp/backend/elloapp_tg_backend/app/service/biz/phone_call/internal/dao/dataobject"
 
 	"gitlab.com/merehead/elloapp/backend/elloapp_tg_backend/app/service/biz/phone_call/phonecall"
 )
 
+var K_SESSION = make(map[int64]*phonecall.PhoneCallSession)
+
 func (c *PhonecallCore) MakePhoneCallSessionByLoad(in *phonecall.TLMakePhoneCallSessionByLoad) (*phonecall.PhoneCallSession, error) {
+	if sess, ok := K_SESSION[in.SessionId]; ok {
+		return sess, nil
+	} else {
+		return nil, errors.New(" Session not found")
+	}
+
 	var do *dataobject.PhoneCallSessionsDO
 	// TODO: write logic
 	//do = c.svcCtx.Dao.PhoneCallSessionsDAO.SelectSession(in.SessionId)

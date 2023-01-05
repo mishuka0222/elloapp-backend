@@ -11,7 +11,7 @@ import (
 
 func (c *PhonecallCore) MakePhoneCallSession(in *phonecall.TLMakePhoneCallSession) (*phonecall.PhoneCallSession, error) {
 	session := &phonecall.PhoneCallSession{
-		Id:                    8675987569740, // TODO: IdGen Client => NextId()
+		Id:                    10101010101010, // TODO: IdGen Client => NextId()
 		AdminId:               in.AdminId,
 		AdminAccessHash:       rand.Int63(),
 		ParticipantId:         in.ParticipantId,
@@ -41,5 +41,6 @@ func (c *PhonecallCore) MakePhoneCallSession(in *phonecall.TLMakePhoneCallSessio
 	// TODO: write logic
 	//dao.GetPhoneCallSessionsDAO(dao.DB_MASTER).Insert(do)
 	_ = do
+	K_SESSION[session.Id] = session
 	return session, nil
 }

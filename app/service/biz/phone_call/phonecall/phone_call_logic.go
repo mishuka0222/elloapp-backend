@@ -134,6 +134,7 @@ func (p *PhoneCallSession) ToPhoneCall(selfId int64, keyFingerprint int64) *mtpr
 		Protocol:       p.toPhoneCallProtocol(),
 		// TODO: write logic
 		Connections: []*mtproto.PhoneConnection{makeConnection()},
-		StartDate:   0,
+		//Connections: []*mtproto.PhoneConnection{},
+		StartDate: 0,
 	}}
 }

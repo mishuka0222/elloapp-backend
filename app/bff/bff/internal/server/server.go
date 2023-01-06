@@ -62,13 +62,21 @@ func (s *Server) Initialize() error {
 		mtproto.RegisterRPCSecretChatsServer(
 			grpcServer,
 			secretchats_helper.New(
-				secretchats_helper.Config{}))
+				secretchats_helper.Config{
+					RpcServerConf: c.RpcServerConf,
+				}))
 
 		// voipcalls
 		mtproto.RegisterRPCVoipCallsServer(
 			grpcServer,
 			voipcalls_helper.New(
-				voipcalls_helper.Config{}))
+				voipcalls_helper.Config{
+					RpcServerConf:   c.RpcServerConf,
+					PhonecallClient: c.BizServiceClient,
+					UserClient:      c.BizServiceClient,
+					MsgClient:       c.MsgClient,
+					SyncClient:      c.SyncClient,
+				}))
 
 		// tos_helper
 		mtproto.RegisterRPCTosServer(

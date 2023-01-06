@@ -74,6 +74,7 @@ func (s *Server) Initialize() error {
 					RpcServerConf:   c.RpcServerConf,
 					PhonecallClient: c.BizServiceClient,
 					UserClient:      c.BizServiceClient,
+					MsgClient:       c.MsgClient,
 					SyncClient:      c.SyncClient,
 				}))
 

@@ -40,7 +40,7 @@ func (c *VoipcallsCore) PhoneReceivedCall(in *mtproto.TLPhoneReceivedCall) (*mtp
 			//		Id: idList,
 			//	})
 			users, _ := c.svcCtx.Dao.UserClient.UserGetMutableUsers(c.ctx, &userpb.TLUserGetMutableUsers{
-				Id: []int64{c.MD.UserId, callSession.AdminId},
+				Id: []int64{callSession.AdminId, callSession.ParticipantId},
 			})
 			return users.GetUserListByIdList(c.MD.UserId, idList...)
 		},
@@ -62,6 +62,7 @@ func (c *VoipcallsCore) PhoneReceivedCall(in *mtproto.TLPhoneReceivedCall) (*mtp
 		updatePhoneCall)
 
 	c.svcCtx.Dao.SyncClient.SyncUpdatesNotMe(c.ctx, &sync.TLSyncUpdatesNotMe{
+		// MARK: From Participant to Admin
 		UserId: callSession.AdminId,
 		//AuthKeyId: c.MD.PermAuthKeyId,
 		Updates: mtproto.MakeSyncNotMeUpdates(

@@ -57,6 +57,7 @@ func (s *Server) Initialize() error {
 			phonecall_helper.New(
 				phonecall_helper.Config{
 					RpcServerConf: c.RpcServerConf,
+					IdgenClient:   c.IdgenClient,
 				}))
 
 		//configuration

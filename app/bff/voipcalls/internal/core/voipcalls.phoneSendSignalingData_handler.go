@@ -24,18 +24,17 @@ func (c *VoipcallsCore) PhoneSendSignalingData(in *mtproto.TLPhoneSendSignalingD
 	added, _ := users.GetImmutableUser(callSession.AdminId)
 	if me == nil || added == nil {
 		err = mtproto.ErrPeerIdInvalid
-		c.Logger.Errorf("voipcalls.phoneRequestCall - error: %v", err)
+		c.Logger.Errorf("voipcalls.phoneSendSignalingData - error: %v", err)
 		return nil, err
 	}
 
-	// TODO: return empty connection list
-	updatePhoneCall := (&mtproto.TLUpdatePhoneCallSignalingData{
-		Data2: &mtproto.Update{
-			UserId:         callSession.ParticipantId,
-			PhoneCallId:    callSession.Id,
-			Data_FLAGBYTES: in.Data,
-		},
-	}).To_Update()
+	sData := mtproto.MakeTLUpdatePhoneCallSignalingData(&mtproto.Update{
+		PhoneCallId:    callSession.Id,
+		Data_FLAGBYTES: in.Data,
+	})
+	sData.SetPhoneCallId(in.GetPeer().GetId())
+	sData.SetData_FLAGBYTES(in.Data)
+	updatePhoneCall := sData.To_Update()
 
 	rUpdates := mtproto.MakeReplyUpdates(
 		func(idList []int64) []*mtproto.User {

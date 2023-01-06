@@ -68,10 +68,12 @@ func (c *VoipcallsCore) PhoneRequestCall(in *mtproto.TLPhoneRequestCall) (*mtpro
 	}
 
 	callSession, err := c.svcCtx.Dao.PhonecallClient.MakePhoneCallSession(c.ctx, &phonecall.TLMakePhoneCallSession{
+		RandomId:      in.GetRandomId(),
 		AdminId:       c.MD.UserId,
 		ParticipantId: participantId,
-		Ga:            in.GetGAHash(),
+		GaHash:        in.GetGAHash(),
 		Protocol:      in.GetProtocol(),
+		IsVideo:       in.Video,
 	})
 	if err != nil {
 		return nil, err
@@ -79,7 +81,7 @@ func (c *VoipcallsCore) PhoneRequestCall(in *mtproto.TLPhoneRequestCall) (*mtpro
 
 	updatePhoneCall := (&mtproto.TLUpdatePhoneCall{
 		Data2: &mtproto.Update{
-			PhoneCall: callSession.ToPhoneCallRequested().To_PhoneCall(),
+			PhoneCall: callSession.ToPhoneCallRequested(in.Protocol.GetLibraryVersions()).To_PhoneCall(),
 		},
 	}).To_Update()
 	rUpdates := mtproto.MakeReplyUpdates(
@@ -109,6 +111,7 @@ func (c *VoipcallsCore) PhoneRequestCall(in *mtproto.TLPhoneRequestCall) (*mtpro
 		updatePhoneCall)
 
 	c.svcCtx.Dao.SyncClient.SyncUpdatesNotMe(c.ctx, &sync.TLSyncUpdatesNotMe{
+		// MARK: From Admin to Participant
 		UserId: participantId,
 		//AuthKeyId: c.MD.PermAuthKeyId,
 		Updates: mtproto.MakeSyncNotMeUpdates(

@@ -33,15 +33,25 @@ message PhoneCallSession {
 message TLMakePhoneCallSession {
   int64 admin_id = 1;
   int64 participant_id = 2;
-  bytes ga = 3;
+  bytes ga_hash = 3;
   mtproto.PhoneCallProtocol protocol = 4;
+  int32 random_id = 5;
+  bool is_video = 6;
 }
 
 message TLMakePhoneCallSessionByLoad {
   int64 session_id = 1;
 }
 
+message TLSetGB {
+  int64 session_id = 1;
+  bytes gb = 2;
+}
+
+message Void {}
+
 service RPCPhoneCall {
+  rpc SetGB(TLSetGB) returns (Void);
   rpc MakePhoneCallSession(TLMakePhoneCallSession) returns (PhoneCallSession);
   rpc MakePhoneCallSessionByLoad(TLMakePhoneCallSessionByLoad) returns (PhoneCallSession);
 }

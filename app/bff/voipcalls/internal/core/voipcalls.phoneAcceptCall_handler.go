@@ -25,7 +25,7 @@ func (c *VoipcallsCore) PhoneAcceptCall(in *mtproto.TLPhoneAcceptCall) (*mtproto
 	}
 
 	users, _ := c.svcCtx.Dao.UserClient.UserGetMutableUsers(c.ctx, &userpb.TLUserGetMutableUsers{
-		Id: []int64{c.MD.UserId, callSession.AdminId},
+		Id: []int64{callSession.AdminId, callSession.ParticipantId},
 	})
 	me, _ := users.GetImmutableUser(c.MD.UserId)
 	added, _ := users.GetImmutableUser(callSession.AdminId)
@@ -36,25 +36,15 @@ func (c *VoipcallsCore) PhoneAcceptCall(in *mtproto.TLPhoneAcceptCall) (*mtproto
 	}
 
 	// cache g_b
-	//callSession.SetGB(c.svcCtx.Dao ,in.GetGB())
-	// TODO: write logic
-	callSession.GB = in.GetGB()
-
-	phoneCallAccepted := mtproto.MakeTLPhoneCallAccepted(&mtproto.PhoneCall{
-		Constructor:   mtproto.CRC32_phoneCallAccepted,
-		Id:            callSession.Id,
-		Video:         true,
-		AccessHash:    callSession.ParticipantAccessHash,
-		Date:          int32(callSession.Date),
-		AdminId:       callSession.AdminId,
-		ParticipantId: callSession.ParticipantId,
-		Protocol:      callSession.ToPhoneCallProtocol(),
-		GB:            callSession.GB,
-	})
+	callSession.SetGB(in.GetGB())
+	if _, err := c.svcCtx.Dao.PhonecallClient.SetGB(c.ctx,
+		&phonecall.TLSetGB{SessionId: peer.GetId(), Gb: in.GetGB()}); err != nil {
+		return nil, err
+	}
 
 	updatePhoneCall := (&mtproto.TLUpdatePhoneCall{
 		Data2: &mtproto.Update{
-			PhoneCall: phoneCallAccepted.To_PhoneCall(),
+			PhoneCall: callSession.ToPhoneCallAccepted(in.Protocol.GetLibraryVersions()).To_PhoneCall(),
 		},
 	}).To_Update()
 
@@ -86,6 +76,7 @@ func (c *VoipcallsCore) PhoneAcceptCall(in *mtproto.TLPhoneAcceptCall) (*mtproto
 		updatePhoneCall)
 
 	c.svcCtx.Dao.SyncClient.SyncUpdatesNotMe(c.ctx, &sync.TLSyncUpdatesNotMe{
+		// MARK: From Participant to Admin
 		UserId: callSession.AdminId,
 		//AuthKeyId: c.MD.PermAuthKeyId,
 		Updates: mtproto.MakeSyncNotMeUpdates(
@@ -103,7 +94,7 @@ func (c *VoipcallsCore) PhoneAcceptCall(in *mtproto.TLPhoneAcceptCall) (*mtproto
 	})
 
 	return mtproto.MakeTLPhonePhoneCall(&mtproto.Phone_PhoneCall{
-		PhoneCall: callSession.ToPhoneCallWaiting(c.MD.UserId, 0).To_PhoneCall(),
+		PhoneCall: callSession.ToPhoneCallAccepted(in.Protocol.GetLibraryVersions()).To_PhoneCall(),
 		Users:     []*mtproto.User{me.ToSelfUser(), added.ToSelfUser()},
 	}).To_Phone_PhoneCall(), nil
 }

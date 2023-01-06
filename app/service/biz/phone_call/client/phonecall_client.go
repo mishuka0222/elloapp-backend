@@ -16,8 +16,11 @@ type (
 	PhoneCallSession             = phonecall.PhoneCallSession
 	TLMakePhoneCallSession       = phonecall.TLMakePhoneCallSession
 	TLMakePhoneCallSessionByLoad = phonecall.TLMakePhoneCallSessionByLoad
+	TLSetGB                      = phonecall.TLSetGB
+	Void                         = phonecall.Void
 
 	PhonecallClient interface {
+		SetGB(ctx context.Context, in *TLSetGB, opts ...grpc.CallOption) (*Void, error)
 		MakePhoneCallSession(ctx context.Context, in *TLMakePhoneCallSession, opts ...grpc.CallOption) (*PhoneCallSession, error)
 		MakePhoneCallSessionByLoad(ctx context.Context, in *TLMakePhoneCallSessionByLoad, opts ...grpc.CallOption) (*PhoneCallSession, error)
 	}
@@ -31,6 +34,11 @@ func NewPhonecallClient(cli zrpc.Client) PhonecallClient {
 	return &defaultPhonecallClient{
 		cli: cli,
 	}
+}
+
+func (m *defaultPhonecallClient) SetGB(ctx context.Context, in *TLSetGB, opts ...grpc.CallOption) (*Void, error) {
+	client := phonecall.NewRPCPhoneCallClient(m.cli.Conn())
+	return client.SetGB(ctx, in, opts...)
 }
 
 func (m *defaultPhonecallClient) MakePhoneCallSession(ctx context.Context, in *TLMakePhoneCallSession, opts ...grpc.CallOption) (*PhoneCallSession, error) {

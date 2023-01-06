@@ -10,6 +10,19 @@ import (
 	"gitlab.com/merehead/elloapp/backend/elloapp_tg_backend/app/service/biz/phone_call/phonecall"
 )
 
+func (s *Service) SetGB(ctx context.Context, in *phonecall.TLSetGB) (*phonecall.Void, error) {
+	c := core.NewPhonecall(ctx, s.svcCtx)
+
+	c.Logger.Debugf("phonecall.SetGB - metadata: %s, request: %s", c.MD.DebugString(), in.String())
+	r, err := c.SetGB(in)
+	if err != nil {
+		return nil, err
+	}
+
+	c.Logger.Debugf("phonecall.SetGB - reply: %+v", r)
+	return r, err
+}
+
 func (s *Service) MakePhoneCallSession(ctx context.Context, in *phonecall.TLMakePhoneCallSession) (*phonecall.PhoneCallSession, error) {
 	c := core.NewPhonecall(ctx, s.svcCtx)
 

@@ -19,7 +19,7 @@ func (c *VoipcallsCore) PhoneConfirmCall(in *mtproto.TLPhoneConfirmCall) (*mtpro
 	callSession.GA = in.GetGA()
 
 	users, _ := c.svcCtx.Dao.UserClient.UserGetMutableUsers(c.ctx, &userpb.TLUserGetMutableUsers{
-		Id: []int64{c.MD.UserId, callSession.AdminId},
+		Id: []int64{callSession.AdminId, callSession.ParticipantId},
 	})
 	me, _ := users.GetImmutableUser(c.MD.UserId)
 	added, _ := users.GetImmutableUser(callSession.AdminId)
@@ -28,16 +28,10 @@ func (c *VoipcallsCore) PhoneConfirmCall(in *mtproto.TLPhoneConfirmCall) (*mtpro
 		c.Logger.Errorf("voipcalls.phoneRequestCall - error: %v", err)
 		return nil, err
 	}
-
-	tpc := callSession.ToPhoneCall(callSession.ParticipantId, in.GetKeyFingerprint())
-	tpc.Data2.Connections[0].Ip = c.MD.ClientAddr
-	tpc.Data2.Protocol.LibraryVersions = in.Protocol.LibraryVersions
 	// TODO: return empty connection list
+	tpc := callSession.ToPhoneCall(callSession.ParticipantId, in.GetKeyFingerprint(), c.MD.ClientAddr, in.Protocol.GetLibraryVersions())
 	updatePhoneCall := (&mtproto.TLUpdatePhoneCall{
-		Data2: &mtproto.Update{
-			UserId:    callSession.AdminId,
-			PhoneCall: tpc.To_PhoneCall(),
-		},
+		Data2: &mtproto.Update{PhoneCall: tpc.To_PhoneCall()},
 	}).To_Update()
 
 	rUpdates := mtproto.MakeReplyUpdates(
@@ -68,7 +62,8 @@ func (c *VoipcallsCore) PhoneConfirmCall(in *mtproto.TLPhoneConfirmCall) (*mtpro
 		updatePhoneCall)
 
 	_, err = c.svcCtx.Dao.SyncClient.SyncUpdatesNotMe(c.ctx, &sync.TLSyncUpdatesNotMe{
-		UserId: callSession.AdminId,
+		// MARK: From Admin to Participant
+		UserId: callSession.ParticipantId,
 		//AuthKeyId: c.MD.PermAuthKeyId,
 		Updates: mtproto.MakeSyncNotMeUpdates(
 			func(idList []int64) []*mtproto.User {
@@ -87,11 +82,8 @@ func (c *VoipcallsCore) PhoneConfirmCall(in *mtproto.TLPhoneConfirmCall) (*mtpro
 		c.Logger.Errorf("SyncUpdatesNotMe, err: %v", err)
 		return nil, err
 	}
-
-	tpc = callSession.ToPhoneCall(callSession.ParticipantId, in.GetKeyFingerprint())
-	tpc.Data2.Connections[0].Ip = c.MD.ClientAddr
-	tpc.Data2.Protocol.LibraryVersions = in.Protocol.LibraryVersions
-	c.Logger.Debugf("CONFIRM PhoneCall %v", tpc)
+	// TODO: return empty connection list
+	tpc = callSession.ToPhoneCall(callSession.AdminId, in.GetKeyFingerprint(), c.MD.ClientAddr, in.Protocol.GetLibraryVersions())
 	return mtproto.MakeTLPhonePhoneCall(&mtproto.Phone_PhoneCall{
 		PhoneCall: tpc.To_PhoneCall(),
 		Users:     []*mtproto.User{me.ToSelfUser(), added.ToSelfUser()},

@@ -9,5 +9,6 @@ type Config struct {
 	zrpc.RpcServerConf
 	PhonecallClient zrpc.RpcClientConf
 	UserClient      zrpc.RpcClientConf
+	MsgClient       zrpc.RpcClientConf
 	SyncClient      *kafka.KafkaProducerConf
 }

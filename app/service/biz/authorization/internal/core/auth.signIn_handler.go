@@ -2,7 +2,7 @@ package core
 
 import (
 	"errors"
-	"gitlab.com/merehead/elloapp/backend/elloapp_backend/app/service/biz/authorization/authorization"
+	"gitlab.com/merehead/elloapp/backend/elloapp_tg_backend/app/service/biz/authorization/authorization"
 )
 
 // AuthSingIN

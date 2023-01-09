@@ -1,17 +1,8 @@
-/*
- * Created from 'scheme.tl' by 'mtprotoc'
- *
- * Copyright (c) 2021-present,  Teamgram Studio (https://teamgram.io).
- *  All rights reserved.
- *
- * Author: teamgramio (teamgram.io@gmail.com)
- */
-
 package config
 
 import (
 	"github.com/zeromicro/go-zero/zrpc"
-	"gitlab.com/merehead/elloapp/backend/elloapp_backend/pkg2/net2"
+	"gitlab.com/merehead/elloapp/backend/elloapp_tg_backend/pkg2/net2"
 )
 
 type Config struct {

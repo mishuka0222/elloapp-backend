@@ -1,4 +1,4 @@
-module gitlab.com/merehead/elloapp/backend/elloapp_backend
+module gitlab.com/merehead/elloapp/backend/elloapp_tg_backend
 
 go 1.17
 
@@ -18,7 +18,6 @@ require (
 	github.com/zeromicro/go-zero v1.4.2
 	go.opentelemetry.io/otel v1.11.0
 	go.opentelemetry.io/otel/trace v1.11.0
-	go.uber.org/atomic v1.9.0
 	golang.org/x/crypto v0.0.0-20220622213112-05595931fe9d
 	golang.org/x/net v0.0.0-20220624214902-1bab6f366d9e
 	google.golang.org/grpc v1.50.1
@@ -114,6 +113,7 @@ require (
 	go.opentelemetry.io/otel/exporters/zipkin v1.11.0 // indirect
 	go.opentelemetry.io/otel/sdk v1.11.0 // indirect
 	go.opentelemetry.io/proto/otlp v0.19.0 // indirect
+	go.uber.org/atomic v1.9.0 // indirect
 	go.uber.org/automaxprocs v1.5.1 // indirect
 	go.uber.org/multierr v1.8.0 // indirect
 	go.uber.org/zap v1.21.0 // indirect

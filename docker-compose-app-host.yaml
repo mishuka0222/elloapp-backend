@@ -12,8 +12,8 @@ services:
     ports:
       - '20660:20660'
     volumes:
-      - ./teamgramd/etc_dev:/etc
-      - ./teamgramd/logs:/logs
+      - ./elloappd/etc_dev:/etc
+      - ./elloappd/logs:/logs
   status:
     container_name: 'status'
     build:
@@ -25,8 +25,8 @@ services:
     ports:
       - '20670:20670'
     volumes:
-      - ./teamgramd/etc_dev:/etc
-      - ./teamgramd/logs:/logs
+      - ./elloappd/etc_dev:/etc
+      - ./elloappd/logs:/logs
     depends_on:
       - idgen
   dfs: # docker-compose -f docker-compose-app.yaml up -d dfs --build
@@ -36,13 +36,13 @@ services:
       dockerfile: DockerfileUbuntu
       args:
         - CMD_PATH=service/dfs/cmd/dfs/
-        - CONFIG_PATH=teamgramd/etc_dev/dfs.yaml
+        - CONFIG_PATH=elloappd/etc_dev/dfs.yaml
     network_mode: "host"
     ports:
       - '20640:20640'
     volumes:
-      - ./teamgramd/etc_dev:/etc
-      - ./teamgramd/logs:/logs
+      - ./elloappd/etc_dev:/etc
+      - ./elloappd/logs:/logs
     depends_on:
       - status
   media:
@@ -56,8 +56,8 @@ services:
     ports:
       - '20650:20650'
     volumes:
-      - ./teamgramd/etc_dev:/etc
-      - ./teamgramd/logs:/logs
+      - ./elloappd/etc_dev:/etc
+      - ./elloappd/logs:/logs
     depends_on:
       - dfs
   authsession:
@@ -71,8 +71,8 @@ services:
     ports:
       - '20450:20450'
     volumes:
-      - ./teamgramd/etc_dev:/etc
-      - ./teamgramd/logs:/logs
+      - ./elloappd/etc_dev:/etc
+      - ./elloappd/logs:/logs
     depends_on:
       - media
   biz:
@@ -86,8 +86,8 @@ services:
     ports:
       - '20020:20020'
     volumes:
-      - ./teamgramd/etc_dev:/etc
-      - ./teamgramd/logs:/logs
+      - ./elloappd/etc_dev:/etc
+      - ./elloappd/logs:/logs
     depends_on:
       - authsession
   msg:
@@ -101,8 +101,8 @@ services:
     ports:
       - '20030:20030'
     volumes:
-      - ./teamgramd/etc_dev:/etc
-      - ./teamgramd/logs:/logs
+      - ./elloappd/etc_dev:/etc
+      - ./elloappd/logs:/logs
     depends_on:
       - biz
   sync:
@@ -116,8 +116,8 @@ services:
     ports:
       - '20420:20420'
     volumes:
-      - ./teamgramd/etc_dev:/etc
-      - ./teamgramd/logs:/logs
+      - ./elloappd/etc_dev:/etc
+      - ./elloappd/logs:/logs
     depends_on:
       - msg
   bff:
@@ -131,9 +131,9 @@ services:
     ports:
       - '20010:20010'
     volumes:
-      - ./teamgramd/etc_dev:/etc
-      - ./teamgramd/logs:/logs
-      - ./teamgramd/bin/config.json:/config.json
+      - ./elloappd/etc_dev:/etc
+      - ./elloappd/logs:/logs
+      - ./elloappd/bin/config.json:/config.json
     depends_on:
       - sync
   session:
@@ -147,8 +147,8 @@ services:
     ports:
       - '20120:20120'
     volumes:
-      - ./teamgramd/etc_dev:/etc
-      - ./teamgramd/logs:/logs
+      - ./elloappd/etc_dev:/etc
+      - ./elloappd/logs:/logs
     depends_on:
       - bff
   gateway:
@@ -165,8 +165,8 @@ services:
       - "5222:5222"
       - "8801:8801"
     volumes:
-      - ./teamgramd/etc_dev:/etc
-      - ./teamgramd/logs:/logs
-      - ./teamgramd/bin/server_pkcs1.key:/server_pkcs1.key
+      - ./elloappd/etc_dev:/etc
+      - ./elloappd/logs:/logs
+      - ./elloappd/bin/server_pkcs1.key:/server_pkcs1.key
     depends_on:
       - session

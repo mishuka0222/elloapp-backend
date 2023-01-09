@@ -2,34 +2,35 @@ package server
 
 import (
 	"flag"
-	account_helper "gitlab.com/merehead/elloapp/backend/elloapp_backend/app/bff/account"
-	authorization_helper "gitlab.com/merehead/elloapp/backend/elloapp_backend/app/bff/authorization"
-	"gitlab.com/merehead/elloapp/backend/elloapp_backend/app/bff/authorization_customize"
-	autodownload_helper "gitlab.com/merehead/elloapp/backend/elloapp_backend/app/bff/autodownload"
-	"gitlab.com/merehead/elloapp/backend/elloapp_backend/app/bff/bff/internal/config"
-	bizraw_helper "gitlab.com/merehead/elloapp/backend/elloapp_backend/app/bff/bizraw"
-	op_srv "gitlab.com/merehead/elloapp/backend/elloapp_backend/app/bff/bizraw/service"
-	chatinvites_helper "gitlab.com/merehead/elloapp/backend/elloapp_backend/app/bff/chatinvites"
-	chats_helper "gitlab.com/merehead/elloapp/backend/elloapp_backend/app/bff/chats"
-	configuration_helper "gitlab.com/merehead/elloapp/backend/elloapp_backend/app/bff/configuration"
-	contacts_helper "gitlab.com/merehead/elloapp/backend/elloapp_backend/app/bff/contacts"
-	dialogs_helper "gitlab.com/merehead/elloapp/backend/elloapp_backend/app/bff/dialogs"
-	drafts_helper "gitlab.com/merehead/elloapp/backend/elloapp_backend/app/bff/drafts"
-	feeds_helper "gitlab.com/merehead/elloapp/backend/elloapp_backend/app/bff/feeds"
-	files_helper "gitlab.com/merehead/elloapp/backend/elloapp_backend/app/bff/files"
-	messages_helper "gitlab.com/merehead/elloapp/backend/elloapp_backend/app/bff/messages"
-	miscellaneous_helper "gitlab.com/merehead/elloapp/backend/elloapp_backend/app/bff/miscellaneous"
-	notification_helper "gitlab.com/merehead/elloapp/backend/elloapp_backend/app/bff/notification"
-	nsfw_helper "gitlab.com/merehead/elloapp/backend/elloapp_backend/app/bff/nsfw"
-	photos_helper "gitlab.com/merehead/elloapp/backend/elloapp_backend/app/bff/photos"
-	premium_helper "gitlab.com/merehead/elloapp/backend/elloapp_backend/app/bff/premium"
-	qrcode_helper "gitlab.com/merehead/elloapp/backend/elloapp_backend/app/bff/qrcode"
-	sponsoredmessages_helper "gitlab.com/merehead/elloapp/backend/elloapp_backend/app/bff/sponsoredmessages"
-	tos_helper "gitlab.com/merehead/elloapp/backend/elloapp_backend/app/bff/tos"
-	updates_helper "gitlab.com/merehead/elloapp/backend/elloapp_backend/app/bff/updates"
-	usernames_helper "gitlab.com/merehead/elloapp/backend/elloapp_backend/app/bff/usernames"
-	users_helper "gitlab.com/merehead/elloapp/backend/elloapp_backend/app/bff/users"
-	"gitlab.com/merehead/elloapp/backend/elloapp_backend/mtproto"
+	account_helper "gitlab.com/merehead/elloapp/backend/elloapp_tg_backend/app/bff/account"
+	authorization_helper "gitlab.com/merehead/elloapp/backend/elloapp_tg_backend/app/bff/authorization"
+	autodownload_helper "gitlab.com/merehead/elloapp/backend/elloapp_tg_backend/app/bff/autodownload"
+	"gitlab.com/merehead/elloapp/backend/elloapp_tg_backend/app/bff/bff/internal/config"
+	bizraw_helper "gitlab.com/merehead/elloapp/backend/elloapp_tg_backend/app/bff/bizraw"
+	op_srv "gitlab.com/merehead/elloapp/backend/elloapp_tg_backend/app/bff/bizraw/service"
+	chatinvites_helper "gitlab.com/merehead/elloapp/backend/elloapp_tg_backend/app/bff/chatinvites"
+	chats_helper "gitlab.com/merehead/elloapp/backend/elloapp_tg_backend/app/bff/chats"
+	configuration_helper "gitlab.com/merehead/elloapp/backend/elloapp_tg_backend/app/bff/configuration"
+	contacts_helper "gitlab.com/merehead/elloapp/backend/elloapp_tg_backend/app/bff/contacts"
+	dialogs_helper "gitlab.com/merehead/elloapp/backend/elloapp_tg_backend/app/bff/dialogs"
+	drafts_helper "gitlab.com/merehead/elloapp/backend/elloapp_tg_backend/app/bff/drafts"
+	feeds_helper "gitlab.com/merehead/elloapp/backend/elloapp_tg_backend/app/bff/feeds"
+	files_helper "gitlab.com/merehead/elloapp/backend/elloapp_tg_backend/app/bff/files"
+	messages_helper "gitlab.com/merehead/elloapp/backend/elloapp_tg_backend/app/bff/messages"
+	miscellaneous_helper "gitlab.com/merehead/elloapp/backend/elloapp_tg_backend/app/bff/miscellaneous"
+	notification_helper "gitlab.com/merehead/elloapp/backend/elloapp_tg_backend/app/bff/notification"
+	nsfw_helper "gitlab.com/merehead/elloapp/backend/elloapp_tg_backend/app/bff/nsfw"
+	photos_helper "gitlab.com/merehead/elloapp/backend/elloapp_tg_backend/app/bff/photos"
+	premium_helper "gitlab.com/merehead/elloapp/backend/elloapp_tg_backend/app/bff/premium"
+	qrcode_helper "gitlab.com/merehead/elloapp/backend/elloapp_tg_backend/app/bff/qrcode"
+	secretchats_helper "gitlab.com/merehead/elloapp/backend/elloapp_tg_backend/app/bff/secretchats"
+	sponsoredmessages_helper "gitlab.com/merehead/elloapp/backend/elloapp_tg_backend/app/bff/sponsoredmessages"
+	tos_helper "gitlab.com/merehead/elloapp/backend/elloapp_tg_backend/app/bff/tos"
+	updates_helper "gitlab.com/merehead/elloapp/backend/elloapp_tg_backend/app/bff/updates"
+	usernames_helper "gitlab.com/merehead/elloapp/backend/elloapp_tg_backend/app/bff/usernames"
+	users_helper "gitlab.com/merehead/elloapp/backend/elloapp_tg_backend/app/bff/users"
+	voipcalls_helper "gitlab.com/merehead/elloapp/backend/elloapp_tg_backend/app/bff/voipcalls"
+	"gitlab.com/merehead/elloapp/backend/elloapp_tg_backend/mtproto"
 
 	"github.com/zeromicro/go-zero/core/conf"
 	"github.com/zeromicro/go-zero/core/logx"
@@ -56,6 +57,26 @@ func (s *Server) Initialize() error {
 	// s.grpcSrv = grpc.New(ctx, c.RpcServerConf)
 
 	s.grpcSrv = zrpc.MustNewServer(c.RpcServerConf, func(grpcServer *grpc.Server) {
+
+		// secretchats
+		mtproto.RegisterRPCSecretChatsServer(
+			grpcServer,
+			secretchats_helper.New(
+				secretchats_helper.Config{
+					RpcServerConf: c.RpcServerConf,
+				}))
+
+		// voipcalls
+		mtproto.RegisterRPCVoipCallsServer(
+			grpcServer,
+			voipcalls_helper.New(
+				voipcalls_helper.Config{
+					RpcServerConf:   c.RpcServerConf,
+					PhonecallClient: c.BizServiceClient,
+					UserClient:      c.BizServiceClient,
+					MsgClient:       c.MsgClient,
+					SyncClient:      c.SyncClient,
+				}))
 
 		// tos_helper
 		mtproto.RegisterRPCTosServer(
@@ -110,10 +131,10 @@ func (s *Server) Initialize() error {
 			grpcServer,
 			authorizationService)
 
-		authorizationCustom := authorization_customize_helper.New(
-			authorization_customize_helper.Config{
-				AuthorizationClient: c.BizServiceClient,
-			}, authorizationService)
+		//authorizationCustom := authorization_customize_helper.New(
+		//	authorization_customize_helper.Config{
+		//		AuthorizationClient: c.BizServiceClient,
+		//	}, authorizationService)
 
 		// premium_helper
 		mtproto.RegisterRPCPremiumServer(
@@ -309,7 +330,7 @@ func (s *Server) Initialize() error {
 						MessageClient: c.BizServiceClient,
 						FeedsClient:   c.BizServiceClient,
 					}, messagesCore),
-					op_srv.AuthorizationCustomize: authorizationCustom,
+					//op_srv.AuthorizationCustomize: authorizationCustom,
 				}))
 
 	})

@@ -1,21 +1,11 @@
-/*
- * WARNING! All changes made in this file will be lost!
- * Created from 'scheme.tl' by 'mtprotoc'
- *
- * Copyright (c) 2021-present,  Teamgram Studio (https://teamgram.io).
- *  All rights reserved.
- *
- * Author: teamgramio (teamgram.io@gmail.com)
- */
-
 package service
 
 import (
 	"context"
 
-	"gitlab.com/merehead/elloapp/backend/elloapp_backend/app/messenger/sync/internal/core"
-	"gitlab.com/merehead/elloapp/backend/elloapp_backend/app/messenger/sync/sync"
-	"gitlab.com/merehead/elloapp/backend/elloapp_backend/mtproto"
+	"gitlab.com/merehead/elloapp/backend/elloapp_tg_backend/app/messenger/sync/internal/core"
+	"gitlab.com/merehead/elloapp/backend/elloapp_tg_backend/app/messenger/sync/sync"
+	"gitlab.com/merehead/elloapp/backend/elloapp_tg_backend/mtproto"
 )
 
 // SyncUpdatesMe
@@ -84,7 +74,7 @@ func (s *Service) SyncPushBotUpdates(ctx context.Context, request *sync.TLSyncPu
 	c := core.New(ctx, s.svcCtx)
 	c.Logger.Debugf("sync.pushBotUpdates - metadata: %s, request: %s", c.MD.DebugString(), request.DebugString())
 
-	c.Logger.Errorf("sync.pushBotUpdates blocked, License key from https://teamgram.net required to unlock enterprise features.")
+	c.Logger.Errorf("sync.pushBotUpdates blocked, License key from https://elloapp.com required to unlock enterprise features.")
 
 	return mtproto.EmptyVoid, nil
 }

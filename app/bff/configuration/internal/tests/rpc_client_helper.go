@@ -3,7 +3,7 @@ package tests
 import (
 	"github.com/zeromicro/go-zero/core/discov"
 	"github.com/zeromicro/go-zero/zrpc"
-	configuration_client "gitlab.com/merehead/elloapp/backend/elloapp_backend/app/bff/configuration/client"
+	configuration_client "gitlab.com/merehead/elloapp/backend/elloapp_tg_backend/app/bff/configuration/client"
 )
 
 func NewRPCClient() configuration_client.ConfigurationClient {

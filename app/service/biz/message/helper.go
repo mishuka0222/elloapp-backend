@@ -1,22 +1,12 @@
-/*
- * WARNING! All changes made in this file will be lost!
- * Created from 'scheme.tl' by 'mtprotoc'
- *
- * Copyright (c) 2021-present,  Teamgram Studio (https://teamgram.io).
- *  All rights reserved.
- *
- * Author: teamgramio (teamgram.io@gmail.com)
- */
-
 package message_helper
 
 import (
-	"gitlab.com/merehead/elloapp/backend/elloapp_backend/app/service/biz/message/internal/config"
-	"gitlab.com/merehead/elloapp/backend/elloapp_backend/app/service/biz/message/internal/dal/dao/mysql_dao"
-	"gitlab.com/merehead/elloapp/backend/elloapp_backend/app/service/biz/message/internal/dal/dataobject"
-	"gitlab.com/merehead/elloapp/backend/elloapp_backend/app/service/biz/message/internal/plugin"
-	"gitlab.com/merehead/elloapp/backend/elloapp_backend/app/service/biz/message/internal/server/grpc/service"
-	"gitlab.com/merehead/elloapp/backend/elloapp_backend/app/service/biz/message/internal/svc"
+	"gitlab.com/merehead/elloapp/backend/elloapp_tg_backend/app/service/biz/message/internal/config"
+	"gitlab.com/merehead/elloapp/backend/elloapp_tg_backend/app/service/biz/message/internal/dal/dao/mysql_dao"
+	"gitlab.com/merehead/elloapp/backend/elloapp_tg_backend/app/service/biz/message/internal/dal/dataobject"
+	"gitlab.com/merehead/elloapp/backend/elloapp_tg_backend/app/service/biz/message/internal/plugin"
+	"gitlab.com/merehead/elloapp/backend/elloapp_tg_backend/app/service/biz/message/internal/server/grpc/service"
+	"gitlab.com/merehead/elloapp/backend/elloapp_tg_backend/app/service/biz/message/internal/svc"
 )
 
 type (

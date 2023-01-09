@@ -1,9 +1,9 @@
 package dao
 
 import (
-	"gitlab.com/merehead/elloapp/backend/elloapp_backend/app/bff/configuration/internal/config"
-	configuration_client "gitlab.com/merehead/elloapp/backend/elloapp_backend/app/service/biz/configuration/client"
-	"gitlab.com/merehead/elloapp/backend/elloapp_backend/pkg2/net/rpcx"
+	"gitlab.com/merehead/elloapp/backend/elloapp_tg_backend/app/bff/configuration/internal/config"
+	configuration_client "gitlab.com/merehead/elloapp/backend/elloapp_tg_backend/app/service/biz/configuration/client"
+	"gitlab.com/merehead/elloapp/backend/elloapp_tg_backend/pkg2/net/rpcx"
 )
 
 type Dao struct {

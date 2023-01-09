@@ -8,7 +8,7 @@ import (
 
 	"github.com/stretchr/testify/assert"
 
-	"gitlab.com/merehead/elloapp/backend/elloapp_backend/pkg/goffmpeg/transcoder"
+	"gitlab.com/merehead/elloapp/backend/elloapp_tg_backend/pkg/goffmpeg/transcoder"
 )
 
 func TestInputNotFound(t *testing.T) {

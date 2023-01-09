@@ -1,22 +1,13 @@
-/*
- * Created from 'scheme.tl' by 'mtprotoc'
- *
- * Copyright (c) 2021-present,  Teamgram Studio (https://teamgram.io).
- *  All rights reserved.
- *
- * Author: teamgramio (teamgram.io@gmail.com)
- */
-
 package server
 
 import (
 	"flag"
 	"github.com/zeromicro/go-zero/rest"
-	"gitlab.com/merehead/elloapp/backend/elloapp_backend/app/service/dfs/internal/server/http"
+	"gitlab.com/merehead/elloapp/backend/elloapp_tg_backend/app/service/dfs/internal/server/http"
 
-	"gitlab.com/merehead/elloapp/backend/elloapp_backend/app/service/dfs/internal/config"
-	"gitlab.com/merehead/elloapp/backend/elloapp_backend/app/service/dfs/internal/server/grpc"
-	"gitlab.com/merehead/elloapp/backend/elloapp_backend/app/service/dfs/internal/svc"
+	"gitlab.com/merehead/elloapp/backend/elloapp_tg_backend/app/service/dfs/internal/config"
+	"gitlab.com/merehead/elloapp/backend/elloapp_tg_backend/app/service/dfs/internal/server/grpc"
+	"gitlab.com/merehead/elloapp/backend/elloapp_tg_backend/app/service/dfs/internal/svc"
 
 	"github.com/zeromicro/go-zero/core/conf"
 	"github.com/zeromicro/go-zero/core/logx"

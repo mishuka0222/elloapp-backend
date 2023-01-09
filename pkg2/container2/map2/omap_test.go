@@ -19,7 +19,7 @@ import (
 	"strings"
 	"testing"
 
-	"gitlab.com/merehead/elloapp/backend/elloapp_backend/pkg2/container2/map2"
+	"gitlab.com/merehead/elloapp/backend/elloapp_tg_backend/pkg2/container2/map2"
 )
 
 func TestStringKeyOMapInsertion(t *testing.T) {

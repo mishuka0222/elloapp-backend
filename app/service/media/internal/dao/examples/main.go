@@ -1,9 +1,3 @@
-// Copyright 2022 Teamgram Authors
-//  All rights reserved.
-//
-// Author: Benqi (wubenqi@gmail.com)
-//
-
 package main
 
 import (
@@ -11,10 +5,10 @@ import (
 	"flag"
 	"fmt"
 	"github.com/zeromicro/go-zero/core/conf"
-	"gitlab.com/merehead/elloapp/backend/elloapp_backend/app/service/media/internal/config"
-	"gitlab.com/merehead/elloapp/backend/elloapp_backend/app/service/media/internal/svc"
-	"gitlab.com/merehead/elloapp/backend/elloapp_backend/mtproto"
-	"gitlab.com/merehead/elloapp/backend/elloapp_backend/pkg2/stores/sqlx"
+	"gitlab.com/merehead/elloapp/backend/elloapp_tg_backend/app/service/media/internal/config"
+	"gitlab.com/merehead/elloapp/backend/elloapp_tg_backend/app/service/media/internal/svc"
+	"gitlab.com/merehead/elloapp/backend/elloapp_tg_backend/mtproto"
+	"gitlab.com/merehead/elloapp/backend/elloapp_tg_backend/pkg2/stores/sqlx"
 )
 
 var (

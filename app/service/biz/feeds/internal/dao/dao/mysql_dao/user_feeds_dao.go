@@ -6,9 +6,9 @@ import (
 	"errors"
 	"fmt"
 	"github.com/zeromicro/go-zero/core/logx"
-	"gitlab.com/merehead/elloapp/backend/elloapp_backend/app/service/biz/feeds/feeds"
-	"gitlab.com/merehead/elloapp/backend/elloapp_backend/app/service/biz/feeds/internal/dao/dataobject"
-	"gitlab.com/merehead/elloapp/backend/elloapp_backend/pkg2/stores/sqlx"
+	"gitlab.com/merehead/elloapp/backend/elloapp_tg_backend/app/service/biz/feeds/feeds"
+	"gitlab.com/merehead/elloapp/backend/elloapp_tg_backend/app/service/biz/feeds/internal/dao/dataobject"
+	"gitlab.com/merehead/elloapp/backend/elloapp_tg_backend/pkg2/stores/sqlx"
 	"strings"
 )
 

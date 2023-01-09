@@ -1,16 +1,10 @@
-// Copyright (c) 2021-present,  Teamgram Studio (https://teamgram.io).
-//  All rights reserved.
-//
-// Author: teamgramio (teamgram.io@gmail.com)
-//
-
 package chat
 
 import (
-	"gitlab.com/merehead/elloapp/backend/elloapp_backend/mtproto"
-	"gitlab.com/merehead/elloapp/backend/elloapp_backend/pkg/env2"
-	"gitlab.com/merehead/elloapp/backend/elloapp_backend/pkg2/random2"
-	"gitlab.com/merehead/elloapp/backend/elloapp_backend/pkg2/utils"
+	"gitlab.com/merehead/elloapp/backend/elloapp_tg_backend/mtproto"
+	"gitlab.com/merehead/elloapp/backend/elloapp_tg_backend/pkg/env2"
+	"gitlab.com/merehead/elloapp/backend/elloapp_tg_backend/pkg2/random2"
+	"gitlab.com/merehead/elloapp/backend/elloapp_tg_backend/pkg2/utils"
 	"strings"
 )
 

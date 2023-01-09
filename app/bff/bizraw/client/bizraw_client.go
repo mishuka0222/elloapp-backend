@@ -3,7 +3,7 @@ package bizraw_client
 import (
 	"context"
 	"github.com/zeromicro/go-zero/zrpc"
-	"gitlab.com/merehead/elloapp/backend/elloapp_backend/mtproto"
+	"gitlab.com/merehead/elloapp/backend/elloapp_tg_backend/mtproto"
 	"google.golang.org/grpc"
 )
 

@@ -6,7 +6,7 @@ package metadata_test
 import (
 	"testing"
 
-	metautils "gitlab.com/merehead/elloapp/backend/elloapp_backend/mtproto/rpc/metadata"
+	metautils "gitlab.com/merehead/elloapp/backend/elloapp_tg_backend/mtproto/rpc/metadata"
 
 	"github.com/stretchr/testify/assert"
 	"golang.org/x/net/context"

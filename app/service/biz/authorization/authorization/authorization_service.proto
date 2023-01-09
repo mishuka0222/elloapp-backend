@@ -6,35 +6,35 @@ option java_outer_classname = "ZProtoAuthorizationService";
 option optimize_for = CODE_SIZE;
 option go_package = "authorization";
 
+import "google/protobuf/empty.proto";
+
 
 package authorization;
 
 message AuthSingUpRequest {
-  double balance = 1;
-  string user_name = 2;
-  string first_name = 3;
-  string last_name = 4;
-  string password = 5;
-  string email = 6;
-  string type = 7;
-  string profile = 8;
-  string gender = 9;
+  string username = 1;
+  string password = 2;
+  string gender = 3;
+  string date_of_birth = 4;
+  string email = 5;
+  string phone = 6;
+  string country_code = 7;
+  string avatar = 8;
+  string first_name = 9;
+  string last_name = 10;
 }
 
 message AuthSingInRequest {
-  string user_name = 1;
+  string username = 1;
   string password = 2;
 }
 
 message AuthSingUpRsp {
-  int64 data = 1;
-}
-
-message AuthSingInRsp {
-  int64 data = 1;
+  string email = 1;
+  int64 confirmation_expire = 2;
 }
 
 service RPCAuthorization {
-  rpc auth_singIN(AuthSingInRequest) returns (AuthSingInRsp);
-  rpc auth_singUP(AuthSingUpRequest) returns (AuthSingUpRsp);
+  rpc AuthSignIn(AuthSingInRequest) returns (google.protobuf.Empty);
+  rpc AuthSignUp(AuthSingUpRequest) returns (AuthSingUpRsp);
 }

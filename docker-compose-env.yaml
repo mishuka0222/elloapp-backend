@@ -18,7 +18,7 @@ services:
     environment:
       - ALLOW_ANONYMOUS_LOGIN=yes
     networks:
-      - teamgram_net
+      - elloapp_net
 
   #消息队列 - Message queue
   kafka:
@@ -46,7 +46,7 @@ services:
     volumes:
       - ./data/kafka/data:/data
     networks:
-      - teamgram_net
+      - elloapp_net
     depends_on:
       - zookeeper
 
@@ -75,7 +75,7 @@ services:
 #    restart: always
     command: /usr/local/bin/etcd
     networks:
-      - teamgram_net
+      - elloapp_net
 
   redis:
     image: redis
@@ -92,7 +92,7 @@ services:
     privileged: true
     command: redis-server --appendonly yes
     networks:
-      - teamgram_net
+      - elloapp_net
 
   mysql:
     image: mysql:8.0.31
@@ -103,9 +103,9 @@ services:
       #TZ: Asia/Shanghai
       # root 密码 - root password
 #      MYSQL_ROOT_PASSWORD: ${DB_ROOT_PASSWORD:-my_root_secret}
-      MYSQL_DATABASE: teamgram
-      MYSQL_USER: teamgram
-#      MYSQL_PASSWORD: ${DB_PASSWORD:-teamgram}
+      MYSQL_DATABASE: elloapp
+      MYSQL_USER: elloapp
+#      MYSQL_PASSWORD: ${DB_PASSWORD:-elloapp}
       MYSQL_ALLOW_EMPTY_PASSWORD: "true"
     ports:
       - 3306:3306
@@ -123,7 +123,7 @@ services:
     privileged: true
 #    restart: always
     networks:
-      - teamgram_net
+      - elloapp_net
 
   minio:
     image: minio/minio
@@ -139,10 +139,10 @@ services:
     command: server /data --console-address ":9001"
 #    restart: always
     networks:
-      - teamgram_net
+      - elloapp_net
 
 networks:
-  teamgram_net:
+  elloapp_net:
     driver: bridge
     ipam:
       config:

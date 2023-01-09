@@ -1,12 +1,3 @@
-/*
- * Created from 'scheme.tl' by 'mtprotoc'
- *
- * Copyright (c) 2021-present,  Teamgram Studio (https://teamgram.io).
- *  All rights reserved.
- *
- * Author: teamgramio (teamgram.io@gmail.com)
- */
-
 package core
 
 import (
@@ -16,11 +7,11 @@ import (
 	"math/rand"
 	"time"
 
-	"gitlab.com/merehead/elloapp/backend/elloapp_backend/app/service/dfs/dfs"
-	"gitlab.com/merehead/elloapp/backend/elloapp_backend/app/service/dfs/internal/imaging"
-	"gitlab.com/merehead/elloapp/backend/elloapp_backend/app/service/dfs/internal/model"
-	"gitlab.com/merehead/elloapp/backend/elloapp_backend/mtproto"
-	"gitlab.com/merehead/elloapp/backend/elloapp_backend/pkg2/bytes2"
+	"gitlab.com/merehead/elloapp/backend/elloapp_tg_backend/app/service/dfs/dfs"
+	"gitlab.com/merehead/elloapp/backend/elloapp_tg_backend/app/service/dfs/internal/imaging"
+	"gitlab.com/merehead/elloapp/backend/elloapp_tg_backend/app/service/dfs/internal/model"
+	"gitlab.com/merehead/elloapp/backend/elloapp_tg_backend/mtproto"
+	"gitlab.com/merehead/elloapp/backend/elloapp_tg_backend/pkg2/bytes2"
 
 	"github.com/zeromicro/go-zero/core/contextx"
 	"github.com/zeromicro/go-zero/core/threading"

@@ -2,7 +2,7 @@ package core
 
 import (
 	"encoding/json"
-	"gitlab.com/merehead/elloapp/backend/elloapp_backend/app/service/biz/feeds/feeds"
+	"gitlab.com/merehead/elloapp/backend/elloapp_tg_backend/app/service/biz/feeds/feeds"
 )
 
 // GetFeedList

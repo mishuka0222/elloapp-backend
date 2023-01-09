@@ -1,23 +1,14 @@
-/*
- * Created from 'scheme.tl' by 'mtprotoc'
- *
- * Copyright (c) 2021-present,  Teamgram Studio (https://teamgram.io).
- *  All rights reserved.
- *
- * Author: teamgramio (teamgram.io@gmail.com)
- */
-
 package core
 
 import (
 	"context"
 
-	"gitlab.com/merehead/elloapp/backend/elloapp_backend/app/interface/session/session"
-	"gitlab.com/merehead/elloapp/backend/elloapp_backend/app/messenger/sync/internal/svc"
-	"gitlab.com/merehead/elloapp/backend/elloapp_backend/app/messenger/sync/sync"
-	"gitlab.com/merehead/elloapp/backend/elloapp_backend/app/service/status/status"
-	"gitlab.com/merehead/elloapp/backend/elloapp_backend/mtproto"
-	"gitlab.com/merehead/elloapp/backend/elloapp_backend/mtproto/rpc/metadata"
+	"gitlab.com/merehead/elloapp/backend/elloapp_tg_backend/app/interface/session/session"
+	"gitlab.com/merehead/elloapp/backend/elloapp_tg_backend/app/messenger/sync/internal/svc"
+	"gitlab.com/merehead/elloapp/backend/elloapp_tg_backend/app/messenger/sync/sync"
+	"gitlab.com/merehead/elloapp/backend/elloapp_tg_backend/app/service/status/status"
+	"gitlab.com/merehead/elloapp/backend/elloapp_tg_backend/mtproto"
+	"gitlab.com/merehead/elloapp/backend/elloapp_tg_backend/mtproto/rpc/metadata"
 
 	"github.com/zeromicro/go-zero/core/logx"
 )

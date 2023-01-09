@@ -1,3 +1,156 @@
+
+
+#LOCAL
+PWD=`pwd`
+ELLOAPP=${PWD}/app
+INSTALL=${PWD}/elloappd
+I_FOLDER=bin_dev
+ELLOAPP_BIN_PATH=${INSTALL}/${I_FOLDER}
+ELLOAPP_CONFIG_PATH=${INSTALL}/etc_dev
+
+#SSH
+SSH_USER=root
+SSH_PORT=65.109.139.165
+SSH_PROJECT_PATH=proj/elloapp_tg_backend/elloappd
+SSH_PATH=${SSH_USER}@${SSH_PORT}:/${SSH_USER}/${SSH_PROJECT_PATH}
+#SSH_PATH="${SSH_USER}@${SSH_PORT}:/home/${SSH_USER}/${SSH_PROJECT_PATH}"
+
+
+copy_etc_configs:
+	@echo "copy etc configs ..."
+	scp -r ${ELLOAPP_CONFIG_PATH}/  ${SSH_PATH}/
+
+copy_all_bin_files:
+	@echo "copy all bin files ..."
+	scp -r ${ELLOAPP_BIN_PATH}/  ${SSH_PATH}/
+
+copy_bin_config_files:
+	@echo "copy bin config files ..."
+	scp -r ${ELLOAPP_BIN_PATH}/config.json  ${SSH_PATH}/bin_dev/
+	scp -r ${ELLOAPP_BIN_PATH}/server_pkcs1.key  ${SSH_PATH}/bin_dev/
+
+#idgen
+build_idgen:
+	@echo "build idgen ..."
+	CGO_ENABLED=0 GOOS=linux GOARCH=amd64 go build -a -installsuffix cgo -ldflags='-w -s' -o ${ELLOAPP_BIN_PATH}/idgen ${ELLOAPP}/service/idgen/cmd/idgen
+
+copy_idgen:
+	@echo "copy idgen ..."
+	scp -r ${ELLOAPP_BIN_PATH}/idgen  ${SSH_PATH}/bin_dev/
+
+do_idgen: build_idgen copy_idgen
+
+#status
+build_status:
+	@echo "build status ..."
+	CGO_ENABLED=0 GOOS=linux GOARCH=amd64 go build -a -installsuffix cgo -ldflags='-w -s' -o ${ELLOAPP_BIN_PATH}/status ${ELLOAPP}/service/status/cmd/status
+
+copy_status:
+	@echo "copy status ..."
+	scp -r ${ELLOAPP_BIN_PATH}/status  ${SSH_PATH}/bin_dev/
+
+do_status: build_status copy_status
+
+#media
+build_media:
+	@echo "build media ..."
+	CGO_ENABLED=0 GOOS=linux GOARCH=amd64 go build -a -installsuffix cgo -ldflags='-w -s' -o ${ELLOAPP_BIN_PATH}/media ${ELLOAPP}/service/media/cmd/media
+
+copy_media:
+	@echo "copy media ..."
+	scp -r ${ELLOAPP_BIN_PATH}/media  ${SSH_PATH}/bin_dev/
+
+do_media: build_media copy_media
+
+#authsession
+build_authsession:
+	@echo "build authsession ..."
+	CGO_ENABLED=0 GOOS=linux GOARCH=amd64 go build -a -installsuffix cgo -ldflags='-w -s' -o ${ELLOAPP_BIN_PATH}/authsession ${ELLOAPP}/service/authsession/cmd/authsession
+
+copy_authsession:
+	@echo "copy authsession ..."
+	scp -r ${ELLOAPP_BIN_PATH}/authsession  ${SSH_PATH}/bin_dev/
+
+do_authsession: build_authsession copy_authsession
+
+#biz
+build_biz:
+	@echo "build biz ..."
+	CGO_ENABLED=0 GOOS=linux GOARCH=amd64 go build -a -installsuffix cgo -ldflags='-w -s' -o ${ELLOAPP_BIN_PATH}/biz ${ELLOAPP}/service/biz/biz/cmd/biz
+
+copy_biz:
+	@echo "copy biz ..."
+	scp -r ${ELLOAPP_BIN_PATH}/biz  ${SSH_PATH}/bin_dev/
+
+do_biz: build_biz copy_biz
+
+#msg
+build_msg:
+	@echo "build msg ..."
+	CGO_ENABLED=0 GOOS=linux GOARCH=amd64 go build -a -installsuffix cgo -ldflags='-w -s' -o ${ELLOAPP_BIN_PATH}/msg ${ELLOAPP}/messenger/msg/cmd/msg
+
+copy_msg:
+	@echo "copy msg ..."
+	scp -r ${ELLOAPP_BIN_PATH}/msg  ${SSH_PATH}/bin_dev/
+
+do_msg: build_msg copy_msg
+
+#sync
+build_sync:
+	@echo "build sync ..."
+	CGO_ENABLED=0 GOOS=linux GOARCH=amd64 go build -a -installsuffix cgo -ldflags='-w -s' -o ${ELLOAPP_BIN_PATH}/sync ${ELLOAPP}/messenger/sync/cmd/sync
+
+copy_sync:
+	@echo "copy sync ..."
+	scp -r ${ELLOAPP_BIN_PATH}/sync  ${SSH_PATH}/bin_dev/
+
+do_sync: build_sync copy_sync
+
+#bff
+build_bff:
+	@echo "build bff ..."
+	CGO_ENABLED=0 GOOS=linux GOARCH=amd64 go build -a -installsuffix cgo -ldflags='-w -s' -o ${ELLOAPP_BIN_PATH}/bff ${ELLOAPP}/bff/bff/cmd/bff
+
+copy_bff:
+	@echo "copy bff ..."
+	scp -r ${ELLOAPP_BIN_PATH}/bff  ${SSH_PATH}/bin_dev/
+
+do_bff: build_bff copy_bff
+
+#session
+build_session:
+	@echo "build session ..."
+	CGO_ENABLED=0 GOOS=linux GOARCH=amd64 go build -a -installsuffix cgo -ldflags='-w -s' -o ${ELLOAPP_BIN_PATH}/session ${ELLOAPP}/interface/session/cmd/session
+
+copy_session:
+	@echo "copy session ..."
+	scp -r ${ELLOAPP_BIN_PATH}/session  ${SSH_PATH}/bin_dev/
+
+do_session: build_session copy_session
+
+#gateway
+build_gateway:
+	@echo "build gateway ..."
+	CGO_ENABLED=0 GOOS=linux GOARCH=amd64 go build -a -installsuffix cgo -ldflags='-w -s' -o ${ELLOAPP_BIN_PATH}/gateway ${ELLOAPP}/interface/gateway/cmd/gateway
+
+copy_gateway:
+	@echo "copy gateway ..."
+	scp -r ${ELLOAPP_BIN_PATH}/gateway  ${SSH_PATH}/bin_dev/
+
+do_gateway: build_gateway copy_gateway
+
+
+# NEW <=============
+#===================
+#===================
+#===================
+#===================
+#===================
+#===================
+#===================
+#===================
+# OLD =============>
+
 VERSION=v0.87.1-elloapp-server
 BUILD=`date +%F`
 SHELL := /bin/bash

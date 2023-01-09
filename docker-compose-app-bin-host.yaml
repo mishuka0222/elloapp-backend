@@ -134,7 +134,7 @@ services:
     volumes:
       - ./elloappd/etc_dev:/etc
       - ./elloappd/logs:/logs
-      - ./elloappd/bin/config.json:/config.json
+      - ./elloappd/bin_dev/config.json:/config.json
     depends_on:
       - sync
   session:
@@ -168,6 +168,6 @@ services:
     volumes:
       - ./elloappd/etc_dev:/etc
       - ./elloappd/logs:/logs
-      - ./elloappd/bin/server_pkcs1.key:/server_pkcs1.key
+      - ./elloappd/bin_dev/server_pkcs1.key:/server_pkcs1.key
     depends_on:
       - session

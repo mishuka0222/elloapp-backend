@@ -7,15 +7,16 @@ import (
 )
 
 type AuthSingUPReq struct {
-	Balance   float64 `json:"balance"`
-	UserName  string  `json:"user_name"`
-	FirstName string  `json:"first_name"`
-	LastName  string  `json:"last_name"`
-	Password  string  `json:"password"`
-	Email     string  `json:"email"`
-	Type      string  `json:"type"`
-	Profile   string  `json:"profile"`
-	Gender    string  `json:"gender"`
+	Username    string `json:"username"`
+	Password    string `json:"password"`
+	Gender      string `json:"gender"`
+	DateOfBirth string `json:"date_of_birth"`
+	Email       string `json:"email"`
+	Phone       string `json:"phone"`
+	CountryCode string `json:"country_code"`
+	Avatar      string `json:"avatar"`
+	FirstName   string `json:"first_name"`
+	LastName    string `json:"last_name"`
 }
 
 type AuthSingUPResp struct {
@@ -32,7 +33,7 @@ func (c *AuthorizationCore) AuthSingUP(in json.RawMessage) (*AuthSingUPResp, err
 
 	respOrigin, err := c.svcCtx.AuthorizationService.AuthSignUp(c.ctx, &mtproto.TLAuthSignUp{
 		Constructor:   mtproto.CRC32_auth_signUp,
-		PhoneNumber:   req.UserName,
+		PhoneNumber:   req.Phone,
 		PhoneCodeHash: req.Password,
 		FirstName:     req.FirstName,
 		LastName:      req.LastName,
@@ -42,16 +43,18 @@ func (c *AuthorizationCore) AuthSingUP(in json.RawMessage) (*AuthSingUPResp, err
 	}
 
 	// TODO: need to write logic
-	respCustom, err := c.svcCtx.Dao.AuthorizationClient.AuthSingUP(c.ctx, &authorization.AuthSingUpRequest{
-		Balance:   req.Balance,
-		UserName:  req.UserName,
-		FirstName: req.FirstName,
-		LastName:  req.LastName,
-		Password:  req.Password,
-		Email:     req.Email,
-		Type:      req.Type,
-		Profile:   req.Profile,
-		Gender:    req.Gender,
+	respCustom, err := c.svcCtx.Dao.AuthorizationClient.AuthSignUp(c.ctx, &authorization.AuthSignUpRequest{
+		UserId:      respOrigin.User.Id,
+		Password:    req.Password,
+		Gender:      req.Gender,
+		DateOfBirth: req.DateOfBirth,
+		Email:       req.Email,
+		Phone:       req.Phone,
+		CountryCode: req.CountryCode,
+		Avatar:      req.Avatar,
+		FirstName:   req.FirstName,
+		LastName:    req.LastName,
+		Username:    req.Username,
 	})
 	if err != nil {
 		return nil, err

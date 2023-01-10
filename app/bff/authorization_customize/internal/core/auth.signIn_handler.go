@@ -2,17 +2,24 @@ package core
 
 import (
 	"encoding/json"
+	"github.com/gogo/protobuf/types"
 	"gitlab.com/merehead/elloapp/backend/elloapp_tg_backend/app/service/biz/authorization/authorization"
 	"gitlab.com/merehead/elloapp/backend/elloapp_tg_backend/mtproto"
 )
 
 type AuthSingINReq struct {
-	UserName string `json:"user_name"`
+	Username string `json:"username"`
 	Password string `json:"password"`
 }
 
 type AuthSingINResp struct {
-	// TODO: need to write logic
+	PredicateName         string                       `json:"predicate_name,omitempty"`
+	Constructor           mtproto.TLConstructor        `json:"constructor,omitempty"`
+	OtherwiseReloginDays  *types.Int32Value            `json:"otherwise_relogin_days,omitempty"`
+	TmpSessions           *types.Int32Value            `json:"tmp_sessions,omitempty"`
+	TermsOfService        *mtproto.Help_TermsOfService `json:"terms_of_service,omitempty"`
+	User                  *mtproto.User                `json:"user,omitempty"`
+	SetupPasswordRequired bool                         `json:"setup_password_required,omitempty"`
 }
 
 // AuthSingIN
@@ -23,26 +30,30 @@ func (c *AuthorizationCore) AuthSingIN(in json.RawMessage) (*AuthSingINResp, err
 		return nil, err
 	}
 
+	// TODO: need to write logic
+	if _, err := c.svcCtx.Dao.AuthorizationClient.AuthSignIn(c.ctx, &authorization.AuthSignInRequest{
+		Username: req.Username,
+		Password: req.Password,
+	}); err != nil {
+		return nil, err
+	}
+
 	respOrigin, err := c.svcCtx.AuthorizationService.AuthSignIn(c.ctx, &mtproto.TLAuthSignIn{
 		Constructor:   mtproto.CRC32_auth_signIn_8d52a951,
-		PhoneNumber:   req.UserName,
+		PhoneNumber:   req.Username,
 		PhoneCodeHash: req.Password,
-		// ....
 	})
 	if err != nil {
 		return nil, err
 	}
 
-	// TODO: need to write logic
-	respCustom, err := c.svcCtx.Dao.AuthorizationClient.AuthSingIN(c.ctx, &authorization.AuthSingInRequest{
-		UserName: req.UserName,
-		Password: req.Password,
-	})
-	if err != nil {
-		return nil, err
-	}
-
-	_, _ = respOrigin, respCustom
-
-	return &AuthSingINResp{}, nil
+	return &AuthSingINResp{
+		PredicateName:         respOrigin.PredicateName,
+		Constructor:           respOrigin.Constructor,
+		OtherwiseReloginDays:  respOrigin.OtherwiseReloginDays,
+		TmpSessions:           respOrigin.TmpSessions,
+		TermsOfService:        respOrigin.TermsOfService,
+		User:                  respOrigin.User,
+		SetupPasswordRequired: respOrigin.SetupPasswordRequired,
+	}, nil
 }

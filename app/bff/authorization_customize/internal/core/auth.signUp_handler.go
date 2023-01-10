@@ -20,7 +20,8 @@ type AuthSingUPReq struct {
 }
 
 type AuthSingUPResp struct {
-	// TODO: need to write logic
+	Email              string `json:"email"`
+	ConfirmationExpire int64  `json:"confirmation_expire"`
 }
 
 // AuthSingUP
@@ -60,7 +61,8 @@ func (c *AuthorizationCore) AuthSingUP(in json.RawMessage) (*AuthSingUPResp, err
 		return nil, err
 	}
 
-	_, _ = respOrigin, respCustom
-
-	return &AuthSingUPResp{}, nil
+	return &AuthSingUPResp{
+		Email:              respCustom.Email,
+		ConfirmationExpire: respCustom.ConfirmationExpire,
+	}, nil
 }

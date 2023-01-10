@@ -62,26 +62,48 @@ func (c *VoipcallsCore) PhoneSendSignalingData(in *mtproto.TLPhoneSendSignalingD
 			return nil
 		},
 		updatePhoneCall)
-
-	_, err = c.svcCtx.Dao.SyncClient.SyncUpdatesNotMe(c.ctx, &sync.TLSyncUpdatesNotMe{
-		UserId: callSession.ParticipantId,
-		//AuthKeyId: c.MD.PermAuthKeyId,
-		Updates: mtproto.MakeSyncNotMeUpdates(
-			func(idList []int64) []*mtproto.User {
-				return rUpdates.Users
-			},
-			func(idList []int64) []*mtproto.Chat {
-				return rUpdates.Chats
-			},
-			func(idList []int64) []*mtproto.Chat {
-				// rUpdates.Chats include chats
-				return nil
-			},
-			updatePhoneCall),
-	})
-	if err != nil {
-		c.Logger.Errorf("SyncUpdatesNotMe, err: %v", err)
-		return nil, err
+	if c.MD.UserId == callSession.AdminId {
+		_, err = c.svcCtx.Dao.SyncClient.SyncUpdatesNotMe(c.ctx, &sync.TLSyncUpdatesNotMe{
+			UserId: callSession.ParticipantId,
+			//AuthKeyId: c.MD.PermAuthKeyId,
+			Updates: mtproto.MakeSyncNotMeUpdates(
+				func(idList []int64) []*mtproto.User {
+					return rUpdates.Users
+				},
+				func(idList []int64) []*mtproto.Chat {
+					return rUpdates.Chats
+				},
+				func(idList []int64) []*mtproto.Chat {
+					// rUpdates.Chats include chats
+					return nil
+				},
+				updatePhoneCall),
+		})
+		if err != nil {
+			c.Logger.Errorf("SyncUpdatesNotMe, err: %v", err)
+			return nil, err
+		}
+	} else {
+		_, err = c.svcCtx.Dao.SyncClient.SyncUpdatesNotMe(c.ctx, &sync.TLSyncUpdatesNotMe{
+			UserId: callSession.AdminId,
+			//AuthKeyId: c.MD.PermAuthKeyId,
+			Updates: mtproto.MakeSyncNotMeUpdates(
+				func(idList []int64) []*mtproto.User {
+					return rUpdates.Users
+				},
+				func(idList []int64) []*mtproto.Chat {
+					return rUpdates.Chats
+				},
+				func(idList []int64) []*mtproto.Chat {
+					// rUpdates.Chats include chats
+					return nil
+				},
+				updatePhoneCall),
+		})
+		if err != nil {
+			c.Logger.Errorf("SyncUpdatesNotMe, err: %v", err)
+			return nil, err
+		}
 	}
 
 	return mtproto.ToBool(true), nil

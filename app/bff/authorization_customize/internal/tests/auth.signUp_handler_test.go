@@ -14,19 +14,6 @@ import (
 
 func TestAuthSingUp(t *testing.T) {
 	c := NewRPCClient()
-	/*
-		{"server_id":"127.0.0.1:20120",
-		"client_addr":"192.168.1.5",
-		"auth_id":7338124102345237054,
-		"session_id":-6066913564088792595,
-		"receive_time":1671767460,
-		"user_id":777062,
-		"client_msg_id":7180186570927840256,
-		"layer":147,
-		"client":"android",
-		"langpack":"android",
-		"perm_auth_key_id":9167378892795598833}
-	*/
 	ctx, err := metadata.RpcMetadataToOutgoing(context.Background(), &metadata.RpcMetadata{
 		ServerId:      "127.0.0.1:20120",
 		ClientAddr:    "92.38.127.109",
@@ -52,15 +39,16 @@ func TestAuthSingUp(t *testing.T) {
 		Service: op_srv.AuthorizationCustomize,
 		Method:  service.AuthSingUP,
 		Data: core.AuthSingUPReq{
-			Balance:   0,
-			UserName:  "test",
-			FirstName: "test",
-			LastName:  "test",
-			Password:  "test",
-			Email:     "test@ff.fd",
-			Type:      "Test",
-			Profile:   "@test",
-			Gender:    "male",
+			Username:    "nmz",
+			Password:    "password123P",
+			Gender:      "Male",
+			DateOfBirth: "1988-03-14T00:00:00+0000",
+			Email:       "lalaland@gmail.com",
+			Phone:       "+12345678",
+			CountryCode: "UZB",
+			Avatar:      "",
+			FirstName:   "firstname",
+			LastName:    "lastname",
 		},
 	})
 	if err != nil {

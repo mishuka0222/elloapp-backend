@@ -40,10 +40,10 @@ func (c *AuthorizationCore) AuthSingIN(in *authorization.AuthSignInRequest) (*ty
 	}
 
 	if err := bcrypt.CompareHashAndPassword([]byte(userEllo.Password), []byte(in.Password)); err != nil {
-		err = errors.New("user password is incorrect")
+		err = errors.New("username or password are incorrect")
 		c.Logger.Error(err)
 		return nil, err
 	}
 
-	return nil, errors.New(" Unimplemented")
+	return &types.Empty{}, nil
 }

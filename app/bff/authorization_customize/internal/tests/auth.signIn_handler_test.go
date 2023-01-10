@@ -13,19 +13,6 @@ import (
 
 func TestAuthSingIn(t *testing.T) {
 	c := NewRPCClient()
-	/*
-		{"server_id":"127.0.0.1:20120",
-		"client_addr":"192.168.1.5",
-		"auth_id":7338124102345237054,
-		"session_id":-6066913564088792595,
-		"receive_time":1671767460,
-		"user_id":777062,
-		"client_msg_id":7180186570927840256,
-		"layer":147,
-		"client":"android",
-		"langpack":"android",
-		"perm_auth_key_id":9167378892795598833}
-	*/
 	ctx, err := metadata.RpcMetadataToOutgoing(context.Background(), &metadata.RpcMetadata{
 		ServerId:      "127.0.0.1:20120",
 		ClientAddr:    "192.168.1.105",
@@ -51,8 +38,8 @@ func TestAuthSingIn(t *testing.T) {
 		Service: op_srv.AuthorizationCustomize,
 		Method:  service.AuthSingIN,
 		Data: core.AuthSingINReq{
-			UserName: "test345",
-			Password: "1234qweR",
+			Username: "nmz",
+			Password: "password123P",
 		},
 	})
 	if err != nil {

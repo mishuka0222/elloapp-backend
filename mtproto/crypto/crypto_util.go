@@ -11,6 +11,10 @@ import (
 	"golang.org/x/crypto/pbkdf2"
 )
 
+var (
+	IsGoodPrime = isGoodPrime
+)
+
 var bigIntZero = big.NewInt(0)
 
 //// modPow uses right-to-left binary method

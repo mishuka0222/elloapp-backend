@@ -10,9 +10,13 @@ type ConfirmationReq struct {
 	Code            string `json:"code"`
 }
 
+type ConfirmationResp struct {
+	Message string `json:"message"`
+}
+
 // AuthSingIN
 // TODO: need to write logic
-func (c *AuthorizationCore) Confirmation(in json.RawMessage) (*authorization.ConfirmationResponse, error) {
+func (c *AuthorizationCore) Confirmation(in json.RawMessage) (*ConfirmationResp, error) {
 	var req ConfirmationReq
 	if err := json.Unmarshal(in, &req); err != nil {
 		return nil, err
@@ -26,5 +30,7 @@ func (c *AuthorizationCore) Confirmation(in json.RawMessage) (*authorization.Con
 		return nil, err
 	}
 
-	return out, nil
+	return &ConfirmationResp{
+		Message: out.Message,
+	}, nil
 }

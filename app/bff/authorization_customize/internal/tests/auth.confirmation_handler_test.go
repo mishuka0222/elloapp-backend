@@ -11,7 +11,7 @@ import (
 	"testing"
 )
 
-func TestAuthSingIn(t *testing.T) {
+func TestConfirmation(t *testing.T) {
 	c := NewRPCClient()
 	ctx, err := metadata.RpcMetadataToOutgoing(context.Background(), &metadata.RpcMetadata{
 		ServerId:      "127.0.0.1:20120",
@@ -36,10 +36,10 @@ func TestAuthSingIn(t *testing.T) {
 	*/
 	op, err := op_srv.NewOperation(op_srv.Operation{
 		Service: op_srv.AuthorizationCustomize,
-		Method:  service.AuthSingIN,
-		Data: core.AuthSingINReq{
-			Username: "nmz",
-			Password: "password123P",
+		Method:  service.Confirmation,
+		Data: core.ConfirmationReq{
+			UsernameOrEmail: "nmz",
+			Code:            "",
 		},
 	})
 	if err != nil {
@@ -49,7 +49,7 @@ func TestAuthSingIn(t *testing.T) {
 	if err != nil {
 		t.Fatal(err)
 	}
-	var resp core.AuthSingINResp
+	var resp core.ConfirmationResp
 	if err := json.Unmarshal(data.Data, &resp); err != nil {
 		t.Fatal(err)
 	}

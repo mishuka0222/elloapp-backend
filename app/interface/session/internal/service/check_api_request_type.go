@@ -1,7 +1,10 @@
 package service
 
 import (
+	"encoding/json"
+	operation_service "gitlab.com/merehead/elloapp/backend/elloapp_tg_backend/app/bff/bizraw/service"
 	"gitlab.com/merehead/elloapp/backend/elloapp_tg_backend/mtproto"
+	"log"
 )
 
 /*
@@ -93,7 +96,33 @@ func checkRpcWithoutLogin(tl mtproto.TLObject) bool {
 	case *mtproto.TLJsonObject:
 		return true
 
+	case *mtproto.TLBizInvokeBizDataRaw:
+		return checkOperationServiceWithoutLogin(tl)
+
 	default:
 		return false
 	}
+}
+
+type Operation struct {
+	Service int32 `json:"service"`
+	//Method  int32 `json:"method"`
+	//Data    json.RawMessage `json:"data"`
+}
+
+func checkOperationServiceWithoutLogin(tl mtproto.TLObject) bool {
+	if data, ok := tl.(*mtproto.TLBizInvokeBizDataRaw); ok {
+		var op Operation
+		err := json.Unmarshal(data.BizData.Data, &op)
+		if err != nil {
+			log.Println(err)
+			return false
+		}
+		for _, v := range operation_service.K_WITHOUT_LOGIN {
+			if int32(v) == op.Service {
+				return true
+			}
+		}
+	}
+	return false
 }

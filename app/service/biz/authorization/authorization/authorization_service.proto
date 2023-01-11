@@ -8,11 +8,10 @@ option go_package = "authorization";
 
 import "google/protobuf/empty.proto";
 
-
 package authorization;
 
-message AuthSingUpRequest {
-  string username = 1;
+message AuthSignUpRequest {
+  int64 user_id = 1;
   string password = 2;
   string gender = 3;
   string date_of_birth = 4;
@@ -22,19 +21,30 @@ message AuthSingUpRequest {
   string avatar = 8;
   string first_name = 9;
   string last_name = 10;
+  string username = 11;
 }
 
-message AuthSingInRequest {
+message AuthSignInRequest {
   string username = 1;
   string password = 2;
 }
 
-message AuthSingUpRsp {
+message AuthSignUpRsp {
   string email = 1;
   int64 confirmation_expire = 2;
 }
 
+message ConfirmationRequest {
+  string username_or_email = 1;
+  string code = 2;
+}
+
+message ConfirmationResponse {
+  string message = 1;
+}
+
 service RPCAuthorization {
-  rpc AuthSignIn(AuthSingInRequest) returns (google.protobuf.Empty);
-  rpc AuthSignUp(AuthSingUpRequest) returns (AuthSingUpRsp);
+  rpc AuthSignIn(AuthSignInRequest) returns (google.protobuf.Empty);
+  rpc AuthSignUp(AuthSignUpRequest) returns (AuthSignUpRsp);
+  rpc Confirmation(ConfirmationRequest) returns(ConfirmationResponse);
 }

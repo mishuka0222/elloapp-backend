@@ -33,3 +33,17 @@ func (s *Service) AuthSingIN(ctx context.Context, in json.RawMessage) (interface
 	c.Logger.Debugf("auth.AuthSingUP - reply: %+v", r)
 	return r, err
 }
+
+// Confirmation
+func (s *Service) Confirmation(ctx context.Context, in json.RawMessage) (interface{}, error) {
+	c := core.New(ctx, s.svcCtx)
+	c.Logger.Debugf("auth.Confirmation - metadata: %s, request: %s", c.MD.DebugString(), string(in))
+
+	r, err := c.Confirmation(in)
+	if err != nil {
+		return nil, err
+	}
+
+	c.Logger.Debugf("auth.Confirmation - reply: %+v", r)
+	return r, err
+}

@@ -2,6 +2,9 @@ package server
 
 import (
 	"flag"
+	authorization_helper "gitlab.com/merehead/elloapp/backend/elloapp_tg_backend/app/service/biz/authorization"
+
+	"gitlab.com/merehead/elloapp/backend/elloapp_tg_backend/app/service/biz/authorization/authorization"
 	configuration_helper "gitlab.com/merehead/elloapp/backend/elloapp_tg_backend/app/service/biz/configuration"
 	"gitlab.com/merehead/elloapp/backend/elloapp_tg_backend/app/service/biz/configuration/configuration"
 	feeds_helper "gitlab.com/merehead/elloapp/backend/elloapp_tg_backend/app/service/biz/feeds"
@@ -78,14 +81,14 @@ func (s *Server) Initialize() error {
 					Mysql:         c.Mysql,
 				}))
 
-		//// authorization
-		//authorization.RegisterRPCAuthorizationServer(
-		//	grpcServer,
-		//	authorization_helper.New(
-		//		authorization_helper.Config{
-		//			RpcServerConf: c.RpcServerConf,
-		//			Mysql:         c.Mysql,
-		//		}))
+		// authorization
+		authorization.RegisterRPCAuthorizationServer(
+			grpcServer,
+			authorization_helper.New(
+				authorization_helper.Config{
+					RpcServerConf: c.RpcServerConf,
+					Mysql:         c.Mysql,
+				}))
 
 		// chat_helper
 		chat.RegisterRPCChatServer(

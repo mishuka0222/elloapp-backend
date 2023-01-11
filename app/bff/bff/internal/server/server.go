@@ -4,6 +4,7 @@ import (
 	"flag"
 	account_helper "gitlab.com/merehead/elloapp/backend/elloapp_tg_backend/app/bff/account"
 	authorization_helper "gitlab.com/merehead/elloapp/backend/elloapp_tg_backend/app/bff/authorization"
+	authorization_customize_helper "gitlab.com/merehead/elloapp/backend/elloapp_tg_backend/app/bff/authorization_customize"
 	autodownload_helper "gitlab.com/merehead/elloapp/backend/elloapp_tg_backend/app/bff/autodownload"
 	"gitlab.com/merehead/elloapp/backend/elloapp_tg_backend/app/bff/bff/internal/config"
 	bizraw_helper "gitlab.com/merehead/elloapp/backend/elloapp_tg_backend/app/bff/bizraw"
@@ -131,10 +132,10 @@ func (s *Server) Initialize() error {
 			grpcServer,
 			authorizationService)
 
-		//authorizationCustom := authorization_customize_helper.New(
-		//	authorization_customize_helper.Config{
-		//		AuthorizationClient: c.BizServiceClient,
-		//	}, authorizationService)
+		authorizationCustom := authorization_customize_helper.New(
+			authorization_customize_helper.Config{
+				AuthorizationClient: c.BizServiceClient,
+			}, authorizationService)
 
 		// premium_helper
 		mtproto.RegisterRPCPremiumServer(
@@ -330,7 +331,7 @@ func (s *Server) Initialize() error {
 						MessageClient: c.BizServiceClient,
 						FeedsClient:   c.BizServiceClient,
 					}, messagesCore),
-					//op_srv.AuthorizationCustomize: authorizationCustom,
+					op_srv.AuthorizationCustomize: authorizationCustom,
 				}))
 
 	})

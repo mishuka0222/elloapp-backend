@@ -30,6 +30,7 @@ import (
 	usernames_helper "gitlab.com/merehead/elloapp/backend/elloapp_tg_backend/app/bff/usernames"
 	users_helper "gitlab.com/merehead/elloapp/backend/elloapp_tg_backend/app/bff/users"
 	voipcalls_helper "gitlab.com/merehead/elloapp/backend/elloapp_tg_backend/app/bff/voipcalls"
+	channels_helper "gitlab.com/merehead/elloapp/backend/elloapp_tg_backend/app/bff/channels"
 	"gitlab.com/merehead/elloapp/backend/elloapp_tg_backend/mtproto"
 
 	"github.com/zeromicro/go-zero/core/conf"
@@ -57,6 +58,14 @@ func (s *Server) Initialize() error {
 	// s.grpcSrv = grpc.New(ctx, c.RpcServerConf)
 
 	s.grpcSrv = zrpc.MustNewServer(c.RpcServerConf, func(grpcServer *grpc.Server) {
+
+		//channels
+		mtproto.RegisterRPCChannelsServer(
+			grpcServer,
+			channels_helper.New(
+				channels_helper.Config{
+					RpcServerConf: c.RpcServerConf,
+				}))
 
 		// secretchats
 		mtproto.RegisterRPCSecretChatsServer(

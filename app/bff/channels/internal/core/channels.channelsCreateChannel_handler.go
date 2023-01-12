@@ -8,6 +8,6 @@ import (
 
 func (c *ChannelsCore) ChannelsCreateChannel(in *mtproto.TLChannelsCreateChannel) (*mtproto.Updates, error) {
 	// todo: add your logic here and delete this line
-	return nil, errors.New("Unimplemented")
+	return nil, errors.New("unimplemented 123")
 	// return &mtproto.Updates{}, nil
 }

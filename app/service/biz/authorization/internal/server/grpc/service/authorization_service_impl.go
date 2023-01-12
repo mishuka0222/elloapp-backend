@@ -2,9 +2,9 @@ package service
 
 import (
 	"context"
-	"github.com/gogo/protobuf/types"
 	"gitlab.com/merehead/elloapp/backend/elloapp_tg_backend/app/service/biz/authorization/authorization"
 	"gitlab.com/merehead/elloapp/backend/elloapp_tg_backend/app/service/biz/authorization/internal/core"
+	"gitlab.com/merehead/elloapp/backend/elloapp_tg_backend/mtproto"
 )
 
 // AuthSingUP
@@ -22,7 +22,7 @@ func (s *Service) AuthSignUp(ctx context.Context, in *authorization.AuthSignUpRe
 }
 
 // AuthSingIN
-func (s *Service) AuthSignIn(ctx context.Context, in *authorization.AuthSignInRequest) (*types.Empty, error) {
+func (s *Service) AuthSignIn(ctx context.Context, in *authorization.AuthSignInRequest) (*mtproto.Auth_Authorization, error) {
 	c := core.New(ctx, s.svcCtx)
 	c.Logger.Debugf("auth.AuthSingIN - metadata: %s, request: %s", c.MD.DebugString(), in.String())
 

@@ -40,7 +40,7 @@ func TestConfirmation(t *testing.T) {
 		Method:  service.Confirmation,
 		Data: core.ConfirmationReq{
 			UsernameOrEmail: "makhmudov",
-			Code:            "080605",
+			Code:            "765196",
 		},
 	})
 	if err != nil {

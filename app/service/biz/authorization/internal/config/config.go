@@ -10,7 +10,7 @@ import (
 type Config struct {
 	zrpc.RpcServerConf
 	Mysql                     sqlx.Config
-	AuthsessionClient         zrpc.RpcClientConf
+	AuthSessionClient         zrpc.RpcClientConf
 	SignInServiceNotification []conf.MessageEntityConfig `json:",optional"`
 	SyncClient                *kafka.KafkaProducerConf
 }

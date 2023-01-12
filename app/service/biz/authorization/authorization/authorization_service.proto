@@ -7,6 +7,7 @@ option optimize_for = CODE_SIZE;
 option go_package = "authorization";
 
 import "google/protobuf/any.proto";
+import "my_type.proto";
 
 package authorization;
 
@@ -72,7 +73,7 @@ message ConfirmationResponse {
 }
 
 service RPCAuthorization {
-  rpc AuthSignIn(AuthSignInRequest) returns (AuthSignInResponse);
+  rpc AuthSignIn(AuthSignInRequest) returns (mtproto.Auth_Authorization);
   rpc AuthSignUp(AuthSignUpRequest) returns (AuthSignUpRsp);
   rpc Confirmation(ConfirmationRequest) returns(ConfirmationResponse);
 }

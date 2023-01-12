@@ -3,6 +3,7 @@ package core
 import (
 	"encoding/json"
 	"gitlab.com/merehead/elloapp/backend/elloapp_tg_backend/app/service/biz/authorization/authorization"
+	"gitlab.com/merehead/elloapp/backend/elloapp_tg_backend/mtproto"
 )
 
 type AuthSingINReq struct {
@@ -10,19 +11,9 @@ type AuthSingINReq struct {
 	Password string `json:"password"`
 }
 
-type AuthSingINResp struct {
-	PredicateName         string `json:"predicate_name,omitempty"`
-	Constructor           any    `json:"constructor,omitempty"`
-	OtherwiseReloginDays  any    `json:"otherwise_relogin_days,omitempty"`
-	TmpSessions           any    `json:"tmp_sessions,omitempty"`
-	TermsOfService        any    `json:"terms_of_service,omitempty"`
-	User                  any    `json:"user,omitempty"`
-	SetupPasswordRequired bool   `json:"setup_password_required,omitempty"`
-}
-
 // AuthSingIN
 // TODO: need to write logic
-func (c *AuthorizationCore) AuthSingIN(in json.RawMessage) (*AuthSingINResp, error) {
+func (c *AuthorizationCore) AuthSingIN(in json.RawMessage) (*mtproto.Auth_Authorization, error) {
 	var req AuthSingINReq
 	if err := json.Unmarshal(in, &req); err != nil {
 		return nil, err
@@ -52,13 +43,5 @@ func (c *AuthorizationCore) AuthSingIN(in json.RawMessage) (*AuthSingINResp, err
 		return nil, err
 	}
 
-	return &AuthSingINResp{
-		PredicateName:         resp.PredicateName,
-		Constructor:           resp.Constructor,
-		OtherwiseReloginDays:  resp.OtherwiseReloginDays,
-		TmpSessions:           resp.TmpSessions,
-		TermsOfService:        resp.TermsOfService,
-		User:                  resp.User,
-		SetupPasswordRequired: resp.SetupPasswordRequired,
-	}, nil
+	return resp, nil
 }

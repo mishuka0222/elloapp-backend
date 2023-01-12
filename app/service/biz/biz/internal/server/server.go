@@ -150,7 +150,8 @@ func (s *Server) Initialize() error {
 				authorization_helper.Config{
 					RpcServerConf:     c.RpcServerConf,
 					Mysql:             c.Mysql,
-					AuthsessionClient: c.AuthSessionClient,
+					AuthSessionClient: c.AuthSessionClient,
+					SyncClient:        c.SyncClient,
 				}, userService))
 
 		// username_helper

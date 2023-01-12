@@ -2,7 +2,6 @@ package tests
 
 import (
 	"context"
-	"encoding/json"
 	"github.com/zeromicro/go-zero/core/logx"
 	"gitlab.com/merehead/elloapp/backend/elloapp_tg_backend/app/bff/authorization_customize/internal/core"
 	"gitlab.com/merehead/elloapp/backend/elloapp_tg_backend/app/bff/authorization_customize/internal/service"
@@ -39,7 +38,7 @@ func TestAuthSingIn(t *testing.T) {
 		Service: op_srv.AuthorizationCustomize,
 		Method:  service.AuthSingIN,
 		Data: core.AuthSingINReq{
-			Username: "nmz",
+			Username: "makhmudov",
 			Password: "password123P",
 		},
 	})
@@ -50,9 +49,5 @@ func TestAuthSingIn(t *testing.T) {
 	if err != nil {
 		t.Fatal(err)
 	}
-	var resp core.AuthSingINResp
-	if err := json.Unmarshal(data.Data, &resp); err != nil {
-		t.Fatal(err)
-	}
-	logx.Debugf("%+v", resp)
+	logx.Debugf("%+v", data)
 }

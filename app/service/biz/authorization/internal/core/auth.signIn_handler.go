@@ -19,7 +19,7 @@ import (
 
 // AuthSingIN
 // TODO: need to write logic
-func (c *AuthorizationCore) AuthSingIN(in *authorization.AuthSignInRequest) (*authorization.AuthSignInResponse, error) {
+func (c *AuthorizationCore) AuthSingIN(in *authorization.AuthSignInRequest) (*mtproto.Auth_Authorization, error) {
 	var (
 		userEllo models.UsersEllo
 	)
@@ -125,7 +125,7 @@ func (c *AuthorizationCore) AuthSingIN(in *authorization.AuthSignInRequest) (*au
 			Updates:   mtproto.MakeUpdatesByUpdates(signInN),
 		})
 
-	return &authorization.AuthSignInResponse{
+	return mtproto.MakeTLAuthAuthorization(&mtproto.Auth_Authorization{
 		User: selfUser,
-	}, nil
+	}).To_Auth_Authorization(), nil
 }

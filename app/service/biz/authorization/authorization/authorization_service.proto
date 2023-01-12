@@ -6,7 +6,7 @@ option java_outer_classname = "ZProtoAuthorizationService";
 option optimize_for = CODE_SIZE;
 option go_package = "authorization";
 
-import "google/protobuf/empty.proto";
+import "google/protobuf/any.proto";
 
 package authorization;
 
@@ -44,6 +44,17 @@ message AuthSignUpRequest {
 message AuthSignInRequest {
   string username = 1;
   string password = 2;
+  MData m_data = 3;
+}
+
+message AuthSignInResponse {
+  string predicate_name = 1;
+  int32 constructor = 2;
+  int32 otherwise_relogin_days = 3;
+  google.protobuf.Any tmp_sessions = 4;
+  google.protobuf.Any terms_of_service = 5;
+  google.protobuf.Any user = 6;
+  bool setup_password_required = 7;
 }
 
 message AuthSignUpRsp {
@@ -61,7 +72,7 @@ message ConfirmationResponse {
 }
 
 service RPCAuthorization {
-  rpc AuthSignIn(AuthSignInRequest) returns (google.protobuf.Empty);
+  rpc AuthSignIn(AuthSignInRequest) returns (AuthSignInResponse);
   rpc AuthSignUp(AuthSignUpRequest) returns (AuthSignUpRsp);
   rpc Confirmation(ConfirmationRequest) returns(ConfirmationResponse);
 }

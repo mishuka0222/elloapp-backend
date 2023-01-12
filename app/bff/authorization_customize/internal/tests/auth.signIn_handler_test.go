@@ -9,6 +9,7 @@ import (
 	op_srv "gitlab.com/merehead/elloapp/backend/elloapp_tg_backend/app/bff/bizraw/service"
 	"gitlab.com/merehead/elloapp/backend/elloapp_tg_backend/mtproto/rpc/metadata"
 	"testing"
+	"time"
 )
 
 func TestAuthSingIn(t *testing.T) {
@@ -16,17 +17,17 @@ func TestAuthSingIn(t *testing.T) {
 	ctx, err := metadata.RpcMetadataToOutgoing(context.Background(), &metadata.RpcMetadata{
 		ServerId:      "127.0.0.1:20120",
 		ClientAddr:    "192.168.1.105",
-		AuthId:        7338124102345237054,
-		SessionId:     -6066913564088792595,
-		ReceiveTime:   1671767460,
-		UserId:        777062,
+		AuthId:        1937090286237253747,
+		SessionId:     -6067022183794192689,
+		ReceiveTime:   time.Now().Unix(),
+		UserId:        777115,
 		ClientMsgId:   7180186570927840256,
 		IsBot:         false,
 		Layer:         147,
 		Client:        "android",
 		IsAdmin:       false,
 		Langpack:      "android",
-		PermAuthKeyId: 9167378892795598833,
+		PermAuthKeyId: 7681015971433756336,
 	})
 	if err != nil {
 		panic(err)

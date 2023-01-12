@@ -8,7 +8,7 @@ import (
 )
 
 type RPCAuthorizationClient interface {
-	AuthSignIn(ctx context.Context, in *authorization.AuthSignInRequest) (*types.Empty, error)
+	AuthSignIn(ctx context.Context, in *authorization.AuthSignInRequest) (*types.Any, error)
 	AuthSignUp(ctx context.Context, in *authorization.AuthSignUpRequest) (*authorization.AuthSignUpRsp, error)
 	Confirmation(ctx context.Context, in *authorization.ConfirmationRequest) (*authorization.ConfirmationResponse, error)
 }
@@ -23,7 +23,7 @@ func NewAuthorizationClient(cli zrpc.Client) RPCAuthorizationClient {
 	}
 }
 
-func (c *defaultAuthorizationClient) AuthSignIn(ctx context.Context, in *authorization.AuthSignInRequest) (*types.Empty, error) {
+func (c *defaultAuthorizationClient) AuthSignIn(ctx context.Context, in *authorization.AuthSignInRequest) (*types.Any, error) {
 	client := authorization.NewRPCAuthorizationClient(c.cli.Conn())
 	return client.AuthSignIn(ctx, in)
 }

@@ -49,7 +49,6 @@ func (c *AuthorizationCore) AuthSingUP(in json.RawMessage) (*AuthSingUPResp, err
 			AuthId:        c.MD.AuthId,
 			SessionId:     c.MD.SessionId,
 			ReceiveTime:   c.MD.ReceiveTime,
-			UserId:        c.MD.UserId,
 			ClientMsgId:   c.MD.ClientMsgId,
 			IsBot:         c.MD.IsBot,
 			Layer:         c.MD.Layer,

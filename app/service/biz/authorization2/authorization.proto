@@ -34,7 +34,11 @@ message AuthSingUpRsp {
   int64 confirmation_expire = 2;
 }
 
+message AuthSingInRsp {
+  google.protobuf.Empty data = 1;
+}
+
 service RPCAuthorization {
-  rpc AuthSignIn(AuthSingInRequest) returns (google.protobuf.Empty);
+  rpc AuthSignIn(AuthSingInRequest) returns (AuthSingInRsp);
   rpc AuthSignUp(AuthSingUpRequest) returns (AuthSingUpRsp);
 }

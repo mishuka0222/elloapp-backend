@@ -10,14 +10,12 @@ import (
 const (
 	AuthSingUP int32 = iota*100 + 100100
 	AuthSingIN
-	Confirmation
 )
 
 func (s *Service) initOperationRegister() {
 	operationRegister := map[int32]func(ctx context.Context, data json.RawMessage) (interface{}, error){
-		AuthSingUP:   s.AuthSingUP,
-		AuthSingIN:   s.AuthSingIN,
-		Confirmation: s.Confirmation,
+		AuthSingUP: s.AuthSingUP,
+		AuthSingIN: s.AuthSingIN,
 	}
 	s.operationRegister = operationRegister
 }

@@ -17,10 +17,6 @@ const (
 	AuthorizationCustomize
 )
 
-var K_WITHOUT_LOGIN = []ServiceID{
-	AuthorizationCustomize,
-}
-
 var K_SERVER_LIST = []ServiceID{
 	Feeds,
 	AuthorizationCustomize,

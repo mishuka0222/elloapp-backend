@@ -1,6 +1,0 @@
-*
-!.gitignore
-!config.json
-!killall.sh
-!runall2.sh
-!server_pkcs1.key

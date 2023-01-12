@@ -7,41 +7,42 @@ import (
 )
 
 type AuthSingINReq struct {
-	Username string `json:"username"`
+	UserName string `json:"user_name"`
 	Password string `json:"password"`
+}
+
+type AuthSingINResp struct {
+	// TODO: need to write logic
 }
 
 // AuthSingIN
 // TODO: need to write logic
-func (c *AuthorizationCore) AuthSingIN(in json.RawMessage) (*mtproto.Auth_Authorization, error) {
+func (c *AuthorizationCore) AuthSingIN(in json.RawMessage) (*AuthSingINResp, error) {
 	var req AuthSingINReq
 	if err := json.Unmarshal(in, &req); err != nil {
 		return nil, err
 	}
 
-	// TODO: need to write logic
-	resp, err := c.svcCtx.Dao.AuthorizationClient.AuthSignIn(c.ctx, &authorization.AuthSignInRequest{
-		Username: req.Username,
-		Password: req.Password,
-		MData: &authorization.MData{
-			ServerId:      c.MD.ServerId,
-			ClientAddr:    c.MD.ClientAddr,
-			AuthId:        c.MD.AuthId,
-			SessionId:     c.MD.SessionId,
-			ReceiveTime:   c.MD.ReceiveTime,
-			UserId:        c.MD.UserId,
-			ClientMsgId:   c.MD.ClientMsgId,
-			IsBot:         c.MD.IsBot,
-			Layer:         c.MD.Layer,
-			Client:        c.MD.Client,
-			IsAdmin:       c.MD.IsAdmin,
-			Langpack:      c.MD.Langpack,
-			PermAuthKeyId: c.MD.PermAuthKeyId,
-		},
+	respOrigin, err := c.svcCtx.AuthorizationService.AuthSignIn(c.ctx, &mtproto.TLAuthSignIn{
+		Constructor:   mtproto.CRC32_auth_signIn_8d52a951,
+		PhoneNumber:   req.UserName,
+		PhoneCodeHash: req.Password,
+		// ....
 	})
 	if err != nil {
 		return nil, err
 	}
 
-	return resp, nil
+	// TODO: need to write logic
+	respCustom, err := c.svcCtx.Dao.AuthorizationClient.AuthSingIN(c.ctx, &authorization.AuthSingInRequest{
+		UserName: req.UserName,
+		Password: req.Password,
+	})
+	if err != nil {
+		return nil, err
+	}
+
+	_, _ = respOrigin, respCustom
+
+	return &AuthSingINResp{}, nil
 }

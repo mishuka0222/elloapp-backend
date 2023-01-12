@@ -25,11 +25,6 @@ MediaClient:
     Hosts:
       - 127.0.0.1:2379
     Key: service.media
-AuthSessionClient:
-  Etcd:
-    Hosts:
-      - 127.0.0.1:2379
-    Key: service.authsession
 IdgenClient:
   #  Endpoints:
   #    - 127.0.0.1:20660

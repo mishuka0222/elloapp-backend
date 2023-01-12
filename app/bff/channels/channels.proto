@@ -1,0 +1,97 @@
+syntax = "proto3";
+
+option go_package = "channels";
+
+package channels;
+
+import "rpc_error_codes.proto";
+import "schema.tl.core_types.proto";
+import "schema.tl.crc32.proto";
+import "schema.tl.handshake.proto";
+import "schema.tl.handshake_service.proto";
+import "schema.tl.sync.proto";
+import "schema.tl.sync_service.proto";
+import "schema.tl.transport.proto";
+import "schema.tl.transport_service.proto";
+import "service.tl.proto";
+
+message Bool{}
+message Channels_AdminLogResults{}
+message Channels_ChannelParticipant{}
+message Channels_ChannelParticipants{}
+message ExportedMessageLink{}
+message Messages_AffectedHistory{}
+message Messages_AffectedMessages{}
+message Messages_ChatFull{}
+message Messages_Chats{}
+message Messages_InactiveChats{}
+message Messages_Messages{}
+message Updates{}
+
+message	TLChannelsReadHistory{}
+message	TLChannelsDeleteMessages{}
+message	TLChannelsGetMessages{}
+message	TLChannelsGetParticipants{}
+message	TLChannelsGetParticipant{}
+message	TLChannelsGetChannels{}
+message	TLChannelsGetFullChannel{}
+message	TLChannelsCreateChannel{}
+message	TLChannelsEditAdmin{}
+message	TLChannelsEditTitle{}
+message	TLChannelsEditPhoto{}
+message	TLChannelsJoinChannel{}
+message	TLChannelsLeaveChannel{}
+message	TLChannelsInviteToChannel{}
+message	TLChannelsDeleteChannel{}
+message	TLChannelsExportMessageLink{}
+message	TLChannelsToggleSignatures{}
+message	TLChannelsGetAdminedPublicChannels{}
+message	TLChannelsEditBanned{}
+message	TLChannelsGetAdminLog{}
+message	TLChannelsSetStickers{}
+message	TLChannelsReadMessageContents{}
+message	TLChannelsDeleteHistory9BAA9647{}
+message	TLChannelsTogglePreHistoryHidden{}
+message	TLChannelsGetGroupsForDiscussion{}
+message	TLChannelsSetDiscussionGroup{}
+message	TLChannelsEditCreator{}
+message	TLChannelsEditLocation{}
+message	TLChannelsToggleSlowMode{}
+message	TLChannelsGetInactiveChannels{}
+message	TLChannelsDeleteParticipantHistory{}
+message	TLChannelsDeleteHistoryAF369D42{}
+
+service RPCChannels {
+rpc	ChannelsReadHistory(TLChannelsReadHistory) returns (Bool);
+rpc	ChannelsDeleteMessages(TLChannelsDeleteMessages) returns (Messages_AffectedMessages);
+rpc	ChannelsGetMessages(TLChannelsGetMessages) returns (Messages_Messages);
+rpc	ChannelsGetParticipants(TLChannelsGetParticipants) returns (Channels_ChannelParticipants);
+rpc	ChannelsGetParticipant(TLChannelsGetParticipant) returns (Channels_ChannelParticipant);
+rpc	ChannelsGetChannels(TLChannelsGetChannels) returns (Messages_Chats);
+rpc	ChannelsGetFullChannel(TLChannelsGetFullChannel) returns (Messages_ChatFull);
+rpc	ChannelsCreateChannel(TLChannelsCreateChannel) returns (Updates);
+rpc	ChannelsEditAdmin(TLChannelsEditAdmin) returns (Updates);
+rpc	ChannelsEditTitle(TLChannelsEditTitle) returns (Updates);
+rpc	ChannelsEditPhoto(TLChannelsEditPhoto) returns (Updates);
+rpc	ChannelsJoinChannel(TLChannelsJoinChannel) returns (Updates);
+rpc	ChannelsLeaveChannel(TLChannelsLeaveChannel) returns (Updates);
+rpc	ChannelsInviteToChannel(TLChannelsInviteToChannel) returns (Updates);
+rpc	ChannelsDeleteChannel(TLChannelsDeleteChannel) returns (Updates);
+rpc	ChannelsExportMessageLink(TLChannelsExportMessageLink) returns (ExportedMessageLink);
+rpc	ChannelsToggleSignatures(TLChannelsToggleSignatures) returns (Updates);
+rpc	ChannelsGetAdminedPublicChannels(TLChannelsGetAdminedPublicChannels) returns (Messages_Chats);
+rpc	ChannelsEditBanned(TLChannelsEditBanned) returns (Updates);
+rpc	ChannelsGetAdminLog(TLChannelsGetAdminLog) returns (Channels_AdminLogResults);
+rpc	ChannelsSetStickers(TLChannelsSetStickers) returns (Bool);
+rpc	ChannelsReadMessageContents(TLChannelsReadMessageContents) returns (Bool);
+rpc	ChannelsDeleteHistory9BAA9647(TLChannelsDeleteHistory9BAA9647) returns (Updates);
+rpc	ChannelsTogglePreHistoryHidden(TLChannelsTogglePreHistoryHidden) returns (Updates);
+rpc	ChannelsGetGroupsForDiscussion(TLChannelsGetGroupsForDiscussion) returns (Messages_Chats);
+rpc	ChannelsSetDiscussionGroup(TLChannelsSetDiscussionGroup) returns (Bool);
+rpc	ChannelsEditCreator(TLChannelsEditCreator) returns (Updates);
+rpc	ChannelsEditLocation(TLChannelsEditLocation) returns (Bool);
+rpc	ChannelsToggleSlowMode(TLChannelsToggleSlowMode) returns (Updates);
+rpc	ChannelsGetInactiveChannels(TLChannelsGetInactiveChannels) returns (Messages_InactiveChats);
+rpc	ChannelsDeleteParticipantHistory(TLChannelsDeleteParticipantHistory) returns (Messages_AffectedHistory);
+rpc	ChannelsDeleteHistoryAF369D42(TLChannelsDeleteHistoryAF369D42) returns (Bool);
+}

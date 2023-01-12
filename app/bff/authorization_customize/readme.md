@@ -1,7 +1,6 @@
 # AuthorizationCustomize
 
-## Get Feeds List
-Returns displayable feed list
+## Register users, confirm email and sign in methods
 
 ### Request
 - Service: AuthorizationCustomize = 100100

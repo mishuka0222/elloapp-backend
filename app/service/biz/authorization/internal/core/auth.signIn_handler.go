@@ -13,28 +13,17 @@ import (
 // AuthSingIN
 // TODO: need to write logic
 func (c *AuthorizationCore) AuthSingIN(in *authorization.AuthSignInRequest) (*types.Empty, error) {
-	var user models.Users
-	if err := c.svcCtx.Gorm.Where("username = ?", in.Username).First(&user).Error; err != nil && err != gorm.ErrRecordNotFound {
-		err = fmt.Errorf("can not get users record (%v)", err)
-		c.Logger.Error(err)
-		return nil, err
-	} else if err == gorm.ErrRecordNotFound {
-		err = fmt.Errorf("no such user exists with username = %s", in.Username)
-		c.Logger.Error(err)
-		return nil, err
-	}
-
 	var userEllo models.UsersEllo
-	if err := c.svcCtx.Gorm.Where("user_id = ?", user.ID).First(&userEllo).Error; err != nil && err != gorm.ErrRecordNotFound {
+	if err := c.svcCtx.Gorm.Where("username = ?", in.Username).First(&userEllo).Error; err != nil && err != gorm.ErrRecordNotFound {
 		err = fmt.Errorf("can not get users_ello record (%v)", err)
 		c.Logger.Error(err)
 		return nil, err
 	} else if err == gorm.ErrRecordNotFound {
-		err = errors.New("no such users_ello exists")
+		err = errors.New("username or password incorrect")
 		c.Logger.Error(err)
 		return nil, err
 	} else if !userEllo.EmailConfirmed {
-		err := fmt.Errorf("email not confirmed for user %s", user.Username)
+		err := fmt.Errorf("email not confirmed for user %s", userEllo.Username)
 		c.Logger.Error(err)
 		return nil, err
 	}

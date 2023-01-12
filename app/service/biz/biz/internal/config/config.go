@@ -9,10 +9,12 @@ import (
 
 type Config struct {
 	zrpc.RpcServerConf
-	Mysql           sqlx.Config
-	Cache           cache.CacheConf
-	KV              kv.KvConf
-	MediaClient     zrpc.RpcClientConf
-	IdgenClient     zrpc.RpcClientConf
-	MessageSharding int `json:",default=1"`
+	Mysql             sqlx.Config
+	Cache             cache.CacheConf
+	KV                kv.KvConf
+	MediaClient       zrpc.RpcClientConf
+	IdgenClient       zrpc.RpcClientConf
+	MessageSharding   int `json:",default=1"`
+	UserClient        zrpc.RpcClientConf
+	AuthSessionClient zrpc.RpcClientConf
 }

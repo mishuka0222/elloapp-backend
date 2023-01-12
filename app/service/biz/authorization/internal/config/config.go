@@ -7,5 +7,6 @@ import (
 
 type Config struct {
 	zrpc.RpcServerConf
-	Mysql sqlx.Config
+	Mysql             sqlx.Config
+	AuthsessionClient zrpc.RpcClientConf
 }

@@ -10,8 +10,25 @@ import "google/protobuf/empty.proto";
 
 package authorization;
 
+message MData {
+  string server_id = 1;
+  string client_addr = 2;
+  int64 auth_id = 3;
+  int64 session_id = 4;
+  int64 receive_time = 5;
+  int64 user_id = 6;
+  int64 client_msg_id = 7;
+  bool is_bot = 8;
+  int32 layer = 9;
+  string client = 10;
+  bool is_admin = 11;
+  reserved 12;
+  string langpack = 13;
+  int64 perm_auth_key_id = 14;
+}
+
 message AuthSignUpRequest {
-  int64 user_id = 1;
+  string username = 1;
   string password = 2;
   string gender = 3;
   string date_of_birth = 4;
@@ -21,7 +38,7 @@ message AuthSignUpRequest {
   string avatar = 8;
   string first_name = 9;
   string last_name = 10;
-  string username = 11;
+  MData m_data = 11;
 }
 
 message AuthSignInRequest {

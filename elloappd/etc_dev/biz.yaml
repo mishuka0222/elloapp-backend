@@ -17,7 +17,11 @@ Mysql:
   Active: 64
   Idle: 64
   IdleTimeout: 4h
-
+AuthSessionClient:
+  Etcd:
+    Hosts:
+      - 127.0.0.1:2379
+    Key: service.authsession
 MediaClient:
   Etcd:
     Hosts:

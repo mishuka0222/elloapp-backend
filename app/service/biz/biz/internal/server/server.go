@@ -3,7 +3,6 @@ package server
 import (
 	"flag"
 	authorization_helper "gitlab.com/merehead/elloapp/backend/elloapp_tg_backend/app/service/biz/authorization"
-
 	"gitlab.com/merehead/elloapp/backend/elloapp_tg_backend/app/service/biz/authorization/authorization"
 	configuration_helper "gitlab.com/merehead/elloapp/backend/elloapp_tg_backend/app/service/biz/configuration"
 	"gitlab.com/merehead/elloapp/backend/elloapp_tg_backend/app/service/biz/configuration/configuration"
@@ -81,15 +80,6 @@ func (s *Server) Initialize() error {
 					Mysql:         c.Mysql,
 				}))
 
-		// authorization
-		authorization.RegisterRPCAuthorizationServer(
-			grpcServer,
-			authorization_helper.New(
-				authorization_helper.Config{
-					RpcServerConf: c.RpcServerConf,
-					Mysql:         c.Mysql,
-				}))
-
 		// chat_helper
 		chat.RegisterRPCChatServer(
 			grpcServer,
@@ -143,15 +133,26 @@ func (s *Server) Initialize() error {
 				IdgenClient:   c.IdgenClient,
 			}))
 
+		userService := user_helper.New(user_helper.Config{
+			RpcServerConf: c.RpcServerConf,
+			Mysql:         c.Mysql,
+			Cache:         c.Cache,
+			MediaClient:   c.MediaClient,
+		})
 		// user_helper
 		user.RegisterRPCUserServer(
+			grpcServer, userService)
+
+		// authorization
+		authorization.RegisterRPCAuthorizationServer(
 			grpcServer,
-			user_helper.New(user_helper.Config{
-				RpcServerConf: c.RpcServerConf,
-				Mysql:         c.Mysql,
-				Cache:         c.Cache,
-				MediaClient:   c.MediaClient,
-			}))
+			authorization_helper.New(
+				authorization_helper.Config{
+					RpcServerConf:     c.RpcServerConf,
+					Mysql:             c.Mysql,
+					AuthSessionClient: c.AuthSessionClient,
+					SyncClient:        c.SyncClient,
+				}, userService))
 
 		// username_helper
 		username.RegisterRPCUsernameServer(

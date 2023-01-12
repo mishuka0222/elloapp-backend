@@ -2,13 +2,13 @@ package client
 
 import (
 	"context"
-	"github.com/gogo/protobuf/types"
 	"github.com/zeromicro/go-zero/zrpc"
 	"gitlab.com/merehead/elloapp/backend/elloapp_tg_backend/app/service/biz/authorization/authorization"
+	"gitlab.com/merehead/elloapp/backend/elloapp_tg_backend/mtproto"
 )
 
 type RPCAuthorizationClient interface {
-	AuthSignIn(ctx context.Context, in *authorization.AuthSignInRequest) (*types.Empty, error)
+	AuthSignIn(ctx context.Context, in *authorization.AuthSignInRequest) (*mtproto.Auth_Authorization, error)
 	AuthSignUp(ctx context.Context, in *authorization.AuthSignUpRequest) (*authorization.AuthSignUpRsp, error)
 	Confirmation(ctx context.Context, in *authorization.ConfirmationRequest) (*authorization.ConfirmationResponse, error)
 }
@@ -23,7 +23,7 @@ func NewAuthorizationClient(cli zrpc.Client) RPCAuthorizationClient {
 	}
 }
 
-func (c *defaultAuthorizationClient) AuthSignIn(ctx context.Context, in *authorization.AuthSignInRequest) (*types.Empty, error) {
+func (c *defaultAuthorizationClient) AuthSignIn(ctx context.Context, in *authorization.AuthSignInRequest) (*mtproto.Auth_Authorization, error) {
 	client := authorization.NewRPCAuthorizationClient(c.cli.Conn())
 	return client.AuthSignIn(ctx, in)
 }

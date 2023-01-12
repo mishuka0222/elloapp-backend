@@ -2,6 +2,9 @@ package server
 
 import (
 	"flag"
+	"github.com/zeromicro/go-zero/core/conf"
+	"github.com/zeromicro/go-zero/core/logx"
+	"github.com/zeromicro/go-zero/zrpc"
 	account_helper "gitlab.com/merehead/elloapp/backend/elloapp_tg_backend/app/bff/account"
 	authorization_helper "gitlab.com/merehead/elloapp/backend/elloapp_tg_backend/app/bff/authorization"
 	authorization_customize_helper "gitlab.com/merehead/elloapp/backend/elloapp_tg_backend/app/bff/authorization_customize"
@@ -32,10 +35,6 @@ import (
 	users_helper "gitlab.com/merehead/elloapp/backend/elloapp_tg_backend/app/bff/users"
 	voipcalls_helper "gitlab.com/merehead/elloapp/backend/elloapp_tg_backend/app/bff/voipcalls"
 	"gitlab.com/merehead/elloapp/backend/elloapp_tg_backend/mtproto"
-
-	"github.com/zeromicro/go-zero/core/conf"
-	"github.com/zeromicro/go-zero/core/logx"
-	"github.com/zeromicro/go-zero/zrpc"
 	"google.golang.org/grpc"
 )
 
@@ -333,7 +332,6 @@ func (s *Server) Initialize() error {
 					}, messagesCore),
 					op_srv.AuthorizationCustomize: authorizationCustom,
 				}))
-
 	})
 
 	// logx.Must(err)

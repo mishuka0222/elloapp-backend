@@ -3,7 +3,6 @@ package core
 import (
 	"encoding/json"
 	"gitlab.com/merehead/elloapp/backend/elloapp_tg_backend/app/service/biz/authorization/authorization"
-	"gitlab.com/merehead/elloapp/backend/elloapp_tg_backend/mtproto"
 )
 
 type AuthSingUPReq struct {
@@ -32,20 +31,8 @@ func (c *AuthorizationCore) AuthSingUP(in json.RawMessage) (*AuthSingUPResp, err
 		return nil, err
 	}
 
-	respOrigin, err := c.svcCtx.AuthorizationService.AuthSignUp(c.ctx, &mtproto.TLAuthSignUp{
-		Constructor:   mtproto.CRC32_auth_signUp,
-		PhoneNumber:   req.Phone,
-		PhoneCodeHash: req.Password,
-		FirstName:     req.FirstName,
-		LastName:      req.LastName,
-	})
-	if err != nil {
-		return nil, err
-	}
-
 	// TODO: need to write logic
 	respCustom, err := c.svcCtx.Dao.AuthorizationClient.AuthSignUp(c.ctx, &authorization.AuthSignUpRequest{
-		UserId:      respOrigin.User.Id,
 		Password:    req.Password,
 		Gender:      req.Gender,
 		DateOfBirth: req.DateOfBirth,
@@ -56,6 +43,20 @@ func (c *AuthorizationCore) AuthSingUP(in json.RawMessage) (*AuthSingUPResp, err
 		FirstName:   req.FirstName,
 		LastName:    req.LastName,
 		Username:    req.Username,
+		MData: &authorization.MData{
+			ServerId:      c.MD.ServerId,
+			ClientAddr:    c.MD.ClientAddr,
+			AuthId:        c.MD.AuthId,
+			SessionId:     c.MD.SessionId,
+			ReceiveTime:   c.MD.ReceiveTime,
+			ClientMsgId:   c.MD.ClientMsgId,
+			IsBot:         c.MD.IsBot,
+			Layer:         c.MD.Layer,
+			Client:        c.MD.Client,
+			IsAdmin:       c.MD.IsAdmin,
+			Langpack:      c.MD.Langpack,
+			PermAuthKeyId: c.MD.PermAuthKeyId,
+		},
 	})
 	if err != nil {
 		return nil, err

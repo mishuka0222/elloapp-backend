@@ -8,6 +8,7 @@ import (
 type UsersEllo struct {
 	ID             uint
 	UserID         uint
+	Username       string
 	Password       string
 	Email          string
 	Gender         string

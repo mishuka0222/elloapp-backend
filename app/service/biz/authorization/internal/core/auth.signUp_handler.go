@@ -20,28 +20,22 @@ import (
 // AuthSingUP
 // TODO: need to write logic
 func (c *AuthorizationCore) AuthSingUP(in *authorization.AuthSignUpRequest) (*authorization.AuthSignUpRsp, error) {
-	var (
-		user *userpb.ImmutableUser
-	)
-
-	var findUser models.Users
-	result := c.svcCtx.Gorm.Where("username = ?", in.Username).First(&findUser)
-	if result.Error != nil && result.Error != gorm.ErrRecordNotFound {
-		c.Logger.Errorf("sign up query AuthSingUP method (%v)", result.Error)
-		return nil, result.Error
-	} else if result.RowsAffected > 0 {
-		c.Logger.Info("this username was been registered")
-		return nil, fmt.Errorf("this email was been registered")
-	}
-
-	var findUserEllo models.UsersEllo
-	result = c.svcCtx.Gorm.Where("email = ?", in.Email).First(&findUserEllo)
-	if result.Error != nil && result.Error != gorm.ErrRecordNotFound {
+	var emailUserEllo models.UsersEllo
+	if result := c.svcCtx.Gorm.Where("email = ?", in.Email).First(&emailUserEllo); result.Error != nil && result.Error != gorm.ErrRecordNotFound {
 		c.Logger.Errorf("sign up query AuthSingUP method (%v)", result.Error)
 		return nil, result.Error
 	} else if result.RowsAffected > 0 {
 		c.Logger.Info("this email was been registered")
 		return nil, fmt.Errorf("this email was been registered")
+	}
+
+	var usernameUserEllo models.UsersEllo
+	if result := c.svcCtx.Gorm.Where("username = ?", in.Username).First(&usernameUserEllo); result.Error != nil && result.Error != gorm.ErrRecordNotFound {
+		c.Logger.Errorf("sign up query AuthSingUP method (%v)", result.Error)
+		return nil, result.Error
+	} else if result.RowsAffected > 0 {
+		c.Logger.Info("this username was been registered")
+		return nil, fmt.Errorf("this username was been registered")
 	}
 
 	dob, err := date.FormatDateIso8601(in.DateOfBirth)
@@ -51,7 +45,10 @@ func (c *AuthorizationCore) AuthSingUP(in *authorization.AuthSignUpRequest) (*au
 		return nil, err
 	}
 
-	confirmationCodes := &models.ConfirmationCodes{}
+	var (
+		user              *userpb.ImmutableUser
+		confirmationCodes *models.ConfirmationCodes
+	)
 
 	if err := c.svcCtx.Gorm.Transaction(func(tx *gorm.DB) error {
 		/*

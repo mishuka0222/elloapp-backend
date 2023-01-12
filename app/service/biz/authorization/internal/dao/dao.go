@@ -36,7 +36,7 @@ func New(c config.Config) *Dao {
 	return &Dao{
 		Mysql:             mysql_dao.NewMysqlDao(db),
 		MMDB:              MMDB,
-		AuthsessionClient: authsession_client.NewAuthsessionClient(rpcx.GetCachedRpcClient(c.AuthsessionClient)),
+		AuthsessionClient: authsession_client.NewAuthsessionClient(rpcx.GetCachedRpcClient(c.AuthSessionClient)),
 		SyncClient:        sync_client.NewSyncMqClient(kafka.MustKafkaProducer(c.SyncClient)),
 	}
 }

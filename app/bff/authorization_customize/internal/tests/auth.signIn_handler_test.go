@@ -38,7 +38,7 @@ func TestAuthSingIn(t *testing.T) {
 		Service: op_srv.AuthorizationCustomize,
 		Method:  service.AuthSingIN,
 		Data: core.AuthSingINReq{
-			Username: "makhmudov",
+			Username: "makhmudov1",
 			Password: "password123P",
 		},
 	})

@@ -39,8 +39,8 @@ func TestConfirmation(t *testing.T) {
 		Service: op_srv.AuthorizationCustomize,
 		Method:  service.Confirmation,
 		Data: core.ConfirmationReq{
-			UsernameOrEmail: "makhmudov",
-			Code:            "765196",
+			UsernameOrEmail: "lalala@gmail.com",
+			Code:            "072176",
 		},
 	})
 	if err != nil {

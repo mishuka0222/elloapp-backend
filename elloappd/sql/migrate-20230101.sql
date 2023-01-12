@@ -30,4 +30,7 @@ CREATE TABLE IF NOT EXISTS confirmation_codes
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 ALTER TABLE users MODIFY COLUMN phone varchar(32);
+ALTER TABLE users MODIFY COLUMN first_name varchar(64);
+ALTER TABLE users MODIFY COLUMN last_name varchar(64);
 ALTER TABLE confirmation_codes MODIFY COLUMN code varchar(6);
+ALTER TABLE users DROP INDEX `phone`;

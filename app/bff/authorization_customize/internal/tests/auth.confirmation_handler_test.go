@@ -12,15 +12,16 @@ import (
 	"time"
 )
 
-func TestAuthSingUp(t *testing.T) {
+func TestConfirmation(t *testing.T) {
 	c := NewRPCClient()
 	ctx, err := metadata.RpcMetadataToOutgoing(context.Background(), &metadata.RpcMetadata{
 		ServerId:      "127.0.0.1:20120",
-		ClientAddr:    "92.38.127.109",
+		ClientAddr:    "192.168.1.105",
 		AuthId:        1937090286237253747,
 		SessionId:     -6067022183794192689,
 		ReceiveTime:   time.Now().Unix(),
-		ClientMsgId:   7186682945929270272,
+		UserId:        777115,
+		ClientMsgId:   7180186570927840256,
 		IsBot:         false,
 		Layer:         147,
 		Client:        "android",
@@ -36,18 +37,10 @@ func TestAuthSingUp(t *testing.T) {
 	*/
 	op, err := op_srv.NewOperation(op_srv.Operation{
 		Service: op_srv.AuthorizationCustomize,
-		Method:  service.AuthSingUP,
-		Data: core.AuthSingUPReq{
-			Username:    "makhmudov1",
-			Password:    "password123P",
-			Gender:      "Male",
-			DateOfBirth: "1998-06-10T00:00:00+0000",
-			Email:       "lalala@gmail.com",
-			Phone:       "",
-			CountryCode: "UZB",
-			Avatar:      "",
-			FirstName:   "",
-			LastName:    "",
+		Method:  service.Confirmation,
+		Data: core.ConfirmationReq{
+			UsernameOrEmail: "lalala@gmail.com",
+			Code:            "072176",
 		},
 	})
 	if err != nil {
@@ -57,7 +50,7 @@ func TestAuthSingUp(t *testing.T) {
 	if err != nil {
 		t.Fatal(err)
 	}
-	var resp core.AuthSingUPResp
+	var resp core.ConfirmationResp
 	if err := json.Unmarshal(data.Data, &resp); err != nil {
 		t.Fatal(err)
 	}

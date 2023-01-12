@@ -7,9 +7,10 @@ require (
 	github.com/bwmarrin/snowflake v0.3.0
 	github.com/chai2010/webp v1.1.2-0.20220219151144-e81c7511b15a
 	github.com/disintegration/imaging v1.6.2
-	github.com/go-sql-driver/mysql v1.6.0
+	github.com/go-sql-driver/mysql v1.7.0
 	github.com/gogo/protobuf v1.3.2
 	github.com/golang/protobuf v1.5.2
+	github.com/jordan-wright/email v4.0.1-0.20210109023952-943e75fe5223+incompatible
 	github.com/minio/minio-go v6.0.14+incompatible
 	github.com/nyaruka/phonenumbers v1.1.1
 	github.com/oschwald/geoip2-golang v1.8.0
@@ -23,6 +24,8 @@ require (
 	google.golang.org/grpc v1.50.1
 	gopkg.in/check.v1 v1.0.0-20201130134442-10cb98267c6c
 	gopkg.in/go-playground/validator.v9 v9.31.0
+	gorm.io/driver/mysql v1.4.5
+	gorm.io/gorm v1.24.3
 	istio.io/istio v0.0.0-20220722225051-7b455b6fc1ad
 	mvdan.cc/xurls/v2 v2.4.0
 )
@@ -73,6 +76,8 @@ require (
 	github.com/jcmturner/gofork v1.0.0 // indirect
 	github.com/jcmturner/gokrb5/v8 v8.4.2 // indirect
 	github.com/jcmturner/rpc/v2 v2.0.3 // indirect
+	github.com/jinzhu/inflection v1.0.0 // indirect
+	github.com/jinzhu/now v1.1.5 // indirect
 	github.com/josharian/intern v1.0.0 // indirect
 	github.com/json-iterator/go v1.1.12 // indirect
 	github.com/klauspost/compress v1.15.4 // indirect

@@ -1,8 +1,9 @@
-package core
+package core_test
 
 import (
-	"gitlab.com/merehead/elloapp/backend/elloapp_tg_backend/mtproto"
+	"github.com/stretchr/testify/assert"
 	"gitlab.com/merehead/elloapp/backend/elloapp_tg_backend/mtproto/crypto"
+	"testing"
 )
 
 var (
@@ -72,30 +73,22 @@ var (
 	gNewAlgoG = int32(3)
 )
 
-/*
-	request:
-	{ messages_getDhConfig
-	  version: 0 [INT],
-	  random_length: 256 [INT],
-	}
+func TestSecretchatsCore_MessagesGetDhConfig(t *testing.T) {
 
-	reply:
-	{ messages_dhConfig
-		g: 3 [INT],
-		p: C7 1C AE B9 C6 B1 C9 04 8E 6C 52 2F 70 F1 3F 73... [256 BYTES],
-		version: 3 [INT],
-		random: F1 2A FB 6B 97 B6 0A 17 B9 3E 2F 65 28 33 4D 03... [256 BYTES],
-	}
-*/
-// messages.getDhConfig#26cf8950 version:int random_length:int = messages.DhConfig;
-func (c *SecretchatsCore) MessagesGetDhConfig(in *mtproto.TLMessagesGetDhConfig) (*mtproto.Messages_DhConfig, error) {
-	conf := &mtproto.Messages_DhConfig{
-		Constructor: mtproto.CRC32_messages_dhConfig,
-		Random:      crypto.GenerateNonce(int(in.GetRandomLength())),
-		G:           gNewAlgoG,
-		P:           gNewAlgoP,
-		Version:     in.GetVersion(),
-	}
+	/*
+		// don't work
+		// MARK: dhgen "github.com/Luzifer/go-dhparam"
+		dh, err := dhgen.GenerateWithContext(context.Background(), 2048, dhgen.GeneratorFive, nil)
+		if err != nil {
+			t.Fatal(err)
+		}
+		//fmt.Println(len(dh.P.Bytes()), dh.G)
+		ok := crypto.IsGoodPrime(dh.P.Bytes(), dh.G)
+		assert.True(t, ok)
+	*/
 
-	return mtproto.MakeTLMessagesDhConfig(conf).To_Messages_DhConfig(), nil
+	// work
+	ok := crypto.IsGoodPrime(gNewAlgoP, int(gNewAlgoG))
+	assert.True(t, ok)
+
 }

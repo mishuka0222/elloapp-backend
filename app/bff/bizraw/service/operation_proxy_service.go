@@ -4,6 +4,7 @@ import (
 	"context"
 	"encoding/json"
 	"errors"
+	"fmt"
 	log "github.com/zeromicro/go-zero/core/logx"
 	"gitlab.com/merehead/elloapp/backend/elloapp_tg_backend/mtproto"
 )
@@ -33,7 +34,7 @@ func New(register map[ServiceID]OperationServer) *Service {
 func (s *Service) Handle(ctx context.Context, servID int32, opID int32, data json.RawMessage) (*mtproto.BizDataRaw, error) {
 	srv, ok := s.register[ServiceID(servID)]
 	if !ok {
-		err := "Operation service error, unknown service id: " + string(servID)
+		err := fmt.Sprintf("Operation service error, unknown service id: %d", servID)
 		log.Error(err)
 		return nil, errors.New(err)
 	}

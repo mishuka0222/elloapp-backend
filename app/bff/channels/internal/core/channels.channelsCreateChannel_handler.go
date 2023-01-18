@@ -78,9 +78,9 @@ func (c *ChannelsCore) ChannelsCreateChannel(in *mtproto.TLChannelsCreateChannel
 		return nil, err
 	}
 	var (
-		username = in.Title
+		username  = in.Title
 		firstName = in.Title
-		lastName = in.About
+		lastName  = in.About
 	)
 
 	if userChannel, err = c.svcCtx.Dao.UserClient.UserCreateNewUser(c.ctx, &userpb.TLUserCreateNewUser{
@@ -99,7 +99,7 @@ func (c *ChannelsCore) ChannelsCreateChannel(in *mtproto.TLChannelsCreateChannel
 	if err_un != nil {
 		c.Logger.Errorf("username error: %v", err_un)
 	}
-	
+
 	_, err_un = c.svcCtx.Dao.UsernameUpdateUsername(c.ctx, &usernamepb.TLUsernameUpdateUsername{
 		PeerType: mtproto.PEER_CHANNEL,
 		PeerId:   userChannel.Id(),
@@ -119,7 +119,6 @@ func (c *ChannelsCore) ChannelsCreateChannel(in *mtproto.TLChannelsCreateChannel
 		return nil, err
 	}
 
-
 	message := mtproto.MakeTLMessageService(&mtproto.Message{
 		Out:         true,
 		Mentioned:   false,
@@ -129,10 +128,10 @@ func (c *ChannelsCore) ChannelsCreateChannel(in *mtproto.TLChannelsCreateChannel
 		Legacy:      false,
 		Id:          0,
 		FromId:      mtproto.MakePeerUser(c.MD.UserId),
-		PeerId: mtproto.MakePeerUser(userChannel.Id()),
-		ReplyTo:   nil,
-		Date:      int32(time.Now().Unix()),
-		TtlPeriod: nil,
+		PeerId:      mtproto.MakePeerUser(userChannel.Id()),
+		ReplyTo:     nil,
+		Date:        int32(time.Now().Unix()),
+		TtlPeriod:   nil,
 		// Action:      &mtproto.MessageAction{},
 		Action: mtproto.MakeMessageActionChannelCreate(channelTitle),
 	})
@@ -140,12 +139,12 @@ func (c *ChannelsCore) ChannelsCreateChannel(in *mtproto.TLChannelsCreateChannel
 	rValue, err := c.svcCtx.Dao.MsgClient.MsgSendMessage(c.ctx, &msgpb.TLMsgSendMessage{
 		UserId:    c.MD.UserId,
 		AuthKeyId: c.MD.AuthId,
-		PeerType: mtproto.PEER_USER,
-		PeerId:   userChannel.Id(),
+		PeerType:  mtproto.PEER_USER,
+		PeerId:    userChannel.Id(),
 		Message: msgpb.MakeTLOutboxMessage(&msgpb.OutboxMessage{
-			NoWebpage:  true,
-			Background: false,
-			RandomId:   rand.Int63(),
+			NoWebpage:    true,
+			Background:   false,
+			RandomId:     rand.Int63(),
 			Message:      message.To_Message(),
 			ScheduleDate: nil,
 		}).To_OutboxMessage(),

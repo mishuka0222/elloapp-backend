@@ -34,6 +34,7 @@ import (
 	usernames_helper "gitlab.com/merehead/elloapp/backend/elloapp_tg_backend/app/bff/usernames"
 	users_helper "gitlab.com/merehead/elloapp/backend/elloapp_tg_backend/app/bff/users"
 	voipcalls_helper "gitlab.com/merehead/elloapp/backend/elloapp_tg_backend/app/bff/voipcalls"
+	channels_helper "gitlab.com/merehead/elloapp/backend/elloapp_tg_backend/app/bff/channels"
 	"gitlab.com/merehead/elloapp/backend/elloapp_tg_backend/mtproto"
 	"google.golang.org/grpc"
 )
@@ -57,6 +58,24 @@ func (s *Server) Initialize() error {
 	// s.grpcSrv = grpc.New(ctx, c.RpcServerConf)
 
 	s.grpcSrv = zrpc.MustNewServer(c.RpcServerConf, func(grpcServer *grpc.Server) {
+
+		//channels
+		mtproto.RegisterRPCChannelsServer(
+			grpcServer,
+			channels_helper.New(
+				channels_helper.Config{
+				RpcServerConf:     c.RpcServerConf,
+				UserClient:        c.BizServiceClient,
+				UsernameClient:    c.BizServiceClient,
+				ChatClient:        c.BizServiceClient,
+				MsgClient:         c.MsgClient,
+				DialogClient:      c.BizServiceClient,
+				SyncClient:        c.SyncClient,
+				MediaClient:       c.MediaClient,
+				AuthsessionClient: c.AuthSessionClient,
+				IdgenClient:       c.IdgenClient,
+				MessageClient:     c.BizServiceClient,
+				}))
 
 		// secretchats
 		mtproto.RegisterRPCSecretChatsServer(

@@ -1,15 +1,15 @@
 PWD=`pwd`
 GOPATH=$HOME/go
-GO_CTR_PATH=$PWD/generator/macapp
+GO_CTR_PATH=$PWD/generator/linuxapp
 
 GOGOPROTO_PATH=$GOPATH/pkg/mod/github.com/gogo/protobuf@v1.3.2/protobuf
 SCHEMA_PATH=$PWD/mtproto/example.proto
 
-WD_PATH=app/service/biz/phone_call
+WD_PATH=app/bff/channels
 WORKDIR=$PWD/$WD_PATH
-SRC_PATH=phone_call.proto
+SRC_PATH=channels.proto
 DST_DIR=.
-DST_DIR2=phone_call
+DST_DIR2=channels
 
 cd $WORKDIR
 

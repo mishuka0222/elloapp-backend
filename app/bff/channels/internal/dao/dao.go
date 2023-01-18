@@ -9,6 +9,7 @@ import (
 	dialog_client "gitlab.com/merehead/elloapp/backend/elloapp_tg_backend/app/service/biz/dialog/client"
 	message_client "gitlab.com/merehead/elloapp/backend/elloapp_tg_backend/app/service/biz/message/client"
 	user_client "gitlab.com/merehead/elloapp/backend/elloapp_tg_backend/app/service/biz/user/client"
+	username_client "gitlab.com/merehead/elloapp/backend/elloapp_tg_backend/app/service/biz/username/client"
 	idgen_client "gitlab.com/merehead/elloapp/backend/elloapp_tg_backend/app/service/idgen/client"
 	media_client "gitlab.com/merehead/elloapp/backend/elloapp_tg_backend/app/service/media/client"
 	kafka "gitlab.com/merehead/elloapp/backend/elloapp_tg_backend/pkg2/mq"
@@ -17,6 +18,7 @@ import (
 
 type Dao struct {
 	user_client.UserClient
+	username_client.UsernameClient
 	ChatClient *chat_client.ChatClientHelper
 	msg_client.MsgClient
 	sync_client.SyncClient
@@ -30,6 +32,7 @@ type Dao struct {
 func New(c config.Config) *Dao {
 	return &Dao{
 		UserClient:        user_client.NewUserClient(rpcx.GetCachedRpcClient(c.UserClient)),
+		UsernameClient:    username_client.NewUsernameClient(rpcx.GetCachedRpcClient(c.UsernameClient)),
 		ChatClient:        chat_client.NewChatClientHelper(rpcx.GetCachedRpcClient(c.ChatClient)),
 		MsgClient:         msg_client.NewMsgClient(rpcx.GetCachedRpcClient(c.MsgClient)),
 		DialogClient:      dialog_client.NewDialogClient(rpcx.GetCachedRpcClient(c.DialogClient)),

@@ -66,6 +66,7 @@ func (s *Server) Initialize() error {
 				channels_helper.Config{
 				RpcServerConf:     c.RpcServerConf,
 				UserClient:        c.BizServiceClient,
+				UsernameClient:    c.BizServiceClient,
 				ChatClient:        c.BizServiceClient,
 				MsgClient:         c.MsgClient,
 				DialogClient:      c.BizServiceClient,

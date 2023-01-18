@@ -8,6 +8,7 @@ import (
 type Config struct {
 	zrpc.RpcServerConf
 	UserClient        zrpc.RpcClientConf
+	UsernameClient    zrpc.RpcClientConf
 	ChatClient        zrpc.RpcClientConf
 	MsgClient         zrpc.RpcClientConf
 	DialogClient      zrpc.RpcClientConf

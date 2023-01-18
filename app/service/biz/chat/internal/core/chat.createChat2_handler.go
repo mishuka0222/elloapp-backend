@@ -14,13 +14,20 @@ import (
 // chat.createChat2 creator_id:long user_id_list:Vector<long> title:string = MutableChat;
 func (c *ChatCore) ChatCreateChat2(in *chat.TLChatCreateChat2) (*chat.MutableChat, error) {
 	var (
-		chatsDO    *dataobject.ChatsDO
-		err        error
-		date       = time.Now().Unix()
-		creatorId  = in.CreatorId
-		userIdList = in.UserIdList
-		title      = in.Title
+		chatsDO                *dataobject.ChatsDO
+		err                    error
+		date                   = time.Now().Unix()
+		creatorId              = in.CreatorId
+		userIdList             = in.UserIdList
+		title                  = in.Title
+		onlyCreatorParticipant = false
+		inviteLink             = chat.GenChatInviteHash()
 	)
+
+	if len(userIdList) == 1 {
+		onlyCreatorParticipant = true
+		inviteLink = chat.GenChannelInviteHash()
+	}
 
 	// TODO:
 	if chatsDO, err = c.svcCtx.Dao.ChatsDAO.SelectLastCreator(c.ctx, creatorId); err != nil {
@@ -57,7 +64,7 @@ func (c *ChatCore) ChatCreateChat2(in *chat.TLChatCreateChat2) (*chat.MutableCha
 			participantDOList[i] = &dataobject.ChatParticipantsDO{
 				UserId:          creatorId,
 				ParticipantType: mtproto.ChatMemberCreator,
-				Link:            chat.GenChatInviteHash(),
+				Link:            inviteLink,
 				InviterUserId:   0,
 				InvitedAt:       date,
 				Date2:           date,
@@ -76,26 +83,46 @@ func (c *ChatCore) ChatCreateChat2(in *chat.TLChatCreateChat2) (*chat.MutableCha
 
 	tR := sqlx.TxWrapper(c.ctx, c.svcCtx.Dao.DB, func(tx *sqlx.Tx, result *sqlx.StoreResult) {
 		// 1. insert chat
+		if onlyCreatorParticipant {
+			chatsDO.ParticipantCount = 1
+		}
 		chatsDO.Id, _, err = c.svcCtx.Dao.ChatsDAO.InsertTx(tx, chatsDO)
 		if err != nil {
 			result.Err = err
 			return
 		}
-		//chatsDO.Id = chatId
-		for i := 0; i < len(participantDOList); i++ {
-			participantDOList[i].ChatId = chatsDO.Id
-		}
 
-		_, _, err = c.svcCtx.Dao.ChatParticipantsDAO.InsertBulkTx(tx, participantDOList)
-		if err != nil {
-			result.Err = err
-			return
+		if onlyCreatorParticipant {
+			_, _, err = c.svcCtx.Dao.ChatParticipantsDAO.InsertTx(tx, &dataobject.ChatParticipantsDO{
+				UserId:          creatorId,
+				ChatId:          chatsDO.Id,
+				ParticipantType: mtproto.ChatMemberCreator,
+				Link:            inviteLink,
+				InviterUserId:   0,
+				InvitedAt:       date,
+				Date2:           date,
+			})
+			if err != nil {
+				result.Err = err
+				return
+			}
+		} else {
+			//chatsDO.Id = chatId
+			for i := 0; i < len(participantDOList); i++ {
+				participantDOList[i].ChatId = chatsDO.Id
+			}
+
+			_, _, err = c.svcCtx.Dao.ChatParticipantsDAO.InsertBulkTx(tx, participantDOList)
+			if err != nil {
+				result.Err = err
+				return
+			}
 		}
 
 		_, _, result.Err = c.svcCtx.Dao.ChatInvitesDAO.InsertTx(tx, &dataobject.ChatInvitesDO{
 			ChatId:    chatsDO.Id,
 			AdminId:   creatorId,
-			Link:      participantDOList[0].Link,
+			Link:      inviteLink,
 			Permanent: true,
 			Date2:     date,
 		})
@@ -107,20 +134,27 @@ func (c *ChatCore) ChatCreateChat2(in *chat.TLChatCreateChat2) (*chat.MutableCha
 		c.Logger.Errorf("chat.createChat2 - error: %v", tR.Err)
 		return nil, tR.Err
 	}
+	if onlyCreatorParticipant {
+		chat2 := chat.MakeTLMutableChat(&chat.MutableChat{
+			Chat: c.svcCtx.Dao.MakeImmutableChatByDO(chatsDO),
+		}).To_MutableChat()
+		return chat2, nil
+	} else {
 
-	chat2 := chat.MakeTLMutableChat(&chat.MutableChat{
-		Chat:             c.svcCtx.Dao.MakeImmutableChatByDO(chatsDO),
-		ChatParticipants: make([]*chat.ImmutableChatParticipant, 0, len(participantDOList)),
-	}).To_MutableChat()
+		chat2 := chat.MakeTLMutableChat(&chat.MutableChat{
+			Chat:             c.svcCtx.Dao.MakeImmutableChatByDO(chatsDO),
+			ChatParticipants: make([]*chat.ImmutableChatParticipant, 0, len(participantDOList)),
+		}).To_MutableChat()
 
-	for i := 0; i < len(participantDOList); i++ {
-		chat2.ChatParticipants = append(chat2.ChatParticipants,
-			c.svcCtx.Dao.MakeImmutableChatParticipant(participantDOList[i]))
+		for i := 0; i < len(participantDOList); i++ {
+			chat2.ChatParticipants = append(chat2.ChatParticipants,
+				c.svcCtx.Dao.MakeImmutableChatParticipant(participantDOList[i]))
+		}
+
+		chat2.Chat.ParticipantsCount = int32(len(participantDOList))
+		return chat2, nil
 	}
-
-	chat2.Chat.ParticipantsCount = int32(len(participantDOList))
 
 	// c.svcCtx.Dao.PutMutableChat(c.ctx, chat2)
 
-	return chat2, nil
 }

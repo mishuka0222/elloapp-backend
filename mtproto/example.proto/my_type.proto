@@ -7,3 +7,4 @@ option java_outer_classname = "MTProto";
 option optimize_for = CODE_SIZE;
 
 message Auth_Authorization {}
+message ChannelParticipant {}

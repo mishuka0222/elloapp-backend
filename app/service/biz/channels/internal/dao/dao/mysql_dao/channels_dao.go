@@ -20,7 +20,7 @@ func NewChannelsDAO(db *sqlx.DB) *ChannelsDAO {
 
 // Insert
 // insert into channels(creator_user_id, access_hash, random_id, participant_count, title, about, `date`) values (:creator_user_id, :access_hash, :random_id, :participant_count, :title, :about, :date)
-func (dao *ChannelsDAO) Insert(ctx context.Context, do *dataobject.ChannelsDO) (id int64, err error) {
+func (dao *ChannelsDAO) Insert(ctx context.Context, do *dataobject.ChannelDO) (id int64, err error) {
 	var (
 		query = "insert into channels(creator_user_id, access_hash, random_id, participant_count, title, about, `date`) values (:creator_user_id, :access_hash, :random_id, :participant_count, :title, :about, :date)"
 		res   sql.Result
@@ -41,10 +41,10 @@ func (dao *ChannelsDAO) Insert(ctx context.Context, do *dataobject.ChannelsDO) (
 
 // Select
 // select id, creator_user_id, access_hash, participant_count, title, about, photo_id, admins_enabled, deactivated, version, `date` from channels where id = :id
-func (dao *ChannelsDAO) Select(ctx context.Context, id int32) (rValue *dataobject.ChannelsDO, err error) {
+func (dao *ChannelsDAO) Select(ctx context.Context, id int32) (rValue *dataobject.ChannelDO, err error) {
 	var (
 		query = "select id, creator_user_id, access_hash, participant_count, title, about, photo_id, admins_enabled, deactivated, version, `date` from channels where id = ?"
-		row   *dataobject.ChannelsDO
+		row   *dataobject.ChannelDO
 	)
 	err = dao.db.QueryRow(ctx, &row, query, id)
 
@@ -129,10 +129,10 @@ func (dao *ChannelsDAO) UpdateLink(ctx context.Context, link string, date int32,
 
 // SelectByIdList
 // select id, access_hash, participant_count, title, about, photo_id, admins_enabled, deactivated, version, `date` from channels where id in (:idList)
-func (dao *ChannelsDAO) SelectByIdList(ctx context.Context, idList []int32) (rValues []dataobject.ChannelsDO, err error) {
+func (dao *ChannelsDAO) SelectByIdList(ctx context.Context, idList []int32) (rValues []dataobject.ChannelDO, err error) {
 	var (
 		q    = "select id, access_hash, participant_count, title, about, photo_id, admins_enabled, deactivated, version, `date` from channels where id in (?)"
-		rows []dataobject.ChannelsDO
+		rows []dataobject.ChannelDO
 	)
 	query, a, err := sqlx.In(q, idList)
 	err = dao.db.QueryRows(ctx, &rows, query, a...)

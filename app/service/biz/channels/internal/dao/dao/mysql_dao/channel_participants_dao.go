@@ -20,7 +20,7 @@ func NewChannelParticipantsDAO(db *sqlx.DB) *ChannelParticipantsDAO {
 
 // Insert
 // insert into channel_participants(channel_id, user_id, participant_type, inviter_user_id, invited_at, joined_at, state) values (:channel_id, :user_id, :participant_type, :inviter_user_id, :invited_at, :joined_at, :state)
-func (dao *ChannelParticipantsDAO) Insert(ctx context.Context, do *dataobject.ChannelParticipantsDO) (id int64, err error) {
+func (dao *ChannelParticipantsDAO) Insert(ctx context.Context, do *dataobject.ChannelParticipantDO) (id int64, err error) {
 	var (
 		query = "insert into channel_participants(channel_id, user_id, participant_type, inviter_user_id, invited_at, joined_at, state) values (:channel_id, :user_id, :participant_type, :inviter_user_id, :invited_at, :joined_at, :state)"
 		res   sql.Result
@@ -41,10 +41,10 @@ func (dao *ChannelParticipantsDAO) Insert(ctx context.Context, do *dataobject.Ch
 
 // SelectByChannelId
 // select id, channel_id, user_id, participant_type, inviter_user_id, invited_at, joined_at, state from channel_participants where channel_id = :channel_id
-func (dao *ChannelParticipantsDAO) SelectByChannelId(ctx context.Context, channel_id int32) (rValues []dataobject.ChannelParticipantsDO, err error) {
+func (dao *ChannelParticipantsDAO) SelectByChannelId(ctx context.Context, channel_id int32) (rValues []dataobject.ChannelParticipantDO, err error) {
 	var (
 		query = "select id, channel_id, user_id, participant_type, inviter_user_id, invited_at, joined_at, state from channel_participants where channel_id = ?"
-		rows  []dataobject.ChannelParticipantsDO
+		rows  []dataobject.ChannelParticipantDO
 	)
 	err = dao.db.QueryRows(ctx, &rows, query, channel_id)
 
@@ -60,10 +60,10 @@ func (dao *ChannelParticipantsDAO) SelectByChannelId(ctx context.Context, channe
 
 // SelectByUserIdList
 // select id, channel_id, user_id, participant_type, inviter_user_id, invited_at, joined_at, state from channel_participants where channel_id = :channel_id and user_id in (:idList)
-func (dao *ChannelParticipantsDAO) SelectByUserIdList(ctx context.Context, channel_id int32, idList []int32) (rValues []dataobject.ChannelParticipantsDO, err error) {
+func (dao *ChannelParticipantsDAO) SelectByUserIdList(ctx context.Context, channel_id int32, idList []int32) (rValues []dataobject.ChannelParticipantDO, err error) {
 	var (
 		q    = "select id, channel_id, user_id, participant_type, inviter_user_id, invited_at, joined_at, state from channel_participants where channel_id = ? and user_id in (?)"
-		rows []dataobject.ChannelParticipantsDO
+		rows []dataobject.ChannelParticipantDO
 	)
 	query, a, err := sqlx.In(q, channel_id, idList)
 	err = dao.db.QueryRows(ctx, &rows, query, a...)
@@ -80,10 +80,10 @@ func (dao *ChannelParticipantsDAO) SelectByUserIdList(ctx context.Context, chann
 
 // SelectByUserId
 // select id, channel_id, user_id, participant_type, inviter_user_id, invited_at, joined_at, state from channel_participants where channel_id = :channel_id and user_id = :user_id
-func (dao *ChannelParticipantsDAO) SelectByUserId(ctx context.Context, channel_id int32, user_id int32) (rValue *dataobject.ChannelParticipantsDO, err error) {
+func (dao *ChannelParticipantsDAO) SelectByUserId(ctx context.Context, channel_id int32, user_id int32) (rValue *dataobject.ChannelParticipantDO, err error) {
 	var (
 		query = "select id, channel_id, user_id, participant_type, inviter_user_id, invited_at, joined_at, state from channel_participants where channel_id = ? and user_id = ?"
-		row   *dataobject.ChannelParticipantsDO
+		row   *dataobject.ChannelParticipantDO
 	)
 
 	err = dao.db.QueryRow(ctx, &row, query, channel_id, user_id)

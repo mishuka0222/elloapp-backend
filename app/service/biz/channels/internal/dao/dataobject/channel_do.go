@@ -1,6 +1,6 @@
 package dataobject
 
-type ChannelsDO struct {
+type ChannelDO struct {
 	Id               int32  `db:"id"`
 	CreatorUserId    int32  `db:"creator_user_id"`
 	AccessHash       int64  `db:"access_hash"`

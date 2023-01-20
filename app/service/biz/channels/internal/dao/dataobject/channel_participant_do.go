@@ -1,6 +1,6 @@
 package dataobject
 
-type ChannelParticipantsDO struct {
+type ChannelParticipantDO struct {
 	Id              int32  `db:"id"`
 	ChannelId       int32  `db:"channel_id"`
 	UserId          int32  `db:"user_id"`

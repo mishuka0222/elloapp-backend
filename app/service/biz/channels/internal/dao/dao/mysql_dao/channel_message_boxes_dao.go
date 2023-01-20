@@ -20,7 +20,7 @@ func NewChannelMessageBoxesDAO(db *sqlx.DB) *ChannelMessageBoxesDAO {
 
 // Insert
 // insert into channel_message_boxes(sender_user_id, channel_id, channel_message_box_id, message_id, `date`) values (:sender_user_id, :channel_id, :channel_message_box_id, :message_id, :date)
-func (dao *ChannelMessageBoxesDAO) Insert(ctx context.Context, do *dataobject.ChannelMessageBoxesDO) (id int64, err error) {
+func (dao *ChannelMessageBoxesDAO) Insert(ctx context.Context, do *dataobject.ChannelMessageBoxDO) (id int64, err error) {
 	var (
 		query = "insert into channel_message_boxes(sender_user_id, channel_id, channel_message_box_id, message_id, `date`) values (:sender_user_id, :channel_id, :channel_message_box_id, :message_id, :date)"
 		res   sql.Result
@@ -41,10 +41,10 @@ func (dao *ChannelMessageBoxesDAO) Insert(ctx context.Context, do *dataobject.Ch
 
 // SelectByMessageIdList
 // select sender_user_id, channel_id, channel_message_box_id, message_id, `date` from channel_message_boxes where channel_id = :channel_id and deleted = 0 and channel_message_box_id in (:idList) order by channel_message_box_id desc
-func (dao *ChannelMessageBoxesDAO) SelectByMessageIdList(ctx context.Context, channel_id int32, idList []int32) (rValues []dataobject.ChannelMessageBoxesDO, err error) {
+func (dao *ChannelMessageBoxesDAO) SelectByMessageIdList(ctx context.Context, channel_id int32, idList []int32) (rValues []dataobject.ChannelMessageBoxDO, err error) {
 	var (
 		q    = "select sender_user_id, channel_id, channel_message_box_id, message_id, `date` from channel_message_boxes where channel_id = ? and deleted = 0 and channel_message_box_id in (?) order by channel_message_box_id desc"
-		rows []dataobject.ChannelMessageBoxesDO
+		rows []dataobject.ChannelMessageBoxDO
 	)
 	query, a, err := sqlx.In(q, channel_id, idList)
 	err = dao.db.QueryRows(ctx, &rows, query, a...)
@@ -61,10 +61,10 @@ func (dao *ChannelMessageBoxesDAO) SelectByMessageIdList(ctx context.Context, ch
 
 // SelectByMessageId
 // select sender_user_id, channel_id, channel_message_box_id, message_id, `date` from channel_message_boxes where channel_id = :channel_id and channel_message_box_id = :channel_message_box_id and deleted = 0 limit 1
-func (dao *ChannelMessageBoxesDAO) SelectByMessageId(ctx context.Context, channel_id int32, channel_message_box_id int32) (rValue *dataobject.ChannelMessageBoxesDO, err error) {
+func (dao *ChannelMessageBoxesDAO) SelectByMessageId(ctx context.Context, channel_id int32, channel_message_box_id int32) (rValue *dataobject.ChannelMessageBoxDO, err error) {
 	var (
 		query = "select sender_user_id, channel_id, channel_message_box_id, message_id, `date` from channel_message_boxes where channel_id = ? and channel_message_box_id = ? and deleted = 0 limit 1"
-		row   *dataobject.ChannelMessageBoxesDO
+		row   *dataobject.ChannelMessageBoxDO
 	)
 	err = dao.db.QueryRow(ctx, &row, query, channel_id, channel_message_box_id)
 
@@ -80,10 +80,10 @@ func (dao *ChannelMessageBoxesDAO) SelectByMessageId(ctx context.Context, channe
 
 // SelectBackwardByOffsetLimit
 // select sender_user_id, channel_id, channel_message_box_id, message_id, `date` from channel_message_boxes where channel_id = :channel_id and channel_message_box_id < :channel_message_box_id and deleted = 0 order by channel_message_box_id desc limit :limit
-func (dao *ChannelMessageBoxesDAO) SelectBackwardByOffsetLimit(ctx context.Context, channel_id int32, channel_message_box_id int32, limit int32) (rValues []dataobject.ChannelMessageBoxesDO, err error) {
+func (dao *ChannelMessageBoxesDAO) SelectBackwardByOffsetLimit(ctx context.Context, channel_id int32, channel_message_box_id int32, limit int32) (rValues []dataobject.ChannelMessageBoxDO, err error) {
 	var (
 		query = "select sender_user_id, channel_id, channel_message_box_id, message_id, `date` from channel_message_boxes where channel_id = ? and channel_message_box_id < ? and deleted = 0 order by channel_message_box_id desc limit ?"
-		rows  []dataobject.ChannelMessageBoxesDO
+		rows  []dataobject.ChannelMessageBoxDO
 	)
 	err = dao.db.QueryRows(ctx, &rows, query, channel_id, channel_message_box_id, limit)
 
@@ -99,10 +99,10 @@ func (dao *ChannelMessageBoxesDAO) SelectBackwardByOffsetLimit(ctx context.Conte
 
 // SelectForwardByOffsetLimit
 // select sender_user_id, channel_id, channel_message_box_id, message_id, `date` from channel_message_boxes where channel_id = :channel_id and channel_message_box_id >= :channel_message_box_id and deleted = 0 order by channel_message_box_id asc limit :limit
-func (dao *ChannelMessageBoxesDAO) SelectForwardByOffsetLimit(ctx context.Context, channel_id int32, channel_message_box_id int32, limit int32) (rValues []dataobject.ChannelMessageBoxesDO, err error) {
+func (dao *ChannelMessageBoxesDAO) SelectForwardByOffsetLimit(ctx context.Context, channel_id int32, channel_message_box_id int32, limit int32) (rValues []dataobject.ChannelMessageBoxDO, err error) {
 	var (
 		query = "select sender_user_id, channel_id, channel_message_box_id, message_id, `date` from channel_message_boxes where channel_id = ? and channel_message_box_id >= ? and deleted = 0 order by channel_message_box_id asc limit ?"
-		rows  []dataobject.ChannelMessageBoxesDO
+		rows  []dataobject.ChannelMessageBoxDO
 	)
 
 	err = dao.db.QueryRows(ctx, &rows, query, channel_id, channel_message_box_id, limit)

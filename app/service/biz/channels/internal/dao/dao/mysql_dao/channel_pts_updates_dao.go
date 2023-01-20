@@ -20,7 +20,7 @@ func NewChannelPtsUpdatesDAO(db *sqlx.DB) *ChannelPtsUpdatesDAO {
 
 // Insert
 // insert into channel_pts_updates(channel_id, pts, pts_count, update_type, update_data, date2) values (:channel_id, :pts, :pts_count, :update_type, :update_data, :date2)
-func (dao *ChannelPtsUpdatesDAO) Insert(ctx context.Context, do *dataobject.ChannelPtsUpdatesDO) (id int64, err error) {
+func (dao *ChannelPtsUpdatesDAO) Insert(ctx context.Context, do *dataobject.ChannelPtsUpdateDO) (id int64, err error) {
 	var (
 		query = "insert into channel_pts_updates(channel_id, pts, pts_count, update_type, update_data, date2) values (:channel_id, :pts, :pts_count, :update_type, :update_data, :date2)"
 		res   sql.Result
@@ -41,10 +41,10 @@ func (dao *ChannelPtsUpdatesDAO) Insert(ctx context.Context, do *dataobject.Chan
 
 // SelectLastPts
 // select pts from channel_pts_updates where channel_id = :channel_id order by pts desc limit 1
-func (dao *ChannelPtsUpdatesDAO) SelectLastPts(ctx context.Context, channel_id int32) (rValue *dataobject.ChannelPtsUpdatesDO, err error) {
+func (dao *ChannelPtsUpdatesDAO) SelectLastPts(ctx context.Context, channel_id int32) (rValue *dataobject.ChannelPtsUpdateDO, err error) {
 	var (
 		query = "select pts from channel_pts_updates where channel_id = ? order by pts desc limit 1"
-		row   *dataobject.ChannelPtsUpdatesDO
+		row   *dataobject.ChannelPtsUpdateDO
 	)
 	err = dao.db.QueryRow(ctx, &row, query, channel_id)
 
@@ -60,10 +60,10 @@ func (dao *ChannelPtsUpdatesDAO) SelectLastPts(ctx context.Context, channel_id i
 
 // SelectByGtPts
 // select channel_id, pts, pts_count, update_type, update_data from channel_pts_updates where channel_id = :channel_id and pts > :pts order by pts asc
-func (dao *ChannelPtsUpdatesDAO) SelectByGtPts(ctx context.Context, channel_id int32, pts int32) (rValues []dataobject.ChannelPtsUpdatesDO, err error) {
+func (dao *ChannelPtsUpdatesDAO) SelectByGtPts(ctx context.Context, channel_id int32, pts int32) (rValues []dataobject.ChannelPtsUpdateDO, err error) {
 	var (
 		query = "select channel_id, pts, pts_count, update_type, update_data from channel_pts_updates where channel_id = ? and pts > ? order by pts asc"
-		rows  []dataobject.ChannelPtsUpdatesDO
+		rows  []dataobject.ChannelPtsUpdateDO
 	)
 	err = dao.db.QueryRows(ctx, &rows, query, channel_id, pts)
 

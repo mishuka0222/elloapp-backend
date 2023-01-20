@@ -1,6 +1,6 @@
 package dataobject
 
-type ChannelMessageBoxesDO struct {
+type ChannelMessageBoxDO struct {
 	Id                  int32  `db:"id"`
 	SenderUserId        int32  `db:"sender_user_id"`
 	ChannelId           int32  `db:"channel_id"`

@@ -1,0 +1,155 @@
+syntax = "proto3";
+
+option go_package = "channels";
+
+package channels;
+
+import "my_type.proto";
+
+
+message ChannelParticipant {
+  int32  id = 1;
+  int32  channel_id = 2;
+  int32  user_id = 3;
+  int32   participant_type = 4;
+  int32  inviter_user_id = 5;
+  int32  invited_at = 6;
+  int32  joined_at = 7;
+  int32   state = 8;
+  string created_at = 9;
+  string updated_at = 10;
+}
+
+message Channel {
+  int32  id = 1;
+  int32  creator_user_id = 2;
+  int64  access_hash = 3;
+  int64  random_id = 4;
+  int32  participant_count = 5;
+  string title = 6;
+  string about = 7;
+  int64  photo_id = 8;
+  string link = 9;
+  int32   admins_enabled = 10;
+  int32   deactivated = 11;
+  int32  version = 12;
+  int32  date = 13;
+  string created_at = 14;
+  string updated_at = 15;
+}
+
+message ChannelParticipantRes {
+  mtproto.ChannelParticipant participant = 1;
+}
+
+message ChannelCoreByIdReq {
+  int32 self_id = 1;
+  ChannelParticipant participant = 2;
+}
+
+message ChannelCoreByCreateChannelReq {
+  int32 creator_id = 1;
+  repeated int32 user_id_list = 2;
+  string title = 3;
+  string about = 4;
+}
+
+message ChannelCoreData {
+  Channel channel = 1;
+  repeated ChannelParticipant participants = 2;
+}
+
+message ExportedChatInviteResp {
+  string link = 1;
+}
+
+message CheckUserIsAdministratorReq {
+  ChannelCoreData channel = 1;
+  int32 user_id = 2;
+}
+
+message CheckUserIsAdministratorResp {
+  bool is_admin = 1;
+}
+
+message GetChannelParticipantListResp {
+  repeated mtproto.ChannelParticipant participants = 1;
+}
+
+message GetChannelParticipantIdListResp {
+  repeated int32 id_list = 1;
+}
+
+message AddChannelUserReq {
+  ChannelCoreData channel = 1;
+  int32 inviterId = 2;
+  int32 userId = 3;
+}
+
+message AddChannelUserResp {}
+
+message CheckDeleteChannelUserReq {
+  ChannelCoreData channel = 1;
+  int32 operatorId = 2;
+  int32 deleteUserId = 3;
+}
+
+message CheckDeleteChannelUserResp {}
+
+message DeleteChannelUserReq {
+  ChannelCoreData channel = 1;
+  int32 operatorId = 2;
+  int32 deleteUserId = 3;
+}
+
+message DeleteChannelUserResp {}
+
+message EditChannelTitleReq {
+  ChannelCoreData channel = 1;
+  int32 editUserId = 2;
+  string title = 3;
+}
+
+message EditChannelTitleResp {}
+
+message EditChannelPhotoReq {
+  ChannelCoreData channel = 1;
+  int32 editUserId = 2;
+  int64 photoId = 3;
+}
+
+message EditChannelPhotoResp {}
+
+message EditChannelAdminReq {
+  ChannelCoreData channel = 1;
+  int32 operatorId = 2;
+  int32 editChannelAdminId = 3;
+  bool isAdmin = 4;
+}
+
+message EditChannelAdminResp {}
+
+message ToggleChannelAdminsReq {
+  ChannelCoreData channel = 1;
+  int32 userId = 2;
+  bool adminsEnabled = 3;
+}
+
+message ToggleChannelAdminsResp {}
+
+service RPCAuthorization {
+  rpc MakeChannelParticipant2ByDO(ChannelParticipant) returns (ChannelParticipantRes);
+  rpc NewChannelCoreById(ChannelCoreByIdReq) returns (ChannelParticipantRes);
+  rpc NewChannelCoreByCreateChannel(ChannelCoreByCreateChannelReq) returns (ChannelCoreData);
+  rpc ExportedChatInvite(ChannelCoreData) returns (ExportedChatInviteResp);
+  rpc CheckUserIsAdministrator(CheckUserIsAdministratorReq) returns (CheckUserIsAdministratorResp);
+  rpc GetChannelParticipantList(ChannelCoreData) returns (GetChannelParticipantListResp);
+  rpc GetChannelParticipantIdList(ChannelCoreData) returns (GetChannelParticipantIdListResp);
+  rpc AddChannelUser(AddChannelUserReq) returns (AddChannelUserResp);
+  rpc CheckDeleteChannelUser(CheckDeleteChannelUserReq) returns (CheckDeleteChannelUserResp);
+  rpc DeleteChannelUser(DeleteChannelUserReq) returns (DeleteChannelUserResp);
+  rpc EditChannelTitle(EditChannelTitleReq) returns (EditChannelTitleResp);
+  rpc EditChannelPhoto(EditChannelPhotoReq) returns (EditChannelPhotoResp);
+  rpc EditChannelAdmin(EditChannelAdminReq) returns (EditChannelAdminResp);
+  rpc ToggleChannelAdmins(ToggleChannelAdminsReq) returns (ToggleChannelAdminsResp);
+}

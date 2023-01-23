@@ -98,6 +98,15 @@ message AddChannelUserReq {
 
 message AddChannelUserResp {}
 
+message ToChannelReq {
+  ChannelCoreData channel = 1;
+  int64 selfUserId = 2;
+}
+
+message ToChannelResp {
+  mtproto.Chat chat = 1;
+}
+
 message CheckDeleteChannelUserReq {
   ChannelCoreData channel = 1;
   int64 operatorId = 2;
@@ -203,6 +212,7 @@ service RPCChannels {
   rpc GetChannelParticipantIdList(ChannelCoreData) returns (GetChannelParticipantIdListResp);
   rpc GetChannelParticipants(ChannelCoreData) returns (GetChannelParticipantsResp);
   rpc AddChannelUser(AddChannelUserReq) returns (AddChannelUserResp);
+  rpc ToChannel(ToChannelReq) returns (ToChannelResp);
   rpc CheckDeleteChannelUser(CheckDeleteChannelUserReq) returns (CheckDeleteChannelUserResp);
   rpc DeleteChannelUser(DeleteChannelUserReq) returns (DeleteChannelUserResp);
   rpc EditChannelTitle(EditChannelTitleReq) returns (EditChannelTitleResp);

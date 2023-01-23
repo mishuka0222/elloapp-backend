@@ -128,6 +128,19 @@ func (s *Service) AddChannelUser(ctx context.Context, in *channels.AddChannelUse
 	return r, err
 }
 
+func (s *Service) ToChannel(ctx context.Context, in *channels.ToChannelReq) (*channels.ToChannelResp, error) {
+	c := core.NewChannels(ctx, s.svcCtx)
+
+	c.Logger.Debugf("channels.ToChannel - metadata: %s, request: %s", c.MD.DebugString(), in.String())
+	r, err := c.ToChannel(in)
+	if err != nil {
+		return nil, err
+	}
+
+	c.Logger.Debugf("channels.ToChannel - reply: %+v", r)
+	return r, err
+}
+
 func (s *Service) CheckDeleteChannelUser(ctx context.Context, in *channels.CheckDeleteChannelUserReq) (*channels.CheckDeleteChannelUserResp, error) {
 	c := core.NewChannels(ctx, s.svcCtx)
 

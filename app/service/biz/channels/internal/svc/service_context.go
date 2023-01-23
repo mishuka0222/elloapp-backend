@@ -5,6 +5,7 @@ import (
 	"gitlab.com/merehead/elloapp/backend/elloapp_tg_backend/app/service/biz/channels/internal/dao"
 	user_helper "gitlab.com/merehead/elloapp/backend/elloapp_tg_backend/app/service/biz/user"
 	idgen_client "gitlab.com/merehead/elloapp/backend/elloapp_tg_backend/app/service/idgen/client"
+	media_client "gitlab.com/merehead/elloapp/backend/elloapp_tg_backend/app/service/media/client"
 	"gitlab.com/merehead/elloapp/backend/elloapp_tg_backend/pkg2/net/rpcx"
 )
 
@@ -13,6 +14,7 @@ type ServiceContext struct {
 	Dao    *dao.Dao
 	idgen_client.IDGenClient2
 	*user_helper.UserService
+	media_client.MediaClient
 }
 
 func NewServiceContext(c config.Config, userService *user_helper.UserService) *ServiceContext {
@@ -21,5 +23,6 @@ func NewServiceContext(c config.Config, userService *user_helper.UserService) *S
 		Dao:          dao.New(c),
 		IDGenClient2: idgen_client.NewIDGenClient2(rpcx.GetCachedRpcClient(c.IdgenClient)),
 		UserService:  userService,
+		MediaClient:  media_client.NewMediaClient(rpcx.GetCachedRpcClient(c.MediaClient)),
 	}
 }

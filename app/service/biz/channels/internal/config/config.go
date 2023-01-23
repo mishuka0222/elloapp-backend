@@ -9,4 +9,5 @@ type Config struct {
 	zrpc.RpcServerConf
 	Mysql       sqlx.Config
 	IdgenClient zrpc.RpcClientConf
+	MediaClient zrpc.RpcClientConf
 }

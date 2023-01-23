@@ -10,6 +10,7 @@ func (c *ChannelsCore) GetChannelBySelfID(in *channels.GetChannelBySelfIDReq) (r
 	res = &channels.GetChannelBySelfIDResp{}
 	var (
 		channelData *channels.ChannelCoreData
+		r           *channels.ToChannelResp
 	)
 	channelData, err = c.NewChannelCoreById(&channels.ChannelCoreByIdReq{ChannelId: in.ChannelId})
 	if err != nil {
@@ -19,7 +20,8 @@ func (c *ChannelsCore) GetChannelBySelfID(in *channels.GetChannelBySelfIDReq) (r
 		}).To_ChatEmpty()
 		res.Chat = channelEmpty.To_Chat()
 	} else {
-		res.Chat = channelData.ToChannel(in.SelfUserId)
+		r, _ = c.ToChannel(&channels.ToChannelReq{Channel: channelData, SelfUserId: in.SelfUserId})
+		res.Chat = r.Chat
 	}
 
 	return

@@ -174,6 +174,7 @@ func (s *Server) Initialize() error {
 					RpcServerConf: c.RpcServerConf,
 					Mysql:         c.Mysql,
 					IdgenClient:   c.IdgenClient,
+					MediaClient:   c.MediaClient,
 				}, userService))
 	})
 

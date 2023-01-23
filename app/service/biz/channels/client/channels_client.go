@@ -48,6 +48,8 @@ type (
 	GetChannelParticipantListResp      = channels.GetChannelParticipantListResp
 	GetChannelParticipantsResp         = channels.GetChannelParticipantsResp
 	MakeChannelParticipant2ByDOReq     = channels.MakeChannelParticipant2ByDOReq
+	ToChannelReq                       = channels.ToChannelReq
+	ToChannelResp                      = channels.ToChannelResp
 	ToggleChannelAdminsReq             = channels.ToggleChannelAdminsReq
 	ToggleChannelAdminsResp            = channels.ToggleChannelAdminsResp
 
@@ -62,6 +64,7 @@ type (
 		GetChannelParticipantIdList(ctx context.Context, in *ChannelCoreData, opts ...grpc.CallOption) (*GetChannelParticipantIdListResp, error)
 		GetChannelParticipants(ctx context.Context, in *ChannelCoreData, opts ...grpc.CallOption) (*GetChannelParticipantsResp, error)
 		AddChannelUser(ctx context.Context, in *AddChannelUserReq, opts ...grpc.CallOption) (*AddChannelUserResp, error)
+		ToChannel(ctx context.Context, in *ToChannelReq, opts ...grpc.CallOption) (*ToChannelResp, error)
 		CheckDeleteChannelUser(ctx context.Context, in *CheckDeleteChannelUserReq, opts ...grpc.CallOption) (*CheckDeleteChannelUserResp, error)
 		DeleteChannelUser(ctx context.Context, in *DeleteChannelUserReq, opts ...grpc.CallOption) (*DeleteChannelUserResp, error)
 		EditChannelTitle(ctx context.Context, in *EditChannelTitleReq, opts ...grpc.CallOption) (*EditChannelTitleResp, error)
@@ -131,6 +134,11 @@ func (m *defaultChannelsClient) GetChannelParticipants(ctx context.Context, in *
 func (m *defaultChannelsClient) AddChannelUser(ctx context.Context, in *AddChannelUserReq, opts ...grpc.CallOption) (*AddChannelUserResp, error) {
 	client := channels.NewRPCChannelsClient(m.cli.Conn())
 	return client.AddChannelUser(ctx, in, opts...)
+}
+
+func (m *defaultChannelsClient) ToChannel(ctx context.Context, in *ToChannelReq, opts ...grpc.CallOption) (*ToChannelResp, error) {
+	client := channels.NewRPCChannelsClient(m.cli.Conn())
+	return client.ToChannel(ctx, in, opts...)
 }
 
 func (m *defaultChannelsClient) CheckDeleteChannelUser(ctx context.Context, in *CheckDeleteChannelUserReq, opts ...grpc.CallOption) (*CheckDeleteChannelUserResp, error) {

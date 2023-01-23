@@ -18,17 +18,19 @@ func (c *ChannelsCore) GetChannelListBySelfAndIDList(in *channels.GetChannelList
 	res.Chats = make([]*mtproto.Chat, 0, len(in.IdList))
 
 	var (
-		r *channels.ChannelCoreData
+		channelData *channels.ChannelCoreData
+		r           *channels.ToChannelResp
 	)
 
 	for _, id := range in.IdList {
-		r, err = c.NewChannelCoreById(&channels.ChannelCoreByIdReq{ChannelId: id})
+		channelData, err = c.NewChannelCoreById(&channels.ChannelCoreByIdReq{ChannelId: id})
 		if err != nil {
 			glog.Error("getChatListBySelfIDList - not find chat_id: ", id)
 			chatEmpty := (&mtproto.Chat{Id: id}).To_ChatEmpty()
 			res.Chats = append(res.Chats, chatEmpty.To_Chat())
 		} else {
-			res.Chats = append(res.Chats, r.ToChannel(in.SelfUserId))
+			r, _ = c.ToChannel(&channels.ToChannelReq{Channel: channelData, SelfUserId: in.SelfUserId})
+			res.Chats = append(res.Chats, r.Chat)
 		}
 	}
 

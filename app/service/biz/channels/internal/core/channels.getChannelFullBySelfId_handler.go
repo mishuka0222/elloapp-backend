@@ -4,6 +4,7 @@ import (
 	"github.com/gogo/protobuf/types"
 	"gitlab.com/merehead/elloapp/backend/elloapp_tg_backend/app/service/biz/channels/channels"
 	userpb "gitlab.com/merehead/elloapp/backend/elloapp_tg_backend/app/service/biz/user/user"
+	"gitlab.com/merehead/elloapp/backend/elloapp_tg_backend/app/service/media/media"
 	"gitlab.com/merehead/elloapp/backend/elloapp_tg_backend/mtproto"
 	"time"
 )
@@ -12,14 +13,17 @@ func (c *ChannelsCore) GetChannelFullBySelfId(in *channels.GetChannelFullBySelfI
 
 	res = &channels.GetChannelFullBySelfIdResp{}
 
-	// TODO: write logic
-	//sizes, _ := nbfs_client.GetPhotoSizeList(channelData.channel.PhotoId)
-	// photo2 := photo2.MakeUserProfilePhoto(photoId, sizes)
 	var (
 		photo          *mtproto.Photo
 		isAdmin        *channels.CheckUserIsAdministratorResp
 		notifySettings *mtproto.PeerNotifySettings
+		sizes          *media.PhotoSizeList
 	)
+	sizes, err = c.svcCtx.MediaClient.MediaGetPhotoSizeList(c.ctx, &media.TLMediaGetPhotoSizeList{
+		Constructor: media.CRC32_media_getPhotoSizeList,
+		SizeId:      in.ChannelData.Channel.PhotoId,
+	})
+	// photo2 := photo2.MakeUserProfilePhoto(photoId, sizes)
 
 	if in.ChannelData.Channel.GetPhotoId() == 0 {
 		photoEmpty := (&mtproto.Photo{
@@ -32,7 +36,7 @@ func (c *ChannelsCore) GetChannelFullBySelfId(in *channels.GetChannelFullBySelfI
 			HasStickers: false,
 			AccessHash:  in.ChannelData.Channel.PhotoId, // photo2.GetFileAccessHash(file.GetData2().GetId(), file.GetData2().GetParts()),
 			Date:        int32(time.Now().Unix()),
-			//Sizes:       sizes, // TODO: write logic
+			Sizes:       sizes.Sizes,
 		}).To_Photo()
 		photo = channelPhoto.To_Photo()
 	}

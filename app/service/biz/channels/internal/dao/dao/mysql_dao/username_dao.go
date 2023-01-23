@@ -19,7 +19,7 @@ func NewUsersDAO(db *sqlx.DB) *UsersDAO {
 
 // SelectByUsername
 // select id from users where username = :username limit 1
-func (dao *UsersDAO) CheckExistsUsername(ctx context.Context, username string) (rValue int64, err error) {
+func (dao *UsersDAO) SelectByUsername(ctx context.Context, username string) (rValue int64, err error) {
 	var (
 		query = "select id from users where username = ? limit 1"
 		id    int64
@@ -28,7 +28,7 @@ func (dao *UsersDAO) CheckExistsUsername(ctx context.Context, username string) (
 
 	if err != nil {
 		if err != sqlx.ErrNotFound {
-			logx.WithContext(ctx).Errorf("queryx in CheckExistsUsername(_), error: %v", err)
+			logx.WithContext(ctx).Errorf("queryx in SelectByUsername(_), error: %v", err)
 			return
 		} else {
 			err = nil

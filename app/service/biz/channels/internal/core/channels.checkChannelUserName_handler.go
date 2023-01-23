@@ -9,7 +9,7 @@ func (c *ChannelsCore) CheckChannelUserName(in *channels.CheckChannelUserNameReq
 		id     int64
 		status bool
 	)
-	id, err = c.svcCtx.Dao.UsersDAO.CheckExistsUsername(c.ctx, in.UserName)
+	id, err = c.svcCtx.Dao.UsersDAO.SelectByUsername(c.ctx, in.UserName)
 	if err != nil {
 		return
 	}

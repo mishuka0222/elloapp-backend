@@ -9,6 +9,14 @@ import (
 	"github.com/zeromicro/go-zero/core/logx"
 )
 
+const (
+	kChannelParticipant        = 0
+	kChannelParticipantSelf    = 1
+	kChannelParticipantCreator = 2
+	kChannelParticipantAdmin   = 3
+	kChannelParticipantBanned  = 4
+)
+
 type ChannelsCore struct {
 	ctx    context.Context
 	svcCtx *svc.ServiceContext

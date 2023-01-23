@@ -1,8 +1,8 @@
 package dataobject
 
 type ChannelDO struct {
-	Id               int32  `db:"id"`
-	CreatorUserId    int32  `db:"creator_user_id"`
+	Id               int64  `db:"id"`
+	CreatorUserId    int64  `db:"creator_user_id"`
 	AccessHash       int64  `db:"access_hash"`
 	RandomId         int64  `db:"random_id"`
 	ParticipantCount int32  `db:"participant_count"`

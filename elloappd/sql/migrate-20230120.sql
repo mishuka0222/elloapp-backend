@@ -5,8 +5,8 @@
 --
 
 CREATE TABLE IF NOT EXISTS `channels` (
-    `id` int(11) NOT NULL,
-    `creator_user_id` int(11) NOT NULL,
+    `id` bigint(20) NOT NULL,
+    `creator_user_id` bigint(20) NOT NULL,
     `access_hash` bigint(20) NOT NULL,
     `random_id` bigint(20) NOT NULL,
     `participant_count` int(11) NOT NULL,
@@ -29,10 +29,10 @@ CREATE TABLE IF NOT EXISTS `channels` (
 --
 
 CREATE TABLE IF NOT EXISTS `channel_message_boxes` (
-    `id` int(11) NOT NULL,
-    `sender_user_id` int(11) NOT NULL,
-    `channel_id` int(11) NOT NULL,
-    `channel_message_box_id` int(11) NOT NULL,
+    `id` bigint(20) NOT NULL,
+    `sender_user_id` bigint(20) NOT NULL,
+    `channel_id` bigint(20) NOT NULL,
+    `channel_message_box_id` bigint(20) NOT NULL,
     `message_id` bigint(20) NOT NULL,
     `date` int(11) NOT NULL DEFAULT '0',
     `deleted` tinyint(4) NOT NULL DEFAULT '0',
@@ -47,11 +47,11 @@ CREATE TABLE IF NOT EXISTS `channel_message_boxes` (
 --
 
 CREATE TABLE IF NOT EXISTS `channel_participants` (
-    `id` int(11) NOT NULL,
-    `channel_id` int(11) NOT NULL,
-    `user_id` int(11) NOT NULL,
+    `id` bigint(20) NOT NULL,
+    `channel_id` bigint(20) NOT NULL,
+    `user_id` bigint(20) NOT NULL,
     `participant_type` tinyint(4) DEFAULT '0',
-    `inviter_user_id` int(11) NOT NULL DEFAULT '0',
+    `inviter_user_id` bigint(20) NOT NULL DEFAULT '0',
     `invited_at` int(11) NOT NULL DEFAULT '0',
     `joined_at` int(11) NOT NULL DEFAULT '0',
     `state` tinyint(4) NOT NULL DEFAULT '0',
@@ -67,7 +67,7 @@ CREATE TABLE IF NOT EXISTS `channel_participants` (
 
 CREATE TABLE IF NOT EXISTS `channel_pts_updates` (
     `id` bigint(20) NOT NULL,
-    `channel_id` int(11) NOT NULL,
+    `channel_id` bigint(20) NOT NULL,
     `pts` int(11) NOT NULL,
     `pts_count` int(11) NOT NULL,
     `update_type` tinyint(4) NOT NULL DEFAULT '0',

@@ -10,6 +10,7 @@ type Mysql struct {
 	ChannelParticipantsDAO *ChannelParticipantsDAO
 	ChannelMessageBoxesDAO *ChannelMessageBoxesDAO
 	ChannelPtsUpdatesDAO   *ChannelPtsUpdatesDAO
+	UsersDAO               *UsersDAO
 }
 
 func NewMysqlDao(db *sqlx.DB) *Mysql {
@@ -19,5 +20,6 @@ func NewMysqlDao(db *sqlx.DB) *Mysql {
 		ChannelParticipantsDAO: NewChannelParticipantsDAO(db),
 		ChannelMessageBoxesDAO: NewChannelMessageBoxesDAO(db),
 		ChannelPtsUpdatesDAO:   NewChannelPtsUpdatesDAO(db),
+		UsersDAO:               NewUsersDAO(db),
 	}
 }

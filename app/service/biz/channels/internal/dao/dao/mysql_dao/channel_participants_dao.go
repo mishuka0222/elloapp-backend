@@ -166,3 +166,21 @@ func (dao *ChannelParticipantsDAO) UpdateParticipantType(ctx context.Context, pa
 
 	return
 }
+
+func (dao *ChannelParticipantsDAO) CheckExists(ctx context.Context, channelId, userId int64) (rValue bool, err error) {
+	var (
+		query = "select id from channel_participants where channel_id = ? and user_id = ? limit 1"
+		id    int64
+	)
+
+	err = dao.db.QueryRowPartial(ctx, &id, query, channelId, userId)
+
+	if err != nil {
+		logx.WithContext(ctx).Errorf("Queryx in CheckExists(_), error: %v", err)
+		return
+	}
+
+	rValue = id != 0
+
+	return
+}

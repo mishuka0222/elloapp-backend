@@ -1,7 +1,7 @@
 package core
 
 import (
-	"github.com/golang/glog"
+	"github.com/zeromicro/go-zero/core/logx"
 	"gitlab.com/merehead/elloapp/backend/elloapp_tg_backend/mtproto"
 
 	"gitlab.com/merehead/elloapp/backend/elloapp_tg_backend/app/service/biz/channels/channels"
@@ -25,7 +25,7 @@ func (c *ChannelsCore) GetChannelListBySelfAndIDList(in *channels.GetChannelList
 	for _, id := range in.IdList {
 		channelData, err = c.NewChannelCoreById(&channels.ChannelCoreByIdReq{ChannelId: id})
 		if err != nil {
-			glog.Error("getChatListBySelfIDList - not find chat_id: ", id)
+			logx.Error("getChatListBySelfIDList - not find chat_id: ", id)
 			chatEmpty := (&mtproto.Chat{Id: id}).To_ChatEmpty()
 			res.Chats = append(res.Chats, chatEmpty.To_Chat())
 		} else {

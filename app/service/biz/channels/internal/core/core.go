@@ -76,3 +76,38 @@ func makeChannelParticipantByDO(do *dataobject.ChannelParticipantDO) (participan
 
 	return
 }
+
+func ToChannelDO(ch *channels.Channel) *dataobject.ChannelDO {
+	return &dataobject.ChannelDO{
+		Id:               ch.Id,
+		CreatorUserId:    ch.CreatorUserId,
+		AccessHash:       ch.AccessHash,
+		RandomId:         ch.RandomId,
+		ParticipantCount: ch.ParticipantCount,
+		Title:            ch.Title,
+		About:            ch.About,
+		PhotoId:          ch.PhotoId,
+		Link:             ch.Link,
+		AdminsEnabled:    int8(ch.AdminsEnabled),
+		Deactivated:      int8(ch.Deactivated),
+		Version:          ch.Version,
+		Date:             ch.Date,
+		CreatedAt:        ch.CreatedAt,
+		UpdatedAt:        ch.UpdatedAt,
+	}
+}
+
+func ToChannelParticipantDO(pnt *channels.ChannelParticipant) *dataobject.ChannelParticipantDO {
+	return &dataobject.ChannelParticipantDO{
+		Id:              pnt.Id,
+		ChannelId:       pnt.ChannelId,
+		UserId:          pnt.UserId,
+		ParticipantType: int8(pnt.ParticipantType),
+		InviterUserId:   pnt.InviterUserId,
+		InvitedAt:       pnt.InvitedAt,
+		JoinedAt:        pnt.JoinedAt,
+		State:           int8(pnt.State),
+		CreatedAt:       pnt.CreatedAt,
+		UpdatedAt:       pnt.UpdatedAt,
+	}
+}

@@ -23,7 +23,7 @@ func (c *ChannelsCore) NewChannelCoreByCreateChannel(in *channels.ChannelCoreByC
 		},
 		Participants: make([]*channels.ChannelParticipant, 1+len(in.UserIdList)),
 	}
-	res.Channel.Id, err = c.svcCtx.Dao.ChannelsDAO.Insert(c.ctx, res.Channel.ToChannelDO())
+	res.Channel.Id, err = c.svcCtx.Dao.ChannelsDAO.Insert(c.ctx, ToChannelDO(res.Channel))
 	if err != nil {
 		return
 	}
@@ -31,7 +31,7 @@ func (c *ChannelsCore) NewChannelCoreByCreateChannel(in *channels.ChannelCoreByC
 	res.Participants[0].ChannelId = res.Channel.Id
 	res.Participants[0].UserId = in.CreatorId
 	res.Participants[0].ParticipantType = kChannelParticipantCreator
-	_, err = c.svcCtx.Dao.ChannelParticipantsDAO.Insert(c.ctx, res.Participants[0].ToChannelParticipantDO())
+	_, err = c.svcCtx.Dao.ChannelParticipantsDAO.Insert(c.ctx, ToChannelParticipantDO(res.Participants[0]))
 	if err != nil {
 		return
 	}
@@ -43,7 +43,7 @@ func (c *ChannelsCore) NewChannelCoreByCreateChannel(in *channels.ChannelCoreByC
 		res.Participants[i+1].InviterUserId = in.CreatorId
 		res.Participants[i+1].InvitedAt = res.Channel.Date
 		res.Participants[i+1].JoinedAt = res.Channel.Date
-		_, err = c.svcCtx.Dao.ChannelParticipantsDAO.Insert(c.ctx, res.Participants[i+1].ToChannelParticipantDO())
+		_, err = c.svcCtx.Dao.ChannelParticipantsDAO.Insert(c.ctx, ToChannelParticipantDO(res.Participants[i+1]))
 		if err != nil {
 			return
 		}

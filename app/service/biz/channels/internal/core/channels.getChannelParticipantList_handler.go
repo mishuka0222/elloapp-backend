@@ -18,7 +18,7 @@ func (c *ChannelsCore) GetChannelParticipantList(in *channels.ChannelCoreData) (
 
 	for i := range in.Participants {
 		if in.Participants[i].State == 0 {
-			ptn, err = makeChannelParticipantByDO(in.Participants[i].ToChannelParticipantDO())
+			ptn, err = makeChannelParticipantByDO(ToChannelParticipantDO(in.Participants[i]))
 			if err != nil {
 				return
 			}

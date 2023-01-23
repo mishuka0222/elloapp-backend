@@ -46,18 +46,21 @@ type (
 	GetChannelParticipantIdListDaoResp = channels.GetChannelParticipantIdListDaoResp
 	GetChannelParticipantIdListResp    = channels.GetChannelParticipantIdListResp
 	GetChannelParticipantListResp      = channels.GetChannelParticipantListResp
+	GetChannelParticipantsResp         = channels.GetChannelParticipantsResp
+	MakeChannelParticipant2ByDOReq     = channels.MakeChannelParticipant2ByDOReq
 	ToggleChannelAdminsReq             = channels.ToggleChannelAdminsReq
 	ToggleChannelAdminsResp            = channels.ToggleChannelAdminsResp
 
 	ChannelsClient interface {
 		// channel_data
-		MakeChannelParticipant2ByDO(ctx context.Context, in *ChannelParticipant, opts ...grpc.CallOption) (*ChannelParticipantRes, error)
-		NewChannelCoreById(ctx context.Context, in *ChannelCoreByIdReq, opts ...grpc.CallOption) (*ChannelParticipantRes, error)
+		MakeChannelParticipant2ByDO(ctx context.Context, in *MakeChannelParticipant2ByDOReq, opts ...grpc.CallOption) (*ChannelParticipantRes, error)
+		NewChannelCoreById(ctx context.Context, in *ChannelCoreByIdReq, opts ...grpc.CallOption) (*ChannelCoreData, error)
 		NewChannelCoreByCreateChannel(ctx context.Context, in *ChannelCoreByCreateChannelReq, opts ...grpc.CallOption) (*ChannelCoreData, error)
 		ExportedChatInvite(ctx context.Context, in *ChannelCoreData, opts ...grpc.CallOption) (*ExportedChatInviteResp, error)
 		CheckUserIsAdministrator(ctx context.Context, in *CheckUserIsAdministratorReq, opts ...grpc.CallOption) (*CheckUserIsAdministratorResp, error)
 		GetChannelParticipantList(ctx context.Context, in *ChannelCoreData, opts ...grpc.CallOption) (*GetChannelParticipantListResp, error)
 		GetChannelParticipantIdList(ctx context.Context, in *ChannelCoreData, opts ...grpc.CallOption) (*GetChannelParticipantIdListResp, error)
+		GetChannelParticipants(ctx context.Context, in *ChannelCoreData, opts ...grpc.CallOption) (*GetChannelParticipantsResp, error)
 		AddChannelUser(ctx context.Context, in *AddChannelUserReq, opts ...grpc.CallOption) (*AddChannelUserResp, error)
 		CheckDeleteChannelUser(ctx context.Context, in *CheckDeleteChannelUserReq, opts ...grpc.CallOption) (*CheckDeleteChannelUserResp, error)
 		DeleteChannelUser(ctx context.Context, in *DeleteChannelUserReq, opts ...grpc.CallOption) (*DeleteChannelUserResp, error)
@@ -85,12 +88,12 @@ func NewChannelsClient(cli zrpc.Client) ChannelsClient {
 }
 
 // channel_data
-func (m *defaultChannelsClient) MakeChannelParticipant2ByDO(ctx context.Context, in *ChannelParticipant, opts ...grpc.CallOption) (*ChannelParticipantRes, error) {
+func (m *defaultChannelsClient) MakeChannelParticipant2ByDO(ctx context.Context, in *MakeChannelParticipant2ByDOReq, opts ...grpc.CallOption) (*ChannelParticipantRes, error) {
 	client := channels.NewRPCChannelsClient(m.cli.Conn())
 	return client.MakeChannelParticipant2ByDO(ctx, in, opts...)
 }
 
-func (m *defaultChannelsClient) NewChannelCoreById(ctx context.Context, in *ChannelCoreByIdReq, opts ...grpc.CallOption) (*ChannelParticipantRes, error) {
+func (m *defaultChannelsClient) NewChannelCoreById(ctx context.Context, in *ChannelCoreByIdReq, opts ...grpc.CallOption) (*ChannelCoreData, error) {
 	client := channels.NewRPCChannelsClient(m.cli.Conn())
 	return client.NewChannelCoreById(ctx, in, opts...)
 }
@@ -118,6 +121,11 @@ func (m *defaultChannelsClient) GetChannelParticipantList(ctx context.Context, i
 func (m *defaultChannelsClient) GetChannelParticipantIdList(ctx context.Context, in *ChannelCoreData, opts ...grpc.CallOption) (*GetChannelParticipantIdListResp, error) {
 	client := channels.NewRPCChannelsClient(m.cli.Conn())
 	return client.GetChannelParticipantIdList(ctx, in, opts...)
+}
+
+func (m *defaultChannelsClient) GetChannelParticipants(ctx context.Context, in *ChannelCoreData, opts ...grpc.CallOption) (*GetChannelParticipantsResp, error) {
+	client := channels.NewRPCChannelsClient(m.cli.Conn())
+	return client.GetChannelParticipants(ctx, in, opts...)
 }
 
 func (m *defaultChannelsClient) AddChannelUser(ctx context.Context, in *AddChannelUserReq, opts ...grpc.CallOption) (*AddChannelUserResp, error) {

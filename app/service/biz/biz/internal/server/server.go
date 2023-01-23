@@ -4,22 +4,23 @@ import (
 	"flag"
 	authorization_helper "gitlab.com/merehead/elloapp/backend/elloapp_tg_backend/app/service/biz/authorization"
 	"gitlab.com/merehead/elloapp/backend/elloapp_tg_backend/app/service/biz/authorization/authorization"
-	configuration_helper "gitlab.com/merehead/elloapp/backend/elloapp_tg_backend/app/service/biz/configuration"
-	"gitlab.com/merehead/elloapp/backend/elloapp_tg_backend/app/service/biz/configuration/configuration"
-	feeds_helper "gitlab.com/merehead/elloapp/backend/elloapp_tg_backend/app/service/biz/feeds"
-	"gitlab.com/merehead/elloapp/backend/elloapp_tg_backend/app/service/biz/feeds/feeds"
-	phonecall_helper "gitlab.com/merehead/elloapp/backend/elloapp_tg_backend/app/service/biz/phone_call"
-	"gitlab.com/merehead/elloapp/backend/elloapp_tg_backend/app/service/biz/phone_call/phonecall"
-
 	"gitlab.com/merehead/elloapp/backend/elloapp_tg_backend/app/service/biz/biz/internal/config"
+	channels_helper "gitlab.com/merehead/elloapp/backend/elloapp_tg_backend/app/service/biz/channels"
+	"gitlab.com/merehead/elloapp/backend/elloapp_tg_backend/app/service/biz/channels/channels"
 	chat_helper "gitlab.com/merehead/elloapp/backend/elloapp_tg_backend/app/service/biz/chat"
 	"gitlab.com/merehead/elloapp/backend/elloapp_tg_backend/app/service/biz/chat/chat"
 	code_helper "gitlab.com/merehead/elloapp/backend/elloapp_tg_backend/app/service/biz/code"
 	"gitlab.com/merehead/elloapp/backend/elloapp_tg_backend/app/service/biz/code/code"
+	configuration_helper "gitlab.com/merehead/elloapp/backend/elloapp_tg_backend/app/service/biz/configuration"
+	"gitlab.com/merehead/elloapp/backend/elloapp_tg_backend/app/service/biz/configuration/configuration"
 	dialog_helper "gitlab.com/merehead/elloapp/backend/elloapp_tg_backend/app/service/biz/dialog"
 	"gitlab.com/merehead/elloapp/backend/elloapp_tg_backend/app/service/biz/dialog/dialog"
+	feeds_helper "gitlab.com/merehead/elloapp/backend/elloapp_tg_backend/app/service/biz/feeds"
+	"gitlab.com/merehead/elloapp/backend/elloapp_tg_backend/app/service/biz/feeds/feeds"
 	message_helper "gitlab.com/merehead/elloapp/backend/elloapp_tg_backend/app/service/biz/message"
 	"gitlab.com/merehead/elloapp/backend/elloapp_tg_backend/app/service/biz/message/message"
+	phonecall_helper "gitlab.com/merehead/elloapp/backend/elloapp_tg_backend/app/service/biz/phone_call"
+	"gitlab.com/merehead/elloapp/backend/elloapp_tg_backend/app/service/biz/phone_call/phonecall"
 	updates_helper "gitlab.com/merehead/elloapp/backend/elloapp_tg_backend/app/service/biz/updates"
 	"gitlab.com/merehead/elloapp/backend/elloapp_tg_backend/app/service/biz/updates/updates"
 	user_helper "gitlab.com/merehead/elloapp/backend/elloapp_tg_backend/app/service/biz/user"
@@ -141,7 +142,9 @@ func (s *Server) Initialize() error {
 		})
 		// user_helper
 		user.RegisterRPCUserServer(
-			grpcServer, userService)
+			grpcServer,
+			userService,
+		)
 
 		// authorization
 		authorization.RegisterRPCAuthorizationServer(
@@ -162,6 +165,16 @@ func (s *Server) Initialize() error {
 				Mysql:         c.Mysql,
 				Cache:         c.Cache,
 			}))
+
+		// channels
+		channels.RegisterRPCChannelsServer(
+			grpcServer,
+			channels_helper.New(
+				channels_helper.Config{
+					RpcServerConf: c.RpcServerConf,
+					Mysql:         c.Mysql,
+					IdgenClient:   c.IdgenClient,
+				}, userService))
 	})
 
 	// logx.Must(err)

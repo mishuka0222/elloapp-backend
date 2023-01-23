@@ -1,13 +1,25 @@
 package core
 
 import (
-	"errors"
-
 	"gitlab.com/merehead/elloapp/backend/elloapp_tg_backend/app/service/biz/channels/channels"
 )
 
-func (c *ChannelsCore) GetChannelParticipantIdList(in *channels.ChannelCoreData) (*channels.GetChannelParticipantIdListResp, error) {
-	// todo: add your logic here and delete this line
-	return nil, errors.New("Unimplemented")
-	return &channels.GetChannelParticipantIdListResp{}, nil
+func (c *ChannelsCore) GetChannelParticipantIdList(in *channels.ChannelCoreData) (res *channels.GetChannelParticipantIdListResp, err error) {
+	err = c.checkOrLoadChannelParticipantList(in)
+	if err != nil {
+		return
+	}
+
+	var (
+		participantList = make([]int64, 0, len(in.Participants))
+	)
+
+	for i := range in.Participants {
+		if in.Participants[i].State == 0 {
+			participantList = append(participantList, in.Participants[i].UserId)
+		}
+	}
+	res = &channels.GetChannelParticipantIdListResp{IdList: participantList}
+
+	return
 }

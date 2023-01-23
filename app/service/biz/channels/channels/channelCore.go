@@ -1,6 +1,7 @@
 package channels
 
 import (
+	"gitlab.com/merehead/elloapp/backend/elloapp_tg_backend/app/service/biz/channels/internal/dao/dataobject"
 	"gitlab.com/merehead/elloapp/backend/elloapp_tg_backend/mtproto"
 )
 
@@ -105,5 +106,40 @@ func (ch *ChannelCoreData) ToChannel(selfUserId int64) *mtproto.Chat {
 		}*/
 		channel.SetPhoto(mtproto.MakeTLChatPhotoEmpty(nil).To_ChatPhoto())
 		return channel.To_Chat()
+	}
+}
+
+func (ch *Channel) ToChannelDO() *dataobject.ChannelDO {
+	return &dataobject.ChannelDO{
+		Id:               ch.Id,
+		CreatorUserId:    ch.CreatorUserId,
+		AccessHash:       ch.AccessHash,
+		RandomId:         ch.RandomId,
+		ParticipantCount: ch.ParticipantCount,
+		Title:            ch.Title,
+		About:            ch.About,
+		PhotoId:          ch.PhotoId,
+		Link:             ch.Link,
+		AdminsEnabled:    int8(ch.AdminsEnabled),
+		Deactivated:      int8(ch.Deactivated),
+		Version:          ch.Version,
+		Date:             ch.Date,
+		CreatedAt:        ch.CreatedAt,
+		UpdatedAt:        ch.UpdatedAt,
+	}
+}
+
+func (pnt *ChannelParticipant) ToChannelParticipantDO() *dataobject.ChannelParticipantDO {
+	return &dataobject.ChannelParticipantDO{
+		Id:              pnt.Id,
+		ChannelId:       pnt.ChannelId,
+		UserId:          pnt.UserId,
+		ParticipantType: int8(pnt.ParticipantType),
+		InviterUserId:   pnt.InviterUserId,
+		InvitedAt:       pnt.InvitedAt,
+		JoinedAt:        pnt.JoinedAt,
+		State:           int8(pnt.State),
+		CreatedAt:       pnt.CreatedAt,
+		UpdatedAt:       pnt.UpdatedAt,
 	}
 }

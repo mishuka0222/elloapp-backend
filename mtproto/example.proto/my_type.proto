@@ -10,3 +10,4 @@ message Auth_Authorization {}
 message ChannelParticipant {}
 message Chat {}
 message TLChannelFull {}
+message TLChannelsChannelParticipants {}

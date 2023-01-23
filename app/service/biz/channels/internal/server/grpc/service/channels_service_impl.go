@@ -11,7 +11,7 @@ import (
 )
 
 // channel_data
-func (s *Service) MakeChannelParticipant2ByDO(ctx context.Context, in *channels.ChannelParticipant) (*channels.ChannelParticipantRes, error) {
+func (s *Service) MakeChannelParticipant2ByDO(ctx context.Context, in *channels.MakeChannelParticipant2ByDOReq) (*channels.ChannelParticipantRes, error) {
 	c := core.NewChannels(ctx, s.svcCtx)
 
 	c.Logger.Debugf("channels.MakeChannelParticipant2ByDO - metadata: %s, request: %s", c.MD.DebugString(), in.String())
@@ -24,7 +24,7 @@ func (s *Service) MakeChannelParticipant2ByDO(ctx context.Context, in *channels.
 	return r, err
 }
 
-func (s *Service) NewChannelCoreById(ctx context.Context, in *channels.ChannelCoreByIdReq) (*channels.ChannelParticipantRes, error) {
+func (s *Service) NewChannelCoreById(ctx context.Context, in *channels.ChannelCoreByIdReq) (*channels.ChannelCoreData, error) {
 	c := core.NewChannels(ctx, s.svcCtx)
 
 	c.Logger.Debugf("channels.NewChannelCoreById - metadata: %s, request: %s", c.MD.DebugString(), in.String())
@@ -99,6 +99,19 @@ func (s *Service) GetChannelParticipantIdList(ctx context.Context, in *channels.
 	}
 
 	c.Logger.Debugf("channels.GetChannelParticipantIdList - reply: %+v", r)
+	return r, err
+}
+
+func (s *Service) GetChannelParticipants(ctx context.Context, in *channels.ChannelCoreData) (*channels.GetChannelParticipantsResp, error) {
+	c := core.NewChannels(ctx, s.svcCtx)
+
+	c.Logger.Debugf("channels.GetChannelParticipants - metadata: %s, request: %s", c.MD.DebugString(), in.String())
+	r, err := c.GetChannelParticipants(in)
+	if err != nil {
+		return nil, err
+	}
+
+	c.Logger.Debugf("channels.GetChannelParticipants - reply: %+v", r)
 	return r, err
 }
 

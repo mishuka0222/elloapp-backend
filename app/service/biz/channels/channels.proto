@@ -40,18 +40,22 @@ message Channel {
   string updated_at = 15;
 }
 
+message MakeChannelParticipant2ByDOReq {
+  ChannelParticipant participant = 1;
+  int64 selfId = 2;
+}
+
 message ChannelParticipantRes {
   mtproto.ChannelParticipant participant = 1;
 }
 
 message ChannelCoreByIdReq {
-  int32 self_id = 1;
-  ChannelParticipant participant = 2;
+  int64 channelId = 1;
 }
 
 message ChannelCoreByCreateChannelReq {
   int64 creator_id = 1;
-  repeated int32 user_id_list = 2;
+  repeated int64 user_id_list = 2;
   string title = 3;
   string about = 4;
 }
@@ -71,7 +75,7 @@ message CheckUserIsAdministratorReq {
 }
 
 message CheckUserIsAdministratorResp {
-  bool is_admin = 1;
+  bool status = 1;
 }
 
 message GetChannelParticipantListResp {
@@ -80,6 +84,10 @@ message GetChannelParticipantListResp {
 
 message GetChannelParticipantIdListResp {
   repeated int64 id_list = 1;
+}
+
+message GetChannelParticipantsResp {
+  mtproto.TLChannelsChannelParticipants participants = 1;
 }
 
 message AddChannelUserReq {
@@ -168,11 +176,11 @@ message GetChannelBySelfIDResp {
 }
 
 message GetChannelParticipantIdListDaoReq {
-    int64 channelId = 1;
+  int64 channelId = 1;
 }
 
 message GetChannelParticipantIdListDaoResp {
-  repeated int64 isList = 1;
+  repeated int64 idList = 1;
 }
 
 message GetChannelFullBySelfIdReq {
@@ -186,13 +194,14 @@ message GetChannelFullBySelfIdResp {
 
 service RPCChannels {
   // channel_data
-  rpc MakeChannelParticipant2ByDO(ChannelParticipant) returns (ChannelParticipantRes);
-  rpc NewChannelCoreById(ChannelCoreByIdReq) returns (ChannelParticipantRes);
+  rpc MakeChannelParticipant2ByDO(MakeChannelParticipant2ByDOReq) returns (ChannelParticipantRes);
+  rpc NewChannelCoreById(ChannelCoreByIdReq) returns (ChannelCoreData);
   rpc NewChannelCoreByCreateChannel(ChannelCoreByCreateChannelReq) returns (ChannelCoreData);
   rpc ExportedChatInvite(ChannelCoreData) returns (ExportedChatInviteResp);
   rpc CheckUserIsAdministrator(CheckUserIsAdministratorReq) returns (CheckUserIsAdministratorResp);
   rpc GetChannelParticipantList(ChannelCoreData) returns (GetChannelParticipantListResp);
   rpc GetChannelParticipantIdList(ChannelCoreData) returns (GetChannelParticipantIdListResp);
+  rpc GetChannelParticipants(ChannelCoreData) returns (GetChannelParticipantsResp);
   rpc AddChannelUser(AddChannelUserReq) returns (AddChannelUserResp);
   rpc CheckDeleteChannelUser(CheckDeleteChannelUserReq) returns (CheckDeleteChannelUserResp);
   rpc DeleteChannelUser(DeleteChannelUserReq) returns (DeleteChannelUserResp);

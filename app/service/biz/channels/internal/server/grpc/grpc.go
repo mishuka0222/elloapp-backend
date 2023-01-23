@@ -13,7 +13,7 @@ import (
 // New new a grpc server.
 func New(ctx *svc.ServiceContext, c zrpc.RpcServerConf) *zrpc.RpcServer {
 	s, err := zrpc.NewServer(c, func(grpcServer *grpc.Server) {
-		channels.RegisterRPCAuthorizationServer(grpcServer, service.New(ctx))
+		channels.RegisterRPCChannelsServer(grpcServer, service.New(ctx))
 	})
 	logx.Must(err)
 	return s

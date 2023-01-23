@@ -4,7 +4,7 @@ import (
 	"context"
 	"database/sql"
 	"github.com/zeromicro/go-zero/core/logx"
-	"gitlab.com/merehead/elloapp/backend/elloapp_tg_backend/app/bff/channels/internal/dao/dataobject"
+	"gitlab.com/merehead/elloapp/backend/elloapp_tg_backend/app/service/biz/channels/internal/dao/dataobject"
 	"gitlab.com/merehead/elloapp/backend/elloapp_tg_backend/pkg2/stores/sqlx"
 )
 
@@ -41,7 +41,7 @@ func (dao *ChannelPtsUpdatesDAO) Insert(ctx context.Context, do *dataobject.Chan
 
 // SelectLastPts
 // select pts from channel_pts_updates where channel_id = :channel_id order by pts desc limit 1
-func (dao *ChannelPtsUpdatesDAO) SelectLastPts(ctx context.Context, channel_id int32) (rValue *dataobject.ChannelPtsUpdateDO, err error) {
+func (dao *ChannelPtsUpdatesDAO) SelectLastPts(ctx context.Context, channel_id int64) (rValue *dataobject.ChannelPtsUpdateDO, err error) {
 	var (
 		query = "select pts from channel_pts_updates where channel_id = ? order by pts desc limit 1"
 		row   *dataobject.ChannelPtsUpdateDO
@@ -60,7 +60,7 @@ func (dao *ChannelPtsUpdatesDAO) SelectLastPts(ctx context.Context, channel_id i
 
 // SelectByGtPts
 // select channel_id, pts, pts_count, update_type, update_data from channel_pts_updates where channel_id = :channel_id and pts > :pts order by pts asc
-func (dao *ChannelPtsUpdatesDAO) SelectByGtPts(ctx context.Context, channel_id int32, pts int32) (rValues []dataobject.ChannelPtsUpdateDO, err error) {
+func (dao *ChannelPtsUpdatesDAO) SelectByGtPts(ctx context.Context, channel_id int64, pts int32) (rValues []dataobject.ChannelPtsUpdateDO, err error) {
 	var (
 		query = "select channel_id, pts, pts_count, update_type, update_data from channel_pts_updates where channel_id = ? and pts > ? order by pts asc"
 		rows  []dataobject.ChannelPtsUpdateDO

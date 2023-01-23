@@ -4,7 +4,7 @@ import (
 	"context"
 	"database/sql"
 	"github.com/zeromicro/go-zero/core/logx"
-	"gitlab.com/merehead/elloapp/backend/elloapp_tg_backend/app/bff/channels/internal/dao/dataobject"
+	"gitlab.com/merehead/elloapp/backend/elloapp_tg_backend/app/service/biz/channels/internal/dao/dataobject"
 	"gitlab.com/merehead/elloapp/backend/elloapp_tg_backend/pkg2/stores/sqlx"
 )
 
@@ -41,7 +41,7 @@ func (dao *ChannelParticipantsDAO) Insert(ctx context.Context, do *dataobject.Ch
 
 // SelectByChannelId
 // select id, channel_id, user_id, participant_type, inviter_user_id, invited_at, joined_at, state from channel_participants where channel_id = :channel_id
-func (dao *ChannelParticipantsDAO) SelectByChannelId(ctx context.Context, channel_id int32) (rValues []dataobject.ChannelParticipantDO, err error) {
+func (dao *ChannelParticipantsDAO) SelectByChannelId(ctx context.Context, channel_id int64) (rValues []dataobject.ChannelParticipantDO, err error) {
 	var (
 		query = "select id, channel_id, user_id, participant_type, inviter_user_id, invited_at, joined_at, state from channel_participants where channel_id = ?"
 		rows  []dataobject.ChannelParticipantDO
@@ -60,7 +60,7 @@ func (dao *ChannelParticipantsDAO) SelectByChannelId(ctx context.Context, channe
 
 // SelectByUserIdList
 // select id, channel_id, user_id, participant_type, inviter_user_id, invited_at, joined_at, state from channel_participants where channel_id = :channel_id and user_id in (:idList)
-func (dao *ChannelParticipantsDAO) SelectByUserIdList(ctx context.Context, channel_id int32, idList []int32) (rValues []dataobject.ChannelParticipantDO, err error) {
+func (dao *ChannelParticipantsDAO) SelectByUserIdList(ctx context.Context, channel_id int64, idList []int64) (rValues []dataobject.ChannelParticipantDO, err error) {
 	var (
 		q    = "select id, channel_id, user_id, participant_type, inviter_user_id, invited_at, joined_at, state from channel_participants where channel_id = ? and user_id in (?)"
 		rows []dataobject.ChannelParticipantDO
@@ -80,7 +80,7 @@ func (dao *ChannelParticipantsDAO) SelectByUserIdList(ctx context.Context, chann
 
 // SelectByUserId
 // select id, channel_id, user_id, participant_type, inviter_user_id, invited_at, joined_at, state from channel_participants where channel_id = :channel_id and user_id = :user_id
-func (dao *ChannelParticipantsDAO) SelectByUserId(ctx context.Context, channel_id int32, user_id int32) (rValue *dataobject.ChannelParticipantDO, err error) {
+func (dao *ChannelParticipantsDAO) SelectByUserId(ctx context.Context, channel_id int64, user_id int64) (rValue *dataobject.ChannelParticipantDO, err error) {
 	var (
 		query = "select id, channel_id, user_id, participant_type, inviter_user_id, invited_at, joined_at, state from channel_participants where channel_id = ? and user_id = ?"
 		row   *dataobject.ChannelParticipantDO
@@ -100,7 +100,7 @@ func (dao *ChannelParticipantsDAO) SelectByUserId(ctx context.Context, channel_i
 
 // DeleteChannelUser
 // update channel_participants set state = 1 where id = :id
-func (dao *ChannelParticipantsDAO) DeleteChannelUser(ctx context.Context, id int32) (i int64, err error) {
+func (dao *ChannelParticipantsDAO) DeleteChannelUser(ctx context.Context, id int64) (i int64, err error) {
 	var (
 		query = "update channel_participants set state = 1 where id = ?"
 		res   sql.Result
@@ -123,7 +123,7 @@ func (dao *ChannelParticipantsDAO) DeleteChannelUser(ctx context.Context, id int
 
 // Update
 // update channel_participants set inviter_user_id = :inviter_user_id, invited_at = :invited_at, joined_at = :joined_at, state = 0 where id = :id
-func (dao *ChannelParticipantsDAO) Update(ctx context.Context, inviter_user_id int32, invited_at int32, joined_at int32, id int32) (i int64, err error) {
+func (dao *ChannelParticipantsDAO) Update(ctx context.Context, inviter_user_id int64, invited_at int32, joined_at int32, id int64) (i int64, err error) {
 	var (
 		query = "update channel_participants set inviter_user_id = ?, invited_at = ?, joined_at = ?, state = 0 where id = ?"
 		res   sql.Result
@@ -146,7 +146,7 @@ func (dao *ChannelParticipantsDAO) Update(ctx context.Context, inviter_user_id i
 
 // UpdateParticipantType
 // update channel_participants set participant_type = :participant_type where id = :id
-func (dao *ChannelParticipantsDAO) UpdateParticipantType(ctx context.Context, participant_type int8, id int32) (i int64, err error) {
+func (dao *ChannelParticipantsDAO) UpdateParticipantType(ctx context.Context, participant_type int8, id int64) (i int64, err error) {
 	var (
 		query = "update channel_participants set participant_type = ? where id = ?"
 		res   sql.Result

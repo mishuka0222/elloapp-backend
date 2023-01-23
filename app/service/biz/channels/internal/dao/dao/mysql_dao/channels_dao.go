@@ -4,7 +4,7 @@ import (
 	"context"
 	"database/sql"
 	"github.com/zeromicro/go-zero/core/logx"
-	"gitlab.com/merehead/elloapp/backend/elloapp_tg_backend/app/bff/channels/internal/dao/dataobject"
+	"gitlab.com/merehead/elloapp/backend/elloapp_tg_backend/app/service/biz/channels/internal/dao/dataobject"
 	"gitlab.com/merehead/elloapp/backend/elloapp_tg_backend/pkg2/stores/sqlx"
 )
 
@@ -41,7 +41,7 @@ func (dao *ChannelsDAO) Insert(ctx context.Context, do *dataobject.ChannelDO) (i
 
 // Select
 // select id, creator_user_id, access_hash, participant_count, title, about, photo_id, admins_enabled, deactivated, version, `date` from channels where id = :id
-func (dao *ChannelsDAO) Select(ctx context.Context, id int32) (rValue *dataobject.ChannelDO, err error) {
+func (dao *ChannelsDAO) Select(ctx context.Context, id int64) (rValue *dataobject.ChannelDO, err error) {
 	var (
 		query = "select id, creator_user_id, access_hash, participant_count, title, about, photo_id, admins_enabled, deactivated, version, `date` from channels where id = ?"
 		row   *dataobject.ChannelDO
@@ -60,7 +60,7 @@ func (dao *ChannelsDAO) Select(ctx context.Context, id int32) (rValue *dataobjec
 
 // UpdateTitle
 // update channels set title = :title, `date` = :date, version = version + 1 where id = :id
-func (dao *ChannelsDAO) UpdateTitle(ctx context.Context, title string, date int32, id int32) (i int64, err error) {
+func (dao *ChannelsDAO) UpdateTitle(ctx context.Context, title string, date int32, id int64) (i int64, err error) {
 	var (
 		query = "update channels set title = ?, `date` = ?, version = version + 1 where id = ?"
 		res   sql.Result
@@ -83,7 +83,7 @@ func (dao *ChannelsDAO) UpdateTitle(ctx context.Context, title string, date int3
 
 // UpdateAbout
 // update channels set about = :about, `date` = :date, version = version + 1 where id = :id
-func (dao *ChannelsDAO) UpdateAbout(ctx context.Context, about string, date int32, id int32) (i int64, err error) {
+func (dao *ChannelsDAO) UpdateAbout(ctx context.Context, about string, date int32, id int64) (i int64, err error) {
 	var (
 		query = "update channels set about = ?, `date` = ?, version = version + 1 where id = ?"
 		res   sql.Result
@@ -106,7 +106,7 @@ func (dao *ChannelsDAO) UpdateAbout(ctx context.Context, about string, date int3
 
 // UpdateLink
 // update channels set link = :link, `date` = :date, version = version + 1 where id = :id
-func (dao *ChannelsDAO) UpdateLink(ctx context.Context, link string, date int32, id int32) (i int64, err error) {
+func (dao *ChannelsDAO) UpdateLink(ctx context.Context, link string, date int32, id int64) (i int64, err error) {
 	var (
 		query = "update channels set link = ?, `date` = ?, version = version + 1 where id = ?"
 		res   sql.Result
@@ -129,7 +129,7 @@ func (dao *ChannelsDAO) UpdateLink(ctx context.Context, link string, date int32,
 
 // SelectByIdList
 // select id, access_hash, participant_count, title, about, photo_id, admins_enabled, deactivated, version, `date` from channels where id in (:idList)
-func (dao *ChannelsDAO) SelectByIdList(ctx context.Context, idList []int32) (rValues []dataobject.ChannelDO, err error) {
+func (dao *ChannelsDAO) SelectByIdList(ctx context.Context, idList []int64) (rValues []dataobject.ChannelDO, err error) {
 	var (
 		q    = "select id, access_hash, participant_count, title, about, photo_id, admins_enabled, deactivated, version, `date` from channels where id in (?)"
 		rows []dataobject.ChannelDO
@@ -149,7 +149,7 @@ func (dao *ChannelsDAO) SelectByIdList(ctx context.Context, idList []int32) (rVa
 
 // UpdateParticipantCount
 // update channels set participant_count = :participant_count, `date` = :date, version = version + 1 where id = :id
-func (dao *ChannelsDAO) UpdateParticipantCount(ctx context.Context, participant_count int32, date int32, id int32) (i int64, err error) {
+func (dao *ChannelsDAO) UpdateParticipantCount(ctx context.Context, participant_count int32, date int32, id int64) (i int64, err error) {
 	var (
 		query = "update channels set participant_count = ?, `date` = ?, version = version + 1 where id = ?"
 		res   sql.Result
@@ -172,7 +172,7 @@ func (dao *ChannelsDAO) UpdateParticipantCount(ctx context.Context, participant_
 
 // UpdatePhotoId
 // update channels set photo_id = :photo_id, `date` = :date, version = version + 1 where id = :id
-func (dao *ChannelsDAO) UpdatePhotoId(ctx context.Context, photo_id int64, date int32, id int32) (i int64, err error) {
+func (dao *ChannelsDAO) UpdatePhotoId(ctx context.Context, photo_id int64, date int32, id int64) (i int64, err error) {
 	var (
 		query = "update channels set photo_id = ?, `date` = ?, version = version + 1 where id = ?"
 		res   sql.Result
@@ -195,7 +195,7 @@ func (dao *ChannelsDAO) UpdatePhotoId(ctx context.Context, photo_id int64, date 
 
 // UpdateAdminsEnabled
 // update channels set admins_enabled = :admins_enabled, `date` = :date, version = version + 1 where id = :id
-func (dao *ChannelsDAO) UpdateAdminsEnabled(ctx context.Context, admins_enabled int8, date int32, id int32) (i int64, err error) {
+func (dao *ChannelsDAO) UpdateAdminsEnabled(ctx context.Context, admins_enabled int8, date int32, id int64) (i int64, err error) {
 	var (
 		query = "update channels set admins_enabled = ?, `date` = ?, version = version + 1 where id = ?"
 		res   sql.Result
@@ -218,7 +218,7 @@ func (dao *ChannelsDAO) UpdateAdminsEnabled(ctx context.Context, admins_enabled 
 
 // UpdateVersion
 // update channels set `date` = :date, version = version + 1 where id = :id
-func (dao *ChannelsDAO) UpdateVersion(ctx context.Context, date int32, id int32) (i int64, err error) {
+func (dao *ChannelsDAO) UpdateVersion(ctx context.Context, date int32, id int64) (i int64, err error) {
 	var (
 		query = "update channels set `date` = ?, version = version + 1 where id = ?"
 		res   sql.Result

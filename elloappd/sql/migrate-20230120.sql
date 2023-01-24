@@ -5,7 +5,7 @@
 --
 
 CREATE TABLE IF NOT EXISTS `channels` (
-    `id` bigint(20) NOT NULL,
+    `id` bigint(20)  auto_increment NOT NULL,
     `creator_user_id` bigint(20) NOT NULL,
     `access_hash` bigint(20) NOT NULL,
     `random_id` bigint(20) NOT NULL,
@@ -29,7 +29,7 @@ CREATE TABLE IF NOT EXISTS `channels` (
 --
 
 CREATE TABLE IF NOT EXISTS `channel_message_boxes` (
-    `id` bigint(20) NOT NULL,
+    `id` bigint(20) auto_increment NOT NULL,
     `sender_user_id` bigint(20) NOT NULL,
     `channel_id` bigint(20) NOT NULL,
     `channel_message_box_id` int(11) NOT NULL,
@@ -47,7 +47,7 @@ CREATE TABLE IF NOT EXISTS `channel_message_boxes` (
 --
 
 CREATE TABLE IF NOT EXISTS `channel_participants` (
-    `id` bigint(20) NOT NULL,
+    `id` bigint(20) auto_increment NOT NULL,
     `channel_id` bigint(20) NOT NULL,
     `user_id` bigint(20) NOT NULL,
     `participant_type` tinyint(4) DEFAULT '0',
@@ -66,7 +66,7 @@ CREATE TABLE IF NOT EXISTS `channel_participants` (
 --
 
 CREATE TABLE IF NOT EXISTS `channel_pts_updates` (
-    `id` bigint(20) NOT NULL,
+    `id` bigint(20) auto_increment NOT NULL,
     `channel_id` bigint(20) NOT NULL,
     `pts` int(11) NOT NULL,
     `pts_count` int(11) NOT NULL,
@@ -85,12 +85,16 @@ CREATE TABLE IF NOT EXISTS `channel_pts_updates` (
 ALTER TABLE `channels`
     ADD PRIMARY KEY (`id`),
     ADD KEY `creator_user_id_3` (`creator_user_id`,`access_hash`);
+ALTER TABLE `channels`
+    MODIFY id bigint auto_increment;
 
 --
 -- Indexes for table `channel_message_boxes`
 --
 ALTER TABLE `channel_message_boxes`
     ADD PRIMARY KEY (`id`);
+ALTER TABLE `channel_message_boxes`
+    MODIFY id bigint auto_increment;
 
 --
 -- Indexes for table `channel_participants`
@@ -98,9 +102,13 @@ ALTER TABLE `channel_message_boxes`
 ALTER TABLE `channel_participants`
     ADD PRIMARY KEY (`id`),
     ADD KEY `chat_id` (`channel_id`);
+ALTER TABLE `channel_participants`
+    MODIFY id bigint auto_increment;
 
 --
 -- Indexes for table `channel_pts_updates`
 --
 ALTER TABLE `channel_pts_updates`
     ADD PRIMARY KEY (`id`);
+ALTER TABLE `channel_pts_updates`
+    MODIFY id bigint auto_increment;

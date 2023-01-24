@@ -16,7 +16,7 @@ type Config struct {
 	InboxClient     *kafka.KafkaProducerConf
 	ChatClient      zrpc.RpcClientConf
 	SyncClient      *kafka.KafkaProducerConf
-	ChannelClient   zrpc.RpcClientConf
+	ChannelsClient  zrpc.RpcClientConf
 	DialogClient    zrpc.RpcClientConf
 	MessageSharding int `json:",default=1"`
 }

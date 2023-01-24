@@ -2,6 +2,7 @@ package core
 
 import (
 	"context"
+	"gitlab.com/merehead/elloapp/backend/elloapp_tg_backend/app/service/biz/channels/channels"
 
 	"gitlab.com/merehead/elloapp/backend/elloapp_tg_backend/app/messenger/msg/inbox/inbox"
 	"gitlab.com/merehead/elloapp/backend/elloapp_tg_backend/app/messenger/msg/msg/msg"
@@ -21,17 +22,12 @@ func (c *MsgCore) MsgSendMessage(in *msg.TLMsgSendMessage) (*mtproto.Updates, er
 		peer     = mtproto.MakePeerUtil(in.PeerType, in.PeerId)
 	)
 
-	if peer.IsChannel() {
-		// c.Logger.Errorf("msg.sendMultiMessage blocked, License key from https://elloapp.com required to unlock enterprise features.")
-		return nil, mtproto.ErrEnterpriseIsBlocked
-	}
-
 	if outBox.GetScheduleDate().GetValue() != 0 {
 		// c.Logger.Errorf("msg.sendMessage blocked, License key from https://elloapp.com required to unlock enterprise features.")
 		return nil, mtproto.ErrEnterpriseIsBlocked
 	}
 
-	if !peer.IsChatOrUser() {
+	if !peer.IsUserOrChatOrChannel() {
 		err = mtproto.ErrPeerIdInvalid
 		c.Logger.Errorf("msg.sendMessage - error: %v", err)
 		return nil, err
@@ -43,8 +39,14 @@ func (c *MsgCore) MsgSendMessage(in *msg.TLMsgSendMessage) (*mtproto.Updates, er
 			c.Logger.Errorf("msg.sendMessage - error: %v", err)
 			return nil, err
 		}
-	} else {
+	} else if peer.IsChat() {
 		rUpdates, err = c.sendChatOutgoingMessage(in.UserId, in.AuthKeyId, in.PeerId, outBox)
+		if err != nil {
+			c.Logger.Errorf("msg.sendMessage - error: %v", err)
+			return nil, err
+		}
+	} else if peer.IsChannel() {
+		rUpdates, err = c.sendChannelOutgoingMessage(in.UserId, in.AuthKeyId, in.PeerId, outBox)
 		if err != nil {
 			c.Logger.Errorf("msg.sendMessage - error: %v", err)
 			return nil, err
@@ -325,6 +327,129 @@ func (c *MsgCore) sendChatMessage(
 		func(idList []int64) []*mtproto.Chat {
 			// TODO
 			return nil
+		},
+		updateNewMessage)
+
+	c.svcCtx.Dao.SyncClient.SyncUpdatesNotMe(c.ctx, &sync.TLSyncUpdatesNotMe{
+		UserId:    fromUserId,
+		AuthKeyId: fromAuthKeyId,
+		Updates: mtproto.MakeSyncNotMeUpdates(
+			func(idList []int64) []*mtproto.User {
+				return rUpdates.Users
+			},
+			func(idList []int64) []*mtproto.Chat {
+				return rUpdates.Chats
+			},
+			func(idList []int64) []*mtproto.Chat {
+				// rUpdates.Chats include chats
+				return nil
+			},
+			updateNewMessage),
+	})
+
+	c.svcCtx.Dao.PutDuplicateMessage(ctx, fromUserId, outBox.RandomId, rUpdates)
+
+	return rUpdates, nil
+}
+
+func (c *MsgCore) sendChannelOutgoingMessage(userId, authKeyId, peerChatId int64, outBox *msg.OutboxMessage) (*mtproto.Updates, error) {
+	rUpdates, err := c.sendChannelMessage(c.ctx,
+		userId,
+		authKeyId,
+		peerChatId,
+		outBox,
+		func(did int64, inboxMsg *mtproto.Message) error {
+			_, err := c.svcCtx.Dao.InboxClient.InboxSendChatMessageToInbox(
+				c.ctx,
+				&inbox.TLInboxSendChatMessageToInbox{
+					FromId:     userId,
+					PeerChatId: peerChatId,
+					Message: inbox.MakeTLInboxMessageData(&inbox.InboxMessageData{
+						RandomId:        outBox.RandomId,
+						DialogMessageId: did,
+						// MessageDataId:   mid,
+						Message: inboxMsg,
+					}).To_InboxMessageData(),
+				})
+			if err != nil {
+				c.Logger.Errorf("checkDuplicateMessage error - %v", err)
+				return err
+			}
+
+			return err
+		})
+	if err != nil {
+		c.Logger.Errorf("checkDuplicateMessage error - %v", err)
+		return nil, err
+	}
+
+	return rUpdates, nil
+}
+
+func (c *MsgCore) sendChannelMessage(
+	ctx context.Context,
+	fromUserId int64,
+	fromAuthKeyId int64,
+	chatId int64,
+	outBox *msg.OutboxMessage,
+	cb func(did int64, inboxMsg *mtproto.Message) error) (*mtproto.Updates, error) {
+
+	hasDuplicateMessage, err := c.svcCtx.Dao.HasDuplicateMessage(ctx, fromUserId, outBox.RandomId)
+	if err != nil {
+		c.Logger.Errorf("checkDuplicateMessage error - %v", err)
+		return nil, err
+	} else if hasDuplicateMessage {
+		upd, err := c.svcCtx.Dao.GetDuplicateMessage(ctx, fromUserId, outBox.RandomId)
+		if err != nil {
+			c.Logger.Errorf("checkDuplicateMessage error - %v", err)
+			return nil, err
+		} else if upd != nil {
+			return upd, nil
+		}
+	}
+
+	box, err := c.svcCtx.Dao.SendChannelMessage(ctx, fromUserId, chatId, outBox)
+	if err != nil {
+		c.Logger.Error(err.Error())
+		return nil, err
+	}
+
+	if !hasDuplicateMessage && cb != nil {
+		err = cb(box.DialogMessageId, box.ToMessage(fromUserId))
+		if err != nil {
+			c.Logger.Error(err.Error())
+			return nil, err
+		}
+	}
+
+	updateNewMessage := mtproto.MakeTLUpdateNewMessage(&mtproto.Update{
+		Pts_INT32:       box.Pts,
+		PtsCount:        box.PtsCount,
+		RandomId:        box.RandomId,
+		Message_MESSAGE: box.Message,
+	}).To_Update()
+
+	rUpdates := mtproto.MakeReplyUpdates(
+		func(idList []int64) []*mtproto.User {
+			users, _ := c.svcCtx.Dao.UserClient.UserGetMutableUsers(c.ctx,
+				&userpb.TLUserGetMutableUsers{
+					Id: idList,
+				})
+			return users.GetUserListByIdList(fromUserId, idList...)
+		},
+		func(idList []int64) []*mtproto.Chat {
+			chats, _ := c.svcCtx.Dao.ChatClient.ChatGetChatListByIdList(c.ctx,
+				&chatpb.TLChatGetChatListByIdList{
+					IdList: idList,
+				})
+			return chats.GetChatListByIdList(fromUserId, idList...)
+		},
+		func(idList []int64) []*mtproto.Chat {
+			res, _ := c.svcCtx.ChannelsClient.GetChannelListBySelfAndIDList(c.ctx, &channels.GetChannelListBySelfAndIDListReq{
+				SelfUserId: fromUserId,
+				IdList:     idList,
+			})
+			return res.Chats
 		},
 		updateNewMessage)
 

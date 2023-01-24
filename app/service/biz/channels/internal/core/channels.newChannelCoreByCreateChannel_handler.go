@@ -28,6 +28,7 @@ func (c *ChannelsCore) NewChannelCoreByCreateChannel(in *channels.ChannelCoreByC
 		return
 	}
 
+	res.Participants[0] = &channels.ChannelParticipant{}
 	res.Participants[0].ChannelId = res.Channel.Id
 	res.Participants[0].UserId = in.CreatorId
 	res.Participants[0].ParticipantType = kChannelParticipantCreator
@@ -37,6 +38,7 @@ func (c *ChannelsCore) NewChannelCoreByCreateChannel(in *channels.ChannelCoreByC
 	}
 
 	for i := range in.UserIdList {
+		res.Participants[i+1] = &channels.ChannelParticipant{}
 		res.Participants[i+1].ChannelId = res.Channel.Id
 		res.Participants[i+1].UserId = in.UserIdList[i]
 		res.Participants[i+1].ParticipantType = kChannelParticipant

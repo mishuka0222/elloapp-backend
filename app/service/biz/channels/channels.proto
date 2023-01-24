@@ -201,6 +201,51 @@ message GetChannelFullBySelfIdResp {
   mtproto.TLChannelFull channel = 1;
 }
 
+message CreateChannelMessageBoxReq {
+  int64 fromId = 1;
+  int64 channelId = 2;
+  int64 clientRandomId = 3;
+  mtproto.Message message = 4;
+}
+
+message ChannelMessageBox {
+  int64 senderUserId = 1;
+  int64 channelId = 2;
+  int32 channelMessageBoxId = 3;
+  int64 messageId = 4;
+  int64 RandomId = 5;
+  mtproto.Message message = 6;
+}
+
+message MessageData {
+  int64 id = 1;
+  int64 dialog_id = 2;
+  int64 sender_user_id = 3;
+  int32 peer_type = 4;
+  int64 peer_id = 5;
+  int64 random_id = 6;
+  int32 message_type = 7;
+  string message_data = 8;
+  int32 date = 9;
+  int32 deleted = 10;
+  string created_at = 11;
+  string updated_at = 12;
+}
+
+message DoToChannelMessageRes {
+  mtproto.Message message = 1;
+}
+
+
+message GetChannelMessageReq {
+  int64 channelId = 1;
+  int64 id = 2;
+}
+
+message GetChannelMessageRes {
+  mtproto.Message message = 1;
+}
+
 service RPCChannels {
   // channel_data
   rpc MakeChannelParticipant2ByDO(MakeChannelParticipant2ByDOReq) returns (ChannelParticipantRes);
@@ -225,4 +270,8 @@ service RPCChannels {
   rpc GetChannelBySelfID(GetChannelBySelfIDReq) returns (GetChannelBySelfIDResp);
   rpc GetChannelParticipantIdListDao(GetChannelParticipantIdListDaoReq) returns (GetChannelParticipantIdListDaoResp);
   rpc GetChannelFullBySelfId(GetChannelFullBySelfIdReq) returns (GetChannelFullBySelfIdResp);
+  // channel_message_box
+  rpc CreateChannelMessageBox(CreateChannelMessageBoxReq) returns (ChannelMessageBox);
+  rpc DoToChannelMessage(MessageData) returns (DoToChannelMessageRes);
+  rpc GetChannelMessage(GetChannelMessageReq) returns (GetChannelMessageRes);
 }

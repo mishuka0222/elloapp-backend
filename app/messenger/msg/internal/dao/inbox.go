@@ -43,6 +43,10 @@ func (d *Dao) sendMessageToInbox(ctx context.Context, fromId int64, peer *mtprot
 		message    = proto.Clone(message2).(*mtproto.Message)
 	)
 
+	if peer.PeerType == mtproto.PEER_CHANNEL {
+		inBoxMsgId = d.IDGenClient2.NextChannelMessageBoxId(ctx, toUserId)
+	}
+
 	if peer.PeerType == mtproto.PEER_USER {
 		if dialogMessageId == 0 {
 			dialogMessageId = d.IDGenClient2.NextId(ctx)
@@ -71,7 +75,14 @@ func (d *Dao) sendMessageToInbox(ctx context.Context, fromId int64, peer *mtprot
 		}
 	}
 
-	if peer.PeerType == mtproto.PEER_CHAT {
+	if peer.PeerType == mtproto.PEER_CHANNEL {
+		if !message.Mentioned {
+			message.Mentioned = mtproto.CheckHasMention(message.Entities, toUserId)
+			if message.Mentioned {
+				message.MediaUnread = true
+			}
+		}
+	} else if peer.PeerType == mtproto.PEER_CHAT {
 		if !message.Mentioned {
 			message.Mentioned = mtproto.CheckHasMention(message.Entities, toUserId)
 			if message.Mentioned {
@@ -178,6 +189,28 @@ func (d *Dao) sendMessageToInbox(ctx context.Context, fromId int64, peer *mtprot
 			if result.Err != nil {
 				return
 			}
+		case mtproto.PEER_CHANNEL:
+			var (
+				lastInsertId int64
+				rowsAffected int64
+			)
+
+			dialogDO := &dataobject.DialogsDO{
+				UserId:           inBox.UserId,
+				PeerType:         peer.PeerType,
+				PeerId:           peer.PeerId,
+				PeerDialogId:     mtproto.MakePeerDialogId(peer.PeerType, peer.PeerId),
+				TopMessage:       inBoxMsgId,
+				UnreadCount:      1,
+				DraftMessageData: "null",
+				Date2:            date,
+			}
+
+			lastInsertId, rowsAffected, result.Err = d.DialogsDAO.InsertOrUpdateTx(tx, dialogDO)
+			logx.WithContext(ctx).Infof("lastInsertId:%d, rowsAffected: %d, result: %v, do: %v", lastInsertId, rowsAffected, result, dialogDO)
+			if result.Err != nil {
+				return
+			}
 		default:
 			result.Err = fmt.Errorf("fatal error - invalid peer_type: %v", peer)
 		}
@@ -221,6 +254,15 @@ func (d *Dao) SendUserMessageToInbox(ctx context.Context, fromId, toId int64, di
 func (d *Dao) SendChatMessageToInbox(ctx context.Context, fromId, chatId, toId int64, dialogMessageId, clientRandomId int64, message *mtproto.Message) (*mtproto.MessageBox, error) {
 	peer := &mtproto.PeerUtil{
 		PeerType: mtproto.PEER_CHAT,
+		PeerId:   chatId,
+	}
+	message.Out = false
+	return d.sendMessageToInbox(ctx, fromId, peer, toId, dialogMessageId, clientRandomId, message)
+}
+
+func (d *Dao) SendChannelMessageToInbox(ctx context.Context, fromId, chatId, toId int64, dialogMessageId, clientRandomId int64, message *mtproto.Message) (*mtproto.MessageBox, error) {
+	peer := &mtproto.PeerUtil{
+		PeerType: mtproto.PEER_CHANNEL,
 		PeerId:   chatId,
 	}
 	message.Out = false

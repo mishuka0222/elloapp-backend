@@ -21,6 +21,17 @@ const (
 	kChannelParticipantBanned  = 4
 )
 
+const (
+	MESSAGE_TYPE_UNKNOWN         = 0
+	MESSAGE_TYPE_MESSAGE_EMPTY   = 1
+	MESSAGE_TYPE_MESSAGE         = 2
+	MESSAGE_TYPE_MESSAGE_SERVICE = 3
+)
+const (
+	MESSAGE_BOX_TYPE_INCOMING = 0
+	MESSAGE_BOX_TYPE_OUTGOING = 1
+)
+
 type ChannelsCore struct {
 	ctx    context.Context
 	svcCtx *svc.ServiceContext
@@ -109,5 +120,22 @@ func ToChannelParticipantDO(pnt *channels.ChannelParticipant) *dataobject.Channe
 		State:           int8(pnt.State),
 		CreatedAt:       pnt.CreatedAt,
 		UpdatedAt:       pnt.UpdatedAt,
+	}
+}
+
+func ToMessageDataDO(m *channels.MessageData) *dataobject.MessageDataDO {
+	return &dataobject.MessageDataDO{
+		Id:           m.Id,
+		DialogId:     m.DialogId,
+		SenderUserId: m.SenderUserId,
+		PeerType:     int8(m.PeerType),
+		PeerId:       m.PeerId,
+		RandomId:     m.RandomId,
+		MessageType:  int8(m.MessageType),
+		MessageData:  m.MessageData,
+		Date:         m.Date,
+		Deleted:      int8(m.Deleted),
+		CreatedAt:    m.CreatedAt,
+		UpdatedAt:    m.UpdatedAt,
 	}
 }

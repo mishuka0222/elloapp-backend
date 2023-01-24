@@ -5,6 +5,7 @@ import (
 	msg_client "gitlab.com/merehead/elloapp/backend/elloapp_tg_backend/app/messenger/msg/msg/client"
 	sync_client "gitlab.com/merehead/elloapp/backend/elloapp_tg_backend/app/messenger/sync/client"
 	authsession_client "gitlab.com/merehead/elloapp/backend/elloapp_tg_backend/app/service/authsession/client"
+	channels_client "gitlab.com/merehead/elloapp/backend/elloapp_tg_backend/app/service/biz/channels/client"
 	chat_client "gitlab.com/merehead/elloapp/backend/elloapp_tg_backend/app/service/biz/chat/client"
 	dialog_client "gitlab.com/merehead/elloapp/backend/elloapp_tg_backend/app/service/biz/dialog/client"
 	message_client "gitlab.com/merehead/elloapp/backend/elloapp_tg_backend/app/service/biz/message/client"
@@ -27,6 +28,7 @@ type Dao struct {
 	authsession_client.AuthsessionClient
 	idgen_client.IDGenClient2
 	message_client.MessageClient
+	channels_client.ChannelsClient
 }
 
 func New(c config.Config) *Dao {
@@ -41,5 +43,6 @@ func New(c config.Config) *Dao {
 		AuthsessionClient: authsession_client.NewAuthsessionClient(rpcx.GetCachedRpcClient(c.AuthsessionClient)),
 		IDGenClient2:      idgen_client.NewIDGenClient2(rpcx.GetCachedRpcClient(c.IdgenClient)),
 		MessageClient:     message_client.NewMessageClient(rpcx.GetCachedRpcClient(c.MessageClient)),
+		ChannelsClient:    channels_client.NewChannelsClient(rpcx.GetCachedRpcClient(c.ChannelsClient)),
 	}
 }

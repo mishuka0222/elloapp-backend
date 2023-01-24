@@ -11,3 +11,4 @@ message ChannelParticipant {}
 message Chat {}
 message TLChannelFull {}
 message TLChannelsChannelParticipants {}
+message Message {}

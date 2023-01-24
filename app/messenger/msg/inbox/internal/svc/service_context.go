@@ -4,6 +4,7 @@ import (
 	"gitlab.com/merehead/elloapp/backend/elloapp_tg_backend/app/messenger/msg/inbox/internal/config"
 	"gitlab.com/merehead/elloapp/backend/elloapp_tg_backend/app/messenger/msg/internal/dao"
 	sync_client "gitlab.com/merehead/elloapp/backend/elloapp_tg_backend/app/messenger/sync/client"
+	channels_client "gitlab.com/merehead/elloapp/backend/elloapp_tg_backend/app/service/biz/channels/client"
 	kafka "gitlab.com/merehead/elloapp/backend/elloapp_tg_backend/pkg2/mq"
 	"gitlab.com/merehead/elloapp/backend/elloapp_tg_backend/pkg2/net/rpcx"
 	"gitlab.com/merehead/elloapp/backend/elloapp_tg_backend/pkg2/stores/sqlx"
@@ -25,13 +26,14 @@ func NewServiceContext(c config.Config) *ServiceContext {
 	db := sqlx.NewMySQL(&c.Mysql)
 
 	dao := &dao.Dao{
-		Mysql:        dao.NewMysqlDao(db, c.MessageSharding),
-		KV:           kv.NewStore(c.KV),
-		IDGenClient2: idgen_client.NewIDGenClient2(rpcx.GetCachedRpcClient(c.IdgenClient)),
-		UserClient:   user_client.NewUserClient(rpcx.GetCachedRpcClient(c.UserClient)),
-		ChatClient:   chat_client.NewChatClient(rpcx.GetCachedRpcClient(c.ChatClient)),
-		SyncClient:   sync_client.NewSyncMqClient(kafka.GetCachedMQClient(c.SyncClient)),
-		DialogClient: dialog_client.NewDialogClient(rpcx.GetCachedRpcClient(c.DialogClient)),
+		Mysql:          dao.NewMysqlDao(db, c.MessageSharding),
+		KV:             kv.NewStore(c.KV),
+		IDGenClient2:   idgen_client.NewIDGenClient2(rpcx.GetCachedRpcClient(c.IdgenClient)),
+		UserClient:     user_client.NewUserClient(rpcx.GetCachedRpcClient(c.UserClient)),
+		ChatClient:     chat_client.NewChatClient(rpcx.GetCachedRpcClient(c.ChatClient)),
+		ChannelsClient: channels_client.NewChannelsClient(rpcx.GetCachedRpcClient(c.ChannelsClient)),
+		SyncClient:     sync_client.NewSyncMqClient(kafka.GetCachedMQClient(c.SyncClient)),
+		DialogClient:   dialog_client.NewDialogClient(rpcx.GetCachedRpcClient(c.DialogClient)),
 	}
 	if c.BotSyncClient != nil {
 		dao.BotSyncClient = sync_client.NewSyncMqClient(kafka.GetCachedMQClient(c.BotSyncClient))

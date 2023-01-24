@@ -19,6 +19,7 @@ type (
 	ChannelCoreByCreateChannelReq      = channels.ChannelCoreByCreateChannelReq
 	ChannelCoreByIdReq                 = channels.ChannelCoreByIdReq
 	ChannelCoreData                    = channels.ChannelCoreData
+	ChannelMessageBox                  = channels.ChannelMessageBox
 	ChannelParticipant                 = channels.ChannelParticipant
 	ChannelParticipantRes              = channels.ChannelParticipantRes
 	CheckChannelUserNameReq            = channels.CheckChannelUserNameReq
@@ -27,8 +28,10 @@ type (
 	CheckDeleteChannelUserResp         = channels.CheckDeleteChannelUserResp
 	CheckUserIsAdministratorReq        = channels.CheckUserIsAdministratorReq
 	CheckUserIsAdministratorResp       = channels.CheckUserIsAdministratorResp
+	CreateChannelMessageBoxReq         = channels.CreateChannelMessageBoxReq
 	DeleteChannelUserReq               = channels.DeleteChannelUserReq
 	DeleteChannelUserResp              = channels.DeleteChannelUserResp
+	DoToChannelMessageRes              = channels.DoToChannelMessageRes
 	EditChannelAdminReq                = channels.EditChannelAdminReq
 	EditChannelAdminResp               = channels.EditChannelAdminResp
 	EditChannelPhotoReq                = channels.EditChannelPhotoReq
@@ -42,12 +45,15 @@ type (
 	GetChannelFullBySelfIdResp         = channels.GetChannelFullBySelfIdResp
 	GetChannelListBySelfAndIDListReq   = channels.GetChannelListBySelfAndIDListReq
 	GetChannelListBySelfAndIDListResp  = channels.GetChannelListBySelfAndIDListResp
+	GetChannelMessageReq               = channels.GetChannelMessageReq
+	GetChannelMessageRes               = channels.GetChannelMessageRes
 	GetChannelParticipantIdListDaoReq  = channels.GetChannelParticipantIdListDaoReq
 	GetChannelParticipantIdListDaoResp = channels.GetChannelParticipantIdListDaoResp
 	GetChannelParticipantIdListResp    = channels.GetChannelParticipantIdListResp
 	GetChannelParticipantListResp      = channels.GetChannelParticipantListResp
 	GetChannelParticipantsResp         = channels.GetChannelParticipantsResp
 	MakeChannelParticipant2ByDOReq     = channels.MakeChannelParticipant2ByDOReq
+	MessageData                        = channels.MessageData
 	ToChannelReq                       = channels.ToChannelReq
 	ToChannelResp                      = channels.ToChannelResp
 	ToggleChannelAdminsReq             = channels.ToggleChannelAdminsReq
@@ -77,6 +83,10 @@ type (
 		GetChannelBySelfID(ctx context.Context, in *GetChannelBySelfIDReq, opts ...grpc.CallOption) (*GetChannelBySelfIDResp, error)
 		GetChannelParticipantIdListDao(ctx context.Context, in *GetChannelParticipantIdListDaoReq, opts ...grpc.CallOption) (*GetChannelParticipantIdListDaoResp, error)
 		GetChannelFullBySelfId(ctx context.Context, in *GetChannelFullBySelfIdReq, opts ...grpc.CallOption) (*GetChannelFullBySelfIdResp, error)
+		// channel_message_box
+		CreateChannelMessageBox(ctx context.Context, in *CreateChannelMessageBoxReq, opts ...grpc.CallOption) (*ChannelMessageBox, error)
+		DoToChannelMessage(ctx context.Context, in *MessageData, opts ...grpc.CallOption) (*DoToChannelMessageRes, error)
+		GetChannelMessage(ctx context.Context, in *GetChannelMessageReq, opts ...grpc.CallOption) (*GetChannelMessageRes, error)
 	}
 
 	defaultChannelsClient struct {
@@ -195,4 +205,20 @@ func (m *defaultChannelsClient) GetChannelParticipantIdListDao(ctx context.Conte
 func (m *defaultChannelsClient) GetChannelFullBySelfId(ctx context.Context, in *GetChannelFullBySelfIdReq, opts ...grpc.CallOption) (*GetChannelFullBySelfIdResp, error) {
 	client := channels.NewRPCChannelsClient(m.cli.Conn())
 	return client.GetChannelFullBySelfId(ctx, in, opts...)
+}
+
+// channel_message_box
+func (m *defaultChannelsClient) CreateChannelMessageBox(ctx context.Context, in *CreateChannelMessageBoxReq, opts ...grpc.CallOption) (*ChannelMessageBox, error) {
+	client := channels.NewRPCChannelsClient(m.cli.Conn())
+	return client.CreateChannelMessageBox(ctx, in, opts...)
+}
+
+func (m *defaultChannelsClient) DoToChannelMessage(ctx context.Context, in *MessageData, opts ...grpc.CallOption) (*DoToChannelMessageRes, error) {
+	client := channels.NewRPCChannelsClient(m.cli.Conn())
+	return client.DoToChannelMessage(ctx, in, opts...)
+}
+
+func (m *defaultChannelsClient) GetChannelMessage(ctx context.Context, in *GetChannelMessageReq, opts ...grpc.CallOption) (*GetChannelMessageRes, error) {
+	client := channels.NewRPCChannelsClient(m.cli.Conn())
+	return client.GetChannelMessage(ctx, in, opts...)
 }

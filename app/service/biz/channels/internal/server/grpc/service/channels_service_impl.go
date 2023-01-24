@@ -284,3 +284,43 @@ func (s *Service) GetChannelFullBySelfId(ctx context.Context, in *channels.GetCh
 	c.Logger.Debugf("channels.GetChannelFullBySelfId - reply: %+v", r)
 	return r, err
 }
+
+// channel_message_box
+func (s *Service) CreateChannelMessageBox(ctx context.Context, in *channels.CreateChannelMessageBoxReq) (*channels.ChannelMessageBox, error) {
+	c := core.NewChannels(ctx, s.svcCtx)
+
+	c.Logger.Debugf("channels.CreateChannelMessageBox - metadata: %s, request: %s", c.MD.DebugString(), in.String())
+	r, err := c.CreateChannelMessageBox(in)
+	if err != nil {
+		return nil, err
+	}
+
+	c.Logger.Debugf("channels.CreateChannelMessageBox - reply: %+v", r)
+	return r, err
+}
+
+func (s *Service) DoToChannelMessage(ctx context.Context, in *channels.MessageData) (*channels.DoToChannelMessageRes, error) {
+	c := core.NewChannels(ctx, s.svcCtx)
+
+	c.Logger.Debugf("channels.DoToChannelMessage - metadata: %s, request: %s", c.MD.DebugString(), in.String())
+	r, err := c.DoToChannelMessage(in)
+	if err != nil {
+		return nil, err
+	}
+
+	c.Logger.Debugf("channels.DoToChannelMessage - reply: %+v", r)
+	return r, err
+}
+
+func (s *Service) GetChannelMessage(ctx context.Context, in *channels.GetChannelMessageReq) (*channels.GetChannelMessageRes, error) {
+	c := core.NewChannels(ctx, s.svcCtx)
+
+	c.Logger.Debugf("channels.GetChannelMessage - metadata: %s, request: %s", c.MD.DebugString(), in.String())
+	r, err := c.GetChannelMessage(in)
+	if err != nil {
+		return nil, err
+	}
+
+	c.Logger.Debugf("channels.GetChannelMessage - reply: %+v", r)
+	return r, err
+}

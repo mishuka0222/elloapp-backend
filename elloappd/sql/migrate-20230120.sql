@@ -32,7 +32,7 @@ CREATE TABLE IF NOT EXISTS `channel_message_boxes` (
     `id` bigint(20) NOT NULL,
     `sender_user_id` bigint(20) NOT NULL,
     `channel_id` bigint(20) NOT NULL,
-    `channel_message_box_id` bigint(20) NOT NULL,
+    `channel_message_box_id` int(11) NOT NULL,
     `message_id` bigint(20) NOT NULL,
     `date` int(11) NOT NULL DEFAULT '0',
     `deleted` tinyint(4) NOT NULL DEFAULT '0',

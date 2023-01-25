@@ -20,6 +20,20 @@ func (ch *ChannelCoreData) MakeMessageService(fromId int64, action *mtproto.Mess
 		PeerId: peerTo.ToPeer(),
 		Post:   true,
 		Action: action,
+
+		Out:         true,
+		Mentioned:   false,
+		MediaUnread: false,
+		Silent:      false,
+		//Post:        false,
+		Legacy: false,
+		Id:     0,
+		//FromId:      mtproto.MakePeerUser(fromId),
+		//PeerId:      mtproto.MakePeerChat(m.Chat.Id),
+		ReplyTo: nil,
+		//Date:        int32(time.Now().Unix()),
+		//Action:      action,
+		TtlPeriod: nil,
 	}
 	return message.To_MessageService().To_Message()
 }

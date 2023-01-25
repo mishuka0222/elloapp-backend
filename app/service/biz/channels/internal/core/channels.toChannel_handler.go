@@ -28,13 +28,25 @@ func (c *ChannelsCore) ToChannel(in *channels.ToChannelReq) (res *channels.ToCha
 		res.Chat = channel.To_Chat()
 		return
 	}
-
+	AdminRights := mtproto.MakeTLChatAdminRights(&mtproto.ChatAdminRights{
+		ChangeInfo:     true,
+		PostMessages:   true, // default false
+		EditMessages:   false,
+		DeleteMessages: true,
+		BanUsers:       true,
+		InviteUsers:    true,
+		PinMessages:    true,
+		AddAdmins:      in.Channel.Channel.AdminsEnabled == 1,
+		Anonymous:      false,
+		ManageCall:     true,
+		Other:          true,
+	}).To_ChatAdminRights()
 	var channel *mtproto.TLChannel
 	channel = (&mtproto.Chat{
 		Creator:     in.Channel.Channel.CreatorUserId == in.SelfUserId,
 		Id:          in.Channel.Channel.Id,
 		Title:       in.Channel.Channel.Title,
-		AdminRights: &mtproto.ChatAdminRights{AddAdmins: in.Channel.Channel.AdminsEnabled == 1},
+		AdminRights: AdminRights,
 		// Photo:             mtproto.NewTLChatPhotoEmpty().To_ChatPhoto(),
 		ParticipantsCount_INT32: in.Channel.Channel.ParticipantCount,
 		Date:                    in.Channel.Channel.Date,

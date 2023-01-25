@@ -47,7 +47,7 @@ func (dao *ChannelMessageBoxesDAO) SelectByMessageIdList(ctx context.Context, ch
 		rows []dataobject.ChannelMessageBoxDO
 	)
 	query, a, err := sqlx.In(q, channel_id, idList)
-	err = dao.db.QueryRows(ctx, &rows, query, a...)
+	err = dao.db.QueryRowsPartial(ctx, &rows, query, a...)
 
 	if err != nil {
 		logx.WithContext(ctx).Errorf("Queryx in SelectByMessageIdList(_), error: %v", err)
@@ -66,7 +66,7 @@ func (dao *ChannelMessageBoxesDAO) SelectByMessageId(ctx context.Context, channe
 		query = "select sender_user_id, channel_id, channel_message_box_id, message_id, `date` from channel_message_boxes where channel_id = ? and channel_message_box_id = ? and deleted = 0 limit 1"
 		row   *dataobject.ChannelMessageBoxDO
 	)
-	err = dao.db.QueryRow(ctx, &row, query, channel_id, channel_message_box_id)
+	err = dao.db.QueryRowPartial(ctx, &row, query, channel_id, channel_message_box_id)
 
 	if err != nil {
 		logx.WithContext(ctx).Errorf("Queryx in SelectByMessageId(_), error: %v", err)
@@ -85,7 +85,7 @@ func (dao *ChannelMessageBoxesDAO) SelectBackwardByOffsetLimit(ctx context.Conte
 		query = "select sender_user_id, channel_id, channel_message_box_id, message_id, `date` from channel_message_boxes where channel_id = ? and channel_message_box_id < ? and deleted = 0 order by channel_message_box_id desc limit ?"
 		rows  []dataobject.ChannelMessageBoxDO
 	)
-	err = dao.db.QueryRows(ctx, &rows, query, channel_id, channel_message_box_id, limit)
+	err = dao.db.QueryRowsPartial(ctx, &rows, query, channel_id, channel_message_box_id, limit)
 
 	if err != nil {
 		logx.WithContext(ctx).Errorf("Queryx in SelectBackwardByOffsetLimit(_), error: %v", err)
@@ -105,7 +105,7 @@ func (dao *ChannelMessageBoxesDAO) SelectForwardByOffsetLimit(ctx context.Contex
 		rows  []dataobject.ChannelMessageBoxDO
 	)
 
-	err = dao.db.QueryRows(ctx, &rows, query, channel_id, channel_message_box_id, limit)
+	err = dao.db.QueryRowsPartial(ctx, &rows, query, channel_id, channel_message_box_id, limit)
 
 	if err != nil {
 		logx.WithContext(ctx).Errorf("Queryx in SelectForwardByOffsetLimit(_), error: %v", err)

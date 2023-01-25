@@ -19,7 +19,8 @@ func (c *ChannelsCore) CreateChannelMessageBox(in *channels.CreateChannelMessage
 		channelMessageBoxDO *dataobject.ChannelMessageBoxDO
 		messageData         []byte
 	)
-	boxId = c.svcCtx.IDGenClient2.NextChannelMessageBoxId(c.ctx, in.ChannelId)
+	//boxId = c.svcCtx.IDGenClient2.NextChannelMessageBoxId(c.ctx, in.ChannelId)
+	boxId = c.svcCtx.IDGenClient2.NextMessageBoxId(c.ctx, in.ChannelId)
 	messageDataDO = &dataobject.MessageDataDO{
 		DialogId:     -in.ChannelId,
 		MessageId:    c.svcCtx.IDGenClient2.NextId(c.ctx),

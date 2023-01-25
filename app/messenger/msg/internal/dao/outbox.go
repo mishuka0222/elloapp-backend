@@ -45,16 +45,16 @@ func (d *Dao) sendMessageToOutbox(ctx context.Context, fromId int64, peer *mtpro
 	var (
 		dialogId        = mtproto.MakeDialogId(fromId, peer.PeerType, peer.PeerId)
 		dialogMessageId = d.IDGenClient2.NextId(ctx)
-		outBoxMsgId     int32
+		outBoxMsgId     = d.IDGenClient2.NextMessageBoxId(ctx, fromId)
 		err             error
 		message         = outboxMessage.Message
 	)
 
-	if peer.IsChannel() {
-		outBoxMsgId = d.IDGenClient2.NextChannelMessageBoxId(ctx, fromId)
-	} else {
-		outBoxMsgId = d.IDGenClient2.NextMessageBoxId(ctx, fromId)
-	}
+	//if peer.IsChannel() {
+	//	outBoxMsgId = d.IDGenClient2.NextChannelMessageBoxId(ctx, fromId)
+	//} else {
+	//	outBoxMsgId = d.IDGenClient2.NextMessageBoxId(ctx, fromId)
+	//}
 
 	if dialogMessageId == 0 || outBoxMsgId == 0 {
 		err = mtproto.ErrInternelServerError

@@ -227,13 +227,14 @@ func (s *Server) Initialize() error {
 		mtproto.RegisterRPCDialogsServer(
 			grpcServer,
 			dialogs_helper.New(dialogs_helper.Config{
-				RpcServerConf: c.RpcServerConf,
-				UpdatesClient: c.BizServiceClient,
-				UserClient:    c.BizServiceClient,
-				ChatClient:    c.BizServiceClient,
-				DialogClient:  c.BizServiceClient,
-				SyncClient:    c.SyncClient,
-				MessageClient: c.BizServiceClient,
+				RpcServerConf:  c.RpcServerConf,
+				UpdatesClient:  c.BizServiceClient,
+				UserClient:     c.BizServiceClient,
+				ChatClient:     c.BizServiceClient,
+				DialogClient:   c.BizServiceClient,
+				SyncClient:     c.SyncClient,
+				MessageClient:  c.BizServiceClient,
+				ChannelsClient: c.BizServiceClient,
 			}, nil))
 
 		// drafts_helper

@@ -46,7 +46,7 @@ func (dao *ChannelParticipantsDAO) SelectByChannelId(ctx context.Context, channe
 		query = "select id, channel_id, user_id, participant_type, inviter_user_id, invited_at, joined_at, state from channel_participants where channel_id = ?"
 		rows  []dataobject.ChannelParticipantDO
 	)
-	err = dao.db.QueryRows(ctx, &rows, query, channel_id)
+	err = dao.db.QueryRowsPartial(ctx, &rows, query, channel_id)
 
 	if err != nil {
 		logx.WithContext(ctx).Errorf("Queryx in SelectByChannelId(_), error: %v", err)
@@ -66,7 +66,7 @@ func (dao *ChannelParticipantsDAO) SelectByUserIdList(ctx context.Context, chann
 		rows []dataobject.ChannelParticipantDO
 	)
 	query, a, err := sqlx.In(q, channel_id, idList)
-	err = dao.db.QueryRows(ctx, &rows, query, a...)
+	err = dao.db.QueryRowsPartial(ctx, &rows, query, a...)
 
 	if err != nil {
 		logx.WithContext(ctx).Errorf("Queryx in SelectByUserIdList(_), error: %v", err)
@@ -86,7 +86,7 @@ func (dao *ChannelParticipantsDAO) SelectByUserId(ctx context.Context, channel_i
 		row   *dataobject.ChannelParticipantDO
 	)
 
-	err = dao.db.QueryRow(ctx, &row, query, channel_id, user_id)
+	err = dao.db.QueryRowPartial(ctx, &row, query, channel_id, user_id)
 
 	if err != nil {
 		logx.WithContext(ctx).Errorf("Queryx in SelectByUserId(_), error: %v", err)

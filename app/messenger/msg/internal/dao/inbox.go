@@ -43,9 +43,9 @@ func (d *Dao) sendMessageToInbox(ctx context.Context, fromId int64, peer *mtprot
 		message    = proto.Clone(message2).(*mtproto.Message)
 	)
 
-	if peer.PeerType == mtproto.PEER_CHANNEL {
-		inBoxMsgId = d.IDGenClient2.NextChannelMessageBoxId(ctx, toUserId)
-	}
+	//if peer.PeerType == mtproto.PEER_CHANNEL {
+	//	inBoxMsgId = d.IDGenClient2.NextChannelMessageBoxId(ctx, toUserId)
+	//}
 
 	if peer.PeerType == mtproto.PEER_USER {
 		if dialogMessageId == 0 {

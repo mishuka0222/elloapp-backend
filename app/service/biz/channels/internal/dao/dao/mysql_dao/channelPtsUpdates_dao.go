@@ -46,7 +46,7 @@ func (dao *ChannelPtsUpdatesDAO) SelectLastPts(ctx context.Context, channel_id i
 		query = "select pts from channel_pts_updates where channel_id = ? order by pts desc limit 1"
 		row   *dataobject.ChannelPtsUpdateDO
 	)
-	err = dao.db.QueryRow(ctx, &row, query, channel_id)
+	err = dao.db.QueryRowPartial(ctx, &row, query, channel_id)
 
 	if err != nil {
 		logx.WithContext(ctx).Errorf("Queryx in SelectLastPts(_), error: %v", err)
@@ -65,7 +65,7 @@ func (dao *ChannelPtsUpdatesDAO) SelectByGtPts(ctx context.Context, channel_id i
 		query = "select channel_id, pts, pts_count, update_type, update_data from channel_pts_updates where channel_id = ? and pts > ? order by pts asc"
 		rows  []dataobject.ChannelPtsUpdateDO
 	)
-	err = dao.db.QueryRows(ctx, &rows, query, channel_id, pts)
+	err = dao.db.QueryRowsPartial(ctx, &rows, query, channel_id, pts)
 
 	if err != nil {
 		logx.WithContext(ctx).Errorf("Queryx in SelectByGtPts(_), error: %v", err)

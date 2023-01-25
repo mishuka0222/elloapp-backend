@@ -36,7 +36,9 @@ func (c *ChannelsCore) ChannelsCreateChannel(in *mtproto.TLChannelsCreateChannel
 	if err != nil {
 		return
 	}
+
 	peer := mtproto.MakeChannelPeerUtil(channel.Channel.Id)
+
 	// TODO: add attach_data (chat and chat_participants)
 	upd, err = c.svcCtx.Dao.MsgClient.MsgSendMessage(c.ctx, &msgpb.TLMsgSendMessage{
 		UserId:    c.MD.UserId,
@@ -53,7 +55,7 @@ func (c *ChannelsCore) ChannelsCreateChannel(in *mtproto.TLChannelsCreateChannel
 	})
 	if err != nil {
 		c.Logger.Errorf("channels.createChannel - error: %v", err)
-		return nil, err
+		return
 	}
 
 	//box, err = c.svcCtx.Dao.ChannelsClient.CreateChannelMessageBox(c.ctx, &channels.CreateChannelMessageBoxReq{

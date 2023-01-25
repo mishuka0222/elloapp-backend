@@ -44,16 +44,16 @@ func (dao *ChannelsDAO) Insert(ctx context.Context, do *dataobject.ChannelDO) (i
 func (dao *ChannelsDAO) Select(ctx context.Context, id int64) (rValue *dataobject.ChannelDO, err error) {
 	var (
 		query = "select id, creator_user_id, access_hash, participant_count, title, about, photo_id, admins_enabled, deactivated, version, `date` from channels where id = ?"
-		row   *dataobject.ChannelDO
+		row   dataobject.ChannelDO
 	)
-	err = dao.db.QueryRow(ctx, &row, query, id)
+	err = dao.db.QueryRowPartial(ctx, &row, query, id)
 
 	if err != nil {
 		logx.WithContext(ctx).Errorf("Queryx in Select(_), error: %v", err)
 		return
 	}
 
-	rValue = row
+	rValue = &row
 
 	return
 }
@@ -135,7 +135,7 @@ func (dao *ChannelsDAO) SelectByIdList(ctx context.Context, idList []int64) (rVa
 		rows []dataobject.ChannelDO
 	)
 	query, a, err := sqlx.In(q, idList)
-	err = dao.db.QueryRows(ctx, &rows, query, a...)
+	err = dao.db.QueryRowsPartial(ctx, &rows, query, a...)
 
 	if err != nil {
 		logx.WithContext(ctx).Errorf("Queryx in SelectByIdList(_), error: %v", err)

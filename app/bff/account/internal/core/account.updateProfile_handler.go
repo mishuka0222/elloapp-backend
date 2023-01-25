@@ -6,6 +6,7 @@ import (
 	"gitlab.com/merehead/elloapp/backend/elloapp_tg_backend/mtproto"
 )
 
+
 // AccountUpdateProfile
 // account.updateProfile#78515775 flags:# first_name:flags.0?string last_name:flags.1?string about:flags.2?string = User;
 func (c *AccountCore) AccountUpdateProfile(in *mtproto.TLAccountUpdateProfile) (*mtproto.User, error) {
@@ -32,23 +33,25 @@ func (c *AccountCore) AccountUpdateProfile(in *mtproto.TLAccountUpdateProfile) (
 			}
 		}
 	} else {
-		if in.GetFirstName().GetValue() == "" {
+		firstName := in.GetFirstName();
+		lastName := in.GetLastName();
+		if firstName.GetValue() == "" {
 			err = mtproto.ErrFirstNameInvalid
 			c.Logger.Errorf("account.updateProfile - error: bad request (%v)", err)
 			return nil, err
 		}
 
-		if in.GetFirstName().GetValue() != me.FirstName() ||
-			in.GetLastName().GetValue() != me.LastName() {
+		if firstName.GetValue() != me.FirstName() ||
+			lastName.GetValue() != me.LastName() {
 			if _, err = c.svcCtx.Dao.UserClient.UserUpdateFirstAndLastName(c.ctx, &userpb.TLUserUpdateFirstAndLastName{
 				UserId:    c.MD.UserId,
-				FirstName: in.GetFirstName().GetValue(),
-				LastName:  in.GetLastName().GetValue(),
+				FirstName: firstName.GetValue(),
+				LastName:  lastName.GetValue(),
 			}); err != nil {
 				c.Logger.Errorf("account.updateProfile - error: %v", err)
 			} else {
-				me.SetFirstName(in.GetFirstName().GetValue())
-				me.SetLastName(in.GetLastName().GetValue())
+				me.SetFirstName(firstName.GetValue())
+				me.SetLastName(lastName.GetValue())
 			}
 
 			c.svcCtx.Dao.SyncClient.SyncUpdatesNotMe(c.ctx, &sync.TLSyncUpdatesNotMe{
@@ -56,8 +59,8 @@ func (c *AccountCore) AccountUpdateProfile(in *mtproto.TLAccountUpdateProfile) (
 				AuthKeyId: c.MD.AuthId,
 				Updates: mtproto.MakeUpdatesByUpdates(mtproto.MakeTLUpdateUserName(&mtproto.Update{
 					UserId:    c.MD.UserId,
-					FirstName: in.GetFirstName().GetValue(),
-					LastName:  in.GetLastName().GetValue(),
+					FirstName: firstName.GetValue(),
+					LastName:  lastName.GetValue(),
 					Username:  me.Username(),
 				}).To_Update()),
 			})

@@ -158,13 +158,15 @@ func (s *Server) Initialize() error {
 				}, userService))
 
 		// username_helper
+		usernameService := username_helper.New(username_helper.Config{
+			RpcServerConf: c.RpcServerConf,
+			Mysql:         c.Mysql,
+			Cache:         c.Cache,
+		})
 		username.RegisterRPCUsernameServer(
 			grpcServer,
-			username_helper.New(username_helper.Config{
-				RpcServerConf: c.RpcServerConf,
-				Mysql:         c.Mysql,
-				Cache:         c.Cache,
-			}))
+			usernameService,
+		)
 
 		// channels
 		channels.RegisterRPCChannelsServer(
@@ -175,7 +177,7 @@ func (s *Server) Initialize() error {
 					Mysql:         c.Mysql,
 					IdgenClient:   c.IdgenClient,
 					MediaClient:   c.MediaClient,
-				}, userService))
+				}, userService, usernameService))
 	})
 
 	// logx.Must(err)

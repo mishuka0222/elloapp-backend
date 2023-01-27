@@ -18,7 +18,7 @@ func (c *MessagesCore) MessagesSendMessage(in *mtproto.TLMessagesSendMessage) (*
 		peer   = mtproto.FromInputPeer2(c.MD.UserId, in.Peer)
 	)
 
-	if !peer.IsChatOrUser() {
+	if !peer.IsUserOrChatOrChannel() {
 		c.Logger.Errorf("invalid peer: %v", in.Peer)
 		err := mtproto.ErrEnterpriseIsBlocked
 		return nil, err

@@ -338,6 +338,7 @@ func (s *Server) Initialize() error {
 				UsernameClient: c.BizServiceClient,
 				ChatClient:     c.BizServiceClient,
 				SyncClient:     c.SyncClient,
+				ChannelsClient: c.BizServiceClient,
 			}, nil))
 
 		// bizraw_helper

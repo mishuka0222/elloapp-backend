@@ -15,14 +15,8 @@ import (
 func (c *InboxCore) InboxSendChatMessageToInbox(in *inbox.TLInboxSendChatMessageToInbox) (*mtproto.Void, error) {
 
 	if mtproto.PeerIsChannel(in.Message.Message.PeerId) {
-		core, err := c.svcCtx.Dao.ChannelsClient.NewChannelCoreById(c.ctx, &channels.ChannelCoreByIdReq{
-			ChannelId: in.PeerChatId,
-		})
-		if err != nil {
-			c.Logger.Errorf("inbox.sendChannelMessageToInbox - error: %v", err)
-			return nil, err
-		}
-		res, err := c.svcCtx.Dao.ChannelsClient.GetChannelParticipantList(c.ctx, core)
+		res, err := c.svcCtx.Dao.ChannelsClient.GetChannelParticipantList(c.ctx,
+			&channels.ChannelParticipantListReq{ChannelId: in.PeerChatId})
 		if err != nil {
 			c.Logger.Errorf("inbox.sendChannelMessageToInbox - error: %v", err)
 			return nil, err
@@ -87,7 +81,7 @@ func (c *InboxCore) InboxSendChatMessageToInbox(in *inbox.TLInboxSendChatMessage
 						return chats.GetChatListByIdList(v.UserId, idList...)
 					},
 					func(idList []int64) []*mtproto.Chat {
-						res, _ := c.svcCtx.Dao.ChannelsClient.GetChannelListBySelfAndIDList(c.ctx, &channels.GetChannelListBySelfAndIDListReq{
+						res, _ := c.svcCtx.Dao.ChannelsClient.GetChatsListBySelfAndIDList(c.ctx, &channels.GetChatsListBySelfAndIDListReq{
 							SelfUserId: v.UserId,
 							IdList:     idList,
 						})
@@ -188,7 +182,7 @@ func (c *InboxCore) InboxSendChatMessageToInbox(in *inbox.TLInboxSendChatMessage
 					return chats.GetChatListByIdList(v.UserId, idList...)
 				},
 				func(idList []int64) []*mtproto.Chat {
-					res, _ := c.svcCtx.Dao.ChannelsClient.GetChannelListBySelfAndIDList(c.ctx, &channels.GetChannelListBySelfAndIDListReq{
+					res, _ := c.svcCtx.Dao.ChannelsClient.GetChatsListBySelfAndIDList(c.ctx, &channels.GetChatsListBySelfAndIDListReq{
 						SelfUserId: v.UserId,
 						IdList:     idList,
 					})

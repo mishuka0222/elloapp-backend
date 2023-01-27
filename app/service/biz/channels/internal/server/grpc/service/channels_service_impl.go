@@ -10,56 +10,134 @@ import (
 	"gitlab.com/merehead/elloapp/backend/elloapp_tg_backend/app/service/biz/channels/internal/core"
 )
 
-// channel_data
-func (s *Service) MakeChannelParticipant2ByDO(ctx context.Context, in *channels.MakeChannelParticipant2ByDOReq) (*channels.ChannelParticipantRes, error) {
+// NEW
+func (s *Service) GetChannelDataById(ctx context.Context, in *channels.ChannelDataByIdReq) (*channels.ChannelData, error) {
 	c := core.NewChannels(ctx, s.svcCtx)
 
-	c.Logger.Debugf("channels.MakeChannelParticipant2ByDO - metadata: %s, request: %s", c.MD.DebugString(), in.String())
-	r, err := c.MakeChannelParticipant2ByDO(in)
+	c.Logger.Debugf("channels.GetChannelDataById - metadata: %s, request: %s", c.MD.DebugString(), in.String())
+	r, err := c.GetChannelDataById(in)
 	if err != nil {
 		return nil, err
 	}
 
-	c.Logger.Debugf("channels.MakeChannelParticipant2ByDO - reply: %+v", r)
+	c.Logger.Debugf("channels.GetChannelDataById - reply: %+v", r)
 	return r, err
 }
 
-func (s *Service) NewChannelCoreById(ctx context.Context, in *channels.ChannelCoreByIdReq) (*channels.ChannelCoreData, error) {
+func (s *Service) CreateNewChannel(ctx context.Context, in *channels.CreateNewChannelReq) (*channels.ChannelData, error) {
 	c := core.NewChannels(ctx, s.svcCtx)
 
-	c.Logger.Debugf("channels.NewChannelCoreById - metadata: %s, request: %s", c.MD.DebugString(), in.String())
-	r, err := c.NewChannelCoreById(in)
+	c.Logger.Debugf("channels.CreateNewChannel - metadata: %s, request: %s", c.MD.DebugString(), in.String())
+	r, err := c.CreateNewChannel(in)
 	if err != nil {
 		return nil, err
 	}
 
-	c.Logger.Debugf("channels.NewChannelCoreById - reply: %+v", r)
+	c.Logger.Debugf("channels.CreateNewChannel - reply: %+v", r)
 	return r, err
 }
 
-func (s *Service) NewChannelCoreByCreateChannel(ctx context.Context, in *channels.ChannelCoreByCreateChannelReq) (*channels.ChannelCoreData, error) {
+func (s *Service) AddChannelParticipant(ctx context.Context, in *channels.AddChannelParticipantReq) (*channels.AddChannelParticipantResp, error) {
 	c := core.NewChannels(ctx, s.svcCtx)
 
-	c.Logger.Debugf("channels.NewChannelCoreByCreateChannel - metadata: %s, request: %s", c.MD.DebugString(), in.String())
-	r, err := c.NewChannelCoreByCreateChannel(in)
+	c.Logger.Debugf("channels.AddChannelParticipant - metadata: %s, request: %s", c.MD.DebugString(), in.String())
+	r, err := c.AddChannelParticipant(in)
 	if err != nil {
 		return nil, err
 	}
 
-	c.Logger.Debugf("channels.NewChannelCoreByCreateChannel - reply: %+v", r)
+	c.Logger.Debugf("channels.AddChannelParticipant - reply: %+v", r)
 	return r, err
 }
 
-func (s *Service) ExportedChatInvite(ctx context.Context, in *channels.ChannelCoreData) (*channels.ExportedChatInviteResp, error) {
+func (s *Service) GetChatsListBySelfAndIDList(ctx context.Context, in *channels.GetChatsListBySelfAndIDListReq) (*channels.GetChatsListBySelfAndIDListResp, error) {
 	c := core.NewChannels(ctx, s.svcCtx)
 
-	c.Logger.Debugf("channels.ExportedChatInvite - metadata: %s, request: %s", c.MD.DebugString(), in.String())
-	r, err := c.ExportedChatInvite(in)
+	c.Logger.Debugf("channels.GetChatsListBySelfAndIDList - metadata: %s, request: %s", c.MD.DebugString(), in.String())
+	r, err := c.GetChatsListBySelfAndIDList(in)
 	if err != nil {
 		return nil, err
 	}
 
-	c.Logger.Debugf("channels.ExportedChatInvite - reply: %+v", r)
+	c.Logger.Debugf("channels.GetChatsListBySelfAndIDList - reply: %+v", r)
+	return r, err
+}
+
+func (s *Service) GetChannelFullBySelfId(ctx context.Context, in *channels.GetChannelFullBySelfIdReq) (*channels.GetChannelFullBySelfIdResp, error) {
+	c := core.NewChannels(ctx, s.svcCtx)
+
+	c.Logger.Debugf("channels.GetChannelFullBySelfId - metadata: %s, request: %s", c.MD.DebugString(), in.String())
+	r, err := c.GetChannelFullBySelfId(in)
+	if err != nil {
+		return nil, err
+	}
+
+	c.Logger.Debugf("channels.GetChannelFullBySelfId - reply: %+v", r)
+	return r, err
+}
+
+func (s *Service) GetChannelParticipantList(ctx context.Context, in *channels.ChannelParticipantListReq) (*channels.ChannelParticipantListResp, error) {
+	c := core.NewChannels(ctx, s.svcCtx)
+
+	c.Logger.Debugf("channels.GetChannelParticipantList - metadata: %s, request: %s", c.MD.DebugString(), in.String())
+	r, err := c.GetChannelParticipantList(in)
+	if err != nil {
+		return nil, err
+	}
+
+	c.Logger.Debugf("channels.GetChannelParticipantList - reply: %+v", r)
+	return r, err
+}
+
+func (s *Service) GetChannelParticipants(ctx context.Context, in *channels.ChannelParticipantsReq) (*channels.GetChannelParticipantsResp, error) {
+	c := core.NewChannels(ctx, s.svcCtx)
+
+	c.Logger.Debugf("channels.GetChannelParticipants - metadata: %s, request: %s", c.MD.DebugString(), in.String())
+	r, err := c.GetChannelParticipants(in)
+	if err != nil {
+		return nil, err
+	}
+
+	c.Logger.Debugf("channels.GetChannelParticipants - reply: %+v", r)
+	return r, err
+}
+
+func (s *Service) ToChat(ctx context.Context, in *channels.ToChatReq) (*channels.ToChatResp, error) {
+	c := core.NewChannels(ctx, s.svcCtx)
+
+	c.Logger.Debugf("channels.ToChat - metadata: %s, request: %s", c.MD.DebugString(), in.String())
+	r, err := c.ToChat(in)
+	if err != nil {
+		return nil, err
+	}
+
+	c.Logger.Debugf("channels.ToChat - reply: %+v", r)
+	return r, err
+}
+
+func (s *Service) CheckChannelUserName(ctx context.Context, in *channels.CheckChannelUserNameReq) (*channels.CheckChannelUserNameResp, error) {
+	c := core.NewChannels(ctx, s.svcCtx)
+
+	c.Logger.Debugf("channels.CheckChannelUserName - metadata: %s, request: %s", c.MD.DebugString(), in.String())
+	r, err := c.CheckChannelUserName(in)
+	if err != nil {
+		return nil, err
+	}
+
+	c.Logger.Debugf("channels.CheckChannelUserName - reply: %+v", r)
+	return r, err
+}
+
+func (s *Service) UpdateChannelLink(ctx context.Context, in *channels.UpdateChannelLinkReq) (*channels.UpdateChannelLinkResp, error) {
+	c := core.NewChannels(ctx, s.svcCtx)
+
+	c.Logger.Debugf("channels.UpdateChannelLink - metadata: %s, request: %s", c.MD.DebugString(), in.String())
+	r, err := c.UpdateChannelLink(in)
+	if err != nil {
+		return nil, err
+	}
+
+	c.Logger.Debugf("channels.UpdateChannelLink - reply: %+v", r)
 	return r, err
 }
 
@@ -76,20 +154,7 @@ func (s *Service) CheckUserIsAdministrator(ctx context.Context, in *channels.Che
 	return r, err
 }
 
-func (s *Service) GetChannelParticipantList(ctx context.Context, in *channels.ChannelCoreData) (*channels.GetChannelParticipantListResp, error) {
-	c := core.NewChannels(ctx, s.svcCtx)
-
-	c.Logger.Debugf("channels.GetChannelParticipantList - metadata: %s, request: %s", c.MD.DebugString(), in.String())
-	r, err := c.GetChannelParticipantList(in)
-	if err != nil {
-		return nil, err
-	}
-
-	c.Logger.Debugf("channels.GetChannelParticipantList - reply: %+v", r)
-	return r, err
-}
-
-func (s *Service) GetChannelParticipantIdList(ctx context.Context, in *channels.ChannelCoreData) (*channels.GetChannelParticipantIdListResp, error) {
+func (s *Service) GetChannelParticipantIdList(ctx context.Context, in *channels.ChannelData) (*channels.GetChannelParticipantIdListResp, error) {
 	c := core.NewChannels(ctx, s.svcCtx)
 
 	c.Logger.Debugf("channels.GetChannelParticipantIdList - metadata: %s, request: %s", c.MD.DebugString(), in.String())
@@ -99,45 +164,6 @@ func (s *Service) GetChannelParticipantIdList(ctx context.Context, in *channels.
 	}
 
 	c.Logger.Debugf("channels.GetChannelParticipantIdList - reply: %+v", r)
-	return r, err
-}
-
-func (s *Service) GetChannelParticipants(ctx context.Context, in *channels.ChannelCoreData) (*channels.GetChannelParticipantsResp, error) {
-	c := core.NewChannels(ctx, s.svcCtx)
-
-	c.Logger.Debugf("channels.GetChannelParticipants - metadata: %s, request: %s", c.MD.DebugString(), in.String())
-	r, err := c.GetChannelParticipants(in)
-	if err != nil {
-		return nil, err
-	}
-
-	c.Logger.Debugf("channels.GetChannelParticipants - reply: %+v", r)
-	return r, err
-}
-
-func (s *Service) AddChannelUser(ctx context.Context, in *channels.AddChannelUserReq) (*channels.AddChannelUserResp, error) {
-	c := core.NewChannels(ctx, s.svcCtx)
-
-	c.Logger.Debugf("channels.AddChannelUser - metadata: %s, request: %s", c.MD.DebugString(), in.String())
-	r, err := c.AddChannelUser(in)
-	if err != nil {
-		return nil, err
-	}
-
-	c.Logger.Debugf("channels.AddChannelUser - reply: %+v", r)
-	return r, err
-}
-
-func (s *Service) ToChannel(ctx context.Context, in *channels.ToChannelReq) (*channels.ToChannelResp, error) {
-	c := core.NewChannels(ctx, s.svcCtx)
-
-	c.Logger.Debugf("channels.ToChannel - metadata: %s, request: %s", c.MD.DebugString(), in.String())
-	r, err := c.ToChannel(in)
-	if err != nil {
-		return nil, err
-	}
-
-	c.Logger.Debugf("channels.ToChannel - reply: %+v", r)
 	return r, err
 }
 
@@ -219,33 +245,6 @@ func (s *Service) ToggleChannelAdmins(ctx context.Context, in *channels.ToggleCh
 	return r, err
 }
 
-// channel_util
-func (s *Service) GetChannelListBySelfAndIDList(ctx context.Context, in *channels.GetChannelListBySelfAndIDListReq) (*channels.GetChannelListBySelfAndIDListResp, error) {
-	c := core.NewChannels(ctx, s.svcCtx)
-
-	c.Logger.Debugf("channels.GetChannelListBySelfAndIDList - metadata: %s, request: %s", c.MD.DebugString(), in.String())
-	r, err := c.GetChannelListBySelfAndIDList(in)
-	if err != nil {
-		return nil, err
-	}
-
-	c.Logger.Debugf("channels.GetChannelListBySelfAndIDList - reply: %+v", r)
-	return r, err
-}
-
-func (s *Service) CheckChannelUserName(ctx context.Context, in *channels.CheckChannelUserNameReq) (*channels.CheckChannelUserNameResp, error) {
-	c := core.NewChannels(ctx, s.svcCtx)
-
-	c.Logger.Debugf("channels.CheckChannelUserName - metadata: %s, request: %s", c.MD.DebugString(), in.String())
-	r, err := c.CheckChannelUserName(in)
-	if err != nil {
-		return nil, err
-	}
-
-	c.Logger.Debugf("channels.CheckChannelUserName - reply: %+v", r)
-	return r, err
-}
-
 func (s *Service) GetChannelBySelfID(ctx context.Context, in *channels.GetChannelBySelfIDReq) (*channels.GetChannelBySelfIDResp, error) {
 	c := core.NewChannels(ctx, s.svcCtx)
 
@@ -269,58 +268,5 @@ func (s *Service) GetChannelParticipantIdListDao(ctx context.Context, in *channe
 	}
 
 	c.Logger.Debugf("channels.GetChannelParticipantIdListDao - reply: %+v", r)
-	return r, err
-}
-
-func (s *Service) GetChannelFullBySelfId(ctx context.Context, in *channels.GetChannelFullBySelfIdReq) (*channels.GetChannelFullBySelfIdResp, error) {
-	c := core.NewChannels(ctx, s.svcCtx)
-
-	c.Logger.Debugf("channels.GetChannelFullBySelfId - metadata: %s, request: %s", c.MD.DebugString(), in.String())
-	r, err := c.GetChannelFullBySelfId(in)
-	if err != nil {
-		return nil, err
-	}
-
-	c.Logger.Debugf("channels.GetChannelFullBySelfId - reply: %+v", r)
-	return r, err
-}
-
-// channel_message_box
-func (s *Service) CreateChannelMessageBox(ctx context.Context, in *channels.CreateChannelMessageBoxReq) (*channels.ChannelMessageBox, error) {
-	c := core.NewChannels(ctx, s.svcCtx)
-
-	c.Logger.Debugf("channels.CreateChannelMessageBox - metadata: %s, request: %s", c.MD.DebugString(), in.String())
-	r, err := c.CreateChannelMessageBox(in)
-	if err != nil {
-		return nil, err
-	}
-
-	c.Logger.Debugf("channels.CreateChannelMessageBox - reply: %+v", r)
-	return r, err
-}
-
-func (s *Service) DoToChannelMessage(ctx context.Context, in *channels.MessageData) (*channels.DoToChannelMessageRes, error) {
-	c := core.NewChannels(ctx, s.svcCtx)
-
-	c.Logger.Debugf("channels.DoToChannelMessage - metadata: %s, request: %s", c.MD.DebugString(), in.String())
-	r, err := c.DoToChannelMessage(in)
-	if err != nil {
-		return nil, err
-	}
-
-	c.Logger.Debugf("channels.DoToChannelMessage - reply: %+v", r)
-	return r, err
-}
-
-func (s *Service) GetChannelMessage(ctx context.Context, in *channels.GetChannelMessageReq) (*channels.GetChannelMessageRes, error) {
-	c := core.NewChannels(ctx, s.svcCtx)
-
-	c.Logger.Debugf("channels.GetChannelMessage - metadata: %s, request: %s", c.MD.DebugString(), in.String())
-	r, err := c.GetChannelMessage(in)
-	if err != nil {
-		return nil, err
-	}
-
-	c.Logger.Debugf("channels.GetChannelMessage - reply: %+v", r)
 	return r, err
 }

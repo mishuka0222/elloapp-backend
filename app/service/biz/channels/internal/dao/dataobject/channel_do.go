@@ -12,8 +12,9 @@ type ChannelDO struct {
 	About            string `db:"about"`
 	PhotoId          int64  `db:"photo_id"`
 	Link             string `db:"link"`
-	AdminsEnabled    int8   `db:"admins_enabled"`
-	Deactivated      int8   `db:"deactivated"`
+	Username         string `db:"username"`
+	AdminsEnabled    bool   `db:"admins_enabled"`
+	Deactivated      bool   `db:"deactivated"`
 	Version          int32  `db:"version"`
 	Date             int32  `db:"date"`
 	CreatedAt        string `db:"created_at"`
@@ -31,8 +32,9 @@ func (ch *ChannelDO) ToChannel() *channels.Channel {
 		About:            ch.About,
 		PhotoId:          ch.PhotoId,
 		Link:             ch.Link,
-		AdminsEnabled:    int32(ch.AdminsEnabled),
-		Deactivated:      int32(ch.Deactivated),
+		Username:         ch.Username,
+		AdminsEnabled:    ch.AdminsEnabled,
+		Deactivated:      ch.Deactivated,
 		Version:          ch.Version,
 		Date:             ch.Date,
 		CreatedAt:        ch.CreatedAt,

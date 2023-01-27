@@ -1,14 +1,37 @@
 package core
 
 import (
+	"errors"
+	"gitlab.com/merehead/elloapp/backend/elloapp_tg_backend/app/service/biz/channels/channels"
 	"gitlab.com/merehead/elloapp/backend/elloapp_tg_backend/mtproto"
 )
 
 // ChannelsUpdateUsername
 // channels.updateUsername#3514b3de channel:InputChannel username:string = Bool;
-func (c *UsernamesCore) ChannelsUpdateUsername(in *mtproto.TLChannelsUpdateUsername) (*mtproto.Bool, error) {
-	// TODO: not impl
-	c.Logger.Errorf("channels.updateUsername blocked, License key from https://elloapp.com required to unlock enterprise features.")
+func (c *UsernamesCore) ChannelsUpdateUsername(in *mtproto.TLChannelsUpdateUsername) (res *mtproto.Bool, err error) {
+	var (
+		rOk *channels.CheckUserIsAdministratorResp
+	)
 
-	return nil, mtproto.ErrEnterpriseIsBlocked
+	rOk, err = c.svcCtx.Dao.CheckUserIsAdministrator(c.ctx, &channels.CheckUserIsAdministratorReq{
+		ChannelId: in.Channel.GetChannelId(),
+		UserId:    c.MD.UserId,
+	})
+	if err != nil {
+		return
+	} else if !rOk.Status {
+		err = errors.New("NO_EDIT_CHAT_PERMISSION")
+		return
+	}
+
+	_, err = c.svcCtx.Dao.ChannelsClient.UpdateChannelLink(c.ctx, &channels.UpdateChannelLinkReq{
+		ChannelId: in.Channel.GetChannelId(),
+		Link:      in.Username,
+	})
+	if err != nil {
+		return
+	}
+
+	res = mtproto.BoolTrue
+	return
 }

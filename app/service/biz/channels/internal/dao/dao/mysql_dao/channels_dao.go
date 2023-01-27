@@ -43,7 +43,7 @@ func (dao *ChannelsDAO) Insert(ctx context.Context, do *dataobject.ChannelDO) (i
 // select id, creator_user_id, access_hash, participant_count, title, about, photo_id, admins_enabled, deactivated, version, `date` from channels where id = :id
 func (dao *ChannelsDAO) Select(ctx context.Context, id int64) (rValue *dataobject.ChannelDO, err error) {
 	var (
-		query = "select id, creator_user_id, access_hash, participant_count, title, about, photo_id, admins_enabled, deactivated, version, `date` from channels where id = ?"
+		query = "select id, creator_user_id, access_hash, participant_count, title, about, photo_id, link, username, admins_enabled, deactivated, version, `date` from channels where id = ?"
 		row   dataobject.ChannelDO
 	)
 	err = dao.db.QueryRowPartial(ctx, &row, query, id)
@@ -127,11 +127,34 @@ func (dao *ChannelsDAO) UpdateLink(ctx context.Context, link string, date int32,
 	return
 }
 
+// UpdateUsername
+// update channels set username = :link, `date` = :date, version = version + 1 where id = :id
+func (dao *ChannelsDAO) UpdateUsername(ctx context.Context, username string, date int32, id int64) (i int64, err error) {
+	var (
+		query = "update channels set username = ?, `date` = ?, version = version + 1 where id = ?"
+		res   sql.Result
+	)
+	res, err = dao.db.Exec(ctx, query, username, date, id)
+
+	if err != nil {
+		logx.WithContext(ctx).Errorf("Exec in UpdateUsername(_), error: %v", err)
+		return
+	}
+
+	i, err = res.RowsAffected()
+	if err != nil {
+		logx.WithContext(ctx).Errorf("RowsAffected in UpdateUsername(_), error: %v", err)
+		return
+	}
+
+	return
+}
+
 // SelectByIdList
 // select id, access_hash, participant_count, title, about, photo_id, admins_enabled, deactivated, version, `date` from channels where id in (:idList)
 func (dao *ChannelsDAO) SelectByIdList(ctx context.Context, idList []int64) (rValues []dataobject.ChannelDO, err error) {
 	var (
-		q    = "select id, access_hash, participant_count, title, about, photo_id, admins_enabled, deactivated, version, `date` from channels where id in (?)"
+		q    = "select id, access_hash, participant_count, title, about, photo_id, link, username, admins_enabled, deactivated, version, `date` from channels where id in (?)"
 		rows []dataobject.ChannelDO
 	)
 	query, a, err := sqlx.In(q, idList)
@@ -195,7 +218,7 @@ func (dao *ChannelsDAO) UpdatePhotoId(ctx context.Context, photo_id int64, date 
 
 // UpdateAdminsEnabled
 // update channels set admins_enabled = :admins_enabled, `date` = :date, version = version + 1 where id = :id
-func (dao *ChannelsDAO) UpdateAdminsEnabled(ctx context.Context, admins_enabled int8, date int32, id int64) (i int64, err error) {
+func (dao *ChannelsDAO) UpdateAdminsEnabled(ctx context.Context, admins_enabled bool, date int32, id int64) (i int64, err error) {
 	var (
 		query = "update channels set admins_enabled = ?, `date` = ?, version = version + 1 where id = ?"
 		res   sql.Result
@@ -235,6 +258,23 @@ func (dao *ChannelsDAO) UpdateVersion(ctx context.Context, date int32, id int64)
 		logx.WithContext(ctx).Errorf("RowsAffected in UpdateVersion(_), error: %v", err)
 		return
 	}
+
+	return
+}
+
+func (dao *ChannelsDAO) CheckUsername(ctx context.Context, username string) (rValue bool, err error) {
+	var (
+		query = "select id from channels where link = ? limit 1"
+		row   int64
+	)
+	err = dao.db.QueryRow(ctx, &row, query, username)
+
+	if err != nil {
+		logx.WithContext(ctx).Errorf("Queryx in CheckUsername(_), error: %v", err)
+		return
+	}
+
+	rValue = row != 0
 
 	return
 }

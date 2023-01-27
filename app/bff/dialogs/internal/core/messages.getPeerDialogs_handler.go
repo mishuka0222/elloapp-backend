@@ -219,7 +219,7 @@ func (c *DialogsCore) MessagesGetPeerDialogs(in *mtproto.TLMessagesGetPeerDialog
 			return chats.GetChatListByIdList(c.MD.UserId, id...)
 		},
 		func(ctx context.Context, selfUserId int64, id ...int64) []*mtproto.Chat {
-			res, _ := c.svcCtx.Dao.ChannelsClient.GetChannelListBySelfAndIDList(c.ctx, &channels.GetChannelListBySelfAndIDListReq{
+			res, _ := c.svcCtx.Dao.ChannelsClient.GetChatsListBySelfAndIDList(c.ctx, &channels.GetChatsListBySelfAndIDListReq{
 				SelfUserId: selfUserId,
 				IdList:     id,
 			})

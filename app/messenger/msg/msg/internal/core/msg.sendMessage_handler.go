@@ -2,6 +2,7 @@ package core
 
 import (
 	"context"
+	"errors"
 	"gitlab.com/merehead/elloapp/backend/elloapp_tg_backend/app/service/biz/channels/channels"
 
 	"gitlab.com/merehead/elloapp/backend/elloapp_tg_backend/app/messenger/msg/inbox/inbox"
@@ -46,6 +47,15 @@ func (c *MsgCore) MsgSendMessage(in *msg.TLMsgSendMessage) (*mtproto.Updates, er
 			return nil, err
 		}
 	} else if peer.IsChannel() {
+		rOk, err := c.svcCtx.Dao.ChannelsClient.CheckUserIsAdministrator(c.ctx, &channels.CheckUserIsAdministratorReq{
+			ChannelId: in.UserId,
+			UserId:    in.PeerId,
+		})
+		if err != nil {
+			return nil, err
+		} else if !rOk.Status {
+			return nil, errors.New("NO_EDIT_CHAT_PERMISSION")
+		}
 		rUpdates, err = c.sendChannelOutgoingMessage(in.UserId, in.AuthKeyId, in.PeerId, outBox)
 		if err != nil {
 			c.Logger.Errorf("msg.sendMessage - error: %v", err)
@@ -445,7 +455,7 @@ func (c *MsgCore) sendChannelMessage(
 			return chats.GetChatListByIdList(fromUserId, idList...)
 		},
 		func(idList []int64) []*mtproto.Chat {
-			res, _ := c.svcCtx.ChannelsClient.GetChannelListBySelfAndIDList(c.ctx, &channels.GetChannelListBySelfAndIDListReq{
+			res, _ := c.svcCtx.ChannelsClient.GetChatsListBySelfAndIDList(c.ctx, &channels.GetChatsListBySelfAndIDListReq{
 				SelfUserId: fromUserId,
 				IdList:     idList,
 			})

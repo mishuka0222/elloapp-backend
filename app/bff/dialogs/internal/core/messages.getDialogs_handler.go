@@ -2,6 +2,7 @@ package core
 
 import (
 	"context"
+	"gitlab.com/merehead/elloapp/backend/elloapp_tg_backend/app/service/biz/channels/channels"
 	"sort"
 
 	chatpb "gitlab.com/merehead/elloapp/backend/elloapp_tg_backend/app/service/biz/chat/chat"
@@ -69,9 +70,9 @@ func (c *DialogsCore) MessagesGetDialogs(in *mtproto.TLMessagesGetDialogs) (*mtp
 	for _, dialogEx := range dialogExtList {
 		peer2 := mtproto.FromPeer(dialogEx.GetDialog().GetPeer())
 
-		if peer2.IsChannel() {
-			c.Logger.Errorf("messages.getDialogs blocked, License key from https://elloapp.com required to unlock enterprise features.")
-		}
+		//if peer2.IsChannel() {
+		//	c.Logger.Errorf("messages.getDialogs blocked, License key from https://elloapp.com required to unlock enterprise features.")
+		//}
 
 		dialogEx.Dialog.NotifySettings = userpb.FindPeerPeerNotifySettings(notifySettingsList, peer2)
 	}
@@ -93,11 +94,11 @@ func (c *DialogsCore) MessagesGetDialogs(in *mtproto.TLMessagesGetDialogs) (*mtp
 				msgIdList = make([]int32, 0, len(id))
 			)
 			for _, id2 := range id {
-				if !id2.Peer.IsChannel() {
-					msgIdList = append(msgIdList, id2.TopMessage)
-				} else {
-					c.Logger.Errorf("blocked, License key from https://elloapp.com required to unlock enterprise features.")
-				}
+				//if !id2.Peer.IsChannel() {
+				msgIdList = append(msgIdList, id2.TopMessage)
+				//} else {
+				//	c.Logger.Errorf("blocked, License key from https://elloapp.com required to unlock enterprise features.")
+				//}
 			}
 			if len(msgIdList) > 0 {
 				boxList, _ := c.svcCtx.Dao.MessageClient.MessageGetUserMessageList(c.ctx, &message.TLMessageGetUserMessageList{
@@ -128,8 +129,11 @@ func (c *DialogsCore) MessagesGetDialogs(in *mtproto.TLMessagesGetDialogs) (*mtp
 			return chats.GetChatListByIdList(c.MD.UserId, id...)
 		},
 		func(ctx context.Context, selfUserId int64, id ...int64) []*mtproto.Chat {
-			c.Logger.Errorf("blocked, License key from https://elloapp.com required to unlock enterprise features.")
-			return []*mtproto.Chat{}
+			res, _ := c.svcCtx.Dao.ChannelsClient.GetChatsListBySelfAndIDList(c.ctx, &channels.GetChatsListBySelfAndIDListReq{
+				SelfUserId: selfUserId,
+				IdList:     id,
+			})
+			return res.Chats
 		})
 
 	return messageDialogs.ToMessagesDialogs(dialogCount), nil

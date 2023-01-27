@@ -2,18 +2,22 @@ package core
 
 import (
 	"gitlab.com/merehead/elloapp/backend/elloapp_tg_backend/app/service/biz/channels/channels"
+	"gitlab.com/merehead/elloapp/backend/elloapp_tg_backend/app/service/biz/channels/internal/dao/dataobject"
 )
 
 func (c *ChannelsCore) CheckUserIsAdministrator(in *channels.CheckUserIsAdministratorReq) (res *channels.CheckUserIsAdministratorResp, err error) {
-	err = c.checkOrLoadChannelParticipantList(in.Channel)
+	var (
+		participants []dataobject.ChannelParticipantDO
+	)
+	participants, err = c.loadChannelParticipantDoList(in.ChannelId)
 	if err != nil {
 		return
 	}
 
-	for i := range in.Channel.Participants {
-		if in.Channel.Participants[i].UserId == in.UserId {
-			if in.Channel.Participants[i].ParticipantType == kChannelParticipantCreator ||
-				in.Channel.Participants[i].ParticipantType == kChannelParticipantAdmin {
+	for i := range participants {
+		if participants[i].UserId == in.UserId {
+			if participants[i].ParticipantType == channels.K_ChannelParticipantCreator ||
+				participants[i].ParticipantType == channels.K_ChannelParticipantAdmin {
 				res = &channels.CheckUserIsAdministratorResp{Status: true}
 				return
 			}

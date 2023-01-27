@@ -16,6 +16,13 @@ const (
 	K_ChannelParticipantKicked
 )
 
+const (
+	K_ParticipantActiveState = 0
+	K_ParticipantLeftState   = iota
+	K_ParticipantKikedState
+	K_ParticipantBannedState
+)
+
 func (ptc *ChannelParticipant) MakeChannelParticipant(selfId int64) (participant *mtproto.ChannelParticipant, err error) {
 
 	participant = &mtproto.ChannelParticipant{
@@ -66,6 +73,40 @@ func (ch *ChannelData) MakeMessageService(fromId int64, action *mtproto.MessageA
 
 	message := &mtproto.Message{
 		Date:   ch.Channel.Date,
+		FromId: peerFrom.ToPeer(),
+		PeerId: peerTo.ToPeer(),
+		Post:   true,
+		Action: action,
+
+		Out:         true,
+		Mentioned:   false,
+		MediaUnread: false,
+		Silent:      false,
+		//Post:        false,
+		Legacy: false,
+		Id:     0,
+		//FromId:      mtproto.MakePeerUser(fromId),
+		//PeerId:      mtproto.MakePeerChat(m.Chat.Id),
+		ReplyTo: nil,
+		//Date:        int32(time.Now().Unix()),
+		//Action:      action,
+		TtlPeriod: nil,
+	}
+	return message.To_MessageService().To_Message()
+}
+
+func MakeMessageService(channelId, fromId int64, date int32, action *mtproto.MessageAction) *mtproto.Message {
+	peerFrom := &mtproto.PeerUtil{
+		PeerType: mtproto.PEER_USER,
+		PeerId:   fromId,
+	}
+	peerTo := &mtproto.PeerUtil{
+		PeerType: mtproto.PEER_CHANNEL,
+		PeerId:   channelId,
+	}
+
+	message := &mtproto.Message{
+		Date:   date,
 		FromId: peerFrom.ToPeer(),
 		PeerId: peerTo.ToPeer(),
 		Post:   true,

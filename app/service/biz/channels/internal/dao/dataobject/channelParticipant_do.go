@@ -11,12 +11,11 @@ type ChannelParticipantDO struct {
 	ChannelId       int64  `db:"channel_id"`
 	UserId          int64  `db:"user_id"`
 	ParticipantType int32  `db:"participant_type"`
-	AdminRights     string `json:"admin_rights"`
+	AdminRights     string `db:"admin_rights"`
 	InviterUserId   int64  `db:"inviter_user_id"`
 	InvitedAt       int32  `db:"invited_at"`
-	KickedAt        int32  `db:"kicked_at"`
-	LeftAt          int32  `db:"left_at"`
 	JoinedAt        int32  `db:"joined_at"`
+	LeftAt          int32  `db:"left_at"`
 	State           int32  `db:"state"`
 	CreatedAt       string `db:"created_at"`
 	UpdatedAt       string `db:"updated_at"`
@@ -30,9 +29,8 @@ func (pnt *ChannelParticipantDO) ToChannelParticipant() (channel *channels.Chann
 		ParticipantType: pnt.ParticipantType,
 		InviterUserId:   pnt.InviterUserId,
 		InvitedAt:       pnt.InvitedAt,
-		KickedAt:        pnt.KickedAt,
-		LeftAt:          pnt.LeftAt,
 		JoinedAt:        pnt.JoinedAt,
+		LeftAt:          pnt.LeftAt,
 		State:           pnt.State,
 		CreatedAt:       pnt.CreatedAt,
 		UpdatedAt:       pnt.UpdatedAt,

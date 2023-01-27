@@ -4,7 +4,7 @@ import (
 	"gitlab.com/merehead/elloapp/backend/elloapp_tg_backend/app/service/biz/channels/channels"
 )
 
-func (c *ChannelsCore) GetChannelParticipantIdList(in *channels.ChannelCoreData) (res *channels.GetChannelParticipantIdListResp, err error) {
+func (c *ChannelsCore) GetChannelParticipantIdList(in *channels.ChannelData) (res *channels.GetChannelParticipantIdListResp, err error) {
 	err = c.checkOrLoadChannelParticipantList(in)
 	if err != nil {
 		return

@@ -48,8 +48,8 @@ func (c *MsgCore) MsgSendMessage(in *msg.TLMsgSendMessage) (*mtproto.Updates, er
 		}
 	} else if peer.IsChannel() {
 		rOk, err := c.svcCtx.Dao.ChannelsClient.CheckUserIsAdministrator(c.ctx, &channels.CheckUserIsAdministratorReq{
-			ChannelId: in.UserId,
-			UserId:    in.PeerId,
+			ChannelId: in.PeerId,
+			UserId:    in.UserId,
 		})
 		if err != nil {
 			return nil, err

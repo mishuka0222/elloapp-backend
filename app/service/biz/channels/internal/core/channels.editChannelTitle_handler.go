@@ -6,40 +6,49 @@ import (
 	"time"
 )
 
-func (c *ChannelsCore) EditChannelTitle(in *channels.EditChannelTitleReq) (res *channels.EditChannelTitleResp, err error) {
-	err = c.checkOrLoadChannelParticipantList(in.Channel)
+func (c *ChannelsCore) EditChannelTitle(in *channels.EditChannelTitleReq) (res *channels.Void, err error) {
+	var (
+		channel *channels.ChannelData
+	)
+
+	channel, err = c.GetChannelDataById(&channels.ChannelDataByIdReq{ChannelId: in.ChannelId})
+	if err != nil {
+		return
+	}
+	err = c.checkOrLoadChannelParticipantList(channel)
 	if err != nil {
 		return
 	}
 
-	_, participant := in.Channel.FindChatParticipant(in.EditUserId)
+	_, participant := channel.FindChatParticipant(in.EditUserId)
 
-	if participant == nil || participant.State == 1 {
+	if participant == nil || participant.State != channels.K_ParticipantActiveState {
 		err = errors.New("PARTICIPANT_NOT_EXISTS")
 		return
 	}
 
 	// check editUserId is creator or admin
-	if in.Channel.Channel.AdminsEnabled != 0 && participant.ParticipantType == kChannelParticipant {
+	if participant.ParticipantType == channels.K_ChannelParticipant ||
+		participant.ParticipantType == channels.K_ChannelParticipantBanned {
 		err = errors.New("NO_EDIT_CHAT_PERMISSION")
 		return
 	}
 
-	if in.Channel.Channel.Title == in.Title {
+	if channel.Channel.Title == in.Title {
 		err = errors.New("CHAT_NOT_MODIFIED")
 		return
 	}
 
-	in.Channel.Channel.Title = in.Title
-	in.Channel.Channel.Date = int32(time.Now().Unix())
-	in.Channel.Channel.Version += 1
+	channel.Channel.Title = in.Title
+	channel.Channel.Date = int32(time.Now().Unix())
+	channel.Channel.Version += 1
 
-	_, err = c.svcCtx.Dao.ChannelsDAO.UpdateTitle(c.ctx, in.Title, in.Channel.Channel.Date, in.Channel.Channel.Id)
+	_, err = c.svcCtx.Dao.ChannelsDAO.UpdateTitle(c.ctx, in.Title, channel.Channel.Date, channel.Channel.Id)
 	if err != nil {
 		return
 	}
 
-	res = &channels.EditChannelTitleResp{}
+	res = &channels.Void{}
 
 	return
 }

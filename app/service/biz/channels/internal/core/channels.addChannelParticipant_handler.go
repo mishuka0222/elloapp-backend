@@ -2,12 +2,13 @@ package core
 
 import (
 	"errors"
-	"gitlab.com/merehead/elloapp/backend/elloapp_tg_backend/app/service/biz/channels/channels"
 	"gitlab.com/merehead/elloapp/backend/elloapp_tg_backend/app/service/biz/channels/internal/dao/dataobject"
 	"time"
+
+	"gitlab.com/merehead/elloapp/backend/elloapp_tg_backend/app/service/biz/channels/channels"
 )
 
-func (c *ChannelsCore) AddChannelUser(in *channels.AddChannelUserReq) (res *channels.AddChannelUserResp, err error) {
+func (c *ChannelsCore) AddChannelParticipant(in *channels.AddChannelParticipantReq) (res *channels.Void, err error) {
 	err = c.checkOrLoadChannelParticipantList(in.Channel)
 	if err != nil {
 		return
@@ -36,7 +37,7 @@ func (c *ChannelsCore) AddChannelUser(in *channels.AddChannelUserReq) (res *chan
 		channelParticipant := &dataobject.ChannelParticipantDO{
 			ChannelId:       in.Channel.Channel.Id,
 			UserId:          in.UserId,
-			ParticipantType: kChannelParticipant,
+			ParticipantType: channels.K_ChannelParticipant,
 			InviterUserId:   in.InviterId,
 			InvitedAt:       now,
 			JoinedAt:        now,
@@ -57,7 +58,7 @@ func (c *ChannelsCore) AddChannelUser(in *channels.AddChannelUserReq) (res *chan
 		return
 	}
 
-	res = &channels.AddChannelUserResp{}
+	res = &channels.Void{}
 
 	return
 }

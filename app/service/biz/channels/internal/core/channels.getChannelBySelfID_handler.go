@@ -9,10 +9,10 @@ import (
 func (c *ChannelsCore) GetChannelBySelfID(in *channels.GetChannelBySelfIDReq) (res *channels.GetChannelBySelfIDResp, err error) {
 	res = &channels.GetChannelBySelfIDResp{}
 	var (
-		channelData *channels.ChannelCoreData
-		r           *channels.ToChannelResp
+		channelData *channels.ChannelData
+		r           *channels.ToChatResp
 	)
-	channelData, err = c.NewChannelCoreById(&channels.ChannelCoreByIdReq{ChannelId: in.ChannelId})
+	channelData, err = c.GetChannelDataById(&channels.ChannelDataByIdReq{ChannelId: in.ChannelId})
 	if err != nil {
 		logx.Error("GetChannelBySelfID - not find chat_id: ", in.ChannelId, err.Error())
 		channelEmpty := (&mtproto.Chat{
@@ -20,7 +20,7 @@ func (c *ChannelsCore) GetChannelBySelfID(in *channels.GetChannelBySelfIDReq) (r
 		}).To_ChatEmpty()
 		res.Chat = channelEmpty.To_Chat()
 	} else {
-		r, _ = c.ToChannel(&channels.ToChannelReq{Channel: channelData, SelfUserId: in.SelfUserId})
+		r, _ = c.ToChat(&channels.ToChatReq{Channel: channelData, SelfUserId: in.SelfUserId})
 		res.Chat = r.Chat
 	}
 

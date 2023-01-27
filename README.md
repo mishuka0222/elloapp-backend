@@ -97,24 +97,30 @@ cd elloapp_tg_backend
   # get mysql
   docker exec -it mysql /bin/bash
   
-  mysql -uelloapp -h127.0.0.1 -pelloapp elloapp < elloappd/sql/elloapp2.sql
-  mysql -uelloapp -h127.0.0.1 -pelloapp elloapp < elloappd/sql/migrate-20220321.sql
-  mysql -uelloapp -h127.0.0.1 -pelloapp elloapp < elloappd/sql/migrate-20220326.sql
-  mysql -uelloapp -h127.0.0.1 -pelloapp elloapp < elloappd/sql/migrate-20220328.sql
-  mysql -uelloapp -h127.0.0.1 -pelloapp elloapp < elloappd/sql/migrate-20220401.sql
-  mysql -uelloapp -h127.0.0.1 -pelloapp elloapp < elloappd/sql/migrate-20220412.sql
-  mysql -uelloapp -h127.0.0.1 -pelloapp elloapp < elloappd/sql/migrate-20220419.sql
-  mysql -uelloapp -h127.0.0.1 -pelloapp elloapp < elloappd/sql/migrate-20220423.sql
-  mysql -uelloapp -h127.0.0.1 -pelloapp elloapp < elloappd/sql/migrate-20220504.sql
-  mysql -uelloapp -h127.0.0.1 -pelloapp elloapp < elloappd/sql/migrate-20220721.sql
-  mysql -uelloapp -h127.0.0.1 -pelloapp elloapp < elloappd/sql/migrate-20220826.sql
-  mysql -uelloapp -h127.0.0.1 -pelloapp elloapp < elloappd/sql/migrate-20220919.sql
-  mysql -uelloapp -h127.0.0.1 -pelloapp elloapp < elloappd/sql/migrate-20221008.sql
-  mysql -uelloapp -h127.0.0.1 -pelloapp elloapp < elloappd/sql/migrate-20221011.sql
-  mysql -uelloapp -h127.0.0.1 -pelloapp elloapp < elloappd/sql/migrate-20221016.sql
-  mysql -uelloapp -h127.0.0.1 -pelloapp elloapp < elloappd/sql/migrate-20221023.sql
-  mysql -uelloapp -h127.0.0.1 -pelloapp elloapp < elloappd/sql/migrate-20221101.sql
-  mysql -uelloapp -h127.0.0.1 -pelloapp elloapp < elloappd/sql/init.sql
+  mysql -uroot elloapp < elloappd/sql/elloapp2.sql
+  mysql -uroot elloapp < elloappd/sql/migrate-20220321.sql
+  mysql -uroot elloapp < elloappd/sql/migrate-20220326.sql
+  mysql -uroot elloapp < elloappd/sql/migrate-20220328.sql
+  mysql -uroot elloapp < elloappd/sql/migrate-20220401.sql
+  mysql -uroot elloapp < elloappd/sql/migrate-20220412.sql
+  mysql -uroot elloapp < elloappd/sql/migrate-20220419.sql
+  mysql -uroot elloapp < elloappd/sql/migrate-20220423.sql
+  mysql -uroot elloapp < elloappd/sql/migrate-20220504.sql
+  mysql -uroot elloapp < elloappd/sql/migrate-20220721.sql
+  mysql -uroot elloapp < elloappd/sql/migrate-20220826.sql
+  mysql -uroot elloapp < elloappd/sql/migrate-20220919.sql
+  mysql -uroot elloapp < elloappd/sql/migrate-20221008.sql
+  mysql -uroot elloapp < elloappd/sql/migrate-20221011.sql
+  mysql -uroot elloapp < elloappd/sql/migrate-20221016.sql
+  mysql -uroot elloapp < elloappd/sql/migrate-20221023.sql
+  mysql -uroot elloapp < elloappd/sql/migrate-20221101.sql
+  mysql -uroot elloapp < elloappd/sql/migrate-20221129.sql
+  mysql -uroot elloapp < elloappd/sql/migrate-20221208.sql
+  mysql -uroot elloapp < elloappd/sql/migrate-20221214.sql
+  mysql -uroot elloapp < elloappd/sql/migrate-20221222.sql
+  mysql -uroot elloapp < elloappd/sql/migrate-20230101.sql
+  mysql -uroot elloapp < elloappd/sql/migrate-20230120.sql
+  mysql -uroot elloapp < elloappd/sql/init.sql
   
   # quit docker mysql
   exit

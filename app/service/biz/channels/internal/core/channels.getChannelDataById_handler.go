@@ -6,7 +6,8 @@ import (
 	"gitlab.com/merehead/elloapp/backend/elloapp_tg_backend/app/service/biz/channels/channels"
 )
 
-func (c *ChannelsCore) NewChannelCoreById(in *channels.ChannelCoreByIdReq) (res *channels.ChannelCoreData, err error) {
+// USE
+func (c *ChannelsCore) GetChannelDataById(in *channels.ChannelDataByIdReq) (res *channels.ChannelData, err error) {
 	var (
 		channelDO *dataobject.ChannelDO
 	)
@@ -16,7 +17,7 @@ func (c *ChannelsCore) NewChannelCoreById(in *channels.ChannelCoreByIdReq) (res 
 		return
 	}
 
-	res = &channels.ChannelCoreData{Channel: channelDO.ToChannel()}
+	res = &channels.ChannelData{Channel: channelDO.ToChannel()}
 
 	return
 }

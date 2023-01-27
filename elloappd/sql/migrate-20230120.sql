@@ -41,9 +41,8 @@ CREATE TABLE `channel_participants`
     `admin_rights`     json NOT NULL,
     `inviter_user_id`  bigint(20) NOT NULL DEFAULT '0',
     `invited_at`       int(11) NOT NULL DEFAULT '0',
-    `kicked_at`        int(11) NOT NULL DEFAULT '0',
-    `left_at`          int(11) NOT NULL DEFAULT '0',
     `joined_at`        int(11) NOT NULL DEFAULT '0',
+    `left_at`          int(11) NOT NULL DEFAULT '0',
     `state`            tinyint(4) NOT NULL DEFAULT '0',
     `created_at`       timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
     `updated_at`       timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
@@ -67,6 +66,7 @@ ALTER TABLE `channels`
 --
 ALTER TABLE `channel_participants`
     ADD PRIMARY KEY (`id`),
+    ADD UNIQUE KEY `chat_id_participant_id` (`channel_id`,`user_id`),
     ADD KEY `chat_id` (`channel_id`),
     ADD KEY `participant_id` (`user_id`);
 ALTER TABLE `channel_participants`

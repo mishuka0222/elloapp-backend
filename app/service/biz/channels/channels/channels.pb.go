@@ -25,6 +25,36 @@ var _ = math.Inf
 // proto package needs to be updated.
 const _ = proto.GoGoProtoPackageIsVersion3 // please upgrade the proto package
 
+type Void struct {
+	XXX_NoUnkeyedLiteral struct{} `json:"-"`
+	XXX_unrecognized     []byte   `json:"-"`
+	XXX_sizecache        int32    `json:"-"`
+}
+
+func (m *Void) Reset()         { *m = Void{} }
+func (m *Void) String() string { return proto.CompactTextString(m) }
+func (*Void) ProtoMessage()    {}
+func (*Void) Descriptor() ([]byte, []int) {
+	return fileDescriptor_6eb5b11d5b15e5ec, []int{0}
+}
+func (m *Void) XXX_Unmarshal(b []byte) error {
+	return xxx_messageInfo_Void.Unmarshal(m, b)
+}
+func (m *Void) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	return xxx_messageInfo_Void.Marshal(b, m, deterministic)
+}
+func (m *Void) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_Void.Merge(m, src)
+}
+func (m *Void) XXX_Size() int {
+	return xxx_messageInfo_Void.Size(m)
+}
+func (m *Void) XXX_DiscardUnknown() {
+	xxx_messageInfo_Void.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_Void proto.InternalMessageInfo
+
 type ChannelParticipant struct {
 	Id                   int64                    `protobuf:"varint,1,opt,name=id,proto3" json:"id,omitempty"`
 	ChannelId            int64                    `protobuf:"varint,2,opt,name=channel_id,json=channelId,proto3" json:"channel_id,omitempty"`
@@ -48,7 +78,7 @@ func (m *ChannelParticipant) Reset()         { *m = ChannelParticipant{} }
 func (m *ChannelParticipant) String() string { return proto.CompactTextString(m) }
 func (*ChannelParticipant) ProtoMessage()    {}
 func (*ChannelParticipant) Descriptor() ([]byte, []int) {
-	return fileDescriptor_6eb5b11d5b15e5ec, []int{0}
+	return fileDescriptor_6eb5b11d5b15e5ec, []int{1}
 }
 func (m *ChannelParticipant) XXX_Unmarshal(b []byte) error {
 	return xxx_messageInfo_ChannelParticipant.Unmarshal(m, b)
@@ -185,7 +215,7 @@ func (m *Channel) Reset()         { *m = Channel{} }
 func (m *Channel) String() string { return proto.CompactTextString(m) }
 func (*Channel) ProtoMessage()    {}
 func (*Channel) Descriptor() ([]byte, []int) {
-	return fileDescriptor_6eb5b11d5b15e5ec, []int{1}
+	return fileDescriptor_6eb5b11d5b15e5ec, []int{2}
 }
 func (m *Channel) XXX_Unmarshal(b []byte) error {
 	return xxx_messageInfo_Channel.Unmarshal(m, b)
@@ -329,7 +359,7 @@ func (m *MakeChannelParticipant2ByDOReq) Reset()         { *m = MakeChannelParti
 func (m *MakeChannelParticipant2ByDOReq) String() string { return proto.CompactTextString(m) }
 func (*MakeChannelParticipant2ByDOReq) ProtoMessage()    {}
 func (*MakeChannelParticipant2ByDOReq) Descriptor() ([]byte, []int) {
-	return fileDescriptor_6eb5b11d5b15e5ec, []int{2}
+	return fileDescriptor_6eb5b11d5b15e5ec, []int{3}
 }
 func (m *MakeChannelParticipant2ByDOReq) XXX_Unmarshal(b []byte) error {
 	return xxx_messageInfo_MakeChannelParticipant2ByDOReq.Unmarshal(m, b)
@@ -374,7 +404,7 @@ func (m *ChannelParticipantRes) Reset()         { *m = ChannelParticipantRes{} }
 func (m *ChannelParticipantRes) String() string { return proto.CompactTextString(m) }
 func (*ChannelParticipantRes) ProtoMessage()    {}
 func (*ChannelParticipantRes) Descriptor() ([]byte, []int) {
-	return fileDescriptor_6eb5b11d5b15e5ec, []int{3}
+	return fileDescriptor_6eb5b11d5b15e5ec, []int{4}
 }
 func (m *ChannelParticipantRes) XXX_Unmarshal(b []byte) error {
 	return xxx_messageInfo_ChannelParticipantRes.Unmarshal(m, b)
@@ -412,7 +442,7 @@ func (m *ChannelDataByIdReq) Reset()         { *m = ChannelDataByIdReq{} }
 func (m *ChannelDataByIdReq) String() string { return proto.CompactTextString(m) }
 func (*ChannelDataByIdReq) ProtoMessage()    {}
 func (*ChannelDataByIdReq) Descriptor() ([]byte, []int) {
-	return fileDescriptor_6eb5b11d5b15e5ec, []int{4}
+	return fileDescriptor_6eb5b11d5b15e5ec, []int{5}
 }
 func (m *ChannelDataByIdReq) XXX_Unmarshal(b []byte) error {
 	return xxx_messageInfo_ChannelDataByIdReq.Unmarshal(m, b)
@@ -453,7 +483,7 @@ func (m *CreateNewChannelReq) Reset()         { *m = CreateNewChannelReq{} }
 func (m *CreateNewChannelReq) String() string { return proto.CompactTextString(m) }
 func (*CreateNewChannelReq) ProtoMessage()    {}
 func (*CreateNewChannelReq) Descriptor() ([]byte, []int) {
-	return fileDescriptor_6eb5b11d5b15e5ec, []int{5}
+	return fileDescriptor_6eb5b11d5b15e5ec, []int{6}
 }
 func (m *CreateNewChannelReq) XXX_Unmarshal(b []byte) error {
 	return xxx_messageInfo_CreateNewChannelReq.Unmarshal(m, b)
@@ -513,7 +543,7 @@ func (m *ChannelData) Reset()         { *m = ChannelData{} }
 func (m *ChannelData) String() string { return proto.CompactTextString(m) }
 func (*ChannelData) ProtoMessage()    {}
 func (*ChannelData) Descriptor() ([]byte, []int) {
-	return fileDescriptor_6eb5b11d5b15e5ec, []int{6}
+	return fileDescriptor_6eb5b11d5b15e5ec, []int{7}
 }
 func (m *ChannelData) XXX_Unmarshal(b []byte) error {
 	return xxx_messageInfo_ChannelData.Unmarshal(m, b)
@@ -559,7 +589,7 @@ func (m *UpdateChannelLinkReq) Reset()         { *m = UpdateChannelLinkReq{} }
 func (m *UpdateChannelLinkReq) String() string { return proto.CompactTextString(m) }
 func (*UpdateChannelLinkReq) ProtoMessage()    {}
 func (*UpdateChannelLinkReq) Descriptor() ([]byte, []int) {
-	return fileDescriptor_6eb5b11d5b15e5ec, []int{7}
+	return fileDescriptor_6eb5b11d5b15e5ec, []int{8}
 }
 func (m *UpdateChannelLinkReq) XXX_Unmarshal(b []byte) error {
 	return xxx_messageInfo_UpdateChannelLinkReq.Unmarshal(m, b)
@@ -604,7 +634,7 @@ func (m *UpdateChannelLinkResp) Reset()         { *m = UpdateChannelLinkResp{} }
 func (m *UpdateChannelLinkResp) String() string { return proto.CompactTextString(m) }
 func (*UpdateChannelLinkResp) ProtoMessage()    {}
 func (*UpdateChannelLinkResp) Descriptor() ([]byte, []int) {
-	return fileDescriptor_6eb5b11d5b15e5ec, []int{8}
+	return fileDescriptor_6eb5b11d5b15e5ec, []int{9}
 }
 func (m *UpdateChannelLinkResp) XXX_Unmarshal(b []byte) error {
 	return xxx_messageInfo_UpdateChannelLinkResp.Unmarshal(m, b)
@@ -643,7 +673,7 @@ func (m *CheckUserIsAdministratorReq) Reset()         { *m = CheckUserIsAdminist
 func (m *CheckUserIsAdministratorReq) String() string { return proto.CompactTextString(m) }
 func (*CheckUserIsAdministratorReq) ProtoMessage()    {}
 func (*CheckUserIsAdministratorReq) Descriptor() ([]byte, []int) {
-	return fileDescriptor_6eb5b11d5b15e5ec, []int{9}
+	return fileDescriptor_6eb5b11d5b15e5ec, []int{10}
 }
 func (m *CheckUserIsAdministratorReq) XXX_Unmarshal(b []byte) error {
 	return xxx_messageInfo_CheckUserIsAdministratorReq.Unmarshal(m, b)
@@ -688,7 +718,7 @@ func (m *CheckUserIsAdministratorResp) Reset()         { *m = CheckUserIsAdminis
 func (m *CheckUserIsAdministratorResp) String() string { return proto.CompactTextString(m) }
 func (*CheckUserIsAdministratorResp) ProtoMessage()    {}
 func (*CheckUserIsAdministratorResp) Descriptor() ([]byte, []int) {
-	return fileDescriptor_6eb5b11d5b15e5ec, []int{10}
+	return fileDescriptor_6eb5b11d5b15e5ec, []int{11}
 }
 func (m *CheckUserIsAdministratorResp) XXX_Unmarshal(b []byte) error {
 	return xxx_messageInfo_CheckUserIsAdministratorResp.Unmarshal(m, b)
@@ -726,7 +756,7 @@ func (m *ChannelParticipantListReq) Reset()         { *m = ChannelParticipantLis
 func (m *ChannelParticipantListReq) String() string { return proto.CompactTextString(m) }
 func (*ChannelParticipantListReq) ProtoMessage()    {}
 func (*ChannelParticipantListReq) Descriptor() ([]byte, []int) {
-	return fileDescriptor_6eb5b11d5b15e5ec, []int{11}
+	return fileDescriptor_6eb5b11d5b15e5ec, []int{12}
 }
 func (m *ChannelParticipantListReq) XXX_Unmarshal(b []byte) error {
 	return xxx_messageInfo_ChannelParticipantListReq.Unmarshal(m, b)
@@ -764,7 +794,7 @@ func (m *ChannelParticipantListResp) Reset()         { *m = ChannelParticipantLi
 func (m *ChannelParticipantListResp) String() string { return proto.CompactTextString(m) }
 func (*ChannelParticipantListResp) ProtoMessage()    {}
 func (*ChannelParticipantListResp) Descriptor() ([]byte, []int) {
-	return fileDescriptor_6eb5b11d5b15e5ec, []int{12}
+	return fileDescriptor_6eb5b11d5b15e5ec, []int{13}
 }
 func (m *ChannelParticipantListResp) XXX_Unmarshal(b []byte) error {
 	return xxx_messageInfo_ChannelParticipantListResp.Unmarshal(m, b)
@@ -802,7 +832,7 @@ func (m *GetChannelParticipantIdListResp) Reset()         { *m = GetChannelParti
 func (m *GetChannelParticipantIdListResp) String() string { return proto.CompactTextString(m) }
 func (*GetChannelParticipantIdListResp) ProtoMessage()    {}
 func (*GetChannelParticipantIdListResp) Descriptor() ([]byte, []int) {
-	return fileDescriptor_6eb5b11d5b15e5ec, []int{13}
+	return fileDescriptor_6eb5b11d5b15e5ec, []int{14}
 }
 func (m *GetChannelParticipantIdListResp) XXX_Unmarshal(b []byte) error {
 	return xxx_messageInfo_GetChannelParticipantIdListResp.Unmarshal(m, b)
@@ -840,7 +870,7 @@ func (m *ChannelParticipantsReq) Reset()         { *m = ChannelParticipantsReq{}
 func (m *ChannelParticipantsReq) String() string { return proto.CompactTextString(m) }
 func (*ChannelParticipantsReq) ProtoMessage()    {}
 func (*ChannelParticipantsReq) Descriptor() ([]byte, []int) {
-	return fileDescriptor_6eb5b11d5b15e5ec, []int{14}
+	return fileDescriptor_6eb5b11d5b15e5ec, []int{15}
 }
 func (m *ChannelParticipantsReq) XXX_Unmarshal(b []byte) error {
 	return xxx_messageInfo_ChannelParticipantsReq.Unmarshal(m, b)
@@ -878,7 +908,7 @@ func (m *GetChannelParticipantsResp) Reset()         { *m = GetChannelParticipan
 func (m *GetChannelParticipantsResp) String() string { return proto.CompactTextString(m) }
 func (*GetChannelParticipantsResp) ProtoMessage()    {}
 func (*GetChannelParticipantsResp) Descriptor() ([]byte, []int) {
-	return fileDescriptor_6eb5b11d5b15e5ec, []int{15}
+	return fileDescriptor_6eb5b11d5b15e5ec, []int{16}
 }
 func (m *GetChannelParticipantsResp) XXX_Unmarshal(b []byte) error {
 	return xxx_messageInfo_GetChannelParticipantsResp.Unmarshal(m, b)
@@ -919,7 +949,7 @@ func (m *AddChannelParticipantReq) Reset()         { *m = AddChannelParticipantR
 func (m *AddChannelParticipantReq) String() string { return proto.CompactTextString(m) }
 func (*AddChannelParticipantReq) ProtoMessage()    {}
 func (*AddChannelParticipantReq) Descriptor() ([]byte, []int) {
-	return fileDescriptor_6eb5b11d5b15e5ec, []int{16}
+	return fileDescriptor_6eb5b11d5b15e5ec, []int{17}
 }
 func (m *AddChannelParticipantReq) XXX_Unmarshal(b []byte) error {
 	return xxx_messageInfo_AddChannelParticipantReq.Unmarshal(m, b)
@@ -966,36 +996,6 @@ func (m *AddChannelParticipantReq) GetIsAdmin() bool {
 	}
 	return false
 }
-
-type AddChannelParticipantResp struct {
-	XXX_NoUnkeyedLiteral struct{} `json:"-"`
-	XXX_unrecognized     []byte   `json:"-"`
-	XXX_sizecache        int32    `json:"-"`
-}
-
-func (m *AddChannelParticipantResp) Reset()         { *m = AddChannelParticipantResp{} }
-func (m *AddChannelParticipantResp) String() string { return proto.CompactTextString(m) }
-func (*AddChannelParticipantResp) ProtoMessage()    {}
-func (*AddChannelParticipantResp) Descriptor() ([]byte, []int) {
-	return fileDescriptor_6eb5b11d5b15e5ec, []int{17}
-}
-func (m *AddChannelParticipantResp) XXX_Unmarshal(b []byte) error {
-	return xxx_messageInfo_AddChannelParticipantResp.Unmarshal(m, b)
-}
-func (m *AddChannelParticipantResp) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
-	return xxx_messageInfo_AddChannelParticipantResp.Marshal(b, m, deterministic)
-}
-func (m *AddChannelParticipantResp) XXX_Merge(src proto.Message) {
-	xxx_messageInfo_AddChannelParticipantResp.Merge(m, src)
-}
-func (m *AddChannelParticipantResp) XXX_Size() int {
-	return xxx_messageInfo_AddChannelParticipantResp.Size(m)
-}
-func (m *AddChannelParticipantResp) XXX_DiscardUnknown() {
-	xxx_messageInfo_AddChannelParticipantResp.DiscardUnknown(m)
-}
-
-var xxx_messageInfo_AddChannelParticipantResp proto.InternalMessageInfo
 
 type ToChatReq struct {
 	Channel              *ChannelData `protobuf:"bytes,1,opt,name=channel,proto3" json:"channel,omitempty"`
@@ -1135,50 +1135,21 @@ func (m *CheckDeleteChannelUserReq) GetDeleteUserId() int64 {
 	return 0
 }
 
-type CheckDeleteChannelUserResp struct {
+type DeleteChannelUserReq struct {
+	ChannelId            int64    `protobuf:"varint,1,opt,name=channelId,proto3" json:"channelId,omitempty"`
+	OperatorId           int64    `protobuf:"varint,2,opt,name=operatorId,proto3" json:"operatorId,omitempty"`
+	DeleteUserId         int64    `protobuf:"varint,3,opt,name=deleteUserId,proto3" json:"deleteUserId,omitempty"`
+	Reason               int32    `protobuf:"varint,4,opt,name=reason,proto3" json:"reason,omitempty"`
 	XXX_NoUnkeyedLiteral struct{} `json:"-"`
 	XXX_unrecognized     []byte   `json:"-"`
 	XXX_sizecache        int32    `json:"-"`
-}
-
-func (m *CheckDeleteChannelUserResp) Reset()         { *m = CheckDeleteChannelUserResp{} }
-func (m *CheckDeleteChannelUserResp) String() string { return proto.CompactTextString(m) }
-func (*CheckDeleteChannelUserResp) ProtoMessage()    {}
-func (*CheckDeleteChannelUserResp) Descriptor() ([]byte, []int) {
-	return fileDescriptor_6eb5b11d5b15e5ec, []int{21}
-}
-func (m *CheckDeleteChannelUserResp) XXX_Unmarshal(b []byte) error {
-	return xxx_messageInfo_CheckDeleteChannelUserResp.Unmarshal(m, b)
-}
-func (m *CheckDeleteChannelUserResp) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
-	return xxx_messageInfo_CheckDeleteChannelUserResp.Marshal(b, m, deterministic)
-}
-func (m *CheckDeleteChannelUserResp) XXX_Merge(src proto.Message) {
-	xxx_messageInfo_CheckDeleteChannelUserResp.Merge(m, src)
-}
-func (m *CheckDeleteChannelUserResp) XXX_Size() int {
-	return xxx_messageInfo_CheckDeleteChannelUserResp.Size(m)
-}
-func (m *CheckDeleteChannelUserResp) XXX_DiscardUnknown() {
-	xxx_messageInfo_CheckDeleteChannelUserResp.DiscardUnknown(m)
-}
-
-var xxx_messageInfo_CheckDeleteChannelUserResp proto.InternalMessageInfo
-
-type DeleteChannelUserReq struct {
-	Channel              *ChannelData `protobuf:"bytes,1,opt,name=channel,proto3" json:"channel,omitempty"`
-	OperatorId           int64        `protobuf:"varint,2,opt,name=operatorId,proto3" json:"operatorId,omitempty"`
-	DeleteUserId         int64        `protobuf:"varint,3,opt,name=deleteUserId,proto3" json:"deleteUserId,omitempty"`
-	XXX_NoUnkeyedLiteral struct{}     `json:"-"`
-	XXX_unrecognized     []byte       `json:"-"`
-	XXX_sizecache        int32        `json:"-"`
 }
 
 func (m *DeleteChannelUserReq) Reset()         { *m = DeleteChannelUserReq{} }
 func (m *DeleteChannelUserReq) String() string { return proto.CompactTextString(m) }
 func (*DeleteChannelUserReq) ProtoMessage()    {}
 func (*DeleteChannelUserReq) Descriptor() ([]byte, []int) {
-	return fileDescriptor_6eb5b11d5b15e5ec, []int{22}
+	return fileDescriptor_6eb5b11d5b15e5ec, []int{21}
 }
 func (m *DeleteChannelUserReq) XXX_Unmarshal(b []byte) error {
 	return xxx_messageInfo_DeleteChannelUserReq.Unmarshal(m, b)
@@ -1198,11 +1169,11 @@ func (m *DeleteChannelUserReq) XXX_DiscardUnknown() {
 
 var xxx_messageInfo_DeleteChannelUserReq proto.InternalMessageInfo
 
-func (m *DeleteChannelUserReq) GetChannel() *ChannelData {
+func (m *DeleteChannelUserReq) GetChannelId() int64 {
 	if m != nil {
-		return m.Channel
+		return m.ChannelId
 	}
-	return nil
+	return 0
 }
 
 func (m *DeleteChannelUserReq) GetOperatorId() int64 {
@@ -1219,50 +1190,27 @@ func (m *DeleteChannelUserReq) GetDeleteUserId() int64 {
 	return 0
 }
 
-type DeleteChannelUserResp struct {
+func (m *DeleteChannelUserReq) GetReason() int32 {
+	if m != nil {
+		return m.Reason
+	}
+	return 0
+}
+
+type EditChannelTitleReq struct {
+	ChannelId            int64    `protobuf:"varint,1,opt,name=channelId,proto3" json:"channelId,omitempty"`
+	EditUserId           int64    `protobuf:"varint,2,opt,name=editUserId,proto3" json:"editUserId,omitempty"`
+	Title                string   `protobuf:"bytes,3,opt,name=title,proto3" json:"title,omitempty"`
 	XXX_NoUnkeyedLiteral struct{} `json:"-"`
 	XXX_unrecognized     []byte   `json:"-"`
 	XXX_sizecache        int32    `json:"-"`
-}
-
-func (m *DeleteChannelUserResp) Reset()         { *m = DeleteChannelUserResp{} }
-func (m *DeleteChannelUserResp) String() string { return proto.CompactTextString(m) }
-func (*DeleteChannelUserResp) ProtoMessage()    {}
-func (*DeleteChannelUserResp) Descriptor() ([]byte, []int) {
-	return fileDescriptor_6eb5b11d5b15e5ec, []int{23}
-}
-func (m *DeleteChannelUserResp) XXX_Unmarshal(b []byte) error {
-	return xxx_messageInfo_DeleteChannelUserResp.Unmarshal(m, b)
-}
-func (m *DeleteChannelUserResp) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
-	return xxx_messageInfo_DeleteChannelUserResp.Marshal(b, m, deterministic)
-}
-func (m *DeleteChannelUserResp) XXX_Merge(src proto.Message) {
-	xxx_messageInfo_DeleteChannelUserResp.Merge(m, src)
-}
-func (m *DeleteChannelUserResp) XXX_Size() int {
-	return xxx_messageInfo_DeleteChannelUserResp.Size(m)
-}
-func (m *DeleteChannelUserResp) XXX_DiscardUnknown() {
-	xxx_messageInfo_DeleteChannelUserResp.DiscardUnknown(m)
-}
-
-var xxx_messageInfo_DeleteChannelUserResp proto.InternalMessageInfo
-
-type EditChannelTitleReq struct {
-	Channel              *ChannelData `protobuf:"bytes,1,opt,name=channel,proto3" json:"channel,omitempty"`
-	EditUserId           int64        `protobuf:"varint,2,opt,name=editUserId,proto3" json:"editUserId,omitempty"`
-	Title                string       `protobuf:"bytes,3,opt,name=title,proto3" json:"title,omitempty"`
-	XXX_NoUnkeyedLiteral struct{}     `json:"-"`
-	XXX_unrecognized     []byte       `json:"-"`
-	XXX_sizecache        int32        `json:"-"`
 }
 
 func (m *EditChannelTitleReq) Reset()         { *m = EditChannelTitleReq{} }
 func (m *EditChannelTitleReq) String() string { return proto.CompactTextString(m) }
 func (*EditChannelTitleReq) ProtoMessage()    {}
 func (*EditChannelTitleReq) Descriptor() ([]byte, []int) {
-	return fileDescriptor_6eb5b11d5b15e5ec, []int{24}
+	return fileDescriptor_6eb5b11d5b15e5ec, []int{22}
 }
 func (m *EditChannelTitleReq) XXX_Unmarshal(b []byte) error {
 	return xxx_messageInfo_EditChannelTitleReq.Unmarshal(m, b)
@@ -1282,11 +1230,11 @@ func (m *EditChannelTitleReq) XXX_DiscardUnknown() {
 
 var xxx_messageInfo_EditChannelTitleReq proto.InternalMessageInfo
 
-func (m *EditChannelTitleReq) GetChannel() *ChannelData {
+func (m *EditChannelTitleReq) GetChannelId() int64 {
 	if m != nil {
-		return m.Channel
+		return m.ChannelId
 	}
-	return nil
+	return 0
 }
 
 func (m *EditChannelTitleReq) GetEditUserId() int64 {
@@ -1303,36 +1251,6 @@ func (m *EditChannelTitleReq) GetTitle() string {
 	return ""
 }
 
-type EditChannelTitleResp struct {
-	XXX_NoUnkeyedLiteral struct{} `json:"-"`
-	XXX_unrecognized     []byte   `json:"-"`
-	XXX_sizecache        int32    `json:"-"`
-}
-
-func (m *EditChannelTitleResp) Reset()         { *m = EditChannelTitleResp{} }
-func (m *EditChannelTitleResp) String() string { return proto.CompactTextString(m) }
-func (*EditChannelTitleResp) ProtoMessage()    {}
-func (*EditChannelTitleResp) Descriptor() ([]byte, []int) {
-	return fileDescriptor_6eb5b11d5b15e5ec, []int{25}
-}
-func (m *EditChannelTitleResp) XXX_Unmarshal(b []byte) error {
-	return xxx_messageInfo_EditChannelTitleResp.Unmarshal(m, b)
-}
-func (m *EditChannelTitleResp) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
-	return xxx_messageInfo_EditChannelTitleResp.Marshal(b, m, deterministic)
-}
-func (m *EditChannelTitleResp) XXX_Merge(src proto.Message) {
-	xxx_messageInfo_EditChannelTitleResp.Merge(m, src)
-}
-func (m *EditChannelTitleResp) XXX_Size() int {
-	return xxx_messageInfo_EditChannelTitleResp.Size(m)
-}
-func (m *EditChannelTitleResp) XXX_DiscardUnknown() {
-	xxx_messageInfo_EditChannelTitleResp.DiscardUnknown(m)
-}
-
-var xxx_messageInfo_EditChannelTitleResp proto.InternalMessageInfo
-
 type EditChannelPhotoReq struct {
 	Channel              *ChannelData `protobuf:"bytes,1,opt,name=channel,proto3" json:"channel,omitempty"`
 	EditUserId           int64        `protobuf:"varint,2,opt,name=editUserId,proto3" json:"editUserId,omitempty"`
@@ -1346,7 +1264,7 @@ func (m *EditChannelPhotoReq) Reset()         { *m = EditChannelPhotoReq{} }
 func (m *EditChannelPhotoReq) String() string { return proto.CompactTextString(m) }
 func (*EditChannelPhotoReq) ProtoMessage()    {}
 func (*EditChannelPhotoReq) Descriptor() ([]byte, []int) {
-	return fileDescriptor_6eb5b11d5b15e5ec, []int{26}
+	return fileDescriptor_6eb5b11d5b15e5ec, []int{23}
 }
 func (m *EditChannelPhotoReq) XXX_Unmarshal(b []byte) error {
 	return xxx_messageInfo_EditChannelPhotoReq.Unmarshal(m, b)
@@ -1387,51 +1305,21 @@ func (m *EditChannelPhotoReq) GetPhotoId() int64 {
 	return 0
 }
 
-type EditChannelPhotoResp struct {
+type EditChannelAdminReq struct {
+	ChannelId            int64    `protobuf:"varint,1,opt,name=channelId,proto3" json:"channelId,omitempty"`
+	OperatorId           int64    `protobuf:"varint,2,opt,name=operatorId,proto3" json:"operatorId,omitempty"`
+	EditChannelAdminId   int64    `protobuf:"varint,3,opt,name=editChannelAdminId,proto3" json:"editChannelAdminId,omitempty"`
+	IsAdmin              bool     `protobuf:"varint,4,opt,name=isAdmin,proto3" json:"isAdmin,omitempty"`
 	XXX_NoUnkeyedLiteral struct{} `json:"-"`
 	XXX_unrecognized     []byte   `json:"-"`
 	XXX_sizecache        int32    `json:"-"`
-}
-
-func (m *EditChannelPhotoResp) Reset()         { *m = EditChannelPhotoResp{} }
-func (m *EditChannelPhotoResp) String() string { return proto.CompactTextString(m) }
-func (*EditChannelPhotoResp) ProtoMessage()    {}
-func (*EditChannelPhotoResp) Descriptor() ([]byte, []int) {
-	return fileDescriptor_6eb5b11d5b15e5ec, []int{27}
-}
-func (m *EditChannelPhotoResp) XXX_Unmarshal(b []byte) error {
-	return xxx_messageInfo_EditChannelPhotoResp.Unmarshal(m, b)
-}
-func (m *EditChannelPhotoResp) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
-	return xxx_messageInfo_EditChannelPhotoResp.Marshal(b, m, deterministic)
-}
-func (m *EditChannelPhotoResp) XXX_Merge(src proto.Message) {
-	xxx_messageInfo_EditChannelPhotoResp.Merge(m, src)
-}
-func (m *EditChannelPhotoResp) XXX_Size() int {
-	return xxx_messageInfo_EditChannelPhotoResp.Size(m)
-}
-func (m *EditChannelPhotoResp) XXX_DiscardUnknown() {
-	xxx_messageInfo_EditChannelPhotoResp.DiscardUnknown(m)
-}
-
-var xxx_messageInfo_EditChannelPhotoResp proto.InternalMessageInfo
-
-type EditChannelAdminReq struct {
-	Channel              *ChannelData `protobuf:"bytes,1,opt,name=channel,proto3" json:"channel,omitempty"`
-	OperatorId           int64        `protobuf:"varint,2,opt,name=operatorId,proto3" json:"operatorId,omitempty"`
-	EditChannelAdminId   int64        `protobuf:"varint,3,opt,name=editChannelAdminId,proto3" json:"editChannelAdminId,omitempty"`
-	IsAdmin              bool         `protobuf:"varint,4,opt,name=isAdmin,proto3" json:"isAdmin,omitempty"`
-	XXX_NoUnkeyedLiteral struct{}     `json:"-"`
-	XXX_unrecognized     []byte       `json:"-"`
-	XXX_sizecache        int32        `json:"-"`
 }
 
 func (m *EditChannelAdminReq) Reset()         { *m = EditChannelAdminReq{} }
 func (m *EditChannelAdminReq) String() string { return proto.CompactTextString(m) }
 func (*EditChannelAdminReq) ProtoMessage()    {}
 func (*EditChannelAdminReq) Descriptor() ([]byte, []int) {
-	return fileDescriptor_6eb5b11d5b15e5ec, []int{28}
+	return fileDescriptor_6eb5b11d5b15e5ec, []int{24}
 }
 func (m *EditChannelAdminReq) XXX_Unmarshal(b []byte) error {
 	return xxx_messageInfo_EditChannelAdminReq.Unmarshal(m, b)
@@ -1451,11 +1339,11 @@ func (m *EditChannelAdminReq) XXX_DiscardUnknown() {
 
 var xxx_messageInfo_EditChannelAdminReq proto.InternalMessageInfo
 
-func (m *EditChannelAdminReq) GetChannel() *ChannelData {
+func (m *EditChannelAdminReq) GetChannelId() int64 {
 	if m != nil {
-		return m.Channel
+		return m.ChannelId
 	}
-	return nil
+	return 0
 }
 
 func (m *EditChannelAdminReq) GetOperatorId() int64 {
@@ -1479,36 +1367,6 @@ func (m *EditChannelAdminReq) GetIsAdmin() bool {
 	return false
 }
 
-type EditChannelAdminResp struct {
-	XXX_NoUnkeyedLiteral struct{} `json:"-"`
-	XXX_unrecognized     []byte   `json:"-"`
-	XXX_sizecache        int32    `json:"-"`
-}
-
-func (m *EditChannelAdminResp) Reset()         { *m = EditChannelAdminResp{} }
-func (m *EditChannelAdminResp) String() string { return proto.CompactTextString(m) }
-func (*EditChannelAdminResp) ProtoMessage()    {}
-func (*EditChannelAdminResp) Descriptor() ([]byte, []int) {
-	return fileDescriptor_6eb5b11d5b15e5ec, []int{29}
-}
-func (m *EditChannelAdminResp) XXX_Unmarshal(b []byte) error {
-	return xxx_messageInfo_EditChannelAdminResp.Unmarshal(m, b)
-}
-func (m *EditChannelAdminResp) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
-	return xxx_messageInfo_EditChannelAdminResp.Marshal(b, m, deterministic)
-}
-func (m *EditChannelAdminResp) XXX_Merge(src proto.Message) {
-	xxx_messageInfo_EditChannelAdminResp.Merge(m, src)
-}
-func (m *EditChannelAdminResp) XXX_Size() int {
-	return xxx_messageInfo_EditChannelAdminResp.Size(m)
-}
-func (m *EditChannelAdminResp) XXX_DiscardUnknown() {
-	xxx_messageInfo_EditChannelAdminResp.DiscardUnknown(m)
-}
-
-var xxx_messageInfo_EditChannelAdminResp proto.InternalMessageInfo
-
 type ToggleChannelAdminsReq struct {
 	Channel              *ChannelData `protobuf:"bytes,1,opt,name=channel,proto3" json:"channel,omitempty"`
 	UserId               int64        `protobuf:"varint,2,opt,name=userId,proto3" json:"userId,omitempty"`
@@ -1522,7 +1380,7 @@ func (m *ToggleChannelAdminsReq) Reset()         { *m = ToggleChannelAdminsReq{}
 func (m *ToggleChannelAdminsReq) String() string { return proto.CompactTextString(m) }
 func (*ToggleChannelAdminsReq) ProtoMessage()    {}
 func (*ToggleChannelAdminsReq) Descriptor() ([]byte, []int) {
-	return fileDescriptor_6eb5b11d5b15e5ec, []int{30}
+	return fileDescriptor_6eb5b11d5b15e5ec, []int{25}
 }
 func (m *ToggleChannelAdminsReq) XXX_Unmarshal(b []byte) error {
 	return xxx_messageInfo_ToggleChannelAdminsReq.Unmarshal(m, b)
@@ -1563,36 +1421,6 @@ func (m *ToggleChannelAdminsReq) GetAdminsEnabled() bool {
 	return false
 }
 
-type ToggleChannelAdminsResp struct {
-	XXX_NoUnkeyedLiteral struct{} `json:"-"`
-	XXX_unrecognized     []byte   `json:"-"`
-	XXX_sizecache        int32    `json:"-"`
-}
-
-func (m *ToggleChannelAdminsResp) Reset()         { *m = ToggleChannelAdminsResp{} }
-func (m *ToggleChannelAdminsResp) String() string { return proto.CompactTextString(m) }
-func (*ToggleChannelAdminsResp) ProtoMessage()    {}
-func (*ToggleChannelAdminsResp) Descriptor() ([]byte, []int) {
-	return fileDescriptor_6eb5b11d5b15e5ec, []int{31}
-}
-func (m *ToggleChannelAdminsResp) XXX_Unmarshal(b []byte) error {
-	return xxx_messageInfo_ToggleChannelAdminsResp.Unmarshal(m, b)
-}
-func (m *ToggleChannelAdminsResp) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
-	return xxx_messageInfo_ToggleChannelAdminsResp.Marshal(b, m, deterministic)
-}
-func (m *ToggleChannelAdminsResp) XXX_Merge(src proto.Message) {
-	xxx_messageInfo_ToggleChannelAdminsResp.Merge(m, src)
-}
-func (m *ToggleChannelAdminsResp) XXX_Size() int {
-	return xxx_messageInfo_ToggleChannelAdminsResp.Size(m)
-}
-func (m *ToggleChannelAdminsResp) XXX_DiscardUnknown() {
-	xxx_messageInfo_ToggleChannelAdminsResp.DiscardUnknown(m)
-}
-
-var xxx_messageInfo_ToggleChannelAdminsResp proto.InternalMessageInfo
-
 // channel_util
 type GetChatsListBySelfAndIDListReq struct {
 	SelfUserId           int64    `protobuf:"varint,1,opt,name=selfUserId,proto3" json:"selfUserId,omitempty"`
@@ -1606,7 +1434,7 @@ func (m *GetChatsListBySelfAndIDListReq) Reset()         { *m = GetChatsListBySe
 func (m *GetChatsListBySelfAndIDListReq) String() string { return proto.CompactTextString(m) }
 func (*GetChatsListBySelfAndIDListReq) ProtoMessage()    {}
 func (*GetChatsListBySelfAndIDListReq) Descriptor() ([]byte, []int) {
-	return fileDescriptor_6eb5b11d5b15e5ec, []int{32}
+	return fileDescriptor_6eb5b11d5b15e5ec, []int{26}
 }
 func (m *GetChatsListBySelfAndIDListReq) XXX_Unmarshal(b []byte) error {
 	return xxx_messageInfo_GetChatsListBySelfAndIDListReq.Unmarshal(m, b)
@@ -1651,7 +1479,7 @@ func (m *GetChatsListBySelfAndIDListResp) Reset()         { *m = GetChatsListByS
 func (m *GetChatsListBySelfAndIDListResp) String() string { return proto.CompactTextString(m) }
 func (*GetChatsListBySelfAndIDListResp) ProtoMessage()    {}
 func (*GetChatsListBySelfAndIDListResp) Descriptor() ([]byte, []int) {
-	return fileDescriptor_6eb5b11d5b15e5ec, []int{33}
+	return fileDescriptor_6eb5b11d5b15e5ec, []int{27}
 }
 func (m *GetChatsListBySelfAndIDListResp) XXX_Unmarshal(b []byte) error {
 	return xxx_messageInfo_GetChatsListBySelfAndIDListResp.Unmarshal(m, b)
@@ -1690,7 +1518,7 @@ func (m *CheckChannelUserNameReq) Reset()         { *m = CheckChannelUserNameReq
 func (m *CheckChannelUserNameReq) String() string { return proto.CompactTextString(m) }
 func (*CheckChannelUserNameReq) ProtoMessage()    {}
 func (*CheckChannelUserNameReq) Descriptor() ([]byte, []int) {
-	return fileDescriptor_6eb5b11d5b15e5ec, []int{34}
+	return fileDescriptor_6eb5b11d5b15e5ec, []int{28}
 }
 func (m *CheckChannelUserNameReq) XXX_Unmarshal(b []byte) error {
 	return xxx_messageInfo_CheckChannelUserNameReq.Unmarshal(m, b)
@@ -1735,7 +1563,7 @@ func (m *CheckChannelUserNameResp) Reset()         { *m = CheckChannelUserNameRe
 func (m *CheckChannelUserNameResp) String() string { return proto.CompactTextString(m) }
 func (*CheckChannelUserNameResp) ProtoMessage()    {}
 func (*CheckChannelUserNameResp) Descriptor() ([]byte, []int) {
-	return fileDescriptor_6eb5b11d5b15e5ec, []int{35}
+	return fileDescriptor_6eb5b11d5b15e5ec, []int{29}
 }
 func (m *CheckChannelUserNameResp) XXX_Unmarshal(b []byte) error {
 	return xxx_messageInfo_CheckChannelUserNameResp.Unmarshal(m, b)
@@ -1774,7 +1602,7 @@ func (m *GetChannelBySelfIDReq) Reset()         { *m = GetChannelBySelfIDReq{} }
 func (m *GetChannelBySelfIDReq) String() string { return proto.CompactTextString(m) }
 func (*GetChannelBySelfIDReq) ProtoMessage()    {}
 func (*GetChannelBySelfIDReq) Descriptor() ([]byte, []int) {
-	return fileDescriptor_6eb5b11d5b15e5ec, []int{36}
+	return fileDescriptor_6eb5b11d5b15e5ec, []int{30}
 }
 func (m *GetChannelBySelfIDReq) XXX_Unmarshal(b []byte) error {
 	return xxx_messageInfo_GetChannelBySelfIDReq.Unmarshal(m, b)
@@ -1819,7 +1647,7 @@ func (m *GetChannelBySelfIDResp) Reset()         { *m = GetChannelBySelfIDResp{}
 func (m *GetChannelBySelfIDResp) String() string { return proto.CompactTextString(m) }
 func (*GetChannelBySelfIDResp) ProtoMessage()    {}
 func (*GetChannelBySelfIDResp) Descriptor() ([]byte, []int) {
-	return fileDescriptor_6eb5b11d5b15e5ec, []int{37}
+	return fileDescriptor_6eb5b11d5b15e5ec, []int{31}
 }
 func (m *GetChannelBySelfIDResp) XXX_Unmarshal(b []byte) error {
 	return xxx_messageInfo_GetChannelBySelfIDResp.Unmarshal(m, b)
@@ -1857,7 +1685,7 @@ func (m *GetChannelParticipantIdListDaoReq) Reset()         { *m = GetChannelPar
 func (m *GetChannelParticipantIdListDaoReq) String() string { return proto.CompactTextString(m) }
 func (*GetChannelParticipantIdListDaoReq) ProtoMessage()    {}
 func (*GetChannelParticipantIdListDaoReq) Descriptor() ([]byte, []int) {
-	return fileDescriptor_6eb5b11d5b15e5ec, []int{38}
+	return fileDescriptor_6eb5b11d5b15e5ec, []int{32}
 }
 func (m *GetChannelParticipantIdListDaoReq) XXX_Unmarshal(b []byte) error {
 	return xxx_messageInfo_GetChannelParticipantIdListDaoReq.Unmarshal(m, b)
@@ -1895,7 +1723,7 @@ func (m *GetChannelParticipantIdListDaoResp) Reset()         { *m = GetChannelPa
 func (m *GetChannelParticipantIdListDaoResp) String() string { return proto.CompactTextString(m) }
 func (*GetChannelParticipantIdListDaoResp) ProtoMessage()    {}
 func (*GetChannelParticipantIdListDaoResp) Descriptor() ([]byte, []int) {
-	return fileDescriptor_6eb5b11d5b15e5ec, []int{39}
+	return fileDescriptor_6eb5b11d5b15e5ec, []int{33}
 }
 func (m *GetChannelParticipantIdListDaoResp) XXX_Unmarshal(b []byte) error {
 	return xxx_messageInfo_GetChannelParticipantIdListDaoResp.Unmarshal(m, b)
@@ -1934,7 +1762,7 @@ func (m *GetChannelFullBySelfIdReq) Reset()         { *m = GetChannelFullBySelfI
 func (m *GetChannelFullBySelfIdReq) String() string { return proto.CompactTextString(m) }
 func (*GetChannelFullBySelfIdReq) ProtoMessage()    {}
 func (*GetChannelFullBySelfIdReq) Descriptor() ([]byte, []int) {
-	return fileDescriptor_6eb5b11d5b15e5ec, []int{40}
+	return fileDescriptor_6eb5b11d5b15e5ec, []int{34}
 }
 func (m *GetChannelFullBySelfIdReq) XXX_Unmarshal(b []byte) error {
 	return xxx_messageInfo_GetChannelFullBySelfIdReq.Unmarshal(m, b)
@@ -1979,7 +1807,7 @@ func (m *GetChannelFullBySelfIdResp) Reset()         { *m = GetChannelFullBySelf
 func (m *GetChannelFullBySelfIdResp) String() string { return proto.CompactTextString(m) }
 func (*GetChannelFullBySelfIdResp) ProtoMessage()    {}
 func (*GetChannelFullBySelfIdResp) Descriptor() ([]byte, []int) {
-	return fileDescriptor_6eb5b11d5b15e5ec, []int{41}
+	return fileDescriptor_6eb5b11d5b15e5ec, []int{35}
 }
 func (m *GetChannelFullBySelfIdResp) XXX_Unmarshal(b []byte) error {
 	return xxx_messageInfo_GetChannelFullBySelfIdResp.Unmarshal(m, b)
@@ -2007,6 +1835,7 @@ func (m *GetChannelFullBySelfIdResp) GetChannel() *mtproto.TLChannelFull {
 }
 
 func init() {
+	proto.RegisterType((*Void)(nil), "channels.Void")
 	proto.RegisterType((*ChannelParticipant)(nil), "channels.ChannelParticipant")
 	proto.RegisterType((*Channel)(nil), "channels.Channel")
 	proto.RegisterType((*MakeChannelParticipant2ByDOReq)(nil), "channels.MakeChannelParticipant2ByDOReq")
@@ -2024,21 +1853,14 @@ func init() {
 	proto.RegisterType((*ChannelParticipantsReq)(nil), "channels.ChannelParticipantsReq")
 	proto.RegisterType((*GetChannelParticipantsResp)(nil), "channels.GetChannelParticipantsResp")
 	proto.RegisterType((*AddChannelParticipantReq)(nil), "channels.AddChannelParticipantReq")
-	proto.RegisterType((*AddChannelParticipantResp)(nil), "channels.AddChannelParticipantResp")
 	proto.RegisterType((*ToChatReq)(nil), "channels.ToChatReq")
 	proto.RegisterType((*ToChatResp)(nil), "channels.ToChatResp")
 	proto.RegisterType((*CheckDeleteChannelUserReq)(nil), "channels.CheckDeleteChannelUserReq")
-	proto.RegisterType((*CheckDeleteChannelUserResp)(nil), "channels.CheckDeleteChannelUserResp")
 	proto.RegisterType((*DeleteChannelUserReq)(nil), "channels.DeleteChannelUserReq")
-	proto.RegisterType((*DeleteChannelUserResp)(nil), "channels.DeleteChannelUserResp")
 	proto.RegisterType((*EditChannelTitleReq)(nil), "channels.EditChannelTitleReq")
-	proto.RegisterType((*EditChannelTitleResp)(nil), "channels.EditChannelTitleResp")
 	proto.RegisterType((*EditChannelPhotoReq)(nil), "channels.EditChannelPhotoReq")
-	proto.RegisterType((*EditChannelPhotoResp)(nil), "channels.EditChannelPhotoResp")
 	proto.RegisterType((*EditChannelAdminReq)(nil), "channels.EditChannelAdminReq")
-	proto.RegisterType((*EditChannelAdminResp)(nil), "channels.EditChannelAdminResp")
 	proto.RegisterType((*ToggleChannelAdminsReq)(nil), "channels.ToggleChannelAdminsReq")
-	proto.RegisterType((*ToggleChannelAdminsResp)(nil), "channels.ToggleChannelAdminsResp")
 	proto.RegisterType((*GetChatsListBySelfAndIDListReq)(nil), "channels.GetChatsListBySelfAndIDListReq")
 	proto.RegisterType((*GetChatsListBySelfAndIDListResp)(nil), "channels.GetChatsListBySelfAndIDListResp")
 	proto.RegisterType((*CheckChannelUserNameReq)(nil), "channels.CheckChannelUserNameReq")
@@ -2054,111 +1876,107 @@ func init() {
 func init() { proto.RegisterFile("channels.proto", fileDescriptor_6eb5b11d5b15e5ec) }
 
 var fileDescriptor_6eb5b11d5b15e5ec = []byte{
-	// 1658 bytes of a gzipped FileDescriptorProto
-	0x1f, 0x8b, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00, 0x02, 0xff, 0xcc, 0x58, 0x4b, 0x6f, 0x1b, 0x47,
-	0x12, 0x06, 0xf5, 0x22, 0x59, 0xd4, 0xcb, 0xad, 0x17, 0x35, 0x92, 0x25, 0xaa, 0x6d, 0x0b, 0x32,
-	0xb4, 0x90, 0x17, 0x32, 0xe0, 0xc5, 0xae, 0xf7, 0x45, 0x49, 0xf6, 0x9a, 0x0b, 0xaf, 0xd7, 0x19,
-	0x4b, 0x49, 0x60, 0xc4, 0xa0, 0xc7, 0x9c, 0x96, 0x39, 0x11, 0x45, 0xb6, 0xd9, 0x2d, 0x27, 0x42,
-	0x7c, 0x08, 0x72, 0xc9, 0x21, 0x97, 0xdc, 0xf3, 0x27, 0x82, 0xfc, 0x85, 0xfc, 0x89, 0xfc, 0x9c,
-	0xa0, 0x1f, 0x33, 0xd3, 0x33, 0xd3, 0x33, 0x14, 0x04, 0x18, 0xc8, 0x8d, 0x5d, 0x55, 0x5d, 0x5d,
-	0xdd, 0xf5, 0x55, 0xd5, 0x37, 0x84, 0xd9, 0x4e, 0xd7, 0xeb, 0xf7, 0x49, 0x8f, 0xed, 0xd1, 0xe1,
-	0x80, 0x0f, 0x50, 0x25, 0x5c, 0x3b, 0x33, 0xe7, 0x97, 0x6d, 0x7e, 0x49, 0x89, 0x52, 0xe0, 0x5f,
-	0xc6, 0x01, 0x1d, 0x2a, 0xdd, 0x73, 0x6f, 0xc8, 0x83, 0x4e, 0x40, 0xbd, 0x3e, 0x47, 0xb3, 0x30,
-	0x16, 0xf8, 0xf5, 0x52, 0xa3, 0xb4, 0x33, 0xee, 0x8e, 0x05, 0x3e, 0xba, 0x09, 0xa0, 0x3d, 0xb4,
-	0x03, 0xbf, 0x3e, 0x26, 0xe5, 0x55, 0x2d, 0x69, 0xf9, 0x68, 0x05, 0xca, 0x17, 0x8c, 0x0c, 0x85,
-	0x6e, 0x5c, 0xea, 0xa6, 0xc4, 0xb2, 0xe5, 0xa3, 0xbb, 0x30, 0x4f, 0x63, 0xb7, 0xf2, 0xe0, 0xfa,
-	0x44, 0xa3, 0xb4, 0x33, 0xe9, 0xce, 0x19, 0xf2, 0xe3, 0x4b, 0x4a, 0xd0, 0x36, 0xcc, 0x05, 0xfd,
-	0xf7, 0x01, 0x27, 0xc3, 0x76, 0xe8, 0x6b, 0x52, 0xfa, 0x9a, 0xd1, 0xe2, 0x13, 0xe5, 0xf2, 0x26,
-	0x80, 0x12, 0xf8, 0x6d, 0x8f, 0xd7, 0xa7, 0xa4, 0xb3, 0xaa, 0x96, 0x34, 0x39, 0x5a, 0x83, 0xea,
-	0x97, 0x83, 0xa0, 0xaf, 0xb4, 0x65, 0xa9, 0xad, 0x28, 0x41, 0x93, 0xa3, 0x45, 0x98, 0x64, 0xdc,
-	0xe3, 0xa4, 0x5e, 0x91, 0x0a, 0xb5, 0x90, 0x97, 0x1b, 0x12, 0x4f, 0x7b, 0xac, 0x36, 0x4a, 0x3b,
-	0x55, 0xb7, 0xaa, 0x25, 0x4d, 0x2e, 0xd4, 0x17, 0xd4, 0x0f, 0xd5, 0xa0, 0xd4, 0x5a, 0xa2, 0x0e,
-	0x3c, 0x0b, 0x3a, 0x67, 0x4a, 0x5b, 0x53, 0x07, 0x2a, 0x41, 0x93, 0x8b, 0x87, 0xe9, 0x91, 0x53,
-	0x2e, 0x54, 0xd3, 0x52, 0x35, 0x25, 0x96, 0x4d, 0x8e, 0x1e, 0xc2, 0xb4, 0xe7, 0x9f, 0x07, 0xfd,
-	0xf6, 0x30, 0x78, 0xdb, 0xe5, 0xac, 0x3e, 0xd3, 0x28, 0xed, 0xd4, 0xf6, 0xeb, 0x7b, 0xe7, 0x5c,
-	0xe6, 0x65, 0xef, 0xb0, 0xeb, 0xf1, 0xa6, 0x30, 0x70, 0xa5, 0xde, 0xad, 0x79, 0xf1, 0x02, 0xff,
-	0x36, 0x0e, 0x65, 0x9d, 0xb4, 0x4c, 0xa6, 0xb6, 0x61, 0x4e, 0x86, 0x3e, 0x88, 0x9f, 0x51, 0xa5,
-	0x6b, 0x46, 0x8b, 0xf5, 0x33, 0x6e, 0x42, 0xcd, 0xeb, 0x74, 0x08, 0x63, 0xed, 0xae, 0xc7, 0xba,
-	0x3a, 0x6d, 0xa0, 0x44, 0x4f, 0x3c, 0xd6, 0x15, 0xf7, 0x1a, 0x7a, 0x7d, 0x7f, 0x70, 0x2e, 0x5c,
-	0x4c, 0x48, 0x75, 0x45, 0x09, 0x5a, 0x3e, 0xda, 0x85, 0x1b, 0x66, 0x5e, 0x3b, 0x83, 0x8b, 0x3e,
-	0x97, 0xe9, 0x9a, 0x74, 0xcd, 0x84, 0x1f, 0x0a, 0xb9, 0x78, 0x75, 0x1e, 0xf0, 0x1e, 0x91, 0xc9,
-	0xaa, 0xba, 0x6a, 0x21, 0xa4, 0xde, 0x9b, 0xc1, 0x85, 0x4a, 0x52, 0xd5, 0x55, 0x0b, 0xb4, 0x0a,
-	0x15, 0xda, 0x1d, 0xf0, 0x81, 0x38, 0xb4, 0x22, 0x0f, 0x2d, 0xcb, 0x75, 0xcb, 0x47, 0x08, 0x26,
-	0x7a, 0x41, 0xff, 0x4c, 0x27, 0x48, 0xfe, 0x46, 0x0e, 0x54, 0xc4, 0x2d, 0xfb, 0xde, 0x39, 0xd1,
-	0x99, 0x89, 0xd6, 0xe8, 0x0e, 0xcc, 0xca, 0x47, 0x63, 0x6d, 0xd2, 0xf7, 0xde, 0xf4, 0x88, 0x2f,
-	0xb3, 0x53, 0x71, 0x67, 0x94, 0xf4, 0x91, 0x12, 0xa2, 0x06, 0xd4, 0x7c, 0xe2, 0x75, 0x78, 0xf0,
-	0x5e, 0x24, 0x54, 0xa6, 0xa9, 0xe2, 0x9a, 0x22, 0x54, 0x87, 0xf2, 0x7b, 0x32, 0x64, 0xc1, 0xa0,
-	0x2f, 0xd3, 0x34, 0xe9, 0x86, 0x4b, 0x11, 0x92, 0x80, 0x41, 0x7d, 0x56, 0x8a, 0xe5, 0xef, 0x14,
-	0x9a, 0xe6, 0x8a, 0xd1, 0x34, 0x9f, 0x42, 0x13, 0xfe, 0x1a, 0x36, 0xfe, 0xe7, 0x9d, 0x91, 0x6c,
-	0x49, 0xee, 0x1f, 0x5c, 0x1e, 0xfd, 0xdf, 0x25, 0xef, 0xd0, 0x3f, 0xa1, 0x66, 0xbc, 0xb0, 0xcc,
-	0x7c, 0x6d, 0x7f, 0x7d, 0x2f, 0x2a, 0xf8, 0xec, 0x56, 0xd7, 0xdc, 0x80, 0x96, 0x61, 0x8a, 0x91,
-	0xde, 0x69, 0x2b, 0xc4, 0x85, 0x5e, 0xe1, 0x4f, 0x61, 0xc9, 0xb2, 0x95, 0x30, 0xf4, 0x0f, 0xdb,
-	0x81, 0x6b, 0x26, 0x52, 0x8b, 0xce, 0xc3, 0xfb, 0x51, 0x83, 0x39, 0xf2, 0xb8, 0x77, 0x70, 0xd9,
-	0xf2, 0xc5, 0x2d, 0xd6, 0x21, 0x6e, 0x1f, 0x1a, 0xbd, 0xb1, 0x00, 0x7f, 0x57, 0x82, 0x85, 0x43,
-	0xf9, 0x64, 0xcf, 0xc8, 0x57, 0x7a, 0xb7, 0xd8, 0x15, 0xbe, 0xed, 0x40, 0xe2, 0x3a, 0xdc, 0xa6,
-	0x24, 0x2d, 0x91, 0xca, 0x69, 0x8d, 0xf9, 0x76, 0x2f, 0x60, 0xbc, 0x3e, 0xd6, 0x18, 0x17, 0xa0,
-	0x56, 0xbd, 0xe8, 0x69, 0xc0, 0x0c, 0x28, 0x8e, 0x5b, 0xa1, 0x38, 0x61, 0x40, 0x11, 0x7f, 0x80,
-	0x9a, 0x11, 0x38, 0xda, 0x85, 0xb2, 0x0e, 0x50, 0x3f, 0xc1, 0x8d, 0xcc, 0x9b, 0xbb, 0xa1, 0x05,
-	0xfa, 0x37, 0x4c, 0x1b, 0x6f, 0xc0, 0x64, 0x24, 0xa3, 0xb2, 0x94, 0xd8, 0x81, 0x9f, 0xc0, 0xe2,
-	0x89, 0x44, 0x85, 0xb6, 0x7c, 0x1a, 0xf4, 0xcf, 0x46, 0x3e, 0x5c, 0x54, 0x23, 0x63, 0x71, 0x8d,
-	0xe0, 0x5d, 0x58, 0xb2, 0x78, 0x62, 0x34, 0x32, 0x2e, 0x19, 0xc6, 0xc7, 0xb0, 0x76, 0xd8, 0x25,
-	0x9d, 0x33, 0xd9, 0x25, 0x98, 0xec, 0x40, 0x01, 0xe3, 0x43, 0xf1, 0xc0, 0xa3, 0x4f, 0x37, 0xc6,
-	0xc0, 0x98, 0x39, 0x06, 0xf0, 0x03, 0x58, 0xcf, 0xf7, 0xca, 0xa8, 0xc4, 0x24, 0xf7, 0xf8, 0x05,
-	0x93, 0x3e, 0x2b, 0xae, 0x5e, 0xe1, 0xbf, 0xc2, 0x6a, 0xf6, 0xa1, 0x44, 0x22, 0x47, 0x43, 0xe8,
-	0x15, 0x38, 0x79, 0x5b, 0x19, 0x45, 0xff, 0x4a, 0xe5, 0xa7, 0x24, 0xf3, 0x53, 0x08, 0xea, 0x64,
-	0x7a, 0xfe, 0x06, 0x9b, 0xff, 0x21, 0x3c, 0x6b, 0xa6, 0x70, 0x26, 0xcf, 0x58, 0x81, 0x72, 0x08,
-	0xc4, 0x92, 0x04, 0xe2, 0x54, 0x20, 0x95, 0xf8, 0x01, 0x2c, 0x67, 0x37, 0xb2, 0xd1, 0x57, 0xea,
-	0x82, 0x63, 0x3d, 0x93, 0xc9, 0xe3, 0xfe, 0x9b, 0xb9, 0x92, 0x00, 0xe9, 0x76, 0x74, 0xa5, 0xe3,
-	0xa7, 0x7a, 0x27, 0xb3, 0x79, 0x48, 0xde, 0xee, 0xa7, 0x12, 0xd4, 0x9b, 0xbe, 0x6f, 0xeb, 0x07,
-	0xef, 0xd0, 0xbd, 0x74, 0x21, 0x2c, 0x65, 0x60, 0x2d, 0x0a, 0x26, 0x2e, 0x86, 0x75, 0xd0, 0xf3,
-	0x79, 0x18, 0x35, 0x9d, 0x58, 0x20, 0x72, 0xaf, 0x50, 0x92, 0xa2, 0x0e, 0x75, 0x28, 0x07, 0x0a,
-	0x2a, 0xb2, 0x2c, 0x2b, 0x6e, 0xb8, 0xc4, 0x6b, 0xb0, 0x9a, 0x13, 0x1c, 0xa3, 0xf8, 0x0b, 0xa8,
-	0x1e, 0x0f, 0xc4, 0xf4, 0xbc, 0x56, 0xa8, 0x1b, 0x00, 0xa2, 0x1d, 0xaa, 0x19, 0xa9, 0x63, 0x35,
-	0x24, 0xf8, 0x1e, 0x40, 0xe8, 0x9d, 0x51, 0xb4, 0x05, 0x13, 0x9d, 0xae, 0x17, 0xb6, 0xc4, 0x99,
-	0xc4, 0xf0, 0x76, 0xa5, 0x0a, 0xff, 0x58, 0x12, 0x10, 0x26, 0x9d, 0xb3, 0x23, 0xd2, 0x23, 0x51,
-	0x09, 0x0a, 0x6f, 0xd7, 0x8d, 0x6f, 0x40, 0xc9, 0x50, 0xf5, 0xbb, 0x30, 0xbe, 0x58, 0x82, 0x30,
-	0x4c, 0xfb, 0xf2, 0xa0, 0x13, 0xf3, 0x49, 0x13, 0x32, 0xbc, 0x2e, 0x2a, 0xc3, 0x1e, 0x11, 0xa3,
-	0xf8, 0x87, 0x12, 0x2c, 0xfe, 0x71, 0x62, 0x5d, 0x81, 0x25, 0x7b, 0x98, 0x1f, 0x60, 0xe1, 0x91,
-	0x1f, 0x84, 0xc5, 0x70, 0x2c, 0xda, 0xf8, 0x75, 0x83, 0x24, 0x7e, 0xc0, 0x93, 0x09, 0x8f, 0x25,
-	0xf6, 0x81, 0x81, 0x97, 0x61, 0x31, 0x7b, 0x3a, 0xa3, 0xf8, 0xdb, 0x52, 0x22, 0xac, 0xe7, 0x82,
-	0xb9, 0x7c, 0x94, 0xb0, 0xea, 0x10, 0xd2, 0x22, 0xfd, 0x6c, 0xe1, 0x32, 0x15, 0x9a, 0x8e, 0x80,
-	0x51, 0xfc, 0x73, 0x32, 0x34, 0xc5, 0x2d, 0x3f, 0x46, 0x5a, 0xf7, 0x00, 0x91, 0xd4, 0x39, 0x51,
-	0x94, 0x16, 0x4d, 0x41, 0x9d, 0x27, 0xaf, 0xa2, 0x23, 0x66, 0x14, 0x7f, 0x5f, 0x82, 0xe5, 0xe3,
-	0xc1, 0xdb, 0xb7, 0x3d, 0x62, 0xaa, 0xd8, 0xb5, 0x6e, 0x13, 0x77, 0x9f, 0xc4, 0xc4, 0x42, 0xb7,
-	0x21, 0x49, 0x13, 0xe5, 0x05, 0xd2, 0xdc, 0x11, 0xaf, 0xc2, 0x8a, 0x35, 0x10, 0x46, 0xf1, 0xe7,
-	0xb0, 0xa1, 0x9a, 0x35, 0x67, 0xa2, 0xe9, 0x1f, 0x5c, 0xbe, 0x20, 0xbd, 0xd3, 0x66, 0xdf, 0x6f,
-	0x1d, 0x85, 0xf3, 0x2b, 0xd9, 0x6b, 0x4a, 0xe9, 0x5e, 0x23, 0x42, 0x53, 0x03, 0x43, 0xf3, 0x98,
-	0x70, 0x7c, 0x3c, 0x0e, 0x47, 0x4f, 0x8e, 0x67, 0x46, 0xd1, 0x2d, 0x98, 0x14, 0xdd, 0x27, 0x9c,
-	0x6b, 0xa9, 0xce, 0xa4, 0x74, 0xf8, 0x05, 0xac, 0xc8, 0x3e, 0x60, 0x94, 0xd6, 0x33, 0xef, 0x9c,
-	0x8c, 0x1e, 0xf3, 0x9a, 0x74, 0x0b, 0x63, 0x4d, 0x34, 0xa2, 0x35, 0xde, 0x87, 0xba, 0xdd, 0x69,
-	0xc1, 0x94, 0x3f, 0x81, 0xa5, 0x78, 0xae, 0xa9, 0xeb, 0xb4, 0x8e, 0xae, 0xf2, 0x42, 0x89, 0x30,
-	0xd3, 0x1f, 0xa5, 0xf8, 0x21, 0x2c, 0xdb, 0xdc, 0x5e, 0xad, 0x6f, 0x37, 0x61, 0xab, 0x60, 0xbe,
-	0x1f, 0x79, 0x83, 0xd1, 0xe3, 0xfa, 0xef, 0x80, 0x47, 0xb9, 0x50, 0x8f, 0xa2, 0xb3, 0x9c, 0x24,
-	0x09, 0x1c, 0x56, 0xe3, 0xdd, 0x8f, 0x2f, 0x7a, 0xe1, 0x0d, 0x24, 0x7b, 0xfe, 0x0b, 0xd4, 0x3a,
-	0x31, 0x9a, 0x8b, 0xa1, 0x6e, 0x5a, 0x8e, 0x9c, 0x6f, 0xcf, 0x4c, 0x8a, 0x91, 0x3c, 0x95, 0x51,
-	0xf4, 0xe7, 0x74, 0x75, 0x2d, 0x67, 0xd9, 0x85, 0xd8, 0x14, 0x95, 0xd7, 0xfe, 0xaf, 0xb3, 0x50,
-	0x73, 0x9f, 0x1f, 0x86, 0xcc, 0x03, 0xb5, 0x00, 0xc5, 0xfe, 0xc3, 0xef, 0x01, 0xb4, 0x6e, 0x8d,
-	0x5c, 0x7f, 0x2a, 0x38, 0xf6, 0x7b, 0xa1, 0x27, 0x30, 0x9f, 0xfe, 0x44, 0x40, 0x37, 0x0d, 0xd3,
-	0xec, 0xe7, 0x43, 0x9e, 0xa7, 0xd7, 0xb0, 0x64, 0xe5, 0x13, 0x08, 0xc7, 0xf6, 0x79, 0x6c, 0xc8,
-	0xb9, 0x35, 0xd2, 0x86, 0x51, 0x34, 0x84, 0xb5, 0x82, 0x92, 0x45, 0x3b, 0xb1, 0x8f, 0xe2, 0x9e,
-	0xe1, 0xdc, 0xbd, 0xa2, 0x25, 0xa3, 0xa8, 0x63, 0xc2, 0xdf, 0x4c, 0x25, 0xba, 0x95, 0x76, 0x62,
-	0x81, 0x98, 0x73, 0x7b, 0xb4, 0x11, 0xa3, 0xe8, 0xd4, 0x44, 0x69, 0x8a, 0x68, 0x9b, 0xe7, 0xe4,
-	0xb2, 0x78, 0xf3, 0x9c, 0x02, 0xbe, 0xfe, 0xda, 0xbc, 0x8c, 0x49, 0x5c, 0x51, 0xa3, 0x68, 0x3f,
-	0xcb, 0xbd, 0x49, 0x86, 0x3e, 0xdf, 0x87, 0x29, 0xc5, 0xec, 0xd0, 0x42, 0x6c, 0x1f, 0x31, 0x49,
-	0x67, 0x31, 0x2b, 0x64, 0x14, 0xbd, 0x82, 0x45, 0x5b, 0xb7, 0x43, 0x5b, 0x66, 0x50, 0xd6, 0x16,
-	0xeb, 0xe0, 0x51, 0x26, 0x8c, 0xa2, 0x63, 0xb8, 0x91, 0xf9, 0x72, 0x43, 0x1b, 0xf1, 0x46, 0xdb,
-	0x07, 0xa2, 0xb3, 0x59, 0xa8, 0x67, 0x14, 0x05, 0xba, 0x45, 0x5b, 0x3e, 0xc6, 0xd0, 0x9d, 0x54,
-	0x54, 0xf6, 0xcf, 0x40, 0x67, 0xfb, 0x2a, 0x66, 0x8c, 0xa2, 0x76, 0x88, 0x7b, 0x6b, 0x0b, 0x44,
-	0xf6, 0x7a, 0xcc, 0x82, 0x3c, 0xff, 0x1b, 0xab, 0x23, 0x3e, 0xa5, 0x6c, 0x5c, 0x36, 0x09, 0xbe,
-	0x1c, 0xfe, 0x9d, 0x04, 0x5f, 0x1e, 0x25, 0x16, 0x69, 0xc8, 0xfa, 0x37, 0xd2, 0x60, 0x75, 0xbd,
-	0x59, 0xa8, 0x67, 0x14, 0x7d, 0x02, 0xf3, 0x69, 0x0e, 0x69, 0xf6, 0x2f, 0x0b, 0xbb, 0x75, 0x36,
-	0x8a, 0xd4, 0x19, 0x97, 0x92, 0xfb, 0xe5, 0xb8, 0x0c, 0x99, 0x69, 0x8e, 0xcb, 0x88, 0x36, 0xa6,
-	0x5c, 0xca, 0x0c, 0xe7, 0xb8, 0x0c, 0x19, 0x65, 0x8e, 0xcb, 0x88, 0xbe, 0xa1, 0x97, 0xb0, 0x60,
-	0x21, 0x4d, 0x66, 0x21, 0xdb, 0xc9, 0x9d, 0xb3, 0x35, 0xc2, 0x82, 0x51, 0xf4, 0x99, 0x39, 0x5f,
-	0xc2, 0x99, 0x8f, 0x36, 0x6d, 0x80, 0x32, 0x88, 0x86, 0xd3, 0x28, 0x36, 0x60, 0x14, 0x7d, 0x13,
-	0xd2, 0xb9, 0xbc, 0x61, 0x8e, 0x76, 0xaf, 0x84, 0x5a, 0xc5, 0x1c, 0x9c, 0x3f, 0x5d, 0xdd, 0x98,
-	0xd1, 0x03, 0x78, 0x19, 0xfd, 0x7f, 0xff, 0x66, 0x4a, 0xce, 0xdb, 0xfb, 0xbf, 0x07, 0x00, 0x00,
-	0xff, 0xff, 0xbd, 0xe8, 0x00, 0x39, 0xe2, 0x17, 0x00, 0x00,
+	// 1595 bytes of a gzipped FileDescriptorProto
+	0x1f, 0x8b, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00, 0x02, 0xff, 0xac, 0x58, 0x5b, 0x6f, 0x1b, 0x45,
+	0x14, 0x96, 0x73, 0xf1, 0xe5, 0x38, 0xd7, 0xc9, 0xa5, 0xdb, 0x4d, 0x9a, 0xb8, 0xdb, 0x36, 0x4a,
+	0x15, 0x94, 0xa2, 0x54, 0x2a, 0x82, 0x72, 0x73, 0x92, 0x5e, 0x0c, 0xa5, 0x54, 0xdb, 0xa4, 0x20,
+	0x44, 0x65, 0xb6, 0xde, 0x49, 0xbd, 0xc4, 0xd9, 0xdd, 0x7a, 0x26, 0x85, 0x08, 0x1e, 0x10, 0x2f,
+	0xbc, 0xf2, 0x8e, 0xf8, 0x13, 0xfc, 0x1a, 0xfe, 0x08, 0xef, 0x68, 0x6e, 0xde, 0xd9, 0xdd, 0xf1,
+	0xda, 0x0a, 0xbc, 0x79, 0xce, 0x39, 0x73, 0xce, 0x99, 0x73, 0xfd, 0xd6, 0x30, 0xd7, 0xe9, 0x7a,
+	0x61, 0x88, 0x7b, 0x64, 0x37, 0xee, 0x47, 0x34, 0x42, 0x55, 0x75, 0xb6, 0x67, 0xcf, 0x2e, 0xda,
+	0xf4, 0x22, 0xc6, 0x82, 0xe1, 0x94, 0x61, 0xea, 0x45, 0x14, 0xf8, 0xce, 0x5f, 0x93, 0x80, 0x0e,
+	0x84, 0xcc, 0x33, 0xaf, 0x4f, 0x83, 0x4e, 0x10, 0x7b, 0x21, 0x45, 0x73, 0x30, 0x11, 0xf8, 0x56,
+	0xa9, 0x51, 0xda, 0x9e, 0x74, 0x27, 0x02, 0x1f, 0x5d, 0x03, 0x90, 0x9a, 0xda, 0x81, 0x6f, 0x4d,
+	0x70, 0x7a, 0x4d, 0x52, 0x5a, 0x3e, 0xba, 0x02, 0x95, 0x73, 0x82, 0xfb, 0x8c, 0x37, 0xc9, 0x79,
+	0x65, 0x76, 0x6c, 0xf9, 0xe8, 0x36, 0x2c, 0xc4, 0x89, 0x5a, 0xee, 0x80, 0x35, 0xd5, 0x28, 0x6d,
+	0x4f, 0xbb, 0xf3, 0x1a, 0xfd, 0xe8, 0x22, 0xc6, 0x68, 0x0b, 0xe6, 0x83, 0xf0, 0x6d, 0x40, 0x71,
+	0xbf, 0xad, 0x74, 0x4d, 0x73, 0x5d, 0xb3, 0x92, 0x7c, 0x2c, 0x54, 0x5e, 0x03, 0x10, 0x04, 0xbf,
+	0xed, 0x51, 0xab, 0xcc, 0x95, 0xd5, 0x24, 0xa5, 0x49, 0xd1, 0x1a, 0xd4, 0xbe, 0x8f, 0x82, 0x50,
+	0x70, 0x2b, 0x9c, 0x5b, 0x15, 0x84, 0x26, 0x45, 0xcb, 0x30, 0x4d, 0xa8, 0x47, 0xb1, 0x55, 0xe5,
+	0x0c, 0x71, 0xe0, 0x8f, 0xeb, 0x63, 0x4f, 0x6a, 0xac, 0x35, 0x4a, 0xdb, 0x35, 0xb7, 0x26, 0x29,
+	0x4d, 0xca, 0xd8, 0xe7, 0xb1, 0xaf, 0xd8, 0x20, 0xd8, 0x92, 0x22, 0x0c, 0x9e, 0x06, 0x9d, 0x53,
+	0xc1, 0xad, 0x0b, 0x83, 0x82, 0xd0, 0xa4, 0x2c, 0x30, 0x3d, 0x7c, 0x42, 0x19, 0x6b, 0x86, 0xb3,
+	0xca, 0xec, 0xd8, 0xa4, 0xe8, 0x3e, 0xcc, 0x78, 0xfe, 0x59, 0x10, 0xb6, 0xfb, 0xc1, 0xeb, 0x2e,
+	0x25, 0xd6, 0x6c, 0xa3, 0xb4, 0x5d, 0xdf, 0xb3, 0x76, 0xcf, 0x28, 0xcf, 0xcf, 0xee, 0x41, 0xd7,
+	0xa3, 0x4d, 0x26, 0xe0, 0x72, 0xbe, 0x5b, 0xf7, 0x92, 0x83, 0xf3, 0xf7, 0x24, 0x54, 0x64, 0xd2,
+	0x72, 0x99, 0xda, 0x82, 0x79, 0xee, 0x7a, 0x94, 0x84, 0x51, 0xa4, 0x6b, 0x56, 0x92, 0x65, 0x18,
+	0x37, 0xa1, 0xee, 0x75, 0x3a, 0x98, 0x90, 0x76, 0xd7, 0x23, 0x5d, 0x99, 0x36, 0x10, 0xa4, 0xc7,
+	0x1e, 0xe9, 0xb2, 0x77, 0xf5, 0xbd, 0xd0, 0x8f, 0xce, 0x98, 0x8a, 0x29, 0xce, 0xae, 0x0a, 0x42,
+	0xcb, 0x47, 0x3b, 0xb0, 0xa8, 0xe7, 0xb5, 0x13, 0x9d, 0x87, 0x94, 0xa7, 0x6b, 0xda, 0xd5, 0x13,
+	0x7e, 0xc0, 0xe8, 0x2c, 0xea, 0x34, 0xa0, 0x3d, 0xcc, 0x93, 0x55, 0x73, 0xc5, 0x81, 0x51, 0xbd,
+	0x57, 0xd1, 0xb9, 0x48, 0x52, 0xcd, 0x15, 0x07, 0x74, 0x15, 0xaa, 0x71, 0x37, 0xa2, 0x11, 0x33,
+	0x5a, 0xe5, 0x46, 0x2b, 0xfc, 0xdc, 0xf2, 0x11, 0x82, 0xa9, 0x5e, 0x10, 0x9e, 0xca, 0x04, 0xf1,
+	0xdf, 0xc8, 0x86, 0x2a, 0x7b, 0x65, 0xe8, 0x9d, 0x61, 0x99, 0x99, 0xc1, 0x19, 0xdd, 0x82, 0x39,
+	0x1e, 0x34, 0xd2, 0xc6, 0xa1, 0xf7, 0xaa, 0x87, 0x7d, 0x9e, 0x9d, 0xaa, 0x3b, 0x2b, 0xa8, 0x0f,
+	0x04, 0x11, 0x35, 0xa0, 0xee, 0x63, 0xaf, 0x43, 0x83, 0xb7, 0x2c, 0xa1, 0x3c, 0x4d, 0x55, 0x57,
+	0x27, 0x21, 0x0b, 0x2a, 0x6f, 0x71, 0x9f, 0x04, 0x51, 0xc8, 0xd3, 0x34, 0xed, 0xaa, 0x23, 0x73,
+	0x89, 0x95, 0x81, 0x35, 0xc7, 0xc9, 0xfc, 0x77, 0xa6, 0x9a, 0xe6, 0x8b, 0xab, 0x69, 0x21, 0x53,
+	0x4d, 0xce, 0x8f, 0xb0, 0xf1, 0x85, 0x77, 0x8a, 0xf3, 0x2d, 0xb9, 0xb7, 0x7f, 0x71, 0xf8, 0xa5,
+	0x8b, 0xdf, 0xa0, 0x8f, 0xa1, 0xae, 0x45, 0x98, 0x67, 0xbe, 0xbe, 0xb7, 0xbe, 0x3b, 0x68, 0xfc,
+	0xfc, 0x55, 0x57, 0xbf, 0x80, 0x56, 0xa1, 0x4c, 0x70, 0xef, 0xa4, 0xa5, 0xea, 0x42, 0x9e, 0x9c,
+	0x17, 0xb0, 0x62, 0xb8, 0x8a, 0x09, 0xfa, 0xc8, 0x64, 0x70, 0x4d, 0xaf, 0xd4, 0x22, 0x7b, 0xce,
+	0xde, 0x60, 0xc0, 0x1c, 0x7a, 0xd4, 0xdb, 0xbf, 0x68, 0xf9, 0xec, 0x15, 0xeb, 0x90, 0x8c, 0x0f,
+	0x59, 0xbd, 0x09, 0xc1, 0xf9, 0xb5, 0x04, 0x4b, 0x07, 0x3c, 0x64, 0x4f, 0xf1, 0x0f, 0xf2, 0x36,
+	0xbb, 0xa5, 0x62, 0x1b, 0xf1, 0xba, 0x56, 0xd7, 0x04, 0xa5, 0xc5, 0x52, 0x39, 0x23, 0x6b, 0xbe,
+	0xdd, 0x0b, 0x08, 0xb5, 0x26, 0x1a, 0x93, 0xac, 0xa8, 0xc5, 0x2c, 0x7a, 0x12, 0x10, 0xad, 0x14,
+	0x27, 0x8d, 0xa5, 0x38, 0xa5, 0x95, 0xa2, 0xf3, 0x33, 0xd4, 0x35, 0xc7, 0xd1, 0x0e, 0x54, 0xa4,
+	0x83, 0x32, 0x04, 0x8b, 0xb9, 0x98, 0xbb, 0x4a, 0x02, 0x7d, 0x0a, 0x33, 0x5a, 0x0c, 0x08, 0xf7,
+	0x64, 0x54, 0x96, 0x52, 0x37, 0x9c, 0xc7, 0xb0, 0x7c, 0xcc, 0xab, 0x42, 0x4a, 0x3e, 0x09, 0xc2,
+	0xd3, 0x91, 0x81, 0x1b, 0xf4, 0xc8, 0x44, 0xd2, 0x23, 0xce, 0x0e, 0xac, 0x18, 0x34, 0x91, 0x78,
+	0x20, 0x5c, 0xd2, 0x84, 0x8f, 0x60, 0xed, 0xa0, 0x8b, 0x3b, 0xa7, 0x7c, 0x4a, 0x10, 0x3e, 0x81,
+	0x02, 0x42, 0xfb, 0x2c, 0xc0, 0xa3, 0xad, 0x6b, 0x6b, 0x60, 0x42, 0x5f, 0x03, 0xce, 0x3d, 0x58,
+	0x1f, 0xae, 0x95, 0xc4, 0xbc, 0x26, 0xa9, 0x47, 0xcf, 0x09, 0xd7, 0x59, 0x75, 0xe5, 0xc9, 0x79,
+	0x1f, 0xae, 0xe6, 0x03, 0xc5, 0x12, 0x39, 0xba, 0x84, 0x5e, 0x82, 0x3d, 0xec, 0x2a, 0x89, 0xd1,
+	0x27, 0x99, 0xfc, 0x94, 0x78, 0x7e, 0x0a, 0x8b, 0x3a, 0x9d, 0x9e, 0x0f, 0x60, 0xf3, 0x11, 0xa6,
+	0x79, 0x31, 0x51, 0x67, 0xdc, 0xc6, 0x15, 0xa8, 0xa8, 0x42, 0x2c, 0xf1, 0x42, 0x2c, 0x07, 0x9c,
+	0xe9, 0xdc, 0x83, 0xd5, 0xfc, 0x45, 0x32, 0xfa, 0x49, 0x5d, 0xb0, 0x8d, 0x36, 0x09, 0x37, 0xf7,
+	0x59, 0xee, 0x49, 0xac, 0x48, 0xb7, 0x06, 0x4f, 0x3a, 0x7a, 0x22, 0x6f, 0x12, 0x93, 0x86, 0xf4,
+	0xeb, 0xfe, 0x28, 0x81, 0xd5, 0xf4, 0x7d, 0xd3, 0x3c, 0x78, 0x83, 0xee, 0x64, 0x1b, 0x61, 0x25,
+	0x57, 0xd6, 0xac, 0x61, 0x92, 0x66, 0x58, 0x07, 0xb9, 0x9f, 0xfb, 0x83, 0xa1, 0x93, 0x10, 0x58,
+	0xee, 0x45, 0x95, 0x64, 0xa0, 0x83, 0x05, 0x95, 0x40, 0x94, 0x0a, 0x6f, 0xcb, 0xaa, 0xab, 0x8e,
+	0xce, 0xb7, 0x50, 0x3b, 0x8a, 0xd8, 0x82, 0xbc, 0x94, 0x37, 0x1b, 0x00, 0x6c, 0xe2, 0x89, 0x35,
+	0x28, 0xdd, 0xd1, 0x28, 0xce, 0x1d, 0x00, 0xa5, 0x9d, 0xc4, 0xe8, 0x3a, 0x4c, 0x75, 0xba, 0x9e,
+	0x9a, 0x7a, 0xb3, 0xa9, 0xfd, 0xec, 0x72, 0x96, 0xf3, 0x7b, 0x89, 0x55, 0x29, 0xee, 0x9c, 0x1e,
+	0xe2, 0x1e, 0x1e, 0x74, 0x19, 0xd3, 0x76, 0x59, 0xff, 0xa2, 0x18, 0xf7, 0xc5, 0x48, 0x53, 0xfe,
+	0x25, 0x14, 0xe4, 0xc0, 0x8c, 0xcf, 0x0d, 0x1d, 0xeb, 0x51, 0x4b, 0xd1, 0x98, 0x4b, 0xcb, 0x46,
+	0x6f, 0x8a, 0xfb, 0xf7, 0x7f, 0x30, 0xcd, 0xd2, 0xd9, 0xc7, 0x1e, 0x89, 0x42, 0x89, 0xf3, 0xe4,
+	0xc9, 0x09, 0x60, 0xe9, 0x81, 0x1f, 0xa8, 0xea, 0x3d, 0x62, 0x73, 0x77, 0x2c, 0x87, 0xb0, 0x1f,
+	0xd0, 0x74, 0xae, 0x12, 0x8a, 0x79, 0x9c, 0x3b, 0xbf, 0x94, 0x52, 0xb6, 0x9e, 0x31, 0xfc, 0x70,
+	0xd9, 0x54, 0x14, 0x9a, 0xb7, 0x40, 0x81, 0x13, 0x19, 0x0a, 0x75, 0x74, 0xfe, 0x4c, 0xbb, 0x20,
+	0x90, 0xdc, 0x7f, 0x8e, 0xff, 0x2e, 0x20, 0x9c, 0x51, 0x3a, 0x30, 0x6d, 0xe0, 0x14, 0xb4, 0xd0,
+	0x6f, 0x25, 0x58, 0x3d, 0x8a, 0x5e, 0xbf, 0xee, 0x61, 0xfd, 0x0a, 0xb9, 0x54, 0x94, 0x92, 0x06,
+	0x4e, 0x0d, 0x7d, 0x74, 0x13, 0xd2, 0x48, 0x8b, 0x3b, 0x9a, 0x85, 0x5f, 0xce, 0xd7, 0xb0, 0x21,
+	0x86, 0x1a, 0x25, 0x6c, 0x38, 0xee, 0x5f, 0x3c, 0xc7, 0xbd, 0x93, 0x66, 0xe8, 0xb7, 0x0e, 0xd5,
+	0x9c, 0x4f, 0x37, 0x6c, 0x29, 0xdb, 0xb0, 0xcc, 0xbe, 0x18, 0xac, 0x72, 0xdf, 0xab, 0x31, 0xfb,
+	0x50, 0x8d, 0xe8, 0x21, 0x9a, 0x49, 0x8c, 0x6e, 0xc0, 0x34, 0x6b, 0x61, 0x35, 0xff, 0x33, 0xed,
+	0x2d, 0x78, 0xce, 0x73, 0xb8, 0xc2, 0xdb, 0x5b, 0x6b, 0xa5, 0xa7, 0xde, 0xd9, 0x18, 0xd5, 0x2b,
+	0xc1, 0x29, 0x13, 0x96, 0x0b, 0x79, 0x70, 0x76, 0xf6, 0xc0, 0x32, 0x2b, 0x2d, 0xd8, 0x86, 0xc7,
+	0xb0, 0x92, 0xcc, 0x7f, 0xf1, 0x9c, 0xd6, 0xe1, 0x38, 0x11, 0x4a, 0xb9, 0x99, 0xfd, 0x78, 0x73,
+	0xee, 0xc3, 0xaa, 0x49, 0xed, 0x78, 0xc3, 0xaf, 0x09, 0xd7, 0x0b, 0xf6, 0xe0, 0xa1, 0x17, 0x8d,
+	0x5e, 0x6b, 0x1f, 0x82, 0x33, 0x4a, 0x85, 0x08, 0x8a, 0xcc, 0x72, 0x7a, 0x99, 0x52, 0xb8, 0x9a,
+	0xdc, 0x7e, 0x78, 0xde, 0x53, 0x2f, 0xe0, 0x28, 0xf3, 0x3d, 0xa8, 0x77, 0x92, 0x92, 0x2d, 0xae,
+	0x67, 0x5d, 0x72, 0xe4, 0x92, 0x78, 0xaa, 0xaf, 0xe2, 0xb4, 0x55, 0x12, 0xa3, 0x77, 0xb3, 0x2d,
+	0xb4, 0x9a, 0xdf, 0xc2, 0xec, 0xd2, 0xa0, 0x87, 0xf6, 0xfe, 0x99, 0x81, 0xba, 0xfb, 0xec, 0x40,
+	0x6d, 0x68, 0xd4, 0x02, 0x94, 0xe8, 0x57, 0xb8, 0x19, 0xad, 0x1b, 0x3d, 0x97, 0x90, 0xda, 0x36,
+	0xbf, 0x0b, 0x3d, 0x86, 0x85, 0x2c, 0x94, 0x46, 0xd7, 0x34, 0xd1, 0x3c, 0xcc, 0x1e, 0xa6, 0xe9,
+	0x73, 0x58, 0x31, 0x82, 0x02, 0xe4, 0x24, 0xf2, 0xc3, 0x50, 0x83, 0x3d, 0x97, 0xc8, 0xbc, 0x88,
+	0x02, 0x1f, 0xf5, 0x61, 0xad, 0xa0, 0x3b, 0xd1, 0x76, 0x22, 0x5e, 0x3c, 0x1e, 0xec, 0xdb, 0x63,
+	0x4a, 0x92, 0x18, 0x75, 0xf4, 0x4a, 0xd7, 0xb3, 0x86, 0x6e, 0x64, 0x95, 0x18, 0xaa, 0xc9, 0xbe,
+	0x39, 0x5a, 0x88, 0xc4, 0xe8, 0x44, 0x2f, 0xc8, 0x0c, 0xf6, 0xd4, 0xed, 0x0c, 0x05, 0xb6, 0xba,
+	0x9d, 0x02, 0x08, 0xfb, 0x9d, 0xfe, 0x18, 0x1d, 0xcb, 0xa1, 0x46, 0xd1, 0x7d, 0x32, 0xf4, 0x25,
+	0x39, 0x44, 0x79, 0x17, 0xca, 0x02, 0x09, 0xa1, 0xa5, 0x44, 0x7e, 0x80, 0xbc, 0xec, 0xe5, 0x3c,
+	0x91, 0xc4, 0xe8, 0x25, 0x2c, 0x9b, 0x06, 0x1b, 0xba, 0xae, 0x3b, 0x65, 0x9c, 0xa6, 0xb6, 0x33,
+	0x4a, 0x84, 0xc4, 0xe8, 0x08, 0x16, 0x73, 0x1f, 0x33, 0x68, 0x23, 0xb9, 0x68, 0xfa, 0x66, 0xb2,
+	0x37, 0x0b, 0xf9, 0x24, 0x46, 0x81, 0x9c, 0xc6, 0x86, 0xef, 0x13, 0x74, 0x2b, 0xe3, 0x95, 0xf9,
+	0xcb, 0xc8, 0xde, 0x1a, 0x47, 0x8c, 0xc4, 0xa8, 0x09, 0x0b, 0x59, 0x60, 0xa0, 0xb7, 0xa3, 0x01,
+	0x34, 0xe4, 0x5a, 0xe7, 0x00, 0x16, 0x73, 0xe0, 0x4e, 0x8f, 0x81, 0x09, 0xf9, 0xe5, 0x94, 0xa4,
+	0xfd, 0xe0, 0x78, 0x6c, 0x88, 0x1f, 0x0a, 0xab, 0x8d, 0x50, 0xc1, 0x61, 0xd6, 0x10, 0x15, 0x0a,
+	0x82, 0xe5, 0x54, 0x3c, 0x82, 0x25, 0x03, 0x0c, 0xd1, 0x2b, 0xd8, 0x8c, 0x52, 0x72, 0x8a, 0xda,
+	0x6a, 0x9c, 0x18, 0x97, 0x08, 0x32, 0x4f, 0xb4, 0xfc, 0xec, 0x18, 0xfe, 0x35, 0xf7, 0x95, 0x3e,
+	0x91, 0xd5, 0x96, 0x44, 0x9b, 0x26, 0x05, 0xda, 0x6a, 0xb6, 0x1b, 0xc5, 0x02, 0x24, 0x46, 0x3f,
+	0x29, 0x00, 0x34, 0x6c, 0xfd, 0xa1, 0x9d, 0xb1, 0xbc, 0x14, 0xbb, 0xd6, 0x7e, 0x67, 0x7c, 0x61,
+	0x12, 0xef, 0xc3, 0x37, 0x83, 0x7f, 0x88, 0x5f, 0x95, 0xf9, 0x86, 0xba, 0xfb, 0x6f, 0x00, 0x00,
+	0x00, 0xff, 0xff, 0x68, 0x05, 0x10, 0xbf, 0x44, 0x16, 0x00, 0x00,
 }
 
 // Reference imports to suppress errors if they are not otherwise used.
@@ -2176,7 +1994,7 @@ type RPCChannelsClient interface {
 	// NEW
 	GetChannelDataById(ctx context.Context, in *ChannelDataByIdReq, opts ...grpc.CallOption) (*ChannelData, error)
 	CreateNewChannel(ctx context.Context, in *CreateNewChannelReq, opts ...grpc.CallOption) (*ChannelData, error)
-	AddChannelParticipant(ctx context.Context, in *AddChannelParticipantReq, opts ...grpc.CallOption) (*AddChannelParticipantResp, error)
+	AddChannelParticipant(ctx context.Context, in *AddChannelParticipantReq, opts ...grpc.CallOption) (*Void, error)
 	GetChatsListBySelfAndIDList(ctx context.Context, in *GetChatsListBySelfAndIDListReq, opts ...grpc.CallOption) (*GetChatsListBySelfAndIDListResp, error)
 	GetChannelFullBySelfId(ctx context.Context, in *GetChannelFullBySelfIdReq, opts ...grpc.CallOption) (*GetChannelFullBySelfIdResp, error)
 	GetChannelParticipantList(ctx context.Context, in *ChannelParticipantListReq, opts ...grpc.CallOption) (*ChannelParticipantListResp, error)
@@ -2185,13 +2003,15 @@ type RPCChannelsClient interface {
 	CheckChannelUserName(ctx context.Context, in *CheckChannelUserNameReq, opts ...grpc.CallOption) (*CheckChannelUserNameResp, error)
 	UpdateChannelLink(ctx context.Context, in *UpdateChannelLinkReq, opts ...grpc.CallOption) (*UpdateChannelLinkResp, error)
 	CheckUserIsAdministrator(ctx context.Context, in *CheckUserIsAdministratorReq, opts ...grpc.CallOption) (*CheckUserIsAdministratorResp, error)
+	EditChannelAdmin(ctx context.Context, in *EditChannelAdminReq, opts ...grpc.CallOption) (*Void, error)
+	// In Work
+	DeleteChannelUser(ctx context.Context, in *DeleteChannelUserReq, opts ...grpc.CallOption) (*Void, error)
+	EditChannelTitle(ctx context.Context, in *EditChannelTitleReq, opts ...grpc.CallOption) (*Void, error)
+	EditChannelPhoto(ctx context.Context, in *EditChannelPhotoReq, opts ...grpc.CallOption) (*Void, error)
+	// OLD
+	ToggleChannelAdmins(ctx context.Context, in *ToggleChannelAdminsReq, opts ...grpc.CallOption) (*Void, error)
+	// channel_data
 	GetChannelParticipantIdList(ctx context.Context, in *ChannelData, opts ...grpc.CallOption) (*GetChannelParticipantIdListResp, error)
-	CheckDeleteChannelUser(ctx context.Context, in *CheckDeleteChannelUserReq, opts ...grpc.CallOption) (*CheckDeleteChannelUserResp, error)
-	DeleteChannelUser(ctx context.Context, in *DeleteChannelUserReq, opts ...grpc.CallOption) (*DeleteChannelUserResp, error)
-	EditChannelTitle(ctx context.Context, in *EditChannelTitleReq, opts ...grpc.CallOption) (*EditChannelTitleResp, error)
-	EditChannelPhoto(ctx context.Context, in *EditChannelPhotoReq, opts ...grpc.CallOption) (*EditChannelPhotoResp, error)
-	EditChannelAdmin(ctx context.Context, in *EditChannelAdminReq, opts ...grpc.CallOption) (*EditChannelAdminResp, error)
-	ToggleChannelAdmins(ctx context.Context, in *ToggleChannelAdminsReq, opts ...grpc.CallOption) (*ToggleChannelAdminsResp, error)
 	GetChannelBySelfID(ctx context.Context, in *GetChannelBySelfIDReq, opts ...grpc.CallOption) (*GetChannelBySelfIDResp, error)
 	GetChannelParticipantIdListDao(ctx context.Context, in *GetChannelParticipantIdListDaoReq, opts ...grpc.CallOption) (*GetChannelParticipantIdListDaoResp, error)
 }
@@ -2222,8 +2042,8 @@ func (c *rPCChannelsClient) CreateNewChannel(ctx context.Context, in *CreateNewC
 	return out, nil
 }
 
-func (c *rPCChannelsClient) AddChannelParticipant(ctx context.Context, in *AddChannelParticipantReq, opts ...grpc.CallOption) (*AddChannelParticipantResp, error) {
-	out := new(AddChannelParticipantResp)
+func (c *rPCChannelsClient) AddChannelParticipant(ctx context.Context, in *AddChannelParticipantReq, opts ...grpc.CallOption) (*Void, error) {
+	out := new(Void)
 	err := c.cc.Invoke(ctx, "/channels.RPCChannels/AddChannelParticipant", in, out, opts...)
 	if err != nil {
 		return nil, err
@@ -2303,53 +2123,8 @@ func (c *rPCChannelsClient) CheckUserIsAdministrator(ctx context.Context, in *Ch
 	return out, nil
 }
 
-func (c *rPCChannelsClient) GetChannelParticipantIdList(ctx context.Context, in *ChannelData, opts ...grpc.CallOption) (*GetChannelParticipantIdListResp, error) {
-	out := new(GetChannelParticipantIdListResp)
-	err := c.cc.Invoke(ctx, "/channels.RPCChannels/GetChannelParticipantIdList", in, out, opts...)
-	if err != nil {
-		return nil, err
-	}
-	return out, nil
-}
-
-func (c *rPCChannelsClient) CheckDeleteChannelUser(ctx context.Context, in *CheckDeleteChannelUserReq, opts ...grpc.CallOption) (*CheckDeleteChannelUserResp, error) {
-	out := new(CheckDeleteChannelUserResp)
-	err := c.cc.Invoke(ctx, "/channels.RPCChannels/CheckDeleteChannelUser", in, out, opts...)
-	if err != nil {
-		return nil, err
-	}
-	return out, nil
-}
-
-func (c *rPCChannelsClient) DeleteChannelUser(ctx context.Context, in *DeleteChannelUserReq, opts ...grpc.CallOption) (*DeleteChannelUserResp, error) {
-	out := new(DeleteChannelUserResp)
-	err := c.cc.Invoke(ctx, "/channels.RPCChannels/DeleteChannelUser", in, out, opts...)
-	if err != nil {
-		return nil, err
-	}
-	return out, nil
-}
-
-func (c *rPCChannelsClient) EditChannelTitle(ctx context.Context, in *EditChannelTitleReq, opts ...grpc.CallOption) (*EditChannelTitleResp, error) {
-	out := new(EditChannelTitleResp)
-	err := c.cc.Invoke(ctx, "/channels.RPCChannels/EditChannelTitle", in, out, opts...)
-	if err != nil {
-		return nil, err
-	}
-	return out, nil
-}
-
-func (c *rPCChannelsClient) EditChannelPhoto(ctx context.Context, in *EditChannelPhotoReq, opts ...grpc.CallOption) (*EditChannelPhotoResp, error) {
-	out := new(EditChannelPhotoResp)
-	err := c.cc.Invoke(ctx, "/channels.RPCChannels/EditChannelPhoto", in, out, opts...)
-	if err != nil {
-		return nil, err
-	}
-	return out, nil
-}
-
-func (c *rPCChannelsClient) EditChannelAdmin(ctx context.Context, in *EditChannelAdminReq, opts ...grpc.CallOption) (*EditChannelAdminResp, error) {
-	out := new(EditChannelAdminResp)
+func (c *rPCChannelsClient) EditChannelAdmin(ctx context.Context, in *EditChannelAdminReq, opts ...grpc.CallOption) (*Void, error) {
+	out := new(Void)
 	err := c.cc.Invoke(ctx, "/channels.RPCChannels/EditChannelAdmin", in, out, opts...)
 	if err != nil {
 		return nil, err
@@ -2357,9 +2132,45 @@ func (c *rPCChannelsClient) EditChannelAdmin(ctx context.Context, in *EditChanne
 	return out, nil
 }
 
-func (c *rPCChannelsClient) ToggleChannelAdmins(ctx context.Context, in *ToggleChannelAdminsReq, opts ...grpc.CallOption) (*ToggleChannelAdminsResp, error) {
-	out := new(ToggleChannelAdminsResp)
+func (c *rPCChannelsClient) DeleteChannelUser(ctx context.Context, in *DeleteChannelUserReq, opts ...grpc.CallOption) (*Void, error) {
+	out := new(Void)
+	err := c.cc.Invoke(ctx, "/channels.RPCChannels/DeleteChannelUser", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *rPCChannelsClient) EditChannelTitle(ctx context.Context, in *EditChannelTitleReq, opts ...grpc.CallOption) (*Void, error) {
+	out := new(Void)
+	err := c.cc.Invoke(ctx, "/channels.RPCChannels/EditChannelTitle", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *rPCChannelsClient) EditChannelPhoto(ctx context.Context, in *EditChannelPhotoReq, opts ...grpc.CallOption) (*Void, error) {
+	out := new(Void)
+	err := c.cc.Invoke(ctx, "/channels.RPCChannels/EditChannelPhoto", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *rPCChannelsClient) ToggleChannelAdmins(ctx context.Context, in *ToggleChannelAdminsReq, opts ...grpc.CallOption) (*Void, error) {
+	out := new(Void)
 	err := c.cc.Invoke(ctx, "/channels.RPCChannels/ToggleChannelAdmins", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *rPCChannelsClient) GetChannelParticipantIdList(ctx context.Context, in *ChannelData, opts ...grpc.CallOption) (*GetChannelParticipantIdListResp, error) {
+	out := new(GetChannelParticipantIdListResp)
+	err := c.cc.Invoke(ctx, "/channels.RPCChannels/GetChannelParticipantIdList", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -2389,7 +2200,7 @@ type RPCChannelsServer interface {
 	// NEW
 	GetChannelDataById(context.Context, *ChannelDataByIdReq) (*ChannelData, error)
 	CreateNewChannel(context.Context, *CreateNewChannelReq) (*ChannelData, error)
-	AddChannelParticipant(context.Context, *AddChannelParticipantReq) (*AddChannelParticipantResp, error)
+	AddChannelParticipant(context.Context, *AddChannelParticipantReq) (*Void, error)
 	GetChatsListBySelfAndIDList(context.Context, *GetChatsListBySelfAndIDListReq) (*GetChatsListBySelfAndIDListResp, error)
 	GetChannelFullBySelfId(context.Context, *GetChannelFullBySelfIdReq) (*GetChannelFullBySelfIdResp, error)
 	GetChannelParticipantList(context.Context, *ChannelParticipantListReq) (*ChannelParticipantListResp, error)
@@ -2398,13 +2209,15 @@ type RPCChannelsServer interface {
 	CheckChannelUserName(context.Context, *CheckChannelUserNameReq) (*CheckChannelUserNameResp, error)
 	UpdateChannelLink(context.Context, *UpdateChannelLinkReq) (*UpdateChannelLinkResp, error)
 	CheckUserIsAdministrator(context.Context, *CheckUserIsAdministratorReq) (*CheckUserIsAdministratorResp, error)
+	EditChannelAdmin(context.Context, *EditChannelAdminReq) (*Void, error)
+	// In Work
+	DeleteChannelUser(context.Context, *DeleteChannelUserReq) (*Void, error)
+	EditChannelTitle(context.Context, *EditChannelTitleReq) (*Void, error)
+	EditChannelPhoto(context.Context, *EditChannelPhotoReq) (*Void, error)
+	// OLD
+	ToggleChannelAdmins(context.Context, *ToggleChannelAdminsReq) (*Void, error)
+	// channel_data
 	GetChannelParticipantIdList(context.Context, *ChannelData) (*GetChannelParticipantIdListResp, error)
-	CheckDeleteChannelUser(context.Context, *CheckDeleteChannelUserReq) (*CheckDeleteChannelUserResp, error)
-	DeleteChannelUser(context.Context, *DeleteChannelUserReq) (*DeleteChannelUserResp, error)
-	EditChannelTitle(context.Context, *EditChannelTitleReq) (*EditChannelTitleResp, error)
-	EditChannelPhoto(context.Context, *EditChannelPhotoReq) (*EditChannelPhotoResp, error)
-	EditChannelAdmin(context.Context, *EditChannelAdminReq) (*EditChannelAdminResp, error)
-	ToggleChannelAdmins(context.Context, *ToggleChannelAdminsReq) (*ToggleChannelAdminsResp, error)
 	GetChannelBySelfID(context.Context, *GetChannelBySelfIDReq) (*GetChannelBySelfIDResp, error)
 	GetChannelParticipantIdListDao(context.Context, *GetChannelParticipantIdListDaoReq) (*GetChannelParticipantIdListDaoResp, error)
 }
@@ -2419,7 +2232,7 @@ func (*UnimplementedRPCChannelsServer) GetChannelDataById(ctx context.Context, r
 func (*UnimplementedRPCChannelsServer) CreateNewChannel(ctx context.Context, req *CreateNewChannelReq) (*ChannelData, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method CreateNewChannel not implemented")
 }
-func (*UnimplementedRPCChannelsServer) AddChannelParticipant(ctx context.Context, req *AddChannelParticipantReq) (*AddChannelParticipantResp, error) {
+func (*UnimplementedRPCChannelsServer) AddChannelParticipant(ctx context.Context, req *AddChannelParticipantReq) (*Void, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method AddChannelParticipant not implemented")
 }
 func (*UnimplementedRPCChannelsServer) GetChatsListBySelfAndIDList(ctx context.Context, req *GetChatsListBySelfAndIDListReq) (*GetChatsListBySelfAndIDListResp, error) {
@@ -2446,26 +2259,23 @@ func (*UnimplementedRPCChannelsServer) UpdateChannelLink(ctx context.Context, re
 func (*UnimplementedRPCChannelsServer) CheckUserIsAdministrator(ctx context.Context, req *CheckUserIsAdministratorReq) (*CheckUserIsAdministratorResp, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method CheckUserIsAdministrator not implemented")
 }
-func (*UnimplementedRPCChannelsServer) GetChannelParticipantIdList(ctx context.Context, req *ChannelData) (*GetChannelParticipantIdListResp, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method GetChannelParticipantIdList not implemented")
-}
-func (*UnimplementedRPCChannelsServer) CheckDeleteChannelUser(ctx context.Context, req *CheckDeleteChannelUserReq) (*CheckDeleteChannelUserResp, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method CheckDeleteChannelUser not implemented")
-}
-func (*UnimplementedRPCChannelsServer) DeleteChannelUser(ctx context.Context, req *DeleteChannelUserReq) (*DeleteChannelUserResp, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method DeleteChannelUser not implemented")
-}
-func (*UnimplementedRPCChannelsServer) EditChannelTitle(ctx context.Context, req *EditChannelTitleReq) (*EditChannelTitleResp, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method EditChannelTitle not implemented")
-}
-func (*UnimplementedRPCChannelsServer) EditChannelPhoto(ctx context.Context, req *EditChannelPhotoReq) (*EditChannelPhotoResp, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method EditChannelPhoto not implemented")
-}
-func (*UnimplementedRPCChannelsServer) EditChannelAdmin(ctx context.Context, req *EditChannelAdminReq) (*EditChannelAdminResp, error) {
+func (*UnimplementedRPCChannelsServer) EditChannelAdmin(ctx context.Context, req *EditChannelAdminReq) (*Void, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method EditChannelAdmin not implemented")
 }
-func (*UnimplementedRPCChannelsServer) ToggleChannelAdmins(ctx context.Context, req *ToggleChannelAdminsReq) (*ToggleChannelAdminsResp, error) {
+func (*UnimplementedRPCChannelsServer) DeleteChannelUser(ctx context.Context, req *DeleteChannelUserReq) (*Void, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method DeleteChannelUser not implemented")
+}
+func (*UnimplementedRPCChannelsServer) EditChannelTitle(ctx context.Context, req *EditChannelTitleReq) (*Void, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method EditChannelTitle not implemented")
+}
+func (*UnimplementedRPCChannelsServer) EditChannelPhoto(ctx context.Context, req *EditChannelPhotoReq) (*Void, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method EditChannelPhoto not implemented")
+}
+func (*UnimplementedRPCChannelsServer) ToggleChannelAdmins(ctx context.Context, req *ToggleChannelAdminsReq) (*Void, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method ToggleChannelAdmins not implemented")
+}
+func (*UnimplementedRPCChannelsServer) GetChannelParticipantIdList(ctx context.Context, req *ChannelData) (*GetChannelParticipantIdListResp, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetChannelParticipantIdList not implemented")
 }
 func (*UnimplementedRPCChannelsServer) GetChannelBySelfID(ctx context.Context, req *GetChannelBySelfIDReq) (*GetChannelBySelfIDResp, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetChannelBySelfID not implemented")
@@ -2676,38 +2486,20 @@ func _RPCChannels_CheckUserIsAdministrator_Handler(srv interface{}, ctx context.
 	return interceptor(ctx, in, info, handler)
 }
 
-func _RPCChannels_GetChannelParticipantIdList_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(ChannelData)
+func _RPCChannels_EditChannelAdmin_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(EditChannelAdminReq)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(RPCChannelsServer).GetChannelParticipantIdList(ctx, in)
+		return srv.(RPCChannelsServer).EditChannelAdmin(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/channels.RPCChannels/GetChannelParticipantIdList",
+		FullMethod: "/channels.RPCChannels/EditChannelAdmin",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(RPCChannelsServer).GetChannelParticipantIdList(ctx, req.(*ChannelData))
-	}
-	return interceptor(ctx, in, info, handler)
-}
-
-func _RPCChannels_CheckDeleteChannelUser_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(CheckDeleteChannelUserReq)
-	if err := dec(in); err != nil {
-		return nil, err
-	}
-	if interceptor == nil {
-		return srv.(RPCChannelsServer).CheckDeleteChannelUser(ctx, in)
-	}
-	info := &grpc.UnaryServerInfo{
-		Server:     srv,
-		FullMethod: "/channels.RPCChannels/CheckDeleteChannelUser",
-	}
-	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(RPCChannelsServer).CheckDeleteChannelUser(ctx, req.(*CheckDeleteChannelUserReq))
+		return srv.(RPCChannelsServer).EditChannelAdmin(ctx, req.(*EditChannelAdminReq))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -2766,24 +2558,6 @@ func _RPCChannels_EditChannelPhoto_Handler(srv interface{}, ctx context.Context,
 	return interceptor(ctx, in, info, handler)
 }
 
-func _RPCChannels_EditChannelAdmin_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(EditChannelAdminReq)
-	if err := dec(in); err != nil {
-		return nil, err
-	}
-	if interceptor == nil {
-		return srv.(RPCChannelsServer).EditChannelAdmin(ctx, in)
-	}
-	info := &grpc.UnaryServerInfo{
-		Server:     srv,
-		FullMethod: "/channels.RPCChannels/EditChannelAdmin",
-	}
-	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(RPCChannelsServer).EditChannelAdmin(ctx, req.(*EditChannelAdminReq))
-	}
-	return interceptor(ctx, in, info, handler)
-}
-
 func _RPCChannels_ToggleChannelAdmins_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(ToggleChannelAdminsReq)
 	if err := dec(in); err != nil {
@@ -2798,6 +2572,24 @@ func _RPCChannels_ToggleChannelAdmins_Handler(srv interface{}, ctx context.Conte
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(RPCChannelsServer).ToggleChannelAdmins(ctx, req.(*ToggleChannelAdminsReq))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _RPCChannels_GetChannelParticipantIdList_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(ChannelData)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(RPCChannelsServer).GetChannelParticipantIdList(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/channels.RPCChannels/GetChannelParticipantIdList",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(RPCChannelsServer).GetChannelParticipantIdList(ctx, req.(*ChannelData))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -2887,12 +2679,8 @@ var _RPCChannels_serviceDesc = grpc.ServiceDesc{
 			Handler:    _RPCChannels_CheckUserIsAdministrator_Handler,
 		},
 		{
-			MethodName: "GetChannelParticipantIdList",
-			Handler:    _RPCChannels_GetChannelParticipantIdList_Handler,
-		},
-		{
-			MethodName: "CheckDeleteChannelUser",
-			Handler:    _RPCChannels_CheckDeleteChannelUser_Handler,
+			MethodName: "EditChannelAdmin",
+			Handler:    _RPCChannels_EditChannelAdmin_Handler,
 		},
 		{
 			MethodName: "DeleteChannelUser",
@@ -2907,12 +2695,12 @@ var _RPCChannels_serviceDesc = grpc.ServiceDesc{
 			Handler:    _RPCChannels_EditChannelPhoto_Handler,
 		},
 		{
-			MethodName: "EditChannelAdmin",
-			Handler:    _RPCChannels_EditChannelAdmin_Handler,
-		},
-		{
 			MethodName: "ToggleChannelAdmins",
 			Handler:    _RPCChannels_ToggleChannelAdmins_Handler,
+		},
+		{
+			MethodName: "GetChannelParticipantIdList",
+			Handler:    _RPCChannels_GetChannelParticipantIdList_Handler,
 		},
 		{
 			MethodName: "GetChannelBySelfID",

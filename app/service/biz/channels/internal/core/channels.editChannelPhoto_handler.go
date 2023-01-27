@@ -7,7 +7,7 @@ import (
 	"gitlab.com/merehead/elloapp/backend/elloapp_tg_backend/app/service/biz/channels/channels"
 )
 
-func (c *ChannelsCore) EditChannelPhoto(in *channels.EditChannelPhotoReq) (res *channels.EditChannelPhotoResp, err error) {
+func (c *ChannelsCore) EditChannelPhoto(in *channels.EditChannelPhotoReq) (res *channels.Void, err error) {
 	err = c.checkOrLoadChannelParticipantList(in.Channel)
 	if err != nil {
 		return
@@ -21,7 +21,7 @@ func (c *ChannelsCore) EditChannelPhoto(in *channels.EditChannelPhotoReq) (res *
 	}
 
 	// check editUserId is creator or admin
-	if in.Channel.Channel.AdminsEnabled != 0 && participant.ParticipantType == kChannelParticipant {
+	if in.Channel.Channel.AdminsEnabled && participant.ParticipantType == channels.K_ChannelParticipant {
 		err = errors.New("NO_EDIT_CHAT_PERMISSION")
 		return
 	}
@@ -40,7 +40,7 @@ func (c *ChannelsCore) EditChannelPhoto(in *channels.EditChannelPhotoReq) (res *
 		return
 	}
 
-	res = &channels.EditChannelPhotoResp{}
+	res = &channels.Void{}
 
 	return
 }

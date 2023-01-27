@@ -10,7 +10,7 @@ import (
 func TestParticipantsSelectDAO(t *testing.T) {
 	d := dao.New(newConfDao()).ChannelParticipantsDAO
 
-	ch, err := d.SelectByChannelId(context.Background(), 1073741837)
+	ch, err := d.SelectByChannelId(context.Background(), 1073741829)
 	if err != nil {
 		t.Fatal(err)
 	}

@@ -19,6 +19,6 @@ func (c *UsernamesCore) ChannelsCheckUsername(in *mtproto.TLChannelsCheckUsernam
 		return
 	}
 
-	res = mtproto.ToBool(rOk.Status)
+	res = mtproto.ToBool(!rOk.Status)
 	return
 }

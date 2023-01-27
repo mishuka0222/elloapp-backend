@@ -25,16 +25,16 @@ func (c *ChannelsCore) GetChannelFullBySelfId(in *channels.GetChannelFullBySelfI
 	})
 	// photo2 := photo2.MakeUserProfilePhoto(photoId, sizes)
 
-	if in.ChannelData.Channel.GetPhotoId() == 0 {
+	if in.ChannelData.GetPhotoId() == 0 {
 		photoEmpty := (&mtproto.Photo{
 			Id: 0,
 		}).To_PhotoEmpty()
 		photo = photoEmpty.To_Photo()
 	} else {
 		channelPhoto := (&mtproto.Photo{
-			Id:          in.ChannelData.Channel.PhotoId,
+			Id:          in.ChannelData.GetPhotoId(),
 			HasStickers: false,
-			AccessHash:  in.ChannelData.Channel.PhotoId, // photo2.GetFileAccessHash(file.GetData2().GetId(), file.GetData2().GetParts()),
+			AccessHash:  in.ChannelData.GetPhotoId(), // photo2.GetFileAccessHash(file.GetData2().GetId(), file.GetData2().GetParts()),
 			Date:        int32(time.Now().Unix()),
 			Sizes:       sizes.Sizes,
 		}).To_Photo()
@@ -43,36 +43,43 @@ func (c *ChannelsCore) GetChannelFullBySelfId(in *channels.GetChannelFullBySelfI
 
 	peer := &mtproto.PeerUtil{
 		PeerType: mtproto.PEER_CHANNEL,
-		PeerId:   in.ChannelData.Channel.GetId(),
+		PeerId:   in.ChannelData.GetChannelId(),
 	}
 	notifySettings, err = c.svcCtx.UserService.UserGetNotifySettings(c.ctx, &userpb.TLUserGetNotifySettings{
-		UserId:   c.MD.UserId,
+		UserId:   in.SelfUserId,
 		PeerType: peer.PeerType,
 		PeerId:   peer.PeerId,
 	})
 
 	res.Channel = (&mtproto.ChatFull{
-		Id:                in.ChannelData.Channel.Id,
-		About:             in.ChannelData.Channel.Title,
-		ParticipantsCount: &types.Int32Value{Value: in.ChannelData.Channel.ParticipantCount},
-		AdminsCount:       &types.Int32Value{Value: 1}, // TODO: write logic: calc admins count
+		Id:                in.ChannelData.GetChannelId(),
+		About:             in.ChannelData.GetTitle(),
+		ParticipantsCount: &types.Int32Value{Value: in.ChannelData.ParticipantCount()},
+		AdminsCount:       &types.Int32Value{Value: in.ChannelData.AdminCount()},
 		ChatPhoto:         photo,
 		NotifySettings:    notifySettings,
-		ExportedInvite:    mtproto.MakeTLChatInviteExported(nil).To_ExportedChatInvite(), // TODO: write logic
+		ExportedInvite:    mtproto.MakeTLChatInviteExported(nil).To_ExportedChatInvite(),
 		BotInfo:           []*mtproto.BotInfo{},
 	}).To_ChannelFull()
 
-	isAdmin, err = c.CheckUserIsAdministrator(&channels.CheckUserIsAdministratorReq{Channel: in.ChannelData, UserId: in.SelfUserId})
+	isAdmin, err = c.CheckUserIsAdministrator(
+		&channels.CheckUserIsAdministratorReq{ChannelId: in.ChannelData.Channel.Id, UserId: in.SelfUserId})
+	if err != nil {
+		return
+	}
 	if isAdmin.Status {
 		res.Channel.SetCanViewParticipants(true)
 		res.Channel.SetCanSetUsername(true)
 	}
 
-	exportedInvite := &mtproto.TLChatInviteExported{Data2: &mtproto.ExportedChatInvite{
-		Link: in.ChannelData.Channel.Link,
-	}}
-
-	res.Channel.SetExportedInvite(exportedInvite.To_ExportedChatInvite())
+	if in.ChannelData.Channel.Link != "" {
+		res.Channel.SetExportedInvite(mtproto.MakeTLChatInviteExported(&mtproto.ExportedChatInvite{
+			Link:      in.ChannelData.Channel.Link,
+			AdminId:   in.ChannelData.Channel.CreatorUserId,
+			Date:      int32(time.Now().Unix()),
+			Permanent: true,
+		}).To_ExportedChatInvite())
+	}
 
 	return
 }

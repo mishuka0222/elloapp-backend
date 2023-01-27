@@ -13,25 +13,6 @@ import (
 	"github.com/zeromicro/go-zero/core/logx"
 )
 
-const (
-	kChannelParticipant        = 0
-	kChannelParticipantSelf    = 1
-	kChannelParticipantCreator = 2
-	kChannelParticipantAdmin   = 3
-	kChannelParticipantBanned  = 4
-)
-
-const (
-	MESSAGE_TYPE_UNKNOWN         = 0
-	MESSAGE_TYPE_MESSAGE_EMPTY   = 1
-	MESSAGE_TYPE_MESSAGE         = 2
-	MESSAGE_TYPE_MESSAGE_SERVICE = 3
-)
-const (
-	MESSAGE_BOX_TYPE_INCOMING = 0
-	MESSAGE_BOX_TYPE_OUTGOING = 1
-)
-
 type ChannelsCore struct {
 	ctx    context.Context
 	svcCtx *svc.ServiceContext
@@ -48,7 +29,7 @@ func NewChannels(ctx context.Context, svcCtx *svc.ServiceContext) *ChannelsCore 
 	}
 }
 
-func (c *ChannelsCore) checkOrLoadChannelParticipantList(in *channels.ChannelCoreData) (err error) {
+func (c *ChannelsCore) checkOrLoadChannelParticipantList(in *channels.ChannelData) (err error) {
 	if len(in.Participants) == 0 {
 		var (
 			participants []dataobject.ChannelParticipantDO
@@ -67,25 +48,71 @@ func (c *ChannelsCore) checkOrLoadChannelParticipantList(in *channels.ChannelCor
 	return
 }
 
+func (c *ChannelsCore) loadChannelParticipantDoList(channelId int64) (participants []dataobject.ChannelParticipantDO, err error) {
+
+	participants, err = c.svcCtx.Dao.ChannelParticipantsDAO.SelectByChannelId(c.ctx, channelId)
+	if err != nil {
+		return
+	} else if len(participants) == 0 {
+		err = errors.New(fmt.Sprintf("can`t load participants list for this channel: %d", channelId))
+	}
+
+	return
+}
+
 func makeChannelParticipantByDO(do *dataobject.ChannelParticipantDO) (participant *mtproto.ChannelParticipant, err error) {
 	participant = &mtproto.ChannelParticipant{
-		UserId:          do.UserId,
-		InviterId_INT64: do.InviterUserId,
-		Date:            do.JoinedAt,
+		UserId: do.UserId,
+		//InviterId_INT64: do.InviterUserId,
+		Date: do.JoinedAt,
 	}
 
 	switch do.ParticipantType {
-	case kChannelParticipant:
+	case channels.K_ChannelParticipant:
 		participant.Constructor = mtproto.CRC32_channelParticipant
-	case kChannelParticipantCreator:
+	case channels.K_ChannelParticipantCreator:
 		participant.Constructor = mtproto.CRC32_channelParticipantCreator
-	case kChannelParticipantAdmin:
+		participant.AdminRights = MakeTLChatAdminRights()
+	case channels.K_ChannelParticipantAdmin:
 		participant.Constructor = mtproto.CRC32_channelParticipantAdmin
+		participant.PromotedBy = do.InviterUserId
+		participant.AdminRights = do.GetAdminRights()
 	default:
 		err = errors.New(" channelParticipant type error.")
 	}
 
 	return
+}
+
+var defaultAdminRights = mtproto.MakeTLChatAdminRights(
+	&mtproto.ChatAdminRights{
+		ChangeInfo:     true,
+		PostMessages:   false,
+		EditMessages:   false,
+		DeleteMessages: true,
+		BanUsers:       true,
+		InviteUsers:    true,
+		PinMessages:    true,
+		AddAdmins:      false,
+		Anonymous:      false,
+		ManageCall:     true,
+		Other:          true,
+	}).To_ChatAdminRights()
+
+func MakeTLChatAdminRights() *mtproto.ChatAdminRights {
+	return mtproto.MakeTLChatAdminRights(&mtproto.ChatAdminRights{
+		ChangeInfo:     true,
+		PostMessages:   true, // default false
+		EditMessages:   true,
+		DeleteMessages: true,
+		BanUsers:       true,
+		InviteUsers:    true,
+		PinMessages:    true,
+		AddAdmins:      true,
+		Anonymous:      true,
+		ManageCall:     true,
+		Other:          true,
+	}).To_ChatAdminRights()
 }
 
 func ToChannelDO(ch *channels.Channel) *dataobject.ChannelDO {
@@ -99,8 +126,9 @@ func ToChannelDO(ch *channels.Channel) *dataobject.ChannelDO {
 		About:            ch.About,
 		PhotoId:          ch.PhotoId,
 		Link:             ch.Link,
-		AdminsEnabled:    int8(ch.AdminsEnabled),
-		Deactivated:      int8(ch.Deactivated),
+		Username:         ch.Username,
+		AdminsEnabled:    ch.AdminsEnabled,
+		Deactivated:      ch.Deactivated,
 		Version:          ch.Version,
 		Date:             ch.Date,
 		CreatedAt:        ch.CreatedAt,
@@ -113,29 +141,14 @@ func ToChannelParticipantDO(pnt *channels.ChannelParticipant) *dataobject.Channe
 		Id:              pnt.Id,
 		ChannelId:       pnt.ChannelId,
 		UserId:          pnt.UserId,
-		ParticipantType: int8(pnt.ParticipantType),
+		ParticipantType: pnt.ParticipantType,
+		AdminRights:     pnt.AdminRightsToStr(),
 		InviterUserId:   pnt.InviterUserId,
 		InvitedAt:       pnt.InvitedAt,
 		JoinedAt:        pnt.JoinedAt,
-		State:           int8(pnt.State),
+		LeftAt:          pnt.LeftAt,
+		State:           pnt.State,
 		CreatedAt:       pnt.CreatedAt,
 		UpdatedAt:       pnt.UpdatedAt,
-	}
-}
-
-func ToMessageDataDO(m *channels.MessageData) *dataobject.MessageDataDO {
-	return &dataobject.MessageDataDO{
-		Id:           m.Id,
-		DialogId:     m.DialogId,
-		SenderUserId: m.SenderUserId,
-		PeerType:     int8(m.PeerType),
-		PeerId:       m.PeerId,
-		RandomId:     m.RandomId,
-		MessageType:  int8(m.MessageType),
-		MessageData:  m.MessageData,
-		Date:         m.Date,
-		Deleted:      int8(m.Deleted),
-		CreatedAt:    m.CreatedAt,
-		UpdatedAt:    m.UpdatedAt,
 	}
 }

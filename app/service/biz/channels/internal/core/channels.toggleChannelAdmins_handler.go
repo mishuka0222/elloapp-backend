@@ -2,13 +2,12 @@ package core
 
 import (
 	"errors"
-	"gitlab.com/merehead/elloapp/backend/elloapp_tg_backend/mtproto"
 	"time"
 
 	"gitlab.com/merehead/elloapp/backend/elloapp_tg_backend/app/service/biz/channels/channels"
 )
 
-func (c *ChannelsCore) ToggleChannelAdmins(in *channels.ToggleChannelAdminsReq) (res *channels.ToggleChannelAdminsResp, err error) {
+func (c *ChannelsCore) ToggleChannelAdmins(in *channels.ToggleChannelAdminsReq) (res *channels.Void, err error) {
 	// check is creator
 	if in.UserId != in.Channel.Channel.CreatorUserId {
 		err = errors.New("NO_EDIT_CHAT_PERMISSION")
@@ -16,7 +15,7 @@ func (c *ChannelsCore) ToggleChannelAdmins(in *channels.ToggleChannelAdminsReq) 
 	}
 
 	var (
-		channelAdminsEnabled = in.Channel.Channel.AdminsEnabled == 1
+		channelAdminsEnabled = in.Channel.Channel.AdminsEnabled
 	)
 
 	// Check modified
@@ -25,13 +24,13 @@ func (c *ChannelsCore) ToggleChannelAdmins(in *channels.ToggleChannelAdminsReq) 
 		return
 	}
 
-	in.Channel.Channel.AdminsEnabled = int32(mtproto.BoolToInt8(in.AdminsEnabled))
+	in.Channel.Channel.AdminsEnabled = in.AdminsEnabled
 	in.Channel.Channel.Date = int32(time.Now().Unix())
 	in.Channel.Channel.Version += 1
 
-	_, err = c.svcCtx.Dao.ChannelsDAO.UpdateAdminsEnabled(c.ctx, int8(in.Channel.Channel.AdminsEnabled), in.Channel.Channel.Date, in.Channel.Channel.Id)
+	_, err = c.svcCtx.Dao.ChannelsDAO.UpdateAdminsEnabled(c.ctx, in.Channel.Channel.AdminsEnabled, in.Channel.Channel.Date, in.Channel.Channel.Id)
 
-	res = &channels.ToggleChannelAdminsResp{}
+	res = &channels.Void{}
 
 	return
 }

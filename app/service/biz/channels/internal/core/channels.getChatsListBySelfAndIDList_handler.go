@@ -7,9 +7,8 @@ import (
 	"gitlab.com/merehead/elloapp/backend/elloapp_tg_backend/app/service/biz/channels/channels"
 )
 
-// channel_util
-func (c *ChannelsCore) GetChannelListBySelfAndIDList(in *channels.GetChannelListBySelfAndIDListReq) (res *channels.GetChannelListBySelfAndIDListResp, err error) {
-	res = &channels.GetChannelListBySelfAndIDListResp{Chats: make([]*mtproto.Chat, 0)}
+func (c *ChannelsCore) GetChatsListBySelfAndIDList(in *channels.GetChatsListBySelfAndIDListReq) (res *channels.GetChatsListBySelfAndIDListResp, err error) {
+	res = &channels.GetChatsListBySelfAndIDListResp{Chats: make([]*mtproto.Chat, 0)}
 
 	if len(in.IdList) == 0 {
 		return
@@ -18,18 +17,18 @@ func (c *ChannelsCore) GetChannelListBySelfAndIDList(in *channels.GetChannelList
 	res.Chats = make([]*mtproto.Chat, 0, len(in.IdList))
 
 	var (
-		channelData *channels.ChannelCoreData
-		r           *channels.ToChannelResp
+		channelData *channels.ChannelData
+		r           *channels.ToChatResp
 	)
 
 	for _, id := range in.IdList {
-		channelData, err = c.NewChannelCoreById(&channels.ChannelCoreByIdReq{ChannelId: id})
+		channelData, err = c.GetChannelDataById(&channels.ChannelDataByIdReq{ChannelId: id})
 		if err != nil {
 			logx.Error("getChatListBySelfIDList - not find chat_id: ", id)
 			chatEmpty := (&mtproto.Chat{Id: id}).To_ChatEmpty()
 			res.Chats = append(res.Chats, chatEmpty.To_Chat())
 		} else {
-			r, _ = c.ToChannel(&channels.ToChannelReq{Channel: channelData, SelfUserId: in.SelfUserId})
+			r, _ = c.ToChat(&channels.ToChatReq{Channel: channelData, SelfUserId: in.SelfUserId})
 			res.Chats = append(res.Chats, r.Chat)
 		}
 	}

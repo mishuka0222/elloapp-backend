@@ -37,7 +37,7 @@ func (s *Service) CreateNewChannel(ctx context.Context, in *channels.CreateNewCh
 	return r, err
 }
 
-func (s *Service) AddChannelParticipant(ctx context.Context, in *channels.AddChannelParticipantReq) (*channels.AddChannelParticipantResp, error) {
+func (s *Service) AddChannelParticipant(ctx context.Context, in *channels.AddChannelParticipantReq) (*channels.Void, error) {
 	c := core.NewChannels(ctx, s.svcCtx)
 
 	c.Logger.Debugf("channels.AddChannelParticipant - metadata: %s, request: %s", c.MD.DebugString(), in.String())
@@ -154,72 +154,7 @@ func (s *Service) CheckUserIsAdministrator(ctx context.Context, in *channels.Che
 	return r, err
 }
 
-func (s *Service) GetChannelParticipantIdList(ctx context.Context, in *channels.ChannelData) (*channels.GetChannelParticipantIdListResp, error) {
-	c := core.NewChannels(ctx, s.svcCtx)
-
-	c.Logger.Debugf("channels.GetChannelParticipantIdList - metadata: %s, request: %s", c.MD.DebugString(), in.String())
-	r, err := c.GetChannelParticipantIdList(in)
-	if err != nil {
-		return nil, err
-	}
-
-	c.Logger.Debugf("channels.GetChannelParticipantIdList - reply: %+v", r)
-	return r, err
-}
-
-func (s *Service) CheckDeleteChannelUser(ctx context.Context, in *channels.CheckDeleteChannelUserReq) (*channels.CheckDeleteChannelUserResp, error) {
-	c := core.NewChannels(ctx, s.svcCtx)
-
-	c.Logger.Debugf("channels.CheckDeleteChannelUser - metadata: %s, request: %s", c.MD.DebugString(), in.String())
-	r, err := c.CheckDeleteChannelUser(in)
-	if err != nil {
-		return nil, err
-	}
-
-	c.Logger.Debugf("channels.CheckDeleteChannelUser - reply: %+v", r)
-	return r, err
-}
-
-func (s *Service) DeleteChannelUser(ctx context.Context, in *channels.DeleteChannelUserReq) (*channels.DeleteChannelUserResp, error) {
-	c := core.NewChannels(ctx, s.svcCtx)
-
-	c.Logger.Debugf("channels.DeleteChannelUser - metadata: %s, request: %s", c.MD.DebugString(), in.String())
-	r, err := c.DeleteChannelUser(in)
-	if err != nil {
-		return nil, err
-	}
-
-	c.Logger.Debugf("channels.DeleteChannelUser - reply: %+v", r)
-	return r, err
-}
-
-func (s *Service) EditChannelTitle(ctx context.Context, in *channels.EditChannelTitleReq) (*channels.EditChannelTitleResp, error) {
-	c := core.NewChannels(ctx, s.svcCtx)
-
-	c.Logger.Debugf("channels.EditChannelTitle - metadata: %s, request: %s", c.MD.DebugString(), in.String())
-	r, err := c.EditChannelTitle(in)
-	if err != nil {
-		return nil, err
-	}
-
-	c.Logger.Debugf("channels.EditChannelTitle - reply: %+v", r)
-	return r, err
-}
-
-func (s *Service) EditChannelPhoto(ctx context.Context, in *channels.EditChannelPhotoReq) (*channels.EditChannelPhotoResp, error) {
-	c := core.NewChannels(ctx, s.svcCtx)
-
-	c.Logger.Debugf("channels.EditChannelPhoto - metadata: %s, request: %s", c.MD.DebugString(), in.String())
-	r, err := c.EditChannelPhoto(in)
-	if err != nil {
-		return nil, err
-	}
-
-	c.Logger.Debugf("channels.EditChannelPhoto - reply: %+v", r)
-	return r, err
-}
-
-func (s *Service) EditChannelAdmin(ctx context.Context, in *channels.EditChannelAdminReq) (*channels.EditChannelAdminResp, error) {
+func (s *Service) EditChannelAdmin(ctx context.Context, in *channels.EditChannelAdminReq) (*channels.Void, error) {
 	c := core.NewChannels(ctx, s.svcCtx)
 
 	c.Logger.Debugf("channels.EditChannelAdmin - metadata: %s, request: %s", c.MD.DebugString(), in.String())
@@ -232,7 +167,48 @@ func (s *Service) EditChannelAdmin(ctx context.Context, in *channels.EditChannel
 	return r, err
 }
 
-func (s *Service) ToggleChannelAdmins(ctx context.Context, in *channels.ToggleChannelAdminsReq) (*channels.ToggleChannelAdminsResp, error) {
+// In Work
+func (s *Service) DeleteChannelUser(ctx context.Context, in *channels.DeleteChannelUserReq) (*channels.Void, error) {
+	c := core.NewChannels(ctx, s.svcCtx)
+
+	c.Logger.Debugf("channels.DeleteChannelUser - metadata: %s, request: %s", c.MD.DebugString(), in.String())
+	r, err := c.DeleteChannelUser(in)
+	if err != nil {
+		return nil, err
+	}
+
+	c.Logger.Debugf("channels.DeleteChannelUser - reply: %+v", r)
+	return r, err
+}
+
+func (s *Service) EditChannelTitle(ctx context.Context, in *channels.EditChannelTitleReq) (*channels.Void, error) {
+	c := core.NewChannels(ctx, s.svcCtx)
+
+	c.Logger.Debugf("channels.EditChannelTitle - metadata: %s, request: %s", c.MD.DebugString(), in.String())
+	r, err := c.EditChannelTitle(in)
+	if err != nil {
+		return nil, err
+	}
+
+	c.Logger.Debugf("channels.EditChannelTitle - reply: %+v", r)
+	return r, err
+}
+
+func (s *Service) EditChannelPhoto(ctx context.Context, in *channels.EditChannelPhotoReq) (*channels.Void, error) {
+	c := core.NewChannels(ctx, s.svcCtx)
+
+	c.Logger.Debugf("channels.EditChannelPhoto - metadata: %s, request: %s", c.MD.DebugString(), in.String())
+	r, err := c.EditChannelPhoto(in)
+	if err != nil {
+		return nil, err
+	}
+
+	c.Logger.Debugf("channels.EditChannelPhoto - reply: %+v", r)
+	return r, err
+}
+
+// OLD
+func (s *Service) ToggleChannelAdmins(ctx context.Context, in *channels.ToggleChannelAdminsReq) (*channels.Void, error) {
 	c := core.NewChannels(ctx, s.svcCtx)
 
 	c.Logger.Debugf("channels.ToggleChannelAdmins - metadata: %s, request: %s", c.MD.DebugString(), in.String())
@@ -242,6 +218,20 @@ func (s *Service) ToggleChannelAdmins(ctx context.Context, in *channels.ToggleCh
 	}
 
 	c.Logger.Debugf("channels.ToggleChannelAdmins - reply: %+v", r)
+	return r, err
+}
+
+// channel_data
+func (s *Service) GetChannelParticipantIdList(ctx context.Context, in *channels.ChannelData) (*channels.GetChannelParticipantIdListResp, error) {
+	c := core.NewChannels(ctx, s.svcCtx)
+
+	c.Logger.Debugf("channels.GetChannelParticipantIdList - metadata: %s, request: %s", c.MD.DebugString(), in.String())
+	r, err := c.GetChannelParticipantIdList(in)
+	if err != nil {
+		return nil, err
+	}
+
+	c.Logger.Debugf("channels.GetChannelParticipantIdList - reply: %+v", r)
 	return r, err
 }
 

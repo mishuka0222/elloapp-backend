@@ -5,22 +5,24 @@ import (
 	"gitlab.com/merehead/elloapp/backend/elloapp_tg_backend/app/service/biz/username/username"
 	"gitlab.com/merehead/elloapp/backend/elloapp_tg_backend/mtproto"
 	"gitlab.com/merehead/elloapp/backend/elloapp_tg_backend/mtproto/crypto"
-	"strings"
 	"time"
 
 	"gitlab.com/merehead/elloapp/backend/elloapp_tg_backend/app/service/biz/channels/channels"
 )
 
 func (c *ChannelsCore) UpdateChannelLink(in *channels.UpdateChannelLinkReq) (res *channels.UpdateChannelLinkResp, err error) {
+	var username_ = in.GetLink()
+
 	if in.Link == "" {
 		in.Link = "https://elloapp.com/" + base64.StdEncoding.EncodeToString(crypto.GenerateNonce(16))
+	} else {
+		in.Link = "https://elloapp.com/" + in.Link
 	}
 	_, err = c.svcCtx.Dao.ChannelsDAO.UpdateLink(c.ctx, in.Link, int32(time.Now().Unix()), in.ChannelId)
 	if err != nil {
 		return
 	}
 
-	username_ := strings.Replace(in.Link, "https://elloapp.com/", "", 1)
 	_, err = c.svcCtx.Dao.ChannelsDAO.UpdateUsername(c.ctx, username_, int32(time.Now().Unix()), in.ChannelId)
 	if err != nil {
 		return

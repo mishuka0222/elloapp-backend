@@ -53,7 +53,7 @@ func (c *ChannelsCore) GetChannelFullBySelfId(in *channels.GetChannelFullBySelfI
 
 	res.Channel = (&mtproto.ChatFull{
 		Id:                in.ChannelData.GetChannelId(),
-		About:             in.ChannelData.GetTitle(),
+		About:             in.ChannelData.Channel.About,
 		ParticipantsCount: &types.Int32Value{Value: in.ChannelData.ParticipantCount()},
 		AdminsCount:       &types.Int32Value{Value: in.ChannelData.AdminCount()},
 		ChatPhoto:         photo,

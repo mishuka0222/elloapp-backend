@@ -47,15 +47,29 @@ func (c *MsgCore) MsgSendMessage(in *msg.TLMsgSendMessage) (*mtproto.Updates, er
 			return nil, err
 		}
 	} else if peer.IsChannel() {
-		rOk, err := c.svcCtx.Dao.ChannelsClient.CheckUserIsAdministrator(c.ctx, &channels.CheckUserIsAdministratorReq{
-			ChannelId: in.PeerId,
-			UserId:    in.UserId,
-		})
-		if err != nil {
-			return nil, err
-		} else if !rOk.Status {
+		var forbidden = true
+		if in.Message.Message != nil && in.Message.Message.Action != nil {
+			switch in.Message.Message.Action.PredicateName {
+			case mtproto.Predicate_messageActionChatDeleteUser:
+				forbidden = false
+			default:
+			}
+		}
+		if forbidden {
+			rOk, err := c.svcCtx.Dao.ChannelsClient.CheckUserIsAdministrator(c.ctx, &channels.CheckUserIsAdministratorReq{
+				ChannelId: in.PeerId,
+				UserId:    in.UserId,
+			})
+			if err != nil {
+				return nil, err
+			}
+			forbidden = !rOk.Status
+		}
+
+		if forbidden {
 			return nil, errors.New("NO_EDIT_CHAT_PERMISSION")
 		}
+
 		rUpdates, err = c.sendChannelOutgoingMessage(in.UserId, in.AuthKeyId, in.PeerId, outBox)
 		if err != nil {
 			c.Logger.Errorf("msg.sendMessage - error: %v", err)

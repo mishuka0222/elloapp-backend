@@ -264,7 +264,7 @@ func (dao *ChannelsDAO) UpdateVersion(ctx context.Context, date int32, id int64)
 
 func (dao *ChannelsDAO) CheckUsername(ctx context.Context, username string) (rValue bool, err error) {
 	var (
-		query = "select id from channels where link = ? limit 1"
+		query = "select id from channels where username = ? limit 1"
 		row   int64
 	)
 	err = dao.db.QueryRow(ctx, &row, query, username)

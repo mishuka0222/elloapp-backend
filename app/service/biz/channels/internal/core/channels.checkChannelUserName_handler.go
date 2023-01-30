@@ -11,26 +11,22 @@ func (c *ChannelsCore) CheckChannelUserName(in *channels.CheckChannelUserNameReq
 		status bool
 	)
 	id, err = c.svcCtx.Dao.UsersDAO.SelectByUsername(c.ctx, in.UserName)
-
-	switch true {
-	case err == sqlx.ErrNotFound:
-		break
-	case id != 0:
+	if err == sqlx.ErrNotFound {
+		err = nil
+	} else if err != nil {
+		return
+	} else if id != 0 {
 		res = &channels.CheckChannelUserNameResp{Status: true}
 		return
-	case err != nil:
-		return
-	default:
 	}
 
 	status, err = c.svcCtx.Dao.ChannelsDAO.CheckUsername(c.ctx, in.UserName)
-	switch true {
-	case err == sqlx.ErrNotFound:
+	if err == sqlx.ErrNotFound {
+		err = nil
 		res = &channels.CheckChannelUserNameResp{Status: false}
 		return
-	case err != nil:
+	} else if err != nil {
 		return
-	default:
 	}
 
 	res = &channels.CheckChannelUserNameResp{Status: status}

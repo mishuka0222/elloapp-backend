@@ -11,4 +11,5 @@ type Config struct {
 	ChatClient     zrpc.RpcClientConf
 	UsernameClient zrpc.RpcClientConf
 	SyncClient     *kafka.KafkaProducerConf
+	ChannelsClient zrpc.RpcClientConf
 }

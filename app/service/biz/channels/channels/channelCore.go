@@ -18,9 +18,7 @@ const (
 
 const (
 	K_ParticipantActiveState = 0
-	K_ParticipantLeftState   = iota
-	K_ParticipantKikedState
-	K_ParticipantBannedState
+	K_ParticipantLeftState   = 1
 )
 
 func (ptc *ChannelParticipant) MakeChannelParticipant(selfId int64) (participant *mtproto.ChannelParticipant, err error) {
@@ -53,10 +51,42 @@ func (ptc *ChannelParticipant) MakeChannelParticipant(selfId int64) (participant
 
 	return
 }
+func (ptc *ChannelParticipant) ToChatParticipant() *mtproto.ChatParticipant {
+	switch ptc.ParticipantType {
+	case K_ChannelParticipantCreator:
+		return mtproto.MakeTLChatParticipantCreator(&mtproto.ChatParticipant{
+			UserId: ptc.UserId,
+		}).To_ChatParticipant()
+	case K_ChannelParticipantAdmin:
+		return mtproto.MakeTLChatParticipantAdmin(&mtproto.ChatParticipant{
+			UserId:    ptc.UserId,
+			InviterId: ptc.InviterUserId,
+			Date:      ptc.InvitedAt,
+		}).To_ChatParticipant()
+	default:
+		return mtproto.MakeTLChatParticipant(&mtproto.ChatParticipant{
+			UserId:    ptc.UserId,
+			InviterId: ptc.InviterUserId,
+			Date:      ptc.InvitedAt,
+		}).To_ChatParticipant()
+	}
+}
+
+func (ptc *ChannelParticipant) IsChatMemberStateNormal() bool {
+	if ptc.ParticipantType == K_ChannelParticipantCreator ||
+		ptc.ParticipantType == K_ChannelParticipantAdmin ||
+		ptc.ParticipantType == K_ChannelParticipant {
+		return true
+	}
+	return false
+}
 
 func (ptc *ChannelParticipant) AdminRightsToStr() (res string) {
 	if ptc.AdminRights != nil {
 		res, _ = jsonx.MarshalToString(ptc.AdminRights)
+	}
+	if res == "" {
+		return "{}"
 	}
 	return
 }
@@ -160,6 +190,23 @@ func (ch *ChannelData) MakeChannelEditTitleMessage(operatorId int64, title strin
 	}}
 
 	return ch.MakeMessageService(operatorId, action.To_MessageAction())
+}
+
+func (ch *ChannelData) GetNormalParticipants() (participants *mtproto.ChatParticipants, idList []int64) {
+	participants = mtproto.MakeTLChatParticipants(&mtproto.ChatParticipants{
+		ChatId:       ch.GetChannelId(),
+		Participants: make([]*mtproto.ChatParticipant, 0, len(ch.Participants)),
+		Version:      ch.Channel.Version,
+	}).To_ChatParticipants()
+
+	for _, cp := range ch.Participants {
+		if cp.IsChatMemberStateNormal() {
+			participants.Participants = append(participants.Participants, cp.ToChatParticipant())
+			idList = append(idList, cp.Id)
+		}
+	}
+
+	return
 }
 
 func (ch *ChannelData) FindChatParticipant(selfUserId int64) (int, *ChannelParticipant) {

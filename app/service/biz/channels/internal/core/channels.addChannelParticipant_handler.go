@@ -2,13 +2,14 @@ package core
 
 import (
 	"errors"
+	"github.com/zeromicro/go-zero/core/jsonx"
 	"gitlab.com/merehead/elloapp/backend/elloapp_tg_backend/app/service/biz/channels/internal/dao/dataobject"
 	"time"
 
 	"gitlab.com/merehead/elloapp/backend/elloapp_tg_backend/app/service/biz/channels/channels"
 )
 
-func (c *ChannelsCore) AddChannelParticipant(in *channels.AddChannelParticipantReq) (res *channels.Void, err error) {
+func (c *ChannelsCore) AddChannelParticipant(in *channels.AddChannelParticipantReq) (res *channels.ChannelData, err error) {
 	err = c.checkOrLoadChannelParticipantList(in.Channel)
 	if err != nil {
 		return
@@ -24,23 +25,39 @@ func (c *ChannelsCore) AddChannelParticipant(in *channels.AddChannelParticipantR
 			}
 		}
 	}
+	if err != nil {
+		return
+	}
 
-	var now = int32(time.Now().Unix())
+	var (
+		now = int32(time.Now().Unix())
+	)
 
 	if founded != -1 {
-		in.Channel.Participants[founded].State = 0
+		in.Channel.Participants[founded].State = channels.K_ParticipantActiveState
 		_, err = c.svcCtx.Dao.ChannelParticipantsDAO.Update(c.ctx, in.InviterId, now, now, in.Channel.Participants[founded].Id)
 		if err != nil {
 			return
 		}
 	} else {
-		channelParticipant := &dataobject.ChannelParticipantDO{
+		var (
+			channelParticipant *dataobject.ChannelParticipantDO
+			participantType    int32 = channels.K_ChannelParticipant
+			adminRights              = "{}"
+		)
+		if in.AdminRights != nil {
+			adminRights, _ = jsonx.MarshalToString(in.AdminRights)
+			participantType = channels.K_ChannelParticipantAdmin
+		}
+
+		channelParticipant = &dataobject.ChannelParticipantDO{
 			ChannelId:       in.Channel.Channel.Id,
 			UserId:          in.UserId,
-			ParticipantType: channels.K_ChannelParticipant,
+			ParticipantType: participantType,
 			InviterUserId:   in.InviterId,
 			InvitedAt:       now,
 			JoinedAt:        now,
+			AdminRights:     adminRights,
 		}
 		channelParticipant.Id, err = c.svcCtx.Dao.ChannelParticipantsDAO.Insert(c.ctx, channelParticipant)
 		if err != nil {
@@ -58,7 +75,7 @@ func (c *ChannelsCore) AddChannelParticipant(in *channels.AddChannelParticipantR
 		return
 	}
 
-	res = &channels.Void{}
+	res = in.Channel
 
 	return
 }

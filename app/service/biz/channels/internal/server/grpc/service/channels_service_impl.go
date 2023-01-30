@@ -37,7 +37,7 @@ func (s *Service) CreateNewChannel(ctx context.Context, in *channels.CreateNewCh
 	return r, err
 }
 
-func (s *Service) AddChannelParticipant(ctx context.Context, in *channels.AddChannelParticipantReq) (*channels.Void, error) {
+func (s *Service) AddChannelParticipant(ctx context.Context, in *channels.AddChannelParticipantReq) (*channels.ChannelData, error) {
 	c := core.NewChannels(ctx, s.svcCtx)
 
 	c.Logger.Debugf("channels.AddChannelParticipant - metadata: %s, request: %s", c.MD.DebugString(), in.String())
@@ -154,7 +154,7 @@ func (s *Service) CheckUserIsAdministrator(ctx context.Context, in *channels.Che
 	return r, err
 }
 
-func (s *Service) EditChannelAdmin(ctx context.Context, in *channels.EditChannelAdminReq) (*channels.Void, error) {
+func (s *Service) EditChannelAdmin(ctx context.Context, in *channels.EditChannelAdminReq) (*channels.ChannelData, error) {
 	c := core.NewChannels(ctx, s.svcCtx)
 
 	c.Logger.Debugf("channels.EditChannelAdmin - metadata: %s, request: %s", c.MD.DebugString(), in.String())
@@ -218,45 +218,5 @@ func (s *Service) ToggleChannelAdmins(ctx context.Context, in *channels.ToggleCh
 	}
 
 	c.Logger.Debugf("channels.ToggleChannelAdmins - reply: %+v", r)
-	return r, err
-}
-
-// channel_data
-func (s *Service) GetChannelParticipantIdList(ctx context.Context, in *channels.ChannelData) (*channels.GetChannelParticipantIdListResp, error) {
-	c := core.NewChannels(ctx, s.svcCtx)
-
-	c.Logger.Debugf("channels.GetChannelParticipantIdList - metadata: %s, request: %s", c.MD.DebugString(), in.String())
-	r, err := c.GetChannelParticipantIdList(in)
-	if err != nil {
-		return nil, err
-	}
-
-	c.Logger.Debugf("channels.GetChannelParticipantIdList - reply: %+v", r)
-	return r, err
-}
-
-func (s *Service) GetChannelBySelfID(ctx context.Context, in *channels.GetChannelBySelfIDReq) (*channels.GetChannelBySelfIDResp, error) {
-	c := core.NewChannels(ctx, s.svcCtx)
-
-	c.Logger.Debugf("channels.GetChannelBySelfID - metadata: %s, request: %s", c.MD.DebugString(), in.String())
-	r, err := c.GetChannelBySelfID(in)
-	if err != nil {
-		return nil, err
-	}
-
-	c.Logger.Debugf("channels.GetChannelBySelfID - reply: %+v", r)
-	return r, err
-}
-
-func (s *Service) GetChannelParticipantIdListDao(ctx context.Context, in *channels.GetChannelParticipantIdListDaoReq) (*channels.GetChannelParticipantIdListDaoResp, error) {
-	c := core.NewChannels(ctx, s.svcCtx)
-
-	c.Logger.Debugf("channels.GetChannelParticipantIdListDao - metadata: %s, request: %s", c.MD.DebugString(), in.String())
-	r, err := c.GetChannelParticipantIdListDao(in)
-	if err != nil {
-		return nil, err
-	}
-
-	c.Logger.Debugf("channels.GetChannelParticipantIdListDao - reply: %+v", r)
 	return r, err
 }

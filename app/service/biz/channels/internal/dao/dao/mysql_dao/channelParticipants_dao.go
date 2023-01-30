@@ -102,7 +102,7 @@ func (dao *ChannelParticipantsDAO) SelectByUserId(ctx context.Context, channel_i
 // update channel_participants set state = 1 where id = :id
 func (dao *ChannelParticipantsDAO) DeleteChannelUser(ctx context.Context, reason int32, id int64, left_at int32) (i int64, err error) {
 	var (
-		query = "update channel_participants set state = ?, left_at = ? where id = ?"
+		query = "update channel_participants set state = ?, left_at = ?, participant_type = 5 where id = ?"
 		res   sql.Result
 	)
 	res, err = dao.db.Exec(ctx, query, reason, left_at, id)
@@ -146,12 +146,12 @@ func (dao *ChannelParticipantsDAO) Update(ctx context.Context, inviter_user_id i
 
 // UpdateParticipantType
 // update channel_participants set participant_type = :participant_type where id = :id
-func (dao *ChannelParticipantsDAO) UpdateParticipantType(ctx context.Context, participant_type int8, id int64) (i int64, err error) {
+func (dao *ChannelParticipantsDAO) UpdateParticipantType(ctx context.Context, participant_type, state int8, id int64) (i int64, err error) {
 	var (
-		query = "update channel_participants set participant_type = ? where id = ?"
+		query = "update channel_participants set participant_type = ?, state = ? where id = ?"
 		res   sql.Result
 	)
-	res, err = dao.db.Exec(ctx, query, participant_type, id)
+	res, err = dao.db.Exec(ctx, query, participant_type, state, id)
 
 	if err != nil {
 		logx.WithContext(ctx).Errorf("Exec in UpdateParticipantType(_), error: %v", err)

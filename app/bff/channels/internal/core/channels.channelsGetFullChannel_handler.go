@@ -2,7 +2,6 @@ package core
 
 import (
 	"errors"
-	"github.com/zeromicro/go-zero/core/jsonx"
 	"gitlab.com/merehead/elloapp/backend/elloapp_tg_backend/app/service/biz/channels/channels"
 	userpb "gitlab.com/merehead/elloapp/backend/elloapp_tg_backend/app/service/biz/user/user"
 
@@ -59,9 +58,6 @@ func (c *ChannelsCore) ChannelsGetFullChannel(in *mtproto.TLChannelsGetFullChann
 		Chats:    []*mtproto.Chat{resChat.Chat},
 		Users:    mUsers.GetUserListByIdList(c.MD.UserId, idList...),
 	}).To_Messages_ChatFull()
-
-	v, _ := jsonx.MarshalToString(res)
-	c.Logger.Debug("MY_DEBUG", v)
 
 	return
 }

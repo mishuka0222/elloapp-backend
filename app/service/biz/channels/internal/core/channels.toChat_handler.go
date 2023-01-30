@@ -9,22 +9,25 @@ import (
 
 func (c *ChannelsCore) ToChat(in *channels.ToChatReq) (res *channels.ToChatResp, err error) {
 	var (
-		forbidden = false
-		admin     = false
-		creator   = in.Channel.Channel.CreatorUserId == in.SelfUserId
-		channel   *mtproto.TLChannel
+		forbidden   = false
+		admin       = false
+		creator     = in.Channel.Channel.CreatorUserId == in.SelfUserId
+		channel     *mtproto.TLChannel
+		participant *channels.ChannelParticipant
+		find        bool
 	)
-	for i := range in.Channel.Participants {
-		if in.Channel.Participants[i].UserId == in.SelfUserId && in.Channel.Participants[i].State == 1 {
-			forbidden = true
-			break
-		}
-		if in.Channel.Participants[i].ParticipantType == channels.K_ChannelParticipantAdmin {
-			admin = true
-		}
+
+	_, participant = in.Channel.FindChatParticipant(in.SelfUserId)
+	find = participant != nil
+
+	if find && participant.State == channels.K_ParticipantLeftState {
+		forbidden = true
+	}
+	if find && participant.ParticipantType == channels.K_ChannelParticipantAdmin {
+		admin = true
 	}
 
-	if forbidden {
+	if forbidden || !find {
 		var channel *mtproto.TLChannelForbidden
 		channel = (&mtproto.Chat{
 			Id:    in.Channel.Channel.Id,
@@ -54,35 +57,22 @@ func (c *ChannelsCore) ToChat(in *channels.ToChatReq) (res *channels.ToChatResp,
 	}).To_Channel()
 
 	if in.Channel.Channel.CreatorUserId == in.SelfUserId {
-		AdminRights := mtproto.MakeTLChatAdminRights(&mtproto.ChatAdminRights{
-			ChangeInfo:     true,
-			PostMessages:   true, // default false
-			EditMessages:   true,
-			DeleteMessages: true,
-			BanUsers:       true,
-			InviteUsers:    true,
-			PinMessages:    true,
-			AddAdmins:      true,
-			Anonymous:      true,
-			ManageCall:     true,
-			Other:          true,
-		}).To_ChatAdminRights()
-		channel.SetAdminRights(AdminRights)
+		//AdminRights := mtproto.MakeTLChatAdminRights(&mtproto.ChatAdminRights{
+		//			ChangeInfo:     true,
+		//			PostMessages:   true, // default false
+		//			EditMessages:   true,
+		//			DeleteMessages: true,
+		//			BanUsers:       true,
+		//			InviteUsers:    true,
+		//			PinMessages:    true,
+		//			AddAdmins:      true,
+		//			Anonymous:      true,
+		//			ManageCall:     true,
+		//			Other:          true,
+		//		}).To_ChatAdminRights()
+		channel.SetAdminRights(participant.AdminRights)
 	} else if admin {
-		AdminRights := mtproto.MakeTLChatAdminRights(&mtproto.ChatAdminRights{
-			ChangeInfo:     true,
-			PostMessages:   false,
-			EditMessages:   false,
-			DeleteMessages: true,
-			BanUsers:       true,
-			InviteUsers:    true,
-			PinMessages:    true,
-			AddAdmins:      false,
-			Anonymous:      false,
-			ManageCall:     true,
-			Other:          true,
-		}).To_ChatAdminRights()
-		channel.SetAdminRights(AdminRights)
+		channel.SetAdminRights(participant.AdminRights)
 		channel.SetBroadcast(true)
 	} else {
 		channel.SetDefaultBannedRights(mtproto.MakeDefaultBannedRights())

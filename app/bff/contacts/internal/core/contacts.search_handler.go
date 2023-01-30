@@ -1,6 +1,7 @@
 package core
 
 import (
+	"gitlab.com/merehead/elloapp/backend/elloapp_tg_backend/app/service/biz/channels/channels"
 	userpb "gitlab.com/merehead/elloapp/backend/elloapp_tg_backend/app/service/biz/user/user"
 	"gitlab.com/merehead/elloapp/backend/elloapp_tg_backend/app/service/biz/username/username"
 	"gitlab.com/merehead/elloapp/backend/elloapp_tg_backend/mtproto"
@@ -109,7 +110,19 @@ func (c *ContactsCore) ContactsSearch(in *mtproto.TLContactsSearch) (*mtproto.Co
 					found.Results = append(found.Results, mtproto.MakePeerChannel(ch.GetId()))
 				}
 			} else {
-				c.Logger.Errorf("contacts.search blocked, License key from https://elloapp.com required to unlock enterprise features.")
+				chats, err := c.svcCtx.ChannelsClient.GetChatsListBySelfAndIDList(c.ctx, &channels.GetChatsListBySelfAndIDListReq{
+					SelfUserId: c.MD.UserId,
+					IdList:     channelIdList,
+				})
+				if err == nil && chats != nil {
+					for _, ch := range chats.Chats {
+						if ch.PredicateName == mtproto.Predicate_chatEmpty {
+							continue
+						}
+						found.Chats = append(found.Chats, ch)
+						found.Results = append(found.Results, mtproto.MakePeerChannel(ch.GetId()))
+					}
+				}
 			}
 		})
 

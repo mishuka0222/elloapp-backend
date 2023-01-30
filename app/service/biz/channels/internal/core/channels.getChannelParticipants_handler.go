@@ -10,7 +10,10 @@ func (c *ChannelsCore) GetChannelParticipants(in *channels.ChannelParticipantsRe
 		r *channels.ChannelParticipantListResp
 	)
 
-	r, err = c.GetChannelParticipantList(&channels.ChannelParticipantListReq{ChannelId: in.ChannelId})
+	r, err = c.GetChannelParticipantList(&channels.ChannelParticipantListReq{
+		ChannelId: in.ChannelId,
+		Types:     in.Types,
+	})
 	if err != nil {
 		return
 	}

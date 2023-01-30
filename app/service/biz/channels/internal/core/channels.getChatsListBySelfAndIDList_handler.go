@@ -28,6 +28,11 @@ func (c *ChannelsCore) GetChatsListBySelfAndIDList(in *channels.GetChatsListBySe
 			chatEmpty := (&mtproto.Chat{Id: id}).To_ChatEmpty()
 			res.Chats = append(res.Chats, chatEmpty.To_Chat())
 		} else {
+			// todo: optimization
+			err = c.checkOrLoadChannelParticipantList(channelData)
+			if err != nil {
+				return
+			}
 			r, _ = c.ToChat(&channels.ToChatReq{Channel: channelData, SelfUserId: in.SelfUserId})
 			res.Chats = append(res.Chats, r.Chat)
 		}

@@ -84,20 +84,20 @@ func makeChannelParticipantByDO(do *dataobject.ChannelParticipantDO) (participan
 	return
 }
 
-var defaultAdminRights = mtproto.MakeTLChatAdminRights(
-	&mtproto.ChatAdminRights{
-		ChangeInfo:     true,
-		PostMessages:   false,
-		EditMessages:   false,
-		DeleteMessages: true,
-		BanUsers:       true,
-		InviteUsers:    true,
-		PinMessages:    true,
-		AddAdmins:      false,
-		Anonymous:      false,
-		ManageCall:     true,
-		Other:          true,
-	}).To_ChatAdminRights()
+//var defaultAdminRights = mtproto.MakeTLChatAdminRights(
+//	&mtproto.ChatAdminRights{
+//		ChangeInfo:     true,
+//		PostMessages:   false,
+//		EditMessages:   false,
+//		DeleteMessages: true,
+//		BanUsers:       true,
+//		InviteUsers:    true,
+//		PinMessages:    true,
+//		AddAdmins:      false,
+//		Anonymous:      false,
+//		ManageCall:     true,
+//		Other:          true,
+//	}).To_ChatAdminRights()
 
 func MakeTLChatAdminRights() *mtproto.ChatAdminRights {
 	return mtproto.MakeTLChatAdminRights(&mtproto.ChatAdminRights{

@@ -220,6 +220,7 @@ func (s *Server) Initialize() error {
 					ChatClient:     c.BizServiceClient,
 					UsernameClient: c.BizServiceClient,
 					SyncClient:     c.SyncClient,
+					ChannelsClient: c.BizServiceClient,
 				},
 				nil))
 

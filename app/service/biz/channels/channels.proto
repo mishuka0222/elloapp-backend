@@ -48,15 +48,6 @@ message Channel {
 
 }
 
-message MakeChannelParticipant2ByDOReq {
-  ChannelParticipant participant = 1;
-  int64 selfId = 2;
-}
-
-message ChannelParticipantRes {
-  mtproto.ChannelParticipant participant = 1;
-}
-
 message ChannelDataByIdReq {
   int64 channelId = 1;
 }
@@ -93,18 +84,16 @@ message CheckUserIsAdministratorResp {
 
 message ChannelParticipantListReq {
   int64 channelId = 1;
+  repeated int32 types = 2;
 }
 
 message ChannelParticipantListResp {
   repeated mtproto.ChannelParticipant participants = 1;
 }
 
-message GetChannelParticipantIdListResp {
-  repeated int64 id_list = 1;
-}
-
 message ChannelParticipantsReq {
   int64 channelId = 1;
+  repeated int32 types = 2;
 }
 
 message GetChannelParticipantsResp {
@@ -115,7 +104,7 @@ message AddChannelParticipantReq {
   ChannelData channel = 1;
   int64 inviterId = 2;
   int64 userId = 3;
-  bool isAdmin = 4;
+  mtproto.ChatAdminRights adminRights = 4;
 }
 
 message ToChatReq {
@@ -125,12 +114,6 @@ message ToChatReq {
 
 message ToChatResp {
   mtproto.Chat chat = 1;
-}
-
-message CheckDeleteChannelUserReq {
-  ChannelData channel = 1;
-  int64 operatorId = 2;
-  int64 deleteUserId = 3;
 }
 
 message DeleteChannelUserReq {
@@ -155,8 +138,8 @@ message EditChannelPhotoReq {
 message EditChannelAdminReq {
   int64 channelId = 1;
   int64 operatorId = 2;
-  int64 editChannelAdminId = 3;
-  bool isAdmin = 4;
+  int64 editUserId = 3;
+  mtproto.ChatAdminRights adminRights = 4;
 }
 
 message ToggleChannelAdminsReq {
@@ -184,23 +167,6 @@ message CheckChannelUserNameResp {
   bool status = 1;
 }
 
-message GetChannelBySelfIDReq {
-  int64 selfUserId = 1;
-  int64 channelId = 2;
-}
-
-message GetChannelBySelfIDResp {
-  mtproto.Chat chat = 1;
-}
-
-message GetChannelParticipantIdListDaoReq {
-  int64 channelId = 1;
-}
-
-message GetChannelParticipantIdListDaoResp {
-  repeated int64 idList = 1;
-}
-
 message GetChannelFullBySelfIdReq {
   ChannelData channelData = 1;
   int64 selfUserId = 2;
@@ -215,19 +181,17 @@ service RPCChannels {
   // NEW
   rpc GetChannelDataById(ChannelDataByIdReq) returns (ChannelData);
   rpc CreateNewChannel(CreateNewChannelReq) returns (ChannelData);
-  rpc AddChannelParticipant(AddChannelParticipantReq) returns (Void);
+  rpc AddChannelParticipant(AddChannelParticipantReq) returns (ChannelData);
   rpc GetChatsListBySelfAndIDList(GetChatsListBySelfAndIDListReq) returns (GetChatsListBySelfAndIDListResp);
   rpc GetChannelFullBySelfId(GetChannelFullBySelfIdReq) returns (GetChannelFullBySelfIdResp);
   rpc GetChannelParticipantList(ChannelParticipantListReq) returns (ChannelParticipantListResp);
   rpc GetChannelParticipants(ChannelParticipantsReq) returns (GetChannelParticipantsResp);
   rpc ToChat(ToChatReq) returns (ToChatResp);
-
   rpc CheckChannelUserName(CheckChannelUserNameReq) returns (CheckChannelUserNameResp);
   rpc UpdateChannelLink(UpdateChannelLinkReq) returns (UpdateChannelLinkResp);
-
   rpc CheckUserIsAdministrator(CheckUserIsAdministratorReq) returns (CheckUserIsAdministratorResp);
 
-  rpc EditChannelAdmin(EditChannelAdminReq) returns (Void);
+  rpc EditChannelAdmin(EditChannelAdminReq) returns (ChannelData);
   // In Work
   rpc DeleteChannelUser(DeleteChannelUserReq) returns (Void);
 
@@ -236,13 +200,5 @@ service RPCChannels {
   rpc EditChannelPhoto(EditChannelPhotoReq) returns (Void);
   // OLD
   rpc ToggleChannelAdmins(ToggleChannelAdminsReq) returns (Void);
-  // channel_data
-  rpc GetChannelParticipantIdList(ChannelData) returns (GetChannelParticipantIdListResp);
-
-  // channel_util
-
-
-  rpc GetChannelBySelfID(GetChannelBySelfIDReq) returns (GetChannelBySelfIDResp);
-  rpc GetChannelParticipantIdListDao(GetChannelParticipantIdListDaoReq) returns (GetChannelParticipantIdListDaoResp);
 
 }

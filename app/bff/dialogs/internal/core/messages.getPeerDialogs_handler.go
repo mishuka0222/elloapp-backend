@@ -2,6 +2,7 @@ package core
 
 import (
 	"context"
+	"gitlab.com/merehead/elloapp/backend/elloapp_tg_backend/app/service/biz/channels/channels"
 
 	chatpb "gitlab.com/merehead/elloapp/backend/elloapp_tg_backend/app/service/biz/chat/chat"
 	"gitlab.com/merehead/elloapp/backend/elloapp_tg_backend/app/service/biz/dialog/dialog"
@@ -73,8 +74,8 @@ func (c *DialogsCore) MessagesGetPeerDialogs(in *mtproto.TLMessagesGetPeerDialog
 			case mtproto.PEER_USER:
 			case mtproto.PEER_CHAT:
 			case mtproto.PEER_CHANNEL:
-				c.Logger.Errorf("blocked, License key from https://elloapp.com required to unlock enterprise features.")
-				continue
+				//c.Logger.Errorf("blocked, License key from https://elloapp.com required to unlock enterprise features.")
+				//continue
 			default:
 				err := mtproto.ErrInputConstructorInvalid
 				c.Logger.Errorf("messages.getPeerDialogs - getPeerDialogs error: %v", err)
@@ -169,9 +170,9 @@ func (c *DialogsCore) MessagesGetPeerDialogs(in *mtproto.TLMessagesGetPeerDialog
 	for _, dialogEx := range dialogExtList {
 		peer2 := mtproto.FromPeer(dialogEx.GetDialog().GetPeer())
 		dialogEx.Dialog.NotifySettings = userpb.FindPeerPeerNotifySettings(notifySettingsList, peer2)
-		if peer2.IsChannel() {
-			c.Logger.Errorf("blocked, License key from https://elloapp.com required to unlock enterprise features.")
-		}
+		//if peer2.IsChannel() {
+		//	c.Logger.Errorf("blocked, License key from https://elloapp.com required to unlock enterprise features.")
+		//}
 	}
 
 	messageDialogs := dialogExtList.DoGetMessagesDialogs(
@@ -183,11 +184,11 @@ func (c *DialogsCore) MessagesGetPeerDialogs(in *mtproto.TLMessagesGetPeerDialog
 				msgIdList = make([]int32, 0, len(id))
 			)
 			for _, id2 := range id {
-				if id2.Peer.IsChannel() {
-					c.Logger.Errorf("blocked, License key from https://elloapp.com required to unlock enterprise features.")
-				} else {
-					msgIdList = append(msgIdList, id2.TopMessage)
-				}
+				//if id2.Peer.IsChannel() {
+				//	c.Logger.Errorf("blocked, License key from https://elloapp.com required to unlock enterprise features.")
+				//} else {
+				msgIdList = append(msgIdList, id2.TopMessage)
+				//}
 			}
 			if len(msgIdList) > 0 {
 				boxList, _ := c.svcCtx.Dao.MessageClient.MessageGetUserMessageList(c.ctx, &message.TLMessageGetUserMessageList{
@@ -218,8 +219,11 @@ func (c *DialogsCore) MessagesGetPeerDialogs(in *mtproto.TLMessagesGetPeerDialog
 			return chats.GetChatListByIdList(c.MD.UserId, id...)
 		},
 		func(ctx context.Context, selfUserId int64, id ...int64) []*mtproto.Chat {
-			c.Logger.Errorf("blocked, License key from https://elloapp.com required to unlock enterprise features.")
-			return []*mtproto.Chat{}
+			res, _ := c.svcCtx.Dao.ChannelsClient.GetChatsListBySelfAndIDList(c.ctx, &channels.GetChatsListBySelfAndIDListReq{
+				SelfUserId: selfUserId,
+				IdList:     id,
+			})
+			return res.Chats
 		})
 
 	return messageDialogs.ToMessagesPeerDialogs(state), nil

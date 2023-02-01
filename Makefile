@@ -7,6 +7,7 @@ INSTALL=${PWD}/elloappd
 I_FOLDER=bin_dev
 ELLOAPP_BIN_PATH=${INSTALL}/${I_FOLDER}
 ELLOAPP_CONFIG_PATH=${INSTALL}/etc_dev
+ELLOAPP_SQL_PATH=${INSTALL}/sql
 
 #SSH
 SSH_USER=root
@@ -15,6 +16,10 @@ SSH_PROJECT_PATH=proj/elloapp_tg_backend/elloappd
 SSH_PATH=${SSH_USER}@${SSH_PORT}:/${SSH_USER}/${SSH_PROJECT_PATH}
 #SSH_PATH="${SSH_USER}@${SSH_PORT}:/home/${SSH_USER}/${SSH_PROJECT_PATH}"
 
+
+copy_sql_migrations:
+	@echo "copy etc configs ..."
+	scp -r ${ELLOAPP_SQL_PATH}/  ${SSH_PATH}/
 
 copy_etc_configs:
 	@echo "copy etc configs ..."

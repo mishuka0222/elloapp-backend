@@ -18,10 +18,9 @@ func (c *MsgCore) MsgDeleteHistory(in *msg.TLMsgDeleteHistory) (*mtproto.Message
 	switch in.PeerType {
 	case mtproto.PEER_SELF,
 		mtproto.PEER_USER,
-		mtproto.PEER_CHAT:
+		mtproto.PEER_CHAT,
+		mtproto.PEER_CHANNEL:
 		rValue, err = c.deleteUserHistory(in)
-
-	case mtproto.PEER_CHANNEL:
 	default:
 		err = mtproto.ErrPeerIdInvalid
 		c.Logger.Errorf("msg.deleteHistory - error: %v", err)
@@ -155,7 +154,7 @@ func (c *MsgCore) deleteUserHistory(in *msg.TLMsgDeleteHistory) (reply *mtproto.
 					JustClear:  in.JustClear,
 					MaxId:      in.MaxId,
 				})
-		case mtproto.PEER_CHAT:
+		case mtproto.PEER_CHAT, mtproto.PEER_CHANNEL:
 			c.svcCtx.Dao.InboxClient.InboxDeleteChatHistoryToInbox(
 				c.ctx,
 				&inbox.TLInboxDeleteChatHistoryToInbox{

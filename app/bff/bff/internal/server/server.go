@@ -12,6 +12,7 @@ import (
 	"gitlab.com/merehead/elloapp/backend/elloapp_tg_backend/app/bff/bff/internal/config"
 	bizraw_helper "gitlab.com/merehead/elloapp/backend/elloapp_tg_backend/app/bff/bizraw"
 	op_srv "gitlab.com/merehead/elloapp/backend/elloapp_tg_backend/app/bff/bizraw/service"
+	channels_helper "gitlab.com/merehead/elloapp/backend/elloapp_tg_backend/app/bff/channels"
 	chatinvites_helper "gitlab.com/merehead/elloapp/backend/elloapp_tg_backend/app/bff/chatinvites"
 	chats_helper "gitlab.com/merehead/elloapp/backend/elloapp_tg_backend/app/bff/chats"
 	configuration_helper "gitlab.com/merehead/elloapp/backend/elloapp_tg_backend/app/bff/configuration"
@@ -34,7 +35,6 @@ import (
 	usernames_helper "gitlab.com/merehead/elloapp/backend/elloapp_tg_backend/app/bff/usernames"
 	users_helper "gitlab.com/merehead/elloapp/backend/elloapp_tg_backend/app/bff/users"
 	voipcalls_helper "gitlab.com/merehead/elloapp/backend/elloapp_tg_backend/app/bff/voipcalls"
-	channels_helper "gitlab.com/merehead/elloapp/backend/elloapp_tg_backend/app/bff/channels"
 	"gitlab.com/merehead/elloapp/backend/elloapp_tg_backend/mtproto"
 	"google.golang.org/grpc"
 )
@@ -64,17 +64,18 @@ func (s *Server) Initialize() error {
 			grpcServer,
 			channels_helper.New(
 				channels_helper.Config{
-				RpcServerConf:     c.RpcServerConf,
-				UserClient:        c.BizServiceClient,
-				UsernameClient:    c.BizServiceClient,
-				ChatClient:        c.BizServiceClient,
-				MsgClient:         c.MsgClient,
-				DialogClient:      c.BizServiceClient,
-				SyncClient:        c.SyncClient,
-				MediaClient:       c.MediaClient,
-				AuthsessionClient: c.AuthSessionClient,
-				IdgenClient:       c.IdgenClient,
-				MessageClient:     c.BizServiceClient,
+					RpcServerConf:     c.RpcServerConf,
+					UserClient:        c.BizServiceClient,
+					UsernameClient:    c.BizServiceClient,
+					ChatClient:        c.BizServiceClient,
+					MsgClient:         c.MsgClient,
+					DialogClient:      c.BizServiceClient,
+					SyncClient:        c.SyncClient,
+					MediaClient:       c.MediaClient,
+					AuthsessionClient: c.AuthSessionClient,
+					IdgenClient:       c.IdgenClient,
+					MessageClient:     c.BizServiceClient,
+					ChannelsClient:    c.BizServiceClient,
 				}))
 
 		// secretchats
@@ -186,6 +187,7 @@ func (s *Server) Initialize() error {
 				AuthsessionClient: c.AuthSessionClient,
 				IdgenClient:       c.IdgenClient,
 				MessageClient:     c.BizServiceClient,
+				ChannelsClient:    c.BizServiceClient,
 			}))
 
 		// files_helper
@@ -219,6 +221,7 @@ func (s *Server) Initialize() error {
 					ChatClient:     c.BizServiceClient,
 					UsernameClient: c.BizServiceClient,
 					SyncClient:     c.SyncClient,
+					ChannelsClient: c.BizServiceClient,
 				},
 				nil))
 
@@ -226,13 +229,14 @@ func (s *Server) Initialize() error {
 		mtproto.RegisterRPCDialogsServer(
 			grpcServer,
 			dialogs_helper.New(dialogs_helper.Config{
-				RpcServerConf: c.RpcServerConf,
-				UpdatesClient: c.BizServiceClient,
-				UserClient:    c.BizServiceClient,
-				ChatClient:    c.BizServiceClient,
-				DialogClient:  c.BizServiceClient,
-				SyncClient:    c.SyncClient,
-				MessageClient: c.BizServiceClient,
+				RpcServerConf:  c.RpcServerConf,
+				UpdatesClient:  c.BizServiceClient,
+				UserClient:     c.BizServiceClient,
+				ChatClient:     c.BizServiceClient,
+				DialogClient:   c.BizServiceClient,
+				SyncClient:     c.SyncClient,
+				MessageClient:  c.BizServiceClient,
+				ChannelsClient: c.BizServiceClient,
 			}, nil))
 
 		// drafts_helper
@@ -266,6 +270,7 @@ func (s *Server) Initialize() error {
 			MediaClient:    c.MediaClient,
 			UsernameClient: c.BizServiceClient,
 			SyncClient:     c.SyncClient,
+			ChannelsClient: c.BizServiceClient,
 		}, nil)
 		mtproto.RegisterRPCMessagesServer(
 			grpcServer, messagesCore,
@@ -336,6 +341,7 @@ func (s *Server) Initialize() error {
 				UsernameClient: c.BizServiceClient,
 				ChatClient:     c.BizServiceClient,
 				SyncClient:     c.SyncClient,
+				ChannelsClient: c.BizServiceClient,
 			}, nil))
 
 		// bizraw_helper

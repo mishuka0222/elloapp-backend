@@ -7,7 +7,8 @@ import (
 )
 
 type (
-	Config = config.Config
+	Config          = config.Config
+	UsernameService = service.Service
 )
 
 func New(c Config) *service.Service {

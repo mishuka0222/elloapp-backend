@@ -16,4 +16,5 @@ type Config struct {
 	AuthsessionClient zrpc.RpcClientConf
 	IdgenClient       zrpc.RpcClientConf
 	MessageClient     zrpc.RpcClientConf
+	ChannelsClient    zrpc.RpcClientConf
 }

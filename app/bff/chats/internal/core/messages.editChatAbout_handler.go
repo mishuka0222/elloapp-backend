@@ -1,6 +1,7 @@
 package core
 
 import (
+	"gitlab.com/merehead/elloapp/backend/elloapp_tg_backend/app/service/biz/channels/channels"
 	chatpb "gitlab.com/merehead/elloapp/backend/elloapp_tg_backend/app/service/biz/chat/chat"
 	"gitlab.com/merehead/elloapp/backend/elloapp_tg_backend/mtproto"
 )
@@ -22,9 +23,16 @@ func (c *ChatsCore) MessagesEditChatAbout(in *mtproto.TLMessagesEditChatAbout) (
 			return nil, err
 		}
 	case mtproto.PEER_CHANNEL:
-		c.Logger.Errorf("messages.editChatAbout blocked, License key from https://elloapp.com required to unlock enterprise features.")
+		_, err := c.svcCtx.Dao.ChannelsClient.EditChannelAbout(c.ctx, &channels.EditChannelAboutReq{
+			ChannelId:  in.Peer.GetChannelId(),
+			EditUserId: c.MD.UserId,
+			About:      in.About,
+		})
+		if err != nil {
+			c.Logger.Errorf("messages.editChannelAbout - error: %v", err)
+			return nil, err
+		}
 
-		return nil, mtproto.ErrEnterpriseIsBlocked
 	default:
 		err := mtproto.ErrPeerIdInvalid
 		c.Logger.Errorf("invalid peer type: {%v}")

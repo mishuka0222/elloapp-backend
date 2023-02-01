@@ -41,7 +41,11 @@ func (c *ChannelsCore) GetChannelParticipantList(in *channels.ChannelParticipant
 	for i := range participants {
 		if contains(participants[i].ParticipantType, in.Types...) {
 			participant, err = makeChannelParticipantByDO(&participants[i])
-			participantList = append(participantList, participant)
+			if err != nil {
+				c.Logger.Error("channels.getChannelParticipantList, error: ", err.Error())
+			} else {
+				participantList = append(participantList, participant)
+			}
 		}
 	}
 

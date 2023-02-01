@@ -13,3 +13,5 @@ message TLChannelFull {}
 message TLChannelsChannelParticipants {}
 message Message {}
 message ChatAdminRights {}
+message ChatBannedRights {}
+message Photo {}

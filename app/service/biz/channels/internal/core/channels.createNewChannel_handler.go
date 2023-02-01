@@ -1,6 +1,7 @@
 package core
 
 import (
+	"gitlab.com/merehead/elloapp/backend/elloapp_tg_backend/mtproto"
 	"math/rand"
 	"time"
 
@@ -16,7 +17,7 @@ func (c *ChannelsCore) CreateNewChannel(in *channels.CreateNewChannelReq) (res *
 			ParticipantCount: int32(1 + len(in.UserIdList)),
 			Title:            in.Title,
 			About:            in.About,
-			PhotoId:          0,
+			Photo:            mtproto.MakeTLPhoto(nil).To_Photo(),
 			Version:          1,
 			Date:             int32(time.Now().Unix()),
 		},

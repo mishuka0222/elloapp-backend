@@ -21,7 +21,7 @@ func (c *ChannelsCore) GetChannelFullBySelfId(in *channels.GetChannelFullBySelfI
 	)
 	sizes, err = c.svcCtx.MediaClient.MediaGetPhotoSizeList(c.ctx, &media.TLMediaGetPhotoSizeList{
 		Constructor: media.CRC32_media_getPhotoSizeList,
-		SizeId:      in.ChannelData.Channel.PhotoId,
+		SizeId:      in.ChannelData.Channel.Photo.Id,
 	})
 	// photo2 := photo2.MakeUserProfilePhoto(photoId, sizes)
 
@@ -31,14 +31,9 @@ func (c *ChannelsCore) GetChannelFullBySelfId(in *channels.GetChannelFullBySelfI
 		}).To_PhotoEmpty()
 		photo = photoEmpty.To_Photo()
 	} else {
-		channelPhoto := (&mtproto.Photo{
-			Id:          in.ChannelData.GetPhotoId(),
-			HasStickers: false,
-			AccessHash:  in.ChannelData.GetPhotoId(), // photo2.GetFileAccessHash(file.GetData2().GetId(), file.GetData2().GetParts()),
-			Date:        int32(time.Now().Unix()),
-			Sizes:       sizes.Sizes,
-		}).To_Photo()
-		photo = channelPhoto.To_Photo()
+		channelPhoto := in.ChannelData.Channel.Photo
+		channelPhoto.Sizes = sizes.Sizes
+		photo = channelPhoto
 	}
 
 	peer := &mtproto.PeerUtil{
@@ -56,10 +51,13 @@ func (c *ChannelsCore) GetChannelFullBySelfId(in *channels.GetChannelFullBySelfI
 		About:             in.ChannelData.Channel.About,
 		ParticipantsCount: &types.Int32Value{Value: in.ChannelData.ParticipantCount()},
 		AdminsCount:       &types.Int32Value{Value: in.ChannelData.AdminCount()},
-		ChatPhoto:         photo,
-		NotifySettings:    notifySettings,
-		ExportedInvite:    mtproto.MakeTLChatInviteExported(nil).To_ExportedChatInvite(),
-		BotInfo:           []*mtproto.BotInfo{},
+		KickedCount:       &types.Int32Value{Value: in.ChannelData.KickedCount()},
+		BannedCount:       &types.Int32Value{Value: in.ChannelData.BannedCount()},
+		//BannedCount:    &types.Int32Value{Value: 1},
+		ChatPhoto:      photo,
+		NotifySettings: notifySettings,
+		ExportedInvite: mtproto.MakeTLChatInviteExported(nil).To_ExportedChatInvite(),
+		BotInfo:        []*mtproto.BotInfo{},
 	}).To_ChannelFull()
 
 	isAdmin, err = c.CheckUserIsAdministrator(

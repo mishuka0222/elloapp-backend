@@ -1,6 +1,10 @@
 package dataobject
 
-import "gitlab.com/merehead/elloapp/backend/elloapp_tg_backend/app/service/biz/channels/channels"
+import (
+	"github.com/zeromicro/go-zero/core/jsonx"
+	"gitlab.com/merehead/elloapp/backend/elloapp_tg_backend/app/service/biz/channels/channels"
+	"gitlab.com/merehead/elloapp/backend/elloapp_tg_backend/mtproto"
+)
 
 type ChannelDO struct {
 	Id               int64  `db:"id"`
@@ -10,7 +14,7 @@ type ChannelDO struct {
 	ParticipantCount int32  `db:"participant_count"`
 	Title            string `db:"title"`
 	About            string `db:"about"`
-	PhotoId          int64  `db:"photo_id"`
+	Photo            string `db:"photo"`
 	Link             string `db:"link"`
 	Username         string `db:"username"`
 	AdminsEnabled    bool   `db:"admins_enabled"`
@@ -22,6 +26,9 @@ type ChannelDO struct {
 }
 
 func (ch *ChannelDO) ToChannel() *channels.Channel {
+	var photo mtproto.Photo
+	_ = jsonx.UnmarshalFromString(ch.Photo, &photo)
+
 	return &channels.Channel{
 		Id:               ch.Id,
 		CreatorUserId:    ch.CreatorUserId,
@@ -30,7 +37,7 @@ func (ch *ChannelDO) ToChannel() *channels.Channel {
 		ParticipantCount: ch.ParticipantCount,
 		Title:            ch.Title,
 		About:            ch.About,
-		PhotoId:          ch.PhotoId,
+		Photo:            &photo,
 		Link:             ch.Link,
 		Username:         ch.Username,
 		AdminsEnabled:    ch.AdminsEnabled,

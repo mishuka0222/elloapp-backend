@@ -27,7 +27,7 @@ func (c *ChannelsCore) ToChat(in *channels.ToChatReq) (res *channels.ToChatResp,
 		admin = true
 	}
 
-	if forbidden || !find {
+	if forbidden {
 		var channel *mtproto.TLChannelForbidden
 		channel = (&mtproto.Chat{
 			Id:    in.Channel.Channel.Id,
@@ -57,36 +57,41 @@ func (c *ChannelsCore) ToChat(in *channels.ToChatReq) (res *channels.ToChatResp,
 	}).To_Channel()
 
 	if in.Channel.Channel.CreatorUserId == in.SelfUserId {
-		//AdminRights := mtproto.MakeTLChatAdminRights(&mtproto.ChatAdminRights{
-		//			ChangeInfo:     true,
-		//			PostMessages:   true, // default false
-		//			EditMessages:   true,
-		//			DeleteMessages: true,
-		//			BanUsers:       true,
-		//			InviteUsers:    true,
-		//			PinMessages:    true,
-		//			AddAdmins:      true,
-		//			Anonymous:      true,
-		//			ManageCall:     true,
-		//			Other:          true,
-		//		}).To_ChatAdminRights()
+		AdminRights := mtproto.MakeTLChatAdminRights(&mtproto.ChatAdminRights{
+			ChangeInfo:     true,
+			PostMessages:   true, // default false
+			EditMessages:   true,
+			DeleteMessages: true,
+			BanUsers:       true,
+			InviteUsers:    true,
+			PinMessages:    true,
+			AddAdmins:      true,
+			Anonymous:      true,
+			ManageCall:     true,
+			Other:          true,
+		}).To_ChatAdminRights()
+		channel.SetAdminRights(AdminRights)
+	} else if admin && find {
 		channel.SetAdminRights(participant.AdminRights)
-	} else if admin {
-		channel.SetAdminRights(participant.AdminRights)
+		if !participant.AdminRights.PostMessages {
+			channel.SetBroadcast(true)
+		}
+	} else if admin && !find {
+		channel.SetAdminRights(defaultAdminRights)
 		channel.SetBroadcast(true)
 	} else {
 		channel.SetDefaultBannedRights(mtproto.MakeDefaultBannedRights())
 		channel.SetBroadcast(true)
 	}
 
-	if in.Channel.Channel.PhotoId == 0 {
+	if in.Channel.Channel.Photo.Id == 0 {
 		channel.SetPhoto(mtproto.MakeTLChatPhotoEmpty(nil).To_ChatPhoto())
 	} else {
 		var sizeList *media.PhotoSizeList
 
 		sizeList, err = c.svcCtx.MediaClient.MediaGetPhotoSizeList(c.ctx, &media.TLMediaGetPhotoSizeList{
 			Constructor: media.CRC32_media_getPhotoSizeList,
-			SizeId:      in.Channel.Channel.PhotoId,
+			SizeId:      in.Channel.Channel.Photo.Id,
 		})
 		if err != nil {
 			channel.SetPhoto(mtproto.MakeTLChatPhotoEmpty(nil).To_ChatPhoto())

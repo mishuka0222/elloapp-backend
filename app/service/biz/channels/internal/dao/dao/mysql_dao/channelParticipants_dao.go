@@ -22,7 +22,7 @@ func NewChannelParticipantsDAO(db *sqlx.DB) *ChannelParticipantsDAO {
 // insert into channel_participants(channel_id, user_id, participant_type, inviter_user_id, invited_at, joined_at, state) values (:channel_id, :user_id, :participant_type, :inviter_user_id, :invited_at, :joined_at, :state)
 func (dao *ChannelParticipantsDAO) Insert(ctx context.Context, do *dataobject.ChannelParticipantDO) (id int64, err error) {
 	var (
-		query = "insert into channel_participants(channel_id, user_id, participant_type, admin_rights, inviter_user_id, invited_at, joined_at, state) values (:channel_id, :user_id, :participant_type, :admin_rights, :inviter_user_id, :invited_at, :joined_at, :state) on duplicate key update id = last_insert_id(id)"
+		query = "insert into channel_participants(channel_id, user_id, participant_type, admin_rights, banned_rights, inviter_user_id, invited_at, joined_at, state) values (:channel_id, :user_id, :participant_type, :admin_rights, :banned_rights, :inviter_user_id, :invited_at, :joined_at, :state) on duplicate key update id = last_insert_id(id)"
 		res   sql.Result
 	)
 	res, err = dao.db.NamedExec(ctx, query, do)
@@ -62,7 +62,7 @@ func (dao *ChannelParticipantsDAO) SelectByChannelId(ctx context.Context, channe
 // select id, channel_id, user_id, participant_type, inviter_user_id, invited_at, joined_at, state from channel_participants where channel_id = :channel_id and user_id in (:idList)
 func (dao *ChannelParticipantsDAO) SelectByUserIdList(ctx context.Context, channel_id int64, idList []int64) (rValues []dataobject.ChannelParticipantDO, err error) {
 	var (
-		q    = "select id, channel_id, user_id, participant_type, admin_rights, inviter_user_id, invited_at, joined_at, left_at, state from channel_participants where channel_id = ? and user_id in (?)"
+		q    = "select id, channel_id, user_id, participant_type, admin_rights, banned_rights, inviter_user_id, invited_at, joined_at, left_at, state from channel_participants where channel_id = ? and user_id in (?)"
 		rows []dataobject.ChannelParticipantDO
 	)
 	query, a, err := sqlx.In(q, channel_id, idList)
@@ -82,7 +82,7 @@ func (dao *ChannelParticipantsDAO) SelectByUserIdList(ctx context.Context, chann
 // select id, channel_id, user_id, participant_type, inviter_user_id, invited_at, joined_at, state from channel_participants where channel_id = :channel_id and user_id = :user_id
 func (dao *ChannelParticipantsDAO) SelectByUserId(ctx context.Context, channel_id int64, user_id int64) (rValue *dataobject.ChannelParticipantDO, err error) {
 	var (
-		query = "select id, channel_id, user_id, participant_type, admin_rights, inviter_user_id, invited_at, joined_at, left_at, state from channel_participants where channel_id = ? and user_id = ?"
+		query = "select id, channel_id, user_id, participant_type, admin_rights, banned_rights, inviter_user_id, invited_at, joined_at, left_at, state from channel_participants where channel_id = ? and user_id = ?"
 		row   *dataobject.ChannelParticipantDO
 	)
 
@@ -100,12 +100,12 @@ func (dao *ChannelParticipantsDAO) SelectByUserId(ctx context.Context, channel_i
 
 // DeleteChannelUser
 // update channel_participants set state = 1 where id = :id
-func (dao *ChannelParticipantsDAO) DeleteChannelUser(ctx context.Context, reason int32, id int64, left_at int32) (i int64, err error) {
+func (dao *ChannelParticipantsDAO) DeleteChannelUser(ctx context.Context, reason int32, id int64, left_at int32, bannedRights string, kiked_by int64) (i int64, err error) {
 	var (
-		query = "update channel_participants set state = ?, left_at = ?, participant_type = 5 where id = ?"
+		query = "update channel_participants set state = 1, participant_type = ?, left_at = ?, banned_rights = ?, kicked_by = ? where id = ?"
 		res   sql.Result
 	)
-	res, err = dao.db.Exec(ctx, query, reason, left_at, id)
+	res, err = dao.db.Exec(ctx, query, reason, left_at, bannedRights, kiked_by, id)
 
 	if err != nil {
 		logx.WithContext(ctx).Errorf("Exec in DeleteChannelUser(_), error: %v", err)
@@ -207,6 +207,29 @@ func (dao *ChannelParticipantsDAO) UpdateAdminRights(ctx context.Context, admin_
 	i, err = res.RowsAffected()
 	if err != nil {
 		logx.WithContext(ctx).Errorf("RowsAffected in UpdateAdminRights(_), error: %v", err)
+		return
+	}
+
+	return
+}
+
+// UpdateBannedRights
+// update channel_participants set participant_type = :participant_type where id = :id
+func (dao *ChannelParticipantsDAO) UpdateBannedRights(ctx context.Context, banned_rights string, id int64) (i int64, err error) {
+	var (
+		query = "update channel_participants set banned_rights = ? where id = ?"
+		res   sql.Result
+	)
+	res, err = dao.db.Exec(ctx, query, banned_rights, id)
+
+	if err != nil {
+		logx.WithContext(ctx).Errorf("Exec in UpdateBannedRights(_), error: %v", err)
+		return
+	}
+
+	i, err = res.RowsAffected()
+	if err != nil {
+		logx.WithContext(ctx).Errorf("RowsAffected in UpdateBannedRights(_), error: %v", err)
 		return
 	}
 

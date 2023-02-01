@@ -2,6 +2,7 @@ package core
 
 import (
 	"errors"
+	"github.com/zeromicro/go-zero/core/jsonx"
 	"time"
 
 	"gitlab.com/merehead/elloapp/backend/elloapp_tg_backend/app/service/biz/channels/channels"
@@ -10,10 +11,11 @@ import (
 func (c *ChannelsCore) DeleteChannelUser(in *channels.DeleteChannelUserReq) (res *channels.Void, err error) {
 
 	var (
-		channel      *channels.ChannelData
-		deletedUser  *channels.ChannelParticipant
-		operatorUser *channels.ChannelParticipant
-		now          = int32(time.Now().Unix())
+		channel        *channels.ChannelData
+		deletedUser    *channels.ChannelParticipant
+		operatorUser   *channels.ChannelParticipant
+		now            = int32(time.Now().Unix())
+		strBannedRight = "{}"
 	)
 
 	channel, err = c.GetChannelDataById(&channels.ChannelDataByIdReq{ChannelId: in.ChannelId})
@@ -42,11 +44,28 @@ func (c *ChannelsCore) DeleteChannelUser(in *channels.DeleteChannelUserReq) (res
 		return
 	}
 
-	if in.Reason == 0 {
-		in.Reason = channels.K_ParticipantLeftState
+	if in.Reason == channels.K_ChannelParticipant ||
+		in.Reason == channels.K_ChannelParticipantAdmin ||
+		in.Reason == channels.K_ChannelParticipantCreator {
+		err = errors.New("BAD_REQUEST")
+		return
 	}
 
-	_, err = c.svcCtx.Dao.ChannelParticipantsDAO.DeleteChannelUser(c.ctx, in.Reason, deletedUser.Id, now)
+	if !(in.Reason == channels.K_ChannelParticipantLeft ||
+		in.Reason == channels.K_ChannelParticipantKicked ||
+		in.Reason == channels.K_ChannelParticipantBanned) {
+		err = errors.New("BAD_REQUEST")
+		return
+	}
+	if in.BannedRights != nil {
+		strBannedRight, err = jsonx.MarshalToString(in.BannedRights)
+		if err != nil {
+			strBannedRight = "{}"
+			err = nil
+		}
+	}
+
+	_, err = c.svcCtx.Dao.ChannelParticipantsDAO.DeleteChannelUser(c.ctx, in.Reason, deletedUser.Id, now, strBannedRight, in.OperatorId)
 	if err != nil {
 		return
 	}

@@ -4,13 +4,13 @@ import (
 	"context"
 	"errors"
 	"fmt"
+	"github.com/zeromicro/go-zero/core/jsonx"
+	"github.com/zeromicro/go-zero/core/logx"
 	"gitlab.com/merehead/elloapp/backend/elloapp_tg_backend/app/service/biz/channels/channels"
 	"gitlab.com/merehead/elloapp/backend/elloapp_tg_backend/app/service/biz/channels/internal/dao/dataobject"
 	"gitlab.com/merehead/elloapp/backend/elloapp_tg_backend/app/service/biz/channels/internal/svc"
 	"gitlab.com/merehead/elloapp/backend/elloapp_tg_backend/mtproto"
 	"gitlab.com/merehead/elloapp/backend/elloapp_tg_backend/mtproto/rpc/metadata"
-
-	"github.com/zeromicro/go-zero/core/logx"
 )
 
 type ChannelsCore struct {
@@ -77,6 +77,15 @@ func makeChannelParticipantByDO(do *dataobject.ChannelParticipantDO) (participan
 		participant.Constructor = mtproto.CRC32_channelParticipantAdmin
 		participant.PromotedBy = do.InviterUserId
 		participant.AdminRights = do.GetAdminRights()
+	case channels.K_ChannelParticipantLeft:
+		participant.Constructor = mtproto.CRC32_channelParticipantLeft
+		participant.Peer = mtproto.MakePeerUser(do.UserId)
+	case channels.K_ChannelParticipantBanned:
+		participant.Constructor = mtproto.CRC32_channelParticipantBanned
+		participant.Peer = mtproto.MakePeerUser(do.UserId)
+		participant.KickedBy = do.KickedBy
+		participant.Date = do.LeftAt
+		participant.BannedRights = do.GetBannedRights()
 	default:
 		err = errors.New(" channelParticipant type error.")
 	}
@@ -84,20 +93,20 @@ func makeChannelParticipantByDO(do *dataobject.ChannelParticipantDO) (participan
 	return
 }
 
-//var defaultAdminRights = mtproto.MakeTLChatAdminRights(
-//	&mtproto.ChatAdminRights{
-//		ChangeInfo:     true,
-//		PostMessages:   false,
-//		EditMessages:   false,
-//		DeleteMessages: true,
-//		BanUsers:       true,
-//		InviteUsers:    true,
-//		PinMessages:    true,
-//		AddAdmins:      false,
-//		Anonymous:      false,
-//		ManageCall:     true,
-//		Other:          true,
-//	}).To_ChatAdminRights()
+var defaultAdminRights = mtproto.MakeTLChatAdminRights(
+	&mtproto.ChatAdminRights{
+		ChangeInfo:     true,
+		PostMessages:   false,
+		EditMessages:   false,
+		DeleteMessages: true,
+		BanUsers:       true,
+		InviteUsers:    true,
+		PinMessages:    true,
+		AddAdmins:      false,
+		Anonymous:      false,
+		ManageCall:     true,
+		Other:          true,
+	}).To_ChatAdminRights()
 
 func MakeTLChatAdminRights() *mtproto.ChatAdminRights {
 	return mtproto.MakeTLChatAdminRights(&mtproto.ChatAdminRights{
@@ -116,6 +125,11 @@ func MakeTLChatAdminRights() *mtproto.ChatAdminRights {
 }
 
 func ToChannelDO(ch *channels.Channel) *dataobject.ChannelDO {
+	strPhoto, err := jsonx.MarshalToString(ch.Photo)
+	if err != nil {
+		strPhoto = "{}"
+	}
+
 	return &dataobject.ChannelDO{
 		Id:               ch.Id,
 		CreatorUserId:    ch.CreatorUserId,
@@ -124,7 +138,7 @@ func ToChannelDO(ch *channels.Channel) *dataobject.ChannelDO {
 		ParticipantCount: ch.ParticipantCount,
 		Title:            ch.Title,
 		About:            ch.About,
-		PhotoId:          ch.PhotoId,
+		Photo:            strPhoto,
 		Link:             ch.Link,
 		Username:         ch.Username,
 		AdminsEnabled:    ch.AdminsEnabled,
@@ -143,7 +157,9 @@ func ToChannelParticipantDO(pnt *channels.ChannelParticipant) *dataobject.Channe
 		UserId:          pnt.UserId,
 		ParticipantType: pnt.ParticipantType,
 		AdminRights:     pnt.AdminRightsToStr(),
+		BannedRights:    pnt.BannedRightsToStr(),
 		InviterUserId:   pnt.InviterUserId,
+		KickedBy:        pnt.KickedBy,
 		InvitedAt:       pnt.InvitedAt,
 		JoinedAt:        pnt.JoinedAt,
 		LeftAt:          pnt.LeftAt,

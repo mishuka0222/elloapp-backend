@@ -1,6 +1,7 @@
 package core
 
 import (
+	"gitlab.com/merehead/elloapp/backend/elloapp_tg_backend/app/service/biz/channels/channels"
 	"math"
 
 	chatpb "gitlab.com/merehead/elloapp/backend/elloapp_tg_backend/app/service/biz/chat/chat"
@@ -37,11 +38,6 @@ func (c *MessagesCore) MessagesSearch(in *mtproto.TLMessagesSearch) (*mtproto.Me
 	}
 
 	peer := mtproto.FromInputPeer2(c.MD.UserId, in.Peer)
-	if peer.IsChannel() {
-		// TODO: not impl
-		c.Logger.Errorf("messages.search blocked, License key from https://elloapp.com required to unlock enterprise features.")
-		return nil, mtproto.ErrEnterpriseIsBlocked
-	}
 
 	if in.GetFromId() != nil {
 		// 1. peer must chat and channel
@@ -252,6 +248,14 @@ func (c *MessagesCore) MessagesSearch(in *mtproto.TLMessagesSearch) (*mtproto.Me
 			rValues.Chats = append(rValues.Chats, mChats.GetChatListByIdList(c.MD.UserId, chatIdList...)...)
 		},
 		func(channelIdList []int64) {
+			mChats, err := c.svcCtx.Dao.ChannelsClient.GetChatsListBySelfAndIDList(c.ctx, &channels.GetChatsListBySelfAndIDListReq{
+				SelfUserId: c.MD.UserId,
+				IdList:     channelIdList,
+			})
+			if err == nil && len(mChats.Chats) > 0 {
+				rValues.Chats = append(rValues.Chats, mChats.Chats...)
+			}
+
 			//mChannels, _ := c.svcCtx.Dao.ChannelClient.ChannelGetChannelListByIdList(c.ctx,
 			//	&channelpb.TLChannelGetChannelListByIdList{
 			//		SelfUserId: c.MD.UserId,

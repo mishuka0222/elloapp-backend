@@ -187,6 +187,7 @@ func (s *Server) Initialize() error {
 				AuthsessionClient: c.AuthSessionClient,
 				IdgenClient:       c.IdgenClient,
 				MessageClient:     c.BizServiceClient,
+				ChannelsClient:    c.BizServiceClient,
 			}))
 
 		// files_helper
@@ -269,6 +270,7 @@ func (s *Server) Initialize() error {
 			MediaClient:    c.MediaClient,
 			UsernameClient: c.BizServiceClient,
 			SyncClient:     c.SyncClient,
+			ChannelsClient: c.BizServiceClient,
 		}, nil)
 		mtproto.RegisterRPCMessagesServer(
 			grpcServer, messagesCore,

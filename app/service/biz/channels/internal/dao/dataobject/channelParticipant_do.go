@@ -12,7 +12,9 @@ type ChannelParticipantDO struct {
 	UserId          int64  `db:"user_id"`
 	ParticipantType int32  `db:"participant_type"`
 	AdminRights     string `db:"admin_rights"`
+	BannedRights    string `db:"banned_rights"`
 	InviterUserId   int64  `db:"inviter_user_id"`
+	KickedBy        int64  `db:"kicked_by"`
 	InvitedAt       int32  `db:"invited_at"`
 	JoinedAt        int32  `db:"joined_at"`
 	LeftAt          int32  `db:"left_at"`
@@ -28,6 +30,7 @@ func (pnt *ChannelParticipantDO) ToChannelParticipant() (channel *channels.Chann
 		UserId:          pnt.UserId,
 		ParticipantType: pnt.ParticipantType,
 		InviterUserId:   pnt.InviterUserId,
+		KickedBy:        pnt.KickedBy,
 		InvitedAt:       pnt.InvitedAt,
 		JoinedAt:        pnt.JoinedAt,
 		LeftAt:          pnt.LeftAt,
@@ -45,6 +48,16 @@ func (pnt *ChannelParticipantDO) ToChannelParticipant() (channel *channels.Chann
 		}
 		channel.AdminRights = &adminRights
 	}
+	if pnt.BannedRights != "" {
+		var (
+			bannedRights mtproto.ChatBannedRights
+			err          error
+		)
+		if err = jsonx.UnmarshalFromString(pnt.BannedRights, &bannedRights); err != nil {
+			return
+		}
+		channel.BannedRights = &bannedRights
+	}
 
 	return
 }
@@ -59,6 +72,20 @@ func (pnt *ChannelParticipantDO) GetAdminRights() (res *mtproto.ChatAdminRights)
 			return
 		}
 		res = &adminRights
+	}
+	return
+}
+
+func (pnt *ChannelParticipantDO) GetBannedRights() (res *mtproto.ChatBannedRights) {
+	if pnt.BannedRights != "" {
+		var (
+			bannedRights mtproto.ChatBannedRights
+			err          error
+		)
+		if err = jsonx.UnmarshalFromString(pnt.BannedRights, &bannedRights); err != nil {
+			return
+		}
+		res = &bannedRights
 	}
 	return
 }

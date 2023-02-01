@@ -6,7 +6,7 @@ import (
 	"time"
 )
 
-func (c *ChannelsCore) EditChannelTitle(in *channels.EditChannelTitleReq) (res *channels.Void, err error) {
+func (c *ChannelsCore) EditChannelAbout(in *channels.EditChannelAboutReq) (res *channels.Void, err error) {
 	var (
 		channel *channels.ChannelData
 	)
@@ -27,16 +27,16 @@ func (c *ChannelsCore) EditChannelTitle(in *channels.EditChannelTitleReq) (res *
 		return
 	}
 
-	if channel.Channel.Title == in.Title {
+	if channel.Channel.About == in.About {
 		err = errors.New("CHAT_NOT_MODIFIED")
 		return
 	}
 
-	channel.Channel.Title = in.Title
+	channel.Channel.About = in.About
 	channel.Channel.Date = int32(time.Now().Unix())
 	channel.Channel.Version += 1
 
-	_, err = c.svcCtx.Dao.ChannelsDAO.UpdateTitle(c.ctx, in.Title, channel.Channel.Date, channel.Channel.Id)
+	_, err = c.svcCtx.Dao.ChannelsDAO.UpdateAbout(c.ctx, in.About, channel.Channel.Date, channel.Channel.Id)
 	if err != nil {
 		return
 	}

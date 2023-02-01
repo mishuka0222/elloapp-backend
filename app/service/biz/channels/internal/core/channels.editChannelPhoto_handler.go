@@ -2,18 +2,28 @@ package core
 
 import (
 	"errors"
+	"github.com/zeromicro/go-zero/core/jsonx"
 	"time"
 
 	"gitlab.com/merehead/elloapp/backend/elloapp_tg_backend/app/service/biz/channels/channels"
 )
 
-func (c *ChannelsCore) EditChannelPhoto(in *channels.EditChannelPhotoReq) (res *channels.Void, err error) {
-	err = c.checkOrLoadChannelParticipantList(in.Channel)
+func (c *ChannelsCore) EditChannelPhoto(in *channels.EditChannelPhotoReq) (channel *channels.ChannelData, err error) {
+	var (
+		strPhoto string
+	)
+
+	channel, err = c.GetChannelDataById(&channels.ChannelDataByIdReq{ChannelId: in.ChannelId})
 	if err != nil {
 		return
 	}
 
-	_, participant := in.Channel.FindChatParticipant(in.EditUserId)
+	err = c.checkOrLoadChannelParticipantList(channel)
+	if err != nil {
+		return
+	}
+
+	_, participant := channel.FindChatParticipant(in.EditUserId)
 
 	if participant == nil || participant.State == 1 {
 		err = errors.New("PARTICIPANT_NOT_EXISTS")
@@ -21,26 +31,26 @@ func (c *ChannelsCore) EditChannelPhoto(in *channels.EditChannelPhotoReq) (res *
 	}
 
 	// check editUserId is creator or admin
-	if in.Channel.Channel.AdminsEnabled && participant.ParticipantType == channels.K_ChannelParticipant {
+	if channel.Channel.AdminsEnabled && participant.ParticipantType == channels.K_ChannelParticipant {
 		err = errors.New("NO_EDIT_CHAT_PERMISSION")
 		return
 	}
 
-	if in.Channel.Channel.PhotoId == in.PhotoId {
+	if channel.Channel.Photo.Id == in.Photo.Id {
 		err = errors.New("CHAT_NOT_MODIFIED")
 		return
 	}
 
-	in.Channel.Channel.PhotoId = in.PhotoId
-	in.Channel.Channel.Date = int32(time.Now().Unix())
-	in.Channel.Channel.Version += 1
+	channel.Channel.Photo = in.Photo
+	channel.Channel.Date = int32(time.Now().Unix())
+	channel.Channel.Version += 1
 
-	_, err = c.svcCtx.Dao.ChannelsDAO.UpdatePhotoId(c.ctx, in.PhotoId, in.Channel.Channel.Date, in.Channel.Channel.Id)
+	strPhoto, err = jsonx.MarshalToString(in.Photo)
+
+	_, err = c.svcCtx.Dao.ChannelsDAO.UpdatePhoto(c.ctx, strPhoto, channel.Channel.Date, channel.Channel.Id)
 	if err != nil {
 		return
 	}
-
-	res = &channels.Void{}
 
 	return
 }

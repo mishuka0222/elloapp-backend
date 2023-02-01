@@ -33,17 +33,31 @@ func (c *ChannelsCore) AddChannelParticipant(in *channels.AddChannelParticipantR
 		now = int32(time.Now().Unix())
 	)
 
-	if founded != -1 {
+	if founded != -1 && in.Channel.Participants[founded].State == channels.K_ParticipantActiveState {
+		err = errors.New("CHAT_NOT_MODIFIER")
+		return
+	} else if founded != -1 {
+		var banned = in.Channel.Participants[founded].ParticipantType == channels.K_ChannelParticipantBanned
+
 		in.Channel.Participants[founded].State = channels.K_ParticipantActiveState
+		in.Channel.Participants[founded].ParticipantType = channels.K_ChannelParticipant
 		_, err = c.svcCtx.Dao.ChannelParticipantsDAO.Update(c.ctx, in.InviterId, now, now, in.Channel.Participants[founded].Id)
 		if err != nil {
 			return
+		}
+
+		if banned {
+			_, err = c.svcCtx.Dao.ChannelParticipantsDAO.UpdateBannedRights(c.ctx, "{}", in.Channel.Participants[founded].Id)
+			if err != nil {
+				return
+			}
 		}
 	} else {
 		var (
 			channelParticipant *dataobject.ChannelParticipantDO
 			participantType    int32 = channels.K_ChannelParticipant
 			adminRights              = "{}"
+			bannedRights             = "{}"
 		)
 		if in.AdminRights != nil {
 			adminRights, _ = jsonx.MarshalToString(in.AdminRights)
@@ -58,6 +72,7 @@ func (c *ChannelsCore) AddChannelParticipant(in *channels.AddChannelParticipantR
 			InvitedAt:       now,
 			JoinedAt:        now,
 			AdminRights:     adminRights,
+			BannedRights:    bannedRights,
 		}
 		channelParticipant.Id, err = c.svcCtx.Dao.ChannelParticipantsDAO.Insert(c.ctx, channelParticipant)
 		if err != nil {

@@ -26,7 +26,9 @@ type (
 	CheckUserIsAdministratorReq     = channels.CheckUserIsAdministratorReq
 	CheckUserIsAdministratorResp    = channels.CheckUserIsAdministratorResp
 	CreateNewChannelReq             = channels.CreateNewChannelReq
+	DeleteChannelReq                = channels.DeleteChannelReq
 	DeleteChannelUserReq            = channels.DeleteChannelUserReq
+	EditChannelAboutReq             = channels.EditChannelAboutReq
 	EditChannelAdminReq             = channels.EditChannelAdminReq
 	EditChannelPhotoReq             = channels.EditChannelPhotoReq
 	EditChannelTitleReq             = channels.EditChannelTitleReq
@@ -45,6 +47,7 @@ type (
 	ChannelsClient interface {
 		// NEW
 		GetChannelDataById(ctx context.Context, in *ChannelDataByIdReq, opts ...grpc.CallOption) (*ChannelData, error)
+		GetAllChannelDataById(ctx context.Context, in *ChannelDataByIdReq, opts ...grpc.CallOption) (*ChannelData, error)
 		CreateNewChannel(ctx context.Context, in *CreateNewChannelReq, opts ...grpc.CallOption) (*ChannelData, error)
 		AddChannelParticipant(ctx context.Context, in *AddChannelParticipantReq, opts ...grpc.CallOption) (*ChannelData, error)
 		GetChatsListBySelfAndIDList(ctx context.Context, in *GetChatsListBySelfAndIDListReq, opts ...grpc.CallOption) (*GetChatsListBySelfAndIDListResp, error)
@@ -56,10 +59,11 @@ type (
 		UpdateChannelLink(ctx context.Context, in *UpdateChannelLinkReq, opts ...grpc.CallOption) (*UpdateChannelLinkResp, error)
 		CheckUserIsAdministrator(ctx context.Context, in *CheckUserIsAdministratorReq, opts ...grpc.CallOption) (*CheckUserIsAdministratorResp, error)
 		EditChannelAdmin(ctx context.Context, in *EditChannelAdminReq, opts ...grpc.CallOption) (*ChannelData, error)
-		// In Work
-		DeleteChannelUser(ctx context.Context, in *DeleteChannelUserReq, opts ...grpc.CallOption) (*Void, error)
 		EditChannelTitle(ctx context.Context, in *EditChannelTitleReq, opts ...grpc.CallOption) (*Void, error)
-		EditChannelPhoto(ctx context.Context, in *EditChannelPhotoReq, opts ...grpc.CallOption) (*Void, error)
+		EditChannelAbout(ctx context.Context, in *EditChannelAboutReq, opts ...grpc.CallOption) (*Void, error)
+		EditChannelPhoto(ctx context.Context, in *EditChannelPhotoReq, opts ...grpc.CallOption) (*ChannelData, error)
+		DeleteChannelUser(ctx context.Context, in *DeleteChannelUserReq, opts ...grpc.CallOption) (*Void, error)
+		DeleteChannel(ctx context.Context, in *DeleteChannelReq, opts ...grpc.CallOption) (*ChannelData, error)
 		// OLD
 		ToggleChannelAdmins(ctx context.Context, in *ToggleChannelAdminsReq, opts ...grpc.CallOption) (*Void, error)
 	}
@@ -79,6 +83,11 @@ func NewChannelsClient(cli zrpc.Client) ChannelsClient {
 func (m *defaultChannelsClient) GetChannelDataById(ctx context.Context, in *ChannelDataByIdReq, opts ...grpc.CallOption) (*ChannelData, error) {
 	client := channels.NewRPCChannelsClient(m.cli.Conn())
 	return client.GetChannelDataById(ctx, in, opts...)
+}
+
+func (m *defaultChannelsClient) GetAllChannelDataById(ctx context.Context, in *ChannelDataByIdReq, opts ...grpc.CallOption) (*ChannelData, error) {
+	client := channels.NewRPCChannelsClient(m.cli.Conn())
+	return client.GetAllChannelDataById(ctx, in, opts...)
 }
 
 func (m *defaultChannelsClient) CreateNewChannel(ctx context.Context, in *CreateNewChannelReq, opts ...grpc.CallOption) (*ChannelData, error) {
@@ -136,20 +145,29 @@ func (m *defaultChannelsClient) EditChannelAdmin(ctx context.Context, in *EditCh
 	return client.EditChannelAdmin(ctx, in, opts...)
 }
 
-// In Work
-func (m *defaultChannelsClient) DeleteChannelUser(ctx context.Context, in *DeleteChannelUserReq, opts ...grpc.CallOption) (*Void, error) {
-	client := channels.NewRPCChannelsClient(m.cli.Conn())
-	return client.DeleteChannelUser(ctx, in, opts...)
-}
-
 func (m *defaultChannelsClient) EditChannelTitle(ctx context.Context, in *EditChannelTitleReq, opts ...grpc.CallOption) (*Void, error) {
 	client := channels.NewRPCChannelsClient(m.cli.Conn())
 	return client.EditChannelTitle(ctx, in, opts...)
 }
 
-func (m *defaultChannelsClient) EditChannelPhoto(ctx context.Context, in *EditChannelPhotoReq, opts ...grpc.CallOption) (*Void, error) {
+func (m *defaultChannelsClient) EditChannelAbout(ctx context.Context, in *EditChannelAboutReq, opts ...grpc.CallOption) (*Void, error) {
+	client := channels.NewRPCChannelsClient(m.cli.Conn())
+	return client.EditChannelAbout(ctx, in, opts...)
+}
+
+func (m *defaultChannelsClient) EditChannelPhoto(ctx context.Context, in *EditChannelPhotoReq, opts ...grpc.CallOption) (*ChannelData, error) {
 	client := channels.NewRPCChannelsClient(m.cli.Conn())
 	return client.EditChannelPhoto(ctx, in, opts...)
+}
+
+func (m *defaultChannelsClient) DeleteChannelUser(ctx context.Context, in *DeleteChannelUserReq, opts ...grpc.CallOption) (*Void, error) {
+	client := channels.NewRPCChannelsClient(m.cli.Conn())
+	return client.DeleteChannelUser(ctx, in, opts...)
+}
+
+func (m *defaultChannelsClient) DeleteChannel(ctx context.Context, in *DeleteChannelReq, opts ...grpc.CallOption) (*ChannelData, error) {
+	client := channels.NewRPCChannelsClient(m.cli.Conn())
+	return client.DeleteChannel(ctx, in, opts...)
 }
 
 // OLD

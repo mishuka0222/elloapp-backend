@@ -6,19 +6,27 @@ import (
 	"gitlab.com/merehead/elloapp/backend/elloapp_tg_backend/mtproto"
 )
 
+// mtproto.ChatMemberNormal  = 0
+// mtproto.ChatMemberCreator = 1
+// mtproto.ChatMemberAdmin   = 2
+// mtproto.ChatMemberBanned  = 4
 const (
-	K_ChannelParticipant     = 0
-	K_ChannelParticipantSelf = iota
-	K_ChannelParticipantCreator
+	K_ChannelParticipant        = 0
+	K_ChannelParticipantCreator = iota
 	K_ChannelParticipantAdmin
+	K_ChannelParticipantKicked
 	K_ChannelParticipantBanned
 	K_ChannelParticipantLeft
-	K_ChannelParticipantKicked
 )
 
+// mtproto.ChatMemberStateNormal   = 0 // normal
+// mtproto.ChatMemberStateLeft     = 1 // left
+// mtproto.ChatMemberStateKicked   = 2 // kicked
+// mtproto.ChatMemberStateMigrated = 3 // migrated
 const (
 	K_ParticipantActiveState = 0
-	K_ParticipantLeftState   = 1
+	K_ParticipantLeftState   = iota
+	K_ParticipantKickedState
 )
 
 func (ptc *ChannelParticipant) MakeChannelParticipant(selfId int64) (participant *mtproto.ChannelParticipant, err error) {
@@ -88,6 +96,24 @@ func (ptc *ChannelParticipant) AdminRightsToStr() (res string) {
 	if res == "" {
 		return "{}"
 	}
+	return
+}
+
+func (ptc *ChannelParticipant) BannedRightsToStr() (res string) {
+	if ptc.BannedRights != nil {
+		res, _ = jsonx.MarshalToString(ptc.BannedRights)
+	}
+	if res == "" {
+		return "{}"
+	}
+	return
+}
+
+func (ch *ChannelData) ToChannelForbidden() (chat *mtproto.Chat) {
+	chat = mtproto.MakeTLChannelForbidden(&mtproto.Chat{
+		Id:    ch.Channel.Id,
+		Title: ch.Channel.Title,
+	}).To_Chat()
 	return
 }
 
@@ -218,18 +244,41 @@ func (ch *ChannelData) FindChatParticipant(selfUserId int64) (int, *ChannelParti
 	return -1, nil
 }
 
-func (ch *ChannelData) AdminCount() (adminCount int32) {
+func (ch *ChannelData) AdminCount() (count int32) {
 	for i := range ch.Participants {
 		if ch.Participants[i].ParticipantType == K_ChannelParticipantCreator ||
 			ch.Participants[i].ParticipantType == K_ChannelParticipantAdmin {
-			adminCount++
+			count++
 		}
 	}
 	return
 }
 
-func (ch *ChannelData) ParticipantCount() (participantCount int32) {
-	participantCount = int32(len(ch.Participants))
+func (ch *ChannelData) ParticipantCount() (count int32) {
+	for i := range ch.Participants {
+		if ch.Participants[i].ParticipantType == K_ChannelParticipant {
+			count++
+		}
+	}
+	return
+}
+
+func (ch *ChannelData) KickedCount() (count int32) {
+	for i := range ch.Participants {
+		if ch.Participants[i].ParticipantType == K_ChannelParticipantKicked ||
+			ch.Participants[i].ParticipantType == K_ChannelParticipantLeft {
+			count++
+		}
+	}
+	return
+}
+
+func (ch *ChannelData) BannedCount() (count int32) {
+	for i := range ch.Participants {
+		if ch.Participants[i].ParticipantType == K_ChannelParticipantBanned {
+			count++
+		}
+	}
 	return
 }
 
@@ -238,7 +287,7 @@ func (ch *ChannelData) GetChannelId() int64 {
 }
 
 func (ch *ChannelData) GetPhotoId() int64 {
-	return ch.Channel.PhotoId
+	return ch.Channel.Photo.Id
 }
 
 func (ch *ChannelData) GetTitle() string {

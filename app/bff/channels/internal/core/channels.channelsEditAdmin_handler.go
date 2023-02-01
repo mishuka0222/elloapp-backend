@@ -19,6 +19,7 @@ func (c *ChannelsCore) ChannelsEditAdmin(in *mtproto.TLChannelsEditAdmin) (upd *
 		channel                *channels.ChannelData
 		participants           *mtproto.ChatParticipants
 		updateChatParticipants *mtproto.Update
+		adminRights            = in.GetAdminRights()
 		mUsers                 *userpb.Vector_ImmutableUser
 		idList                 []int64
 	)
@@ -30,11 +31,27 @@ func (c *ChannelsCore) ChannelsEditAdmin(in *mtproto.TLChannelsEditAdmin) (upd *
 		return
 	}
 
+	if adminRights != nil {
+		if !adminRights.ChangeInfo &&
+			!adminRights.PostMessages &&
+			!adminRights.EditMessages &&
+			!adminRights.DeleteMessages &&
+			!adminRights.BanUsers &&
+			!adminRights.InviteUsers &&
+			!adminRights.PinMessages &&
+			!adminRights.AddAdmins &&
+			!adminRights.Anonymous &&
+			!adminRights.ManageCall &&
+			!adminRights.Other {
+			adminRights = nil
+		}
+	}
+
 	channel, err = c.svcCtx.Dao.ChannelsClient.EditChannelAdmin(c.ctx, &channels.EditChannelAdminReq{
 		ChannelId:   peer.PeerId,
 		OperatorId:  c.MD.UserId,
 		EditUserId:  in.UserId.GetUserId(),
-		AdminRights: in.GetAdminRights(),
+		AdminRights: adminRights,
 	})
 	if err != nil {
 		return

@@ -19,7 +19,7 @@ func (c *ChannelsCore) ChannelsLeaveChannel(in *mtproto.TLChannelsLeaveChannel) 
 		ChannelId:    in.Channel.GetChannelId(),
 		OperatorId:   c.MD.UserId,
 		DeleteUserId: c.MD.UserId,
-		Reason:       channels.K_ParticipantLeftState,
+		Reason:       channels.K_ChannelParticipantLeft,
 	})
 	if err != nil {
 		return

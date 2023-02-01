@@ -42,7 +42,7 @@ func (c *ChannelsCore) ChannelsEditTitle(in *mtproto.TLChannelsEditTitle) (upd *
 		}).To_OutboxMessage(),
 	})
 	if err != nil {
-		c.Logger.Errorf("messages.editChannelTitle - error: %v", err)
+		c.Logger.Errorf("channels.editChannelTitle - error: %v", err)
 		return nil, err
 	}
 

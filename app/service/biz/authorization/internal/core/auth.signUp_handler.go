@@ -38,19 +38,12 @@ func (c *AuthorizationCore) AuthSingUP(in *authorization.AuthSignUpRequest) (*au
 		return nil, fmt.Errorf("this username was been registered")
 	}
 
-	dob, err := date.FormatDateIso8601(in.DateOfBirth)
-	if err != nil {
-		err = fmt.Errorf("date of birth should be in ISO 8601, current \"%v\"", in.DateOfBirth)
-		c.Logger.Error(err)
-		return nil, err
-	}
-
 	var (
 		user              *userpb.ImmutableUser
 		confirmationCodes *models.ConfirmationCodes
 	)
 
-	if err := c.svcCtx.Gorm.Transaction(func(tx *gorm.DB) error {
+	if err := c.svcCtx.Gorm.Transaction(func(tx *gorm.DB) (err error) {
 		/*
 			Old Authorization method start
 		*/
@@ -81,6 +74,14 @@ func (c *AuthorizationCore) AuthSingUP(in *authorization.AuthSignUpRequest) (*au
 			return err
 		}
 
+		if _, err := c.svcCtx.UserClient.UserUpdateUsername(c.ctx, &userpb.TLUserUpdateUsername{
+			UserId:   user.Id(),
+			Username: in.Username,
+		}); err != nil {
+			c.Logger.Errorf("update user`s username: %v", err)
+			return err
+		}
+
 		if _, err = c.svcCtx.Dao.AuthsessionClient.AuthsessionBindAuthKeyUser(c.ctx, &authsession.TLAuthsessionBindAuthKeyUser{
 			AuthKeyId: in.MData.AuthId,
 			UserId:    user.User.Id,
@@ -104,6 +105,7 @@ func (c *AuthorizationCore) AuthSingUP(in *authorization.AuthSignUpRequest) (*au
 			return err
 		}
 
+		dob, _ := date.FormatDateIso8601(in.DateOfBirth)
 		usersEllo := &models.UsersEllo{
 			UserID:   uint(user.Id()),
 			Username: in.Username,
@@ -144,7 +146,7 @@ func (c *AuthorizationCore) AuthSingUP(in *authorization.AuthSignUpRequest) (*au
 			Subject:  "Confirmation code from ElloApp",
 		}
 
-		if _, err := mail.SendMail(c.ctx, mailReq); err != nil {
+		if _, err = mail.SendMail(c.ctx, mailReq); err != nil {
 			c.Logger.Errorf("can not send code to mail (%v)", err)
 			return err
 		}
@@ -153,7 +155,7 @@ func (c *AuthorizationCore) AuthSingUP(in *authorization.AuthSignUpRequest) (*au
 			New Authorization_customize method end
 		*/
 
-		return nil
+		return
 	}); err != nil {
 		return nil, err
 	}

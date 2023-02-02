@@ -1,6 +1,7 @@
 package core
 
 import (
+	"github.com/gogo/protobuf/types"
 	"gitlab.com/merehead/elloapp/backend/elloapp_tg_backend/app/service/media/media"
 	"gitlab.com/merehead/elloapp/backend/elloapp_tg_backend/mtproto"
 
@@ -55,6 +56,10 @@ func (c *ChannelsCore) ToChat(in *channels.ToChatReq) (res *channels.ToChatResp,
 		AdminRights:         nil,
 		DefaultBannedRights: nil,
 	}).To_Channel()
+
+	if in.Channel.Channel.Username != "" {
+		channel.SetUsername(&types.StringValue{Value: in.Channel.Channel.Username})
+	}
 
 	if in.Channel.Channel.CreatorUserId == in.SelfUserId {
 		AdminRights := mtproto.MakeTLChatAdminRights(&mtproto.ChatAdminRights{

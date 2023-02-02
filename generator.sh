@@ -1,15 +1,15 @@
 PWD=`pwd`
 GOPATH=$HOME/go
-GO_CTR_PATH=$PWD/generator/macapp
+GO_CTR_PATH=$PWD/generator/linuxapp
 
 GOGOPROTO_PATH=$GOPATH/pkg/mod/github.com/gogo/protobuf@v1.3.2/protobuf
 SCHEMA_PATH=$PWD/mtproto/example.proto
 
-WD_PATH=app/service/biz/channels
+WD_PATH=app/service/biz/accounts
 WORKDIR=$PWD/$WD_PATH
-SRC_PATH=channels.proto
+SRC_PATH=accounts.proto
 DST_DIR=.
-DST_DIR2=channels
+DST_DIR2=accounts
 
 cd $WORKDIR
 
@@ -25,7 +25,7 @@ $GO_CTR_PATH rpc protoc $SRC_PATH \
 #  --verbose
 
 
-#import "rpc_error_codes.proto";
+# import "rpc_error_codes.proto";
 #import "schema.tl.core_types.proto";
 #import "schema.tl.crc32.proto";
 #import "schema.tl.handshake.proto";

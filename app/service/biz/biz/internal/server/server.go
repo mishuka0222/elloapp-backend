@@ -2,6 +2,9 @@ package server
 
 import (
 	"flag"
+
+	accounts_helper "gitlab.com/merehead/elloapp/backend/elloapp_tg_backend/app/service/biz/accounts"
+	"gitlab.com/merehead/elloapp/backend/elloapp_tg_backend/app/service/biz/accounts/accounts"
 	authorization_helper "gitlab.com/merehead/elloapp/backend/elloapp_tg_backend/app/service/biz/authorization"
 	"gitlab.com/merehead/elloapp/backend/elloapp_tg_backend/app/service/biz/authorization/authorization"
 	"gitlab.com/merehead/elloapp/backend/elloapp_tg_backend/app/service/biz/biz/internal/config"
@@ -77,6 +80,15 @@ func (s *Server) Initialize() error {
 			grpcServer,
 			feeds_helper.New(
 				feeds_helper.Config{
+					RpcServerConf: c.RpcServerConf,
+					Mysql:         c.Mysql,
+				}))
+
+		// accounts
+		accounts.RegisterRPCAccountsServer(
+			grpcServer,
+			accounts_helper.New(
+				accounts_helper.Config{
 					RpcServerConf: c.RpcServerConf,
 					Mysql:         c.Mysql,
 				}))

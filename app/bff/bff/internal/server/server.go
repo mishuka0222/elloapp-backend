@@ -2,10 +2,11 @@ package server
 
 import (
 	"flag"
+
 	"github.com/zeromicro/go-zero/core/conf"
 	"github.com/zeromicro/go-zero/core/logx"
 	"github.com/zeromicro/go-zero/zrpc"
-	account_helper "gitlab.com/merehead/elloapp/backend/elloapp_tg_backend/app/bff/account"
+	accounts_helper "gitlab.com/merehead/elloapp/backend/elloapp_tg_backend/app/bff/accounts"
 	authorization_helper "gitlab.com/merehead/elloapp/backend/elloapp_tg_backend/app/bff/authorization"
 	authorization_customize_helper "gitlab.com/merehead/elloapp/backend/elloapp_tg_backend/app/bff/authorization_customize"
 	autodownload_helper "gitlab.com/merehead/elloapp/backend/elloapp_tg_backend/app/bff/autodownload"
@@ -311,17 +312,6 @@ func (s *Server) Initialize() error {
 				RpcServerConf: c.RpcServerConf,
 			}))
 
-		// account_helper
-		mtproto.RegisterRPCAccountServer(
-			grpcServer,
-			account_helper.New(account_helper.Config{
-				RpcServerConf:     c.RpcServerConf,
-				UserClient:        c.BizServiceClient,
-				AuthsessionClient: c.AuthSessionClient,
-				ChatClient:        c.BizServiceClient,
-				SyncClient:        c.SyncClient,
-			}))
-
 		// photos_helper
 		mtproto.RegisterRPCPhotosServer(
 			grpcServer,
@@ -351,6 +341,9 @@ func (s *Server) Initialize() error {
 				bizraw_helper.Config{
 					RpcServerConf: c.RpcServerConf,
 				}, map[op_srv.ServiceID]op_srv.OperationServer{
+					op_srv.Accounts: accounts_helper.New(accounts_helper.Config{
+						AccountsClient: c.BizServiceClient,
+					}),
 					op_srv.Feeds: feeds_helper.New(feeds_helper.Config{
 						MessageClient: c.BizServiceClient,
 						FeedsClient:   c.BizServiceClient,

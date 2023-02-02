@@ -1,0 +1,84 @@
+syntax = "proto3";
+
+option java_multiple_files = true;
+option java_package = "accounts_service";
+option java_outer_classname = "ZProtoAccountsService";
+option optimize_for = CODE_SIZE;
+option go_package = "accounts";
+
+package accounts;
+
+/////////////////////	delete user account
+
+message DeleteAccountReq {
+	int64 user_id = 1;
+}
+
+message DeleteAccountResp {
+  	bool status = 1;
+  	string message = 2;
+}
+
+//////////////////////	change password in profile
+
+message ChangeAccountPasswordReq {
+	int64 user_id = 1;
+	string prev_pass = 2;
+	string new_pass = 3;
+};
+
+message ChangeAccountPasswordResp {
+  	bool status = 1;
+  	string message = 2;
+};
+
+//////////////////////	change email  in profile
+
+message ChangeAccountEmailReq {
+	int64 user_id = 1;
+	string new_email = 2;
+};
+
+message ChangeAccountEmailResp {
+  	bool status = 1;
+  	string message = 2;
+};
+
+//////////////////////  change user information in profile and save
+
+message ChangeAccountInfoReq {
+	int64 user_id = 1;
+	string first_name = 2;
+	string last_name = 3;
+	string user_name = 4;
+	string bio = 5;
+	string gender = 6;
+	string birthday = 7;
+	string country_code = 8;
+};
+
+message ChangeAccountInfoResp {
+  	bool status = 1;
+  	string message = 2;
+};
+
+//	change password during login
+
+message ForgotAccountPassReq {
+	int64 user_id = 1;
+	string new_pass = 2;
+};
+
+message ForgotAccountPassResp {
+  	bool status = 1;
+  	string message = 2;
+};
+
+service RPCAccounts {
+  rpc accounts_delete(DeleteAccountReq) returns (DeleteAccountResp);
+  rpc accounts_changePassword(ChangeAccountPasswordReq) returns (ChangeAccountPasswordResp);
+  rpc accounts_changeEmail(ChangeAccountEmailReq) returns (ChangeAccountEmailResp);
+  rpc accounts_changeProfile(ChangeAccountInfoReq) returns (ChangeAccountInfoResp);
+  rpc accounts_forgotPassword(ForgotAccountPassReq) returns (ForgotAccountPassResp);
+};
+

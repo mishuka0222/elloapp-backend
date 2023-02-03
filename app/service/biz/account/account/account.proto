@@ -1,0 +1,107 @@
+syntax = "proto3";
+
+option java_multiple_files = true;
+option java_package = "account_service";
+option java_outer_classname = "ZProtoAccountService";
+option optimize_for = CODE_SIZE;
+option go_package = "account";
+
+package account;
+
+/////////////////////	delete user account
+
+message DeleteAccountReq {
+	int64 user_id = 1;
+}
+
+message DeleteAccountResp {
+  	bool status = 1;
+  	string message = 2;
+}
+
+//////////////////////	change password in profile
+
+message ChangeAccountPasswordReq {
+	int64 user_id = 1;
+	string prev_pass = 2;
+	string new_pass = 3;
+};
+
+message ChangeAccountPasswordResp {
+  	bool status = 1;
+  	string message = 2;
+};
+
+//////////////////////	change email  in profile
+
+message ChangeAccountEmailReq {
+	int64 user_id = 1;
+	string new_email = 2;
+};
+
+message ChangeAccountEmailResp {
+  	bool status = 1;
+  	string message = 2;
+};
+
+//////////////////////  change user information in profile and save
+
+message ChangeAccountInfoReq {
+	int64 user_id = 1;
+	string first_name = 2;
+	string last_name = 3;
+	string user_name = 4;
+	string bio = 5;
+	string gender = 6;
+	string birthday = 7;
+	string country_code = 8;
+};
+
+message ChangeAccountInfoResp {
+  	bool status = 1;
+  	string message = 2;
+};
+
+//	change password during login
+
+message ForgotAccountPassReq {
+	int64 user_id = 1;
+	string new_pass = 2;
+};
+
+message ForgotAccountPassResp {
+  	bool status = 1;
+  	string message = 2;
+};
+
+message ConfirmationSendReq {
+		string email = 1;
+}
+
+message ConfirmationSendResp {
+		bool status = 1;
+		string message = 2;
+		string email = 3;
+  	int64 confirmation_expire = 4;
+}
+
+message ConfirmationConfirmReq {
+		string email = 1;
+		string code = 2;
+}
+
+message ConfirmationConfirmResp {
+		bool status = 1;
+  	string message = 2;
+}
+
+service RPCAccount {
+  rpc account_delete(DeleteAccountReq) returns (DeleteAccountResp);
+  rpc account_changePassword(ChangeAccountPasswordReq) returns (ChangeAccountPasswordResp);
+  rpc account_changeEmail(ChangeAccountEmailReq) returns (ChangeAccountEmailResp);
+  rpc account_changeProfile(ChangeAccountInfoReq) returns (ChangeAccountInfoResp);
+  rpc account_forgotPassword(ForgotAccountPassReq) returns (ForgotAccountPassResp);
+  rpc account_confirmationSend(ConfirmationSendReq) returns (ConfirmationSendResp);
+  rpc account_confirmationConfirm(ConfirmationConfirmReq) returns (ConfirmationConfirmResp);
+};
+

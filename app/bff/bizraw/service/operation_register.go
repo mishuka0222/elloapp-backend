@@ -3,7 +3,6 @@ package operation_service
 import (
 	"context"
 	"encoding/json"
-
 	"gitlab.com/merehead/elloapp/backend/elloapp_tg_backend/mtproto"
 )
 
@@ -15,18 +14,19 @@ type ServiceID int32
 
 const (
 	Feeds ServiceID = iota*100 + 100100
-	Accounts
 	AuthorizationCustomize
+	AccountCustomize
 )
 
 var K_WITHOUT_LOGIN = []ServiceID{
 	AuthorizationCustomize,
+	AccountCustomize,
 }
 
 var K_SERVER_LIST = []ServiceID{
 	Feeds,
-	Accounts,
 	AuthorizationCustomize,
+	AccountCustomize,
 }
 
 // Operation

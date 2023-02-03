@@ -14,7 +14,7 @@ func (c *ChatInvitesCore) MessagesExportChatInvite(in *mtproto.TLMessagesExportC
 		exportedChatInvite *mtproto.ExportedChatInvite
 	)
 
-	if !peer.IsChat() {
+	if !peer.IsChatOrChannel() {
 		err = mtproto.ErrPeerIdInvalid
 		c.Logger.Errorf("messages.exportChatInvite - error: ", err)
 		return nil, err

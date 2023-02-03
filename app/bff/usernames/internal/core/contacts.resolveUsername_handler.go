@@ -1,6 +1,7 @@
 package core
 
 import (
+	"gitlab.com/merehead/elloapp/backend/elloapp_tg_backend/app/service/biz/channels/channels"
 	"gitlab.com/merehead/elloapp/backend/elloapp_tg_backend/app/service/biz/chat/chat"
 	userpb "gitlab.com/merehead/elloapp/backend/elloapp_tg_backend/app/service/biz/user/user"
 	"gitlab.com/merehead/elloapp/backend/elloapp_tg_backend/app/service/biz/username/username"
@@ -17,10 +18,20 @@ func (c *UsernamesCore) ContactsResolveUsername(in *mtproto.TLContactsResolveUse
 	// 400	USERNAME_NOT_OCCUPIED	The provided username is not occupied
 	//
 	var (
-		peer *mtproto.PeerUtil
+		peer    *mtproto.PeerUtil
+		usrname = in.GetUsername()
 	)
 
-	id := userpb.GetBotIdByName(in.GetUsername())
+	//if strings.Contains(usrname, "joinchannel/") {
+	//	res, err := c.svcCtx.Dao.ChannelsClient.FindByJoinLink(c.ctx, &channels.FindByJoinLinkReq{
+	//		Link: usrname,
+	//	})
+	//	if err != nil {
+	//		return nil, err
+	//	}
+	//	peer = mtproto.MakeChannelPeerUtil(res.ChannelId)
+	//} else {
+	id := userpb.GetBotIdByName(usrname)
 	if id > 0 {
 		peer = mtproto.MakeUserPeerUtil(id)
 	} else {
@@ -34,6 +45,7 @@ func (c *UsernamesCore) ContactsResolveUsername(in *mtproto.TLContactsResolveUse
 
 		peer = mtproto.FromPeer(rName)
 	}
+	//}
 
 	resolvedPeer := mtproto.MakeTLContactsResolvedPeer(&mtproto.Contacts_ResolvedPeer{
 		Peer:  peer.ToPeer(),
@@ -59,11 +71,20 @@ func (c *UsernamesCore) ContactsResolveUsername(in *mtproto.TLContactsResolveUse
 			resolvedPeer.Chats = []*mtproto.Chat{chat.ToUnsafeChat(c.MD.UserId)}
 		}
 	case mtproto.PEER_CHANNEL:
-		if c.svcCtx.Plugin != nil {
-			resolvedPeer.Chats = c.svcCtx.Plugin.GetChannelListByIdList(c.ctx, c.MD.UserId, peer.PeerId)
-		} else {
-			c.Logger.Errorf("contacts.resolveUsername blocked, License key from https://elloapp.com required to unlock enterprise features.")
+		channel, err := c.svcCtx.Dao.ChannelsClient.GetAllChannelDataById(c.ctx, &channels.ChannelDataByIdReq{
+			ChannelId: peer.PeerId,
+		})
+		if err != nil {
+			return nil, err
 		}
+		rChat, err := c.svcCtx.Dao.ChannelsClient.ToChat(c.ctx, &channels.ToChatReq{
+			Channel:    channel,
+			SelfUserId: c.MD.UserId,
+		})
+		if err != nil {
+			return nil, err
+		}
+		resolvedPeer.Chats = []*mtproto.Chat{rChat.Chat}
 	}
 
 	return resolvedPeer, nil

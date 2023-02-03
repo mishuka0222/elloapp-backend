@@ -38,16 +38,18 @@ func TestAuthSingUp(t *testing.T) {
 		Service: op_srv.AuthorizationCustomize,
 		Method:  service.AuthSingUP,
 		Data: core.AuthSingUPReq{
-			Username:    "makhmudov1",
+			Username:    "makhmudov3",
 			Password:    "password123P",
 			Gender:      "Male",
 			DateOfBirth: "1998-06-10T00:00:00+0000",
-			Email:       "lalala@gmail.com",
+			Email:       "lalala2@gmail.com",
+			Type:        "personal",
+			Kind:        "public",
 			Phone:       "",
 			CountryCode: "UZB",
 			Avatar:      "",
-			FirstName:   "",
-			LastName:    "",
+			FirstName:   "Makhmudov",
+			LastName:    "Azizbek",
 		},
 	})
 	if err != nil {

@@ -3,7 +3,7 @@ DST_DIR=.
 
 GOPATH=$HOME/go
 GOGOPROTO_PATH=$GOPATH/pkg/mod/github.com/gogo/protobuf@v1.3.2/protobuf
-SCHEMA_PATH=/Users/azizbekmakhmudov/Documents/Merehead/elloapp_tg_backend/mtproto/example.proto
+SCHEMA_PATH=/home/makhmudov/Desktop/Merehead/elloapp_tg_backend/mtproto/example.proto
 
 protoc --proto_path=$GOGOPROTO_PATH:./ \
     --proto_path=$SCHEMA_PATH:./ \

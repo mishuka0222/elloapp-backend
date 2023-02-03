@@ -35,11 +35,13 @@ message AuthSignUpRequest {
   string date_of_birth = 4;
   string email = 5;
   string phone = 6;
-  string country_code = 7;
-  string avatar = 8;
-  string first_name = 9;
-  string last_name = 10;
-  MData m_data = 11;
+  string type = 7;
+  string kind = 8;
+  string country_code = 9;
+  string avatar = 10;
+  string first_name = 11;
+  string last_name = 12;
+  MData m_data = 13;
 }
 
 message AuthSignInRequest {

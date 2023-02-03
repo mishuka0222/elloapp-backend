@@ -122,6 +122,14 @@ func (c *AuthorizationCore) AuthSingUP(in *authorization.AuthSignUpRequest) (*au
 			return err
 		}
 
+		if err = tx.Create(&models.Username{
+			Username: in.Username,
+			PeerId:   uint(user.Id()),
+		}).Error; err != nil {
+			c.Logger.Errorf("can not create username record (%v)", err)
+			return err
+		}
+
 		code, err := numbers.ConfirmationCode(6)
 		if err != nil {
 			c.Logger.Errorf("can not generate confirmation code (%v)", err)

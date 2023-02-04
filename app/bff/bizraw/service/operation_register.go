@@ -20,7 +20,6 @@ const (
 
 var K_WITHOUT_LOGIN = []ServiceID{
 	AuthorizationCustomize,
-	AccountCustomize,
 }
 
 var K_SERVER_LIST = []ServiceID{

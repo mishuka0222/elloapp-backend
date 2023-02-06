@@ -12,7 +12,6 @@ const (
 	AccountChangePassword
 	AccountChangeProfile
 	AccountDelete
-	AccountForgotPassword
 	AccountConfirmationSend
 	AccountConfirmationConfirm
 )
@@ -23,7 +22,6 @@ func (s *Service) initOperationRegister() {
 		AccountChangePassword:      s.AccountChangePassword,
 		AccountChangeProfile:       s.AccountChangeProfile,
 		AccountDelete:              s.AccountDelete,
-		AccountForgotPassword:      s.AccountForgotPassword,
 		AccountConfirmationSend:    s.AccountConfirmationSend,
 		AccountConfirmationConfirm: s.AccountConfirmationConfirm,
 	}

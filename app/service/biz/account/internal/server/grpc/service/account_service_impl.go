@@ -62,19 +62,6 @@ func (s *Service) AccountChangeProfile(ctx context.Context, in *account.ChangeAc
 	return r, err
 }
 
-func (s *Service) AccountForgotPassword(ctx context.Context, in *account.ForgotAccountPassReq) (*account.ForgotAccountPassResp, error) {
-	c := core.NewAccount(ctx, s.svcCtx)
-
-	c.Logger.Debugf("account.account_forgotPassword - metadata: %s, request: %s", c.MD.DebugString(), in.String())
-	r, err := c.AccountForgotPassword(in)
-	if err != nil {
-		return nil, err
-	}
-
-	c.Logger.Debugf("account.account_forgotPassword - reply: %+v", r)
-	return r, err
-}
-
 func (s *Service) AccountConfirmationSend(ctx context.Context, in *account.ConfirmationSendReq) (*account.ConfirmationSendResp, error) {
 	c := core.NewAccount(ctx, s.svcCtx)
 

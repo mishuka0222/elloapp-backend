@@ -66,20 +66,6 @@ message ChangeAccountInfoResp {
   	string message = 2;
 };
 
-//	change password during login
-
-message ForgotAccountPassReq {
-	int64 user_id = 1;
-	string new_pass = 2;
-};
-
-message ForgotAccountPassResp {
-  	bool status = 1;
-  	string message = 2;
-	string email = 3;
-  	int64 confirmation_expire = 4;
-};
-
 message ConfirmationSendReq {
 	string email = 1;
 }
@@ -106,7 +92,6 @@ service RPCAccount {
   rpc account_changePassword(ChangeAccountPasswordReq) returns (ChangeAccountPasswordResp);
   rpc account_changeEmail(ChangeAccountEmailReq) returns (ChangeAccountEmailResp);
   rpc account_changeProfile(ChangeAccountInfoReq) returns (ChangeAccountInfoResp);
-  rpc account_forgotPassword(ForgotAccountPassReq) returns (ForgotAccountPassResp);
   rpc account_confirmationSend(ConfirmationSendReq) returns (ConfirmationSendResp);
   rpc account_confirmationConfirm(ConfirmationConfirmReq) returns (ConfirmationConfirmResp);
 };

@@ -23,7 +23,7 @@ func (c *AccountCore) AccountForgotPassword(in *account.ForgotAccountPassReq) (*
 		c.Logger.Error(err)
 	}
 
-	if err := c.svcCtx.Gorm.Where("user_id = ?", in.UserId).Updates(&models.UsersEllo{Password: hashedPass}).Error; err != nil && err != gorm.ErrRecordNotFound {
+	if err := c.svcCtx.Gorm.Where("user_id = ?", in.UserId).Updates(&models.UsersEllo{Password: hashedPass, EmailConfirmed: false}).Error; err != nil && err != gorm.ErrRecordNotFound {
 		err := fmt.Errorf("can not get users record (%v)", err)
 		c.Logger.Error(err)
 		return &account.ForgotAccountPassResp{

@@ -30,6 +30,8 @@ message ChangeAccountPasswordReq {
 message ChangeAccountPasswordResp {
   	bool status = 1;
   	string message = 2;
+	string email = 3;
+  	int64 confirmation_expire = 4;
 };
 
 //////////////////////	change email  in profile
@@ -42,6 +44,8 @@ message ChangeAccountEmailReq {
 message ChangeAccountEmailResp {
   	bool status = 1;
   	string message = 2;
+	string email = 3;
+  	int64 confirmation_expire = 4;
 };
 
 //////////////////////  change user information in profile and save
@@ -72,26 +76,28 @@ message ForgotAccountPassReq {
 message ForgotAccountPassResp {
   	bool status = 1;
   	string message = 2;
+	string email = 3;
+  	int64 confirmation_expire = 4;
 };
 
 message ConfirmationSendReq {
-		string email = 1;
+	string email = 1;
 }
 
 message ConfirmationSendResp {
-		bool status = 1;
-		string message = 2;
-		string email = 3;
+	bool status = 1;
+	string message = 2;
+	string email = 3;
   	int64 confirmation_expire = 4;
 }
 
 message ConfirmationConfirmReq {
-		string email = 1;
-		string code = 2;
+	string email = 1;
+	string code = 2;
 }
 
 message ConfirmationConfirmResp {
-		bool status = 1;
+	bool status = 1;
   	string message = 2;
 }
 

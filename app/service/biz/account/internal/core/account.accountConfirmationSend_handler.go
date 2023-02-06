@@ -43,7 +43,7 @@ func (c *AccountCore) AccountConfirmationSend(in *account.ConfirmationSendReq) (
 			Status:             false,
 			Email:              in.Email,
 			ConfirmationExpire: 0,
-			Message:            "There is not account in usersEllo",
+			Message:            "There is no account in usersEllo",
 		}, err
 	}
 

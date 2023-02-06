@@ -11,6 +11,8 @@ const (
 	AuthSingUP int32 = iota*100 + 100100
 	AuthSingIN
 	Confirmation
+	ForgotPassword
+	ForgotPasswordConfirm
 )
 
 func (s *Service) initOperationRegister() {
@@ -18,6 +20,8 @@ func (s *Service) initOperationRegister() {
 		AuthSingUP:   s.AuthSingUP,
 		AuthSingIN:   s.AuthSingIN,
 		Confirmation: s.Confirmation,
+		ForgotPassword: s.ForgotPassword,
+		ForgotPasswordConfirm: s.ForgotPasswordConfirm
 	}
 	s.operationRegister = operationRegister
 }

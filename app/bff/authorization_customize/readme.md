@@ -88,3 +88,48 @@
 ]
 ```
 ------
+
+------
+
+- Service: AuthorizationCustomize = 100100
+- Method: ForgotPassword = 100400
+- Data:
+```javascript
+{
+    "email": "example@example.com"
+}
+```
+
+### Response
+```javascript
+{
+    "status": true,
+    "message": "Sent successfully!",
+    "email": "example@example.com",
+    "confirmation_expire": 120
+
+}
+```
+------
+
+------
+
+- Service: AuthorizationCustomize = 100100
+- Method: ForgotPasswordConfirm = 100500
+- Data:
+```javascript
+{
+    "email": "example@example.com"
+    "code": 12345,
+    "new_pass": "123456"
+}
+```
+
+### Response
+```javascript
+{
+    "status": true,
+    "message": "Password Changed successfully!",
+}
+```
+------

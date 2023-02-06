@@ -3,7 +3,7 @@
 ## Register users, confirm email and sign in methods
 
 ### Request
-- Service: AuthorizationCustomize = 100100
+- Service: AuthorizationCustomize = 100200
 - Method: SignUp = 100100
 - Data:
 ```javascript
@@ -33,7 +33,7 @@
 ------
 
 
-- Service: AuthorizationCustomize = 100100
+- Service: AuthorizationCustomize = 100200
 - Method: Confirmmation = 100300
 - Data:
 ```javascript
@@ -53,7 +53,7 @@
 ```
 ------
 
-- Service: AuthorizationCustomize = 100100
+- Service: AuthorizationCustomize = 100200
 - Method: SignIn = 100200
 - Data:
 ```javascript
@@ -91,7 +91,7 @@
 
 ------
 
-- Service: AuthorizationCustomize = 100100
+- Service: AuthorizationCustomize = 100200
 - Method: ForgotPassword = 100400
 - Data:
 ```javascript
@@ -114,7 +114,7 @@
 
 ------
 
-- Service: AuthorizationCustomize = 100100
+- Service: AuthorizationCustomize = 100200
 - Method: ForgotPasswordConfirm = 100500
 - Data:
 ```javascript

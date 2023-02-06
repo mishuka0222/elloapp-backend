@@ -21,7 +21,7 @@ func (s *Service) initOperationRegister() {
 		AuthSingIN:   s.AuthSingIN,
 		Confirmation: s.Confirmation,
 		ForgotPassword: s.ForgotPassword,
-		ForgotPasswordConfirm: s.ForgotPasswordConfirm
+		ForgotPasswordConfirm: s.ForgotPasswordConfirm,
 	}
 	s.operationRegister = operationRegister
 }

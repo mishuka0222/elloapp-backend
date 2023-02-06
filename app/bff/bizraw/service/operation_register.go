@@ -15,6 +15,7 @@ type ServiceID int32
 const (
 	Feeds ServiceID = iota*100 + 100100
 	AuthorizationCustomize
+	AccountCustomize
 )
 
 var K_WITHOUT_LOGIN = []ServiceID{
@@ -24,6 +25,7 @@ var K_WITHOUT_LOGIN = []ServiceID{
 var K_SERVER_LIST = []ServiceID{
 	Feeds,
 	AuthorizationCustomize,
+	AccountCustomize,
 }
 
 // Operation

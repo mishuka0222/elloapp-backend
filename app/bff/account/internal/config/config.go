@@ -8,7 +8,7 @@ import (
 type Config struct {
 	zrpc.RpcServerConf
 	UserClient        zrpc.RpcClientConf
-	// AccountClient     zrpc.RpcClientConf
+	AccountClient     zrpc.RpcClientConf
 	AuthsessionClient zrpc.RpcClientConf
 	ChatClient        zrpc.RpcClientConf
 	SyncClient        *kafka.KafkaProducerConf

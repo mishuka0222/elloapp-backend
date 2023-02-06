@@ -6,6 +6,7 @@ import (
 	"github.com/zeromicro/go-zero/core/logx"
 	"github.com/zeromicro/go-zero/zrpc"
 	account_helper "gitlab.com/merehead/elloapp/backend/elloapp_tg_backend/app/bff/account"
+	account_customize_helper "gitlab.com/merehead/elloapp/backend/elloapp_tg_backend/app/bff/account_customize"
 	authorization_helper "gitlab.com/merehead/elloapp/backend/elloapp_tg_backend/app/bff/authorization"
 	authorization_customize_helper "gitlab.com/merehead/elloapp/backend/elloapp_tg_backend/app/bff/authorization_customize"
 	autodownload_helper "gitlab.com/merehead/elloapp/backend/elloapp_tg_backend/app/bff/autodownload"
@@ -322,6 +323,17 @@ func (s *Server) Initialize() error {
 				SyncClient:        c.SyncClient,
 			}))
 
+		accountCustom := account_customize_helper.New(
+			account_customize_helper.Config{
+				AccountClient: c.BizServiceClient,
+			}, account_helper.New(account_helper.Config{
+				RpcServerConf:     c.RpcServerConf,
+				UserClient:        c.BizServiceClient,
+				AuthsessionClient: c.AuthSessionClient,
+				ChatClient:        c.BizServiceClient,
+				SyncClient:        c.SyncClient,
+			}))
+
 		// photos_helper
 		mtproto.RegisterRPCPhotosServer(
 			grpcServer,
@@ -356,6 +368,7 @@ func (s *Server) Initialize() error {
 						FeedsClient:   c.BizServiceClient,
 					}, messagesCore),
 					op_srv.AuthorizationCustomize: authorizationCustom,
+					op_srv.AccountCustomize:       accountCustom,
 				}))
 	})
 

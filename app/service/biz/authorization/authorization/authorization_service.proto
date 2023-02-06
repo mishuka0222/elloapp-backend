@@ -74,8 +74,34 @@ message ConfirmationResponse {
   string message = 1;
 }
 
+message ForgotPasswordReq {
+  string email = 1;
+}
+
+message ForgotPasswordRsp {
+  bool status = 1;
+  string message = 2;
+  string email = 3;
+  int64 confirmation_expire = 4;
+}
+
+message ForgotPasswordConfirmReq {
+  string email = 1;
+  string code = 2;
+  string new_pass = 3;
+}
+
+message ForgotPasswordConfirmRsp {
+  bool status = 1;
+  string message = 2;
+}
+
+message Auth_Authorization {}
+
 service RPCAuthorization {
   rpc AuthSignIn(AuthSignInRequest) returns (mtproto.Auth_Authorization);
   rpc AuthSignUp(AuthSignUpRequest) returns (AuthSignUpRsp);
   rpc Confirmation(ConfirmationRequest) returns(ConfirmationResponse);
+  rpc ForgotPassword(ForgotPasswordReq) returns(ForgotPasswordRsp);
+  rpc ForgotPasswordConfirm(ForgotPasswordConfirmReq) returns(ForgotPasswordConfirmRsp);
 }

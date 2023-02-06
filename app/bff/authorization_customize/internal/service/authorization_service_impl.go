@@ -47,3 +47,29 @@ func (s *Service) Confirmation(ctx context.Context, in json.RawMessage) (interfa
 	c.Logger.Debugf("auth.Confirmation - reply: %+v", r)
 	return r, err
 }
+
+func (s *Service) ForgotPassword(ctx context.Context, in json.RawMessage) (interface{}, error) {
+	c := core.New(ctx, s.svcCtx)
+	c.Logger.Debugf("auth.Confirmation - metadata: %s, request: %s", c.MD.DebugString(), string(in))
+
+	r, err := c.ForgotPassword(in)
+	if err != nil {
+		return nil, err
+	}
+
+	c.Logger.Debugf("auth.Confirmation - reply: %+v", r)
+	return r, err
+}
+
+func (s *Service) ForgotPasswordConfirm(ctx context.Context, in json.RawMessage) (interface{}, error) {
+	c := core.New(ctx, s.svcCtx)
+	c.Logger.Debugf("auth.Confirmation - metadata: %s, request: %s", c.MD.DebugString(), string(in))
+
+	r, err := c.ForgotPasswordConfirm(in)
+	if err != nil {
+		return nil, err
+	}
+
+	c.Logger.Debugf("auth.Confirmation - reply: %+v", r)
+	return r, err
+}

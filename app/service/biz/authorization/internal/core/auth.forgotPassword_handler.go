@@ -3,47 +3,22 @@ package core
 import (
 	"errors"
 	"fmt"
+	"gitlab.com/merehead/elloapp/backend/elloapp_tg_backend/app/service/biz/authorization/authorization"
 	"gitlab.com/merehead/elloapp/backend/elloapp_tg_backend/models"
 	"gitlab.com/merehead/elloapp/backend/elloapp_tg_backend/pkg/mail"
 	"gitlab.com/merehead/elloapp/backend/elloapp_tg_backend/pkg/numbers"
-	"golang.org/x/crypto/bcrypt"
 	"gorm.io/gorm"
 	"time"
-
-	"gitlab.com/merehead/elloapp/backend/elloapp_tg_backend/app/service/biz/account/account"
 )
 
-func (c *AccountCore) AccountForgotPassword(in *account.ForgotAccountPassReq) (*account.ForgotAccountPassResp, error) {
+func (c *AuthorizationCore) ForgotPassword(in *authorization.ForgotPasswordReq) (*authorization.ForgotPasswordRsp, error) {
 	var userEllo models.UsersEllo
-
-	hashPassword, err := bcrypt.GenerateFromPassword([]byte(in.NewPass), bcrypt.DefaultCost)
-	hashedPass := string(hashPassword[:])
-	if err != nil {
-		err = errors.New("can not generate hash for password")
-		c.Logger.Error(err)
-	}
-
-	if err := c.svcCtx.Gorm.Where("user_id = ?", in.UserId).Updates(&models.UsersEllo{Password: hashedPass, EmailConfirmed: false}).Error; err != nil && err != gorm.ErrRecordNotFound {
-		err := fmt.Errorf("can not get users record (%v)", err)
-		c.Logger.Error(err)
-		return &account.ForgotAccountPassResp{
-			Status:  false,
-			Message: "Can not get usersEllo record",
-		}, err
-	} else if err == gorm.ErrRecordNotFound {
-		err = errors.New("there is no account in usersEllo")
-		c.Logger.Error(err)
-		return &account.ForgotAccountPassResp{
-			Status:  false,
-			Message: "There is no account in usersEllo",
-		}, err
-	}
 
 	//send email verification code
 	code, err := numbers.ConfirmationCode(6)
 	if err != nil {
 		c.Logger.Errorf("can not generate confirmation code (%v)", err)
-		return &account.ForgotAccountPassResp{
+		return &authorization.ForgotPasswordRsp{
 			Status:             false,
 			Email:              userEllo.Email,
 			ConfirmationExpire: 0,
@@ -51,10 +26,10 @@ func (c *AccountCore) AccountForgotPassword(in *account.ForgotAccountPassReq) (*
 		}, err
 	}
 
-	if err := c.svcCtx.Gorm.Where("user_id", in.UserId).First(&userEllo).Error; err != nil && err != gorm.ErrRecordNotFound {
+	if err := c.svcCtx.Gorm.Where("email", in.Email).First(&userEllo).Error; err != nil && err != gorm.ErrRecordNotFound {
 		err := fmt.Errorf("can not get users record (%v)", err)
 		c.Logger.Error(err)
-		return &account.ForgotAccountPassResp{
+		return &authorization.ForgotPasswordRsp{
 			Status:             false,
 			Email:              userEllo.Email,
 			ConfirmationExpire: 0,
@@ -63,7 +38,7 @@ func (c *AccountCore) AccountForgotPassword(in *account.ForgotAccountPassReq) (*
 	} else if err == gorm.ErrRecordNotFound {
 		err = errors.New("there is no account in usersEllo")
 		c.Logger.Error(err)
-		return &account.ForgotAccountPassResp{
+		return &authorization.ForgotPasswordRsp{
 			Status:             false,
 			Email:              userEllo.Email,
 			ConfirmationExpire: 0,
@@ -101,7 +76,7 @@ func (c *AccountCore) AccountForgotPassword(in *account.ForgotAccountPassReq) (*
 		return nil, err
 	}
 
-	return &account.ForgotAccountPassResp{
+	return &authorization.ForgotPasswordRsp{
 		Status:             true,
 		Email:              userEllo.Email,
 		ConfirmationExpire: confirmationCodes.ExpiredAt.Unix(),

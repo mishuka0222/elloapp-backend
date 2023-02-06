@@ -83,25 +83,6 @@
 
 ### Request
 - Service: AccountCustomize = 100300
-- Method: AccountForgotPassword = 100500
-- Data:
-```javascript
-{
-    new_pass: String
-}
-```
-
-### Response
-```javascript
-{
-    Status: bool
-    Message: String
-}
-```
-------
-
-### Request
-- Service: AccountCustomize = 100300
 - Method: AccountConfirmationSend = 100600
 - Data:
 ```javascript

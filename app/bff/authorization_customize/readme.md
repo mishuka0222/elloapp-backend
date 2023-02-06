@@ -3,7 +3,7 @@
 ## Register users, confirm email and sign in methods
 
 ### Request
-- Service: AuthorizationCustomize = 100100
+- Service: AuthorizationCustomize = 100200
 - Method: SignUp = 100100
 - Data:
 ```javascript
@@ -33,7 +33,7 @@
 ------
 
 
-- Service: AuthorizationCustomize = 100100
+- Service: AuthorizationCustomize = 100200
 - Method: Confirmmation = 100300
 - Data:
 ```javascript
@@ -53,7 +53,7 @@
 ```
 ------
 
-- Service: AuthorizationCustomize = 100100
+- Service: AuthorizationCustomize = 100200
 - Method: SignIn = 100200
 - Data:
 ```javascript
@@ -86,5 +86,50 @@
         }
     }
 ]
+```
+------
+
+------
+
+- Service: AuthorizationCustomize = 100200
+- Method: ForgotPassword = 100400
+- Data:
+```javascript
+{
+    "email": "example@example.com"
+}
+```
+
+### Response
+```javascript
+{
+    "status": true,
+    "message": "Sent successfully!",
+    "email": "example@example.com",
+    "confirmation_expire": 120
+
+}
+```
+------
+
+------
+
+- Service: AuthorizationCustomize = 100200
+- Method: ForgotPasswordConfirm = 100500
+- Data:
+```javascript
+{
+    "email": "example@example.com"
+    "code": 12345,
+    "new_pass": "123456"
+}
+```
+
+### Response
+```javascript
+{
+    "status": true,
+    "message": "Password Changed successfully!",
+}
 ```
 ------

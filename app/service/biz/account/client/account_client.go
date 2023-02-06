@@ -25,15 +25,12 @@ type (
 	ConfirmationSendResp      = account.ConfirmationSendResp
 	DeleteAccountReq          = account.DeleteAccountReq
 	DeleteAccountResp         = account.DeleteAccountResp
-	ForgotAccountPassReq      = account.ForgotAccountPassReq
-	ForgotAccountPassResp     = account.ForgotAccountPassResp
 
 	AccountClient interface {
 		AccountDelete(ctx context.Context, in *DeleteAccountReq, opts ...grpc.CallOption) (*DeleteAccountResp, error)
 		AccountChangePassword(ctx context.Context, in *ChangeAccountPasswordReq, opts ...grpc.CallOption) (*ChangeAccountPasswordResp, error)
 		AccountChangeEmail(ctx context.Context, in *ChangeAccountEmailReq, opts ...grpc.CallOption) (*ChangeAccountEmailResp, error)
 		AccountChangeProfile(ctx context.Context, in *ChangeAccountInfoReq, opts ...grpc.CallOption) (*ChangeAccountInfoResp, error)
-		AccountForgotPassword(ctx context.Context, in *ForgotAccountPassReq, opts ...grpc.CallOption) (*ForgotAccountPassResp, error)
 		AccountConfirmationSend(ctx context.Context, in *ConfirmationSendReq, opts ...grpc.CallOption) (*ConfirmationSendResp, error)
 		AccountConfirmationConfirm(ctx context.Context, in *ConfirmationConfirmReq, opts ...grpc.CallOption) (*ConfirmationConfirmResp, error)
 	}
@@ -67,11 +64,6 @@ func (m *defaultAccountClient) AccountChangeEmail(ctx context.Context, in *Chang
 func (m *defaultAccountClient) AccountChangeProfile(ctx context.Context, in *ChangeAccountInfoReq, opts ...grpc.CallOption) (*ChangeAccountInfoResp, error) {
 	client := account.NewRPCAccountClient(m.cli.Conn())
 	return client.AccountChangeProfile(ctx, in, opts...)
-}
-
-func (m *defaultAccountClient) AccountForgotPassword(ctx context.Context, in *ForgotAccountPassReq, opts ...grpc.CallOption) (*ForgotAccountPassResp, error) {
-	client := account.NewRPCAccountClient(m.cli.Conn())
-	return client.AccountForgotPassword(ctx, in, opts...)
 }
 
 func (m *defaultAccountClient) AccountConfirmationSend(ctx context.Context, in *ConfirmationSendReq, opts ...grpc.CallOption) (*ConfirmationSendResp, error) {

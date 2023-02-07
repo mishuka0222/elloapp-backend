@@ -105,17 +105,25 @@ func (c *AuthorizationCore) AuthSingUP(in *authorization.AuthSignUpRequest) (*au
 			return err
 		}
 
-		dob, _ := date.FormatDateIso8601(in.DateOfBirth)
 		usersEllo := &models.UsersEllo{
 			UserID:   uint(user.Id()),
 			Username: in.Username,
 			Password: password,
 			Email:    in.Email,
 			Gender:   in.Gender,
+			Type:     in.Type,
+			Kind:     in.Kind,
 			Avatar: sql.NullString{
 				String: in.Avatar,
 			},
-			DateOfBirth: &dob,
+		}
+
+		if usersEllo.Type == "personal" {
+			dob, _ := date.FormatDateIso8601(in.DateOfBirth)
+			usersEllo.DateOfBirth = sql.NullTime{
+				Time:  dob,
+				Valid: true,
+			}
 		}
 		if err = tx.Create(usersEllo).Error; err != nil {
 			c.Logger.Errorf("can not create users_ello record (%v)", err)

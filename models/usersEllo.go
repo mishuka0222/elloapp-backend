@@ -12,9 +12,11 @@ type UsersEllo struct {
 	Password       string
 	Email          string
 	Gender         string
+	Type           string `gorm:"default:personal"`
+	Kind           string `gorm:"default:public"`
 	Avatar         sql.NullString
 	Link           sql.NullString
-	DateOfBirth    *time.Time
+	DateOfBirth    sql.NullTime
 	EmailConfirmed bool `gorm:"default:false"`
 	CreatedAt      time.Time
 	UpdatedAt      time.Time

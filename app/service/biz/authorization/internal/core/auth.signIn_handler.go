@@ -28,7 +28,7 @@ func (c *AuthorizationCore) AuthSingIN(in *authorization.AuthSignInRequest) (*mt
 		c.Logger.Error(err)
 		return nil, err
 	} else if err == gorm.ErrRecordNotFound {
-		err = errors.New("username or password incorrect")
+		err = errors.New("No such user")
 		c.Logger.Error(err)
 		return nil, err
 	} else if !userEllo.EmailConfirmed {
@@ -38,7 +38,7 @@ func (c *AuthorizationCore) AuthSingIN(in *authorization.AuthSignInRequest) (*mt
 	}
 
 	if err := bcrypt.CompareHashAndPassword([]byte(userEllo.Password), []byte(in.Password)); err != nil {
-		err = errors.New("username or password are incorrect")
+		err = errors.New("Password is incorrect")
 		c.Logger.Error(err)
 		return nil, err
 	}

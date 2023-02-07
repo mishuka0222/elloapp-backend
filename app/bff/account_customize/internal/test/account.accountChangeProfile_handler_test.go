@@ -3,16 +3,18 @@ package tests
 import (
 	"context"
 	"encoding/json"
+	"fmt"
 	"github.com/zeromicro/go-zero/core/logx"
-	"gitlab.com/merehead/elloapp/backend/elloapp_tg_backend/app/bff/authorization_customize/internal/core"
-	"gitlab.com/merehead/elloapp/backend/elloapp_tg_backend/app/bff/authorization_customize/internal/service"
+	"gitlab.com/merehead/elloapp/backend/elloapp_tg_backend/app/bff/account_customize/internal/core"
+	"gitlab.com/merehead/elloapp/backend/elloapp_tg_backend/app/bff/account_customize/internal/service"
 	op_srv "gitlab.com/merehead/elloapp/backend/elloapp_tg_backend/app/bff/bizraw/service"
+	"gitlab.com/merehead/elloapp/backend/elloapp_tg_backend/app/service/biz/account/account"
 	"gitlab.com/merehead/elloapp/backend/elloapp_tg_backend/mtproto/rpc/metadata"
 	"testing"
 	"time"
 )
 
-func TestAuthSingUp(t *testing.T) {
+func TestAccountChangeProfile(t *testing.T) {
 	c := NewRPCClient()
 	ctx, err := metadata.RpcMetadataToOutgoing(context.Background(), &metadata.RpcMetadata{
 		ServerId:      "127.0.0.1:20120",
@@ -23,6 +25,7 @@ func TestAuthSingUp(t *testing.T) {
 		ClientMsgId:   7186682945929270272,
 		IsBot:         false,
 		Layer:         147,
+		UserId:        777109,
 		Client:        "android",
 		IsAdmin:       false,
 		Langpack:      "android",
@@ -35,21 +38,16 @@ func TestAuthSingUp(t *testing.T) {
 		empty request
 	*/
 	op, err := op_srv.NewOperation(op_srv.Operation{
-		Service: op_srv.AuthorizationCustomize,
-		Method:  service.AuthSingUP,
-		Data: core.AuthSingUPReq{
-			Username:    "makhmudov1",
-			Password:    "password",
-			Gender:      "Male",
-			DateOfBirth: "1998-06-10T00:00:00+0000",
-			Email:       "lalala1@gmail.com",
-			Type:        "business",
-			Kind:        "private",
-			Phone:       "",
-			CountryCode: "UZB",
-			Avatar:      "",
+		Service: op_srv.AccountCustomize,
+		Method:  service.AccountChangeProfile,
+		Data: core.ChangeProfile{
 			FirstName:   "Makhmudov",
-			LastName:    "Azizbek",
+			LastName:    "Aziz",
+			Username:    "makhmudov0",
+			Bio:         "my new bio",
+			Gender:      "Male",
+			Birthday:    "1998-07-10T00:00:00+0000",
+			CountryCode: "AFG",
 		},
 	})
 	if err != nil {
@@ -57,9 +55,10 @@ func TestAuthSingUp(t *testing.T) {
 	}
 	data, err := c.BizInvokeBizDataRaw(ctx, op)
 	if err != nil {
-		t.Fatal(err, data)
+		fmt.Println("data", data)
+		t.Fatal(err)
 	}
-	var resp core.AuthSingUPResp
+	var resp account.ChangeAccountInfoResp
 	if err := json.Unmarshal(data.Data, &resp); err != nil {
 		t.Fatal(err)
 	}

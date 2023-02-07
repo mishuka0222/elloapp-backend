@@ -2,6 +2,7 @@ package core
 
 import (
 	"encoding/json"
+	"errors"
 	"fmt"
 	"gitlab.com/merehead/elloapp/backend/elloapp_tg_backend/app/service/biz/authorization/authorization"
 	"gitlab.com/merehead/elloapp/backend/elloapp_tg_backend/pkg/date"
@@ -14,8 +15,8 @@ type AuthSingUPReq struct {
 	DateOfBirth string `json:"date_of_birth,omitempty"`
 	Type        string `json:"type"`
 	Kind        string `json:"kind"`
-	Email       string `json:"email,omitempty"`
-	Phone       string `json:"phone"`
+	Email       string `json:"email"`
+	Phone       string `json:"phone,omitempty"`
 	CountryCode string `json:"country_code"`
 	Avatar      string `json:"avatar"`
 	FirstName   string `json:"first_name"`
@@ -37,7 +38,7 @@ func (c *AuthorizationCore) AuthSingUP(in json.RawMessage) (interface{}, error) 
 	if err := json.Unmarshal(in, &req); err != nil {
 		return nil, err
 	} else if errResp := req.validate(); errResp != nil {
-		return errResp, nil
+		return errResp, errors.New("validation fail")
 	}
 
 	respCustom, err := c.svcCtx.Dao.AuthorizationClient.AuthSignUp(c.ctx, &authorization.AuthSignUpRequest{

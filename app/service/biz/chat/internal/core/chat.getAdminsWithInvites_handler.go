@@ -1,0 +1,83 @@
+package core
+
+import (
+	"gitlab.com/merehead/elloapp/backend/elloapp_tg_backend/app/service/biz/chat/chat"
+	"gitlab.com/merehead/elloapp/backend/elloapp_tg_backend/app/service/biz/chat/internal/dal/dataobject"
+	"gitlab.com/merehead/elloapp/backend/elloapp_tg_backend/mtproto"
+	"gitlab.com/merehead/elloapp/backend/elloapp_tg_backend/pkg2/container2"
+)
+
+// ChatGetAdminsWithInvites
+// chat.getAdminsWithInvites self_id:long chat_id:long = Vector<ChatAdminWithInvites>;
+func (c *ChatCore) ChatGetAdminsWithInvites(in *chat.TLChatGetAdminsWithInvites) (*chat.Vector_ChatAdminWithInvites, error) {
+	var (
+		rAdmins        []*mtproto.ChatAdminWithInvites
+		canInviteUsers []int64
+	)
+
+	chat2, err := c.svcCtx.Dao.GetMutableChat(c.ctx, in.ChatId)
+	if err != nil {
+		c.Logger.Errorf("chat.getAdminsWithInvites - error: %v", err)
+		err = mtproto.ErrPeerIdInvalid
+		return nil, err
+	}
+	me, _ := chat2.GetImmutableChatParticipant(in.SelfId)
+	if me == nil {
+		c.Logger.Errorf("chat.getAdminsWithInvites - error: not existed chat")
+		err = mtproto.ErrPeerIdInvalid
+		return nil, err
+	}
+	if !me.CanInviteUsers() {
+		err = mtproto.ErrChatAdminRequired
+		c.Logger.Errorf("chat.getAdminsWithInvites - error: %v", err)
+		return nil, err
+	}
+
+	chat2.Walk(func(userId int64, participant *chat.ImmutableChatParticipant) error {
+		if participant.CanInviteUsers() {
+			canInviteUsers = append(canInviteUsers, participant.UserId)
+		}
+		return nil
+	})
+
+	c.svcCtx.Dao.ChatInvitesDAO.SelectListByChatIdWithCB(
+		c.ctx,
+		in.ChatId,
+		func(i int, v *dataobject.ChatInvitesDO) {
+			var (
+				admin *mtproto.ChatAdminWithInvites
+			)
+
+			if ok, _ := container2.Contains(v.AdminId, canInviteUsers); !ok {
+				return
+			}
+
+			for _, a := range rAdmins {
+				if a.AdminId == v.AdminId {
+					admin = a
+					break
+				}
+			}
+			if admin == nil {
+				admin = mtproto.MakeTLChatAdminWithInvites(&mtproto.ChatAdminWithInvites{
+					AdminId:             v.AdminId,
+					InvitesCount:        0,
+					RevokedInvitesCount: 0,
+				}).To_ChatAdminWithInvites()
+				rAdmins = append(rAdmins, admin)
+			}
+			if v.Revoked {
+				admin.RevokedInvitesCount++
+			} else {
+				admin.InvitesCount++
+			}
+		})
+
+	if rAdmins == nil {
+		rAdmins = []*mtproto.ChatAdminWithInvites{}
+	}
+
+	return &chat.Vector_ChatAdminWithInvites{
+		Datas: rAdmins,
+	}, nil
+}

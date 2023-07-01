@@ -1,0 +1,6 @@
+Name: bff.authorization
+ListenOn: 0.0.0.0:21250
+Etcd:
+  Hosts:
+    - 127.0.0.1:2379
+  Key: bff.bff

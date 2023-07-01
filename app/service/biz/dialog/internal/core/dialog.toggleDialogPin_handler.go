@@ -1,0 +1,54 @@
+package core
+
+import (
+	"time"
+
+	"gitlab.com/merehead/elloapp/backend/elloapp_tg_backend/app/service/biz/dialog/dialog"
+	"gitlab.com/merehead/elloapp/backend/elloapp_tg_backend/app/service/biz/dialog/internal/dal/dataobject"
+	"gitlab.com/merehead/elloapp/backend/elloapp_tg_backend/mtproto"
+)
+
+// DialogToggleDialogPin
+// dialog.toggleDialogPin user_id:long peer_type:int peer_id:long pinned:Bool = Int32;
+func (c *DialogCore) DialogToggleDialogPin(in *dialog.TLDialogToggleDialogPin) (*mtproto.Int32, error) {
+	var (
+		peerDialogId = mtproto.MakePeerDialogId(in.PeerType, in.PeerId)
+		pinned       int64
+		folderId     int32
+		dialogDO     *dataobject.DialogsDO
+	)
+
+	_, err := c.svcCtx.Dao.DialogsDAO.SelectPeerDialogListWithCB(c.ctx,
+		in.UserId,
+		[]int64{peerDialogId},
+		func(i int, v *dataobject.DialogsDO) {
+			dialogDO = v
+			folderId = v.FolderId
+		})
+	if err != nil {
+		c.Logger.Errorf("dialog.toggleDialogPin - error: %v", err)
+		return nil, err
+	}
+
+	if dialogDO == nil {
+		err = mtproto.ErrPeerIdInvalid
+		c.Logger.Errorf("dialog.toggleDialogPin - error: %v", err)
+		return nil, err
+	}
+
+	if mtproto.FromBool(in.Pinned) {
+		pinned = time.Now().Unix() << 32
+	} else {
+		pinned = 0
+	}
+
+	if folderId == 0 {
+		c.svcCtx.Dao.DialogsDAO.UpdatePeerDialogListPinned(c.ctx, pinned, in.UserId, []int64{peerDialogId})
+	} else {
+		c.svcCtx.Dao.DialogsDAO.UpdateFolderPeerDialogListPinned(c.ctx, pinned, in.UserId, []int64{peerDialogId})
+	}
+
+	return &mtproto.Int32{
+		V: folderId,
+	}, nil
+}

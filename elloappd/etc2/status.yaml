@@ -1,0 +1,15 @@
+Name: service.status
+ListenOn: 0.0.0.0:20670
+Etcd:
+  Hosts:
+    - etcd:2379
+  Key: service.status
+Log:
+#  Mode: file
+#  Path: ./logs/status
+  Level: debug
+  Mode: console
+  Encoding: plain
+Status:
+  - Host: redis:6379
+StatusExpire: 90

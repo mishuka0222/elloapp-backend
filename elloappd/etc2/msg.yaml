@@ -1,0 +1,47 @@
+Name: messenger.msg
+ListenOn: 0.0.0.0:20030
+Etcd:
+  Hosts:
+    - etcd:2379
+  Key: messenger.msg
+Timeout: 0
+Log:
+#  Mode: file
+#  Path: ./logs/msg
+  Level: debug
+  Mode: console
+  Encoding: plain
+Mysql:
+  DSN: root:@tcp(mysql:3306)/elloapp?charset=utf8mb4&parseTime=true
+  Active: 64
+  Idle: 64
+  IdleTimeout: 4h
+KV:
+  - Host: redis:6379
+
+InboxConsumer:
+  Topics:
+    - "Inbox-T"
+  Brokers:
+    - kafka:9092
+  Group: "Inbox-MainCommunity-S"
+
+IdgenClient:
+  Etcd:
+    Hosts:
+      - etcd:2379
+    Key: service.idgen
+BizServiceClient:
+  Etcd:
+    Hosts:
+      - etcd:2379
+    Key: service.biz_service
+
+InboxClient:
+  Topic:   "Inbox-T"
+  Brokers:
+    - kafka:9092
+SyncClient:
+  Topic:   "Sync-T"
+  Brokers:
+    - kafka:9092

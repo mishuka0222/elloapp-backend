@@ -1,0 +1,72 @@
+syntax = "proto3";
+
+option java_multiple_files = true;
+option java_package = "feeds_service";
+option java_outer_classname = "ZProtoFeedsService";
+option optimize_for = CODE_SIZE;
+option go_package = "feeds";
+
+
+package feeds;
+
+message GetFeedListReq {
+  int64 user_id = 1;
+}
+
+message UserChatDO {
+  int64 chat_id = 1;
+  int64 photo_id = 2;
+  string title = 3;
+  bool status = 4;
+  int32 peer_type = 5;
+}
+
+message GetFeedListResp {
+  repeated UserChatDO data = 1;
+}
+
+message FeedInsertItemDO {
+  int64 chat_id = 1;
+  int32 peer_type = 2;
+}
+
+message UpdateFeedListReq {
+  int64 user_id = 1;
+  repeated FeedInsertItemDO data = 2;
+}
+
+message UpdateFeedListResp {
+
+}
+
+message GetHistoryCounterReq {
+  int64 user_id = 1;
+}
+
+message GetHistoryCounterResp {
+  int32 count = 1;
+}
+
+message GetFeedsOffsetListReq {
+  int64 user_id = 1;
+  int32 limit = 2;
+  int32 before =  3;
+}
+
+message OffsetItemDo {
+  int32 offset_min = 1;
+  int32 offset_max = 2;
+  int64 peer_id = 3;
+  int32 count = 4;
+}
+
+message GetFeedsOffsetListResp {
+  repeated OffsetItemDo data = 1;
+}
+
+service RPCFeeds {
+  rpc feeds_getFeedList(GetFeedListReq) returns (GetFeedListResp);
+  rpc feeds_updateFeedList(UpdateFeedListReq) returns (UpdateFeedListResp);
+  rpc feeds_getHistoryCounter(GetHistoryCounterReq) returns (GetHistoryCounterResp);
+  rpc feeds_getFeedsOffsetList(GetFeedsOffsetListReq) returns (GetFeedsOffsetListResp);
+}

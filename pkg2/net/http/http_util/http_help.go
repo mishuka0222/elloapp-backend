@@ -1,0 +1,106 @@
+package http_util
+
+import (
+	"bytes"
+	"fmt"
+	"github.com/zeromicro/go-zero/core/jsonx"
+	"io"
+	"net/http"
+	"strings"
+
+	"gitlab.com/merehead/elloapp/backend/elloapp_tg_backend/pkg2/net/http/binding"
+
+	"github.com/zeromicro/go-zero/core/logx"
+)
+
+type HttpApiRequest interface {
+	Method() string
+}
+
+type HttpApiMethod interface {
+	NewRequest() HttpApiRequest
+	Decode2(c *http.Request, contentType string, r HttpApiRequest) (err error)
+}
+
+func BindWithApiRequest(r *http.Request, req HttpApiMethod) error {
+	var (
+		b           binding.Binding
+		contentType = r.Header.Get("Content-Type")
+		// isJson      = false
+	)
+
+	if r.Method == "GET" {
+		b = binding.Form
+	} else {
+		var stripContentTypeParam = func(contentType string) string {
+			i := strings.Index(contentType, ";")
+			if i != -1 {
+				contentType = contentType[:i]
+			}
+			return contentType
+		}
+
+		contentType = stripContentTypeParam(contentType)
+		switch contentType {
+		case binding.MIMEJSON:
+			// isJson = true
+			b = binding.JSON
+		case binding.MIMEMultipartPOSTForm:
+			b = binding.FormMultipart
+		case binding.MIMEPOSTForm:
+			b = binding.FormPost
+		default:
+			return fmt.Errorf("not support contentType: %s", contentType)
+		}
+	}
+
+	//if isJson {
+	//	err := b.Bind(r, req)
+	//	if err != nil {
+	//		logx.Errorf("bind form error: %v", err)
+	//		return err
+	//	} else {
+	//		d, _ := jsonx.MarshalToString(req)
+	//		logx.Infof("req(%v): %s", reflect.TypeOf(req), d)
+	//	}
+	//} else {
+	bindingReq := req.NewRequest()
+	err := b.Bind(r, bindingReq)
+	if err != nil {
+		logx.Errorf("bind form error: %v", err)
+		return err
+	} else {
+		logx.Infof("bindingReq: %v", bindingReq)
+	}
+
+	if err = req.Decode2(r, contentType, bindingReq); err != nil {
+		logx.Errorf("decode(%s) error: %v", bindingReq.Method(), err)
+		return err
+	}
+	d, _ := jsonx.MarshalToString(req)
+	logx.Infof("req(%s): %v", bindingReq.Method(), d)
+	//}
+
+	return nil
+}
+
+func GetUploadFile(c *http.Request, key string) (fileName string, file []byte, err error) {
+	file2, fileHeader, err2 := c.FormFile(key)
+	if err2 != nil {
+		// logx.Infof("upload.wall_paper.file.illegal,err::%v", err2.Error())
+		err = err2
+		return
+	}
+	defer file2.Close()
+
+	buf := new(bytes.Buffer)
+	if _, err = io.Copy(buf, file2); err != nil {
+		// log.Errorf("upload.%s.file.illegal,err::%v", key, err.Error())
+		return
+	}
+
+	fileName = fileHeader.Filename
+	file = buf.Bytes()
+
+	return
+}

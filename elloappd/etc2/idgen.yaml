@@ -1,0 +1,14 @@
+Name: service.idgen
+ListenOn: 0.0.0.0:20660
+Etcd:
+  Hosts: ["etcd:2379"]
+  Key: service.idgen
+Log:
+#  Mode: file
+#  Path: ./logs/idgen
+  Level: debug
+  Mode: console
+  Encoding: plain
+NodeId: 1
+SeqIDGen:
+  - Host: redis:6379

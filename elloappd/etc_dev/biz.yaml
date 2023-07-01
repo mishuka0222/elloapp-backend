@@ -1,0 +1,38 @@
+Name: service.biz_service
+ListenOn: 127.0.0.1:20020
+Etcd:
+  Hosts:
+    - 127.0.0.1:2379
+  Key: service.biz_service
+Log:
+  Level: debug
+  Mode: console
+  Encoding: plain
+Cache:
+  - Host: localhost:6379
+KV:
+  - Host: localhost:6379
+Mysql:
+  DSN: root:@tcp(127.0.0.1:3306)/elloapp?charset=utf8mb4&parseTime=true
+  Active: 64
+  Idle: 64
+  IdleTimeout: 4h
+AuthSessionClient:
+  Etcd:
+    Hosts:
+      - 127.0.0.1:2379
+    Key: service.authsession
+MediaClient:
+  Etcd:
+    Hosts:
+      - 127.0.0.1:2379
+    Key: service.media
+IdgenClient:
+  Etcd:
+    Hosts:
+      - 127.0.0.1:2379
+    Key: service.idgen
+SyncClient:
+  Topic:   "Sync-T"
+  Brokers:
+    - 127.0.0.1:9092

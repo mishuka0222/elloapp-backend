@@ -1,0 +1,89 @@
+package core
+
+import (
+	"context"
+	"github.com/zeromicro/go-zero/core/jsonx"
+	"gitlab.com/merehead/elloapp/backend/elloapp_tg_backend/app/service/biz/dialog/dialog"
+	"gitlab.com/merehead/elloapp/backend/elloapp_tg_backend/app/service/biz/dialog/internal/dal/dataobject"
+	"gitlab.com/merehead/elloapp/backend/elloapp_tg_backend/mtproto"
+
+	"github.com/zeromicro/go-zero/core/logx"
+
+	"gitlab.com/merehead/elloapp/backend/elloapp_tg_backend/app/service/biz/dialog/internal/svc"
+	"gitlab.com/merehead/elloapp/backend/elloapp_tg_backend/mtproto/rpc/metadata"
+)
+
+type DialogCore struct {
+	ctx    context.Context
+	svcCtx *svc.ServiceContext
+	logx.Logger
+	MD *metadata.RpcMetadata
+}
+
+func New(ctx context.Context, svcCtx *svc.ServiceContext) *DialogCore {
+	return &DialogCore{
+		ctx:    ctx,
+		svcCtx: svcCtx,
+		Logger: logx.WithContext(ctx),
+		MD:     metadata.RpcMetadataFromIncoming(ctx),
+	}
+}
+
+// ////////////////////////////////////////////////////////////////////////////////////
+func makeDialog(dialogDO *dataobject.DialogsDO) *dialog.DialogExt {
+	dialog2 := mtproto.MakeTLDialog(&mtproto.Dialog{
+		Pinned:              false,
+		UnreadMark:          dialogDO.UnreadMark, // TODO(@benqi)
+		Peer:                mtproto.MakePeer(dialogDO.PeerType, dialogDO.PeerId),
+		TopMessage:          dialogDO.TopMessage,
+		ReadInboxMaxId:      dialogDO.ReadInboxMaxId,
+		ReadOutboxMaxId:     dialogDO.ReadOutboxMaxId,
+		UnreadCount:         dialogDO.UnreadCount,
+		UnreadMentionsCount: 0,
+		NotifySettings:      nil,
+		Pts:                 nil,
+		Draft:               nil,
+		FolderId:            mtproto.MakeFlagsInt32(dialogDO.FolderId),
+	}).To_Dialog()
+
+	order := dialogDO.Date2
+	// pinned
+	if dialogDO.FolderId == 0 {
+		dialog2.Pinned = dialogDO.Pinned > 0
+		if dialog2.Pinned {
+			order = dialogDO.Pinned
+		}
+	} else {
+		dialog2.Pinned = dialogDO.FolderPinned > 0
+		if dialog2.Pinned {
+			order = dialogDO.FolderPinned
+		}
+	}
+
+	// draft message.
+	if dialogDO.DraftType == 2 {
+		draft := &mtproto.DraftMessage{}
+		err := jsonx.UnmarshalFromString(dialogDO.DraftMessageData, &draft)
+		if err == nil {
+			dialog2.Draft = draft
+		} else {
+			dialog2.Draft = mtproto.MakeTLDraftMessageEmpty(draft).To_DraftMessage()
+		}
+	} else if dialogDO.DraftType == 1 {
+		dialog2.Draft = mtproto.MakeTLDraftMessageEmpty(nil).To_DraftMessage()
+	}
+
+	// NotifySettings
+	dialog2.NotifySettings = mtproto.MakeTLPeerNotifySettings(&mtproto.PeerNotifySettings{
+		//
+	}).To_PeerNotifySettings()
+
+	return dialog.MakeTLDialogExt(&dialog.DialogExt{
+		Order:          order,
+		Dialog:         dialog2,
+		AvailableMinId: 0,
+		Date:           dialogDO.Date2,
+		ThemeEmoticon:  dialogDO.ThemeEmoticon,
+		TtlPeriod:      dialogDO.TtlPeriod,
+	}).To_DialogExt()
+}

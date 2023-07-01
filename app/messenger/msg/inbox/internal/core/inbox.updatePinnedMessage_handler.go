@@ -1,0 +1,113 @@
+package core
+
+import (
+	"gitlab.com/merehead/elloapp/backend/elloapp_tg_backend/app/messenger/msg/inbox/inbox"
+	"gitlab.com/merehead/elloapp/backend/elloapp_tg_backend/app/messenger/msg/internal/dal/dataobject"
+	"gitlab.com/merehead/elloapp/backend/elloapp_tg_backend/app/messenger/sync/sync"
+	chatpb "gitlab.com/merehead/elloapp/backend/elloapp_tg_backend/app/service/biz/chat/chat"
+	"gitlab.com/merehead/elloapp/backend/elloapp_tg_backend/mtproto"
+	"gitlab.com/merehead/elloapp/backend/elloapp_tg_backend/pkg2/container2/sets"
+)
+
+// InboxUpdatePinnedMessage
+// inbox.updatePinnedMessage flags:# user_id:long auth_key_id:long silent:flags.0?true unpin:flags.1?true pm_oneside:flags.2?true peer_type:int peer_id:long id:int = Void;
+func (c *InboxCore) InboxUpdatePinnedMessage(in *inbox.TLInboxUpdatePinnedMessage) (*mtproto.Void, error) {
+	var (
+		peer = mtproto.MakePeerUtil(in.PeerType, in.PeerId)
+	)
+
+	doUpdatePinnedMessageF := func(peer *mtproto.PeerUtil, v *dataobject.MessagesDO) {
+		if v.UserId == in.UserId {
+			return
+		}
+
+		var (
+			pinnedMsgId int32 = 0
+		)
+		if in.GetUnpin() {
+			idList, _ := c.svcCtx.Dao.MessagesDAO.SelectLastTwoPinnedList(c.ctx, v.UserId, v.DialogId1, v.DialogId2)
+			if len(idList) == 2 {
+				if v.UserMessageBoxId == idList[0] {
+					pinnedMsgId = idList[1]
+				} else {
+					pinnedMsgId = idList[0]
+				}
+			}
+		} else {
+			pinnedMsgId = v.UserMessageBoxId
+			// c.svcCtx.Dao.DialogsDAO.UpdatePinnedMsgId(c.ctx, v.UserMessageBoxId, v.UserId, mtproto.MakePeerDialogId(peer.PeerType, peer.PeerId))
+		}
+
+		c.svcCtx.Dao.MessagesDAO.UpdatePinned(c.ctx, !in.GetUnpin(), v.UserId, v.UserMessageBoxId)
+
+		if peer.PeerType == mtproto.PEER_USER {
+			c.svcCtx.Dao.DialogsDAO.UpdatePinnedMsgId(c.ctx, pinnedMsgId, v.UserId, mtproto.MakePeerDialogId(peer.PeerType, in.UserId))
+			// sync
+			c.svcCtx.Dao.SyncClient.SyncPushUpdates(
+				c.ctx,
+				&sync.TLSyncPushUpdates{
+					UserId: v.UserId,
+					Updates: mtproto.MakeUpdatesByUpdates(
+						mtproto.MakeTLUpdatePinnedMessages(&mtproto.Update{
+							Pinned:    !in.GetUnpin(),
+							Peer_PEER: mtproto.MakePeerUser(in.UserId),
+							Messages:  []int32{v.UserMessageBoxId},
+							Pts_INT32: c.svcCtx.Dao.IDGenClient2.NextPtsId(c.ctx, v.UserId),
+							PtsCount:  1,
+						}).To_Update()),
+				})
+		} else {
+			c.svcCtx.Dao.DialogsDAO.UpdatePinnedMsgId(c.ctx, pinnedMsgId, v.UserId, mtproto.MakePeerDialogId(peer.PeerType, peer.PeerId))
+			// sync
+			c.svcCtx.Dao.SyncClient.SyncPushUpdates(
+				c.ctx,
+				&sync.TLSyncPushUpdates{
+					UserId: v.UserId,
+					Updates: mtproto.MakeUpdatesByUpdates(
+						mtproto.MakeTLUpdatePinnedMessages(&mtproto.Update{
+							Pinned:    !in.GetUnpin(),
+							Peer_PEER: mtproto.MakePeerChat(peer.PeerId),
+							Messages:  []int32{v.UserMessageBoxId},
+							Pts_INT32: c.svcCtx.Dao.IDGenClient2.NextPtsId(c.ctx, v.UserId),
+							PtsCount:  1,
+						}).To_Update()),
+				})
+		}
+	}
+
+	switch peer.PeerType {
+	case mtproto.PEER_USER:
+		c.svcCtx.Dao.MessagesDAO.SelectByMessageDataIdListWithCB(
+			c.ctx,
+			c.svcCtx.Dao.MessagesDAO.CalcTableName(in.UserId),
+			[]int64{in.DialogMessageId},
+			func(i int, v *dataobject.MessagesDO) {
+				doUpdatePinnedMessageF(peer, v)
+			})
+	case mtproto.PEER_CHAT:
+		var (
+			tables = sets.NewWithLength(1)
+		)
+
+		pUserIdList, _ := c.svcCtx.ChatClient.ChatGetChatParticipantIdList(c.ctx, &chatpb.TLChatGetChatParticipantIdList{
+			ChatId: peer.PeerId,
+		})
+
+		for _, uId := range pUserIdList.GetDatas() {
+			tables.Insert(c.svcCtx.Dao.MessagesDAO.CalcTableName(uId))
+		}
+
+		for tableName, _ := range tables {
+			c.svcCtx.Dao.MessagesDAO.SelectByMessageDataIdListWithCB(
+				c.ctx,
+				tableName,
+				[]int64{in.DialogMessageId},
+				func(i int, v *dataobject.MessagesDO) {
+					doUpdatePinnedMessageF(peer, v)
+				})
+		}
+	case mtproto.PEER_CHANNEL:
+	}
+
+	return mtproto.EmptyVoid, nil
+}

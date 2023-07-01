@@ -1,0 +1,56 @@
+package users_client
+
+import (
+	"context"
+
+	"gitlab.com/merehead/elloapp/backend/elloapp_tg_backend/mtproto"
+
+	"github.com/zeromicro/go-zero/zrpc"
+)
+
+var _ *mtproto.Bool
+
+type UsersClient interface {
+	UsersGetUsers(ctx context.Context, in *mtproto.TLUsersGetUsers) (*mtproto.Vector_User, error)
+	UsersGetFullUser(ctx context.Context, in *mtproto.TLUsersGetFullUser) (*mtproto.Users_UserFull, error)
+	UsersGetMe(ctx context.Context, in *mtproto.TLUsersGetMe) (*mtproto.User, error)
+	ContactsResolvePhone(ctx context.Context, in *mtproto.TLContactsResolvePhone) (*mtproto.Contacts_ResolvedPeer, error)
+}
+
+type defaultUsersClient struct {
+	cli zrpc.Client
+}
+
+func NewUsersClient(cli zrpc.Client) UsersClient {
+	return &defaultUsersClient{
+		cli: cli,
+	}
+}
+
+// UsersGetUsers
+// users.getUsers#d91a548 id:Vector<InputUser> = Vector<User>;
+func (m *defaultUsersClient) UsersGetUsers(ctx context.Context, in *mtproto.TLUsersGetUsers) (*mtproto.Vector_User, error) {
+	client := mtproto.NewRPCUsersClient(m.cli.Conn())
+	return client.UsersGetUsers(ctx, in)
+}
+
+// UsersGetFullUser
+// users.getFullUser#b60f5918 id:InputUser = users.UserFull;
+func (m *defaultUsersClient) UsersGetFullUser(ctx context.Context, in *mtproto.TLUsersGetFullUser) (*mtproto.Users_UserFull, error) {
+	client := mtproto.NewRPCUsersClient(m.cli.Conn())
+	return client.UsersGetFullUser(ctx, in)
+}
+
+// UsersGetMe
+// users.getMe id:long token:string = User;
+func (m *defaultUsersClient) UsersGetMe(ctx context.Context, in *mtproto.TLUsersGetMe) (*mtproto.User, error) {
+	client := mtproto.NewRPCUsersClient(m.cli.Conn())
+	return client.UsersGetMe(ctx, in)
+}
+
+// ContactsResolvePhone
+// contacts.resolvePhone#8af94344 phone:string = contacts.ResolvedPeer;
+func (m *defaultUsersClient) ContactsResolvePhone(ctx context.Context, in *mtproto.TLContactsResolvePhone) (*mtproto.Contacts_ResolvedPeer, error) {
+	client := mtproto.NewRPCUsersClient(m.cli.Conn())
+	return client.ContactsResolvePhone(ctx, in)
+}

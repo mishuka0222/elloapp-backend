@@ -1,0 +1,118 @@
+package dao
+
+import (
+	"context"
+	"fmt"
+	"strconv"
+
+	"gitlab.com/merehead/elloapp/backend/elloapp_tg_backend/app/bff/qrcode/internal/model"
+
+	"github.com/zeromicro/go-zero/core/logx"
+)
+
+const (
+	// qrCodeTimeout     int64 = 30 // salt timeout
+	cacheQRCodePrefix = "qr_codes"
+)
+
+func genQRLoginCodeKey(authKeyId int64) string {
+	return fmt.Sprintf("%s_%d", cacheQRCodePrefix, authKeyId)
+}
+
+func (d *Dao) GetCacheQRLoginCode(ctx context.Context, keyId int64) (code *model.QRCodeTransaction, err error) {
+	var (
+		key    = genQRLoginCodeKey(keyId)
+		values map[string]string
+	)
+
+	values, err = d.kv.Hgetall(key)
+	if err != nil {
+		logx.WithContext(ctx).Errorf("conn.Do(HGETALL %s) error(%v)", key, err)
+		return nil, err
+	} else if len(values) == 0 {
+		return
+	}
+
+	code = new(model.QRCodeTransaction)
+	for k, v := range values {
+		switch k {
+		case "auth_key_id":
+			code.AuthKeyId, _ = strconv.ParseInt(v, 10, 64)
+		case "session_id":
+			code.SessionId, _ = strconv.ParseInt(v, 10, 64)
+		case "server_id":
+			code.ServerId = v
+		case "api_id":
+			v, _ := strconv.ParseInt(v, 10, 64)
+			code.ApiId = int32(v)
+		case "api_hash":
+			code.ApiHash = v
+		case "code_hash":
+			code.CodeHash = v
+		case "expire_at":
+			code.ExpireAt, _ = strconv.ParseInt(v, 10, 64)
+		case "user_id":
+			code.UserId, _ = strconv.ParseInt(v, 10, 64)
+		case "state":
+			v, _ := strconv.ParseInt(v, 10, 64)
+			code.State = int(v)
+		}
+	}
+
+	return
+}
+
+func (d *Dao) PutCacheQRLoginCode(ctx context.Context, keyId int64, qrCode *model.QRCodeTransaction, expiredIn int) (err error) {
+	var (
+		key = genQRLoginCodeKey(keyId)
+
+		args = map[string]string{
+			"auth_key_id": strconv.FormatInt(qrCode.AuthKeyId, 10),
+			"session_id":  strconv.FormatInt(qrCode.SessionId, 10),
+			"server_id":   qrCode.ServerId,
+			"api_id":      strconv.Itoa(int(qrCode.ApiId)),
+			"api_hash":    qrCode.ApiHash,
+			"code_hash":   qrCode.CodeHash,
+			"expire_at":   strconv.FormatInt(qrCode.ExpireAt, 10),
+			"state":       strconv.Itoa(qrCode.State),
+			"user_id":     strconv.FormatInt(qrCode.UserId, 10),
+		}
+	)
+
+	// TODO(@benqi): args error??
+	if err = d.kv.Hmset(key, args); err != nil {
+		logx.WithContext(ctx).Error("conn.Send(HMSET %s,%v) error(%v)", key, args, err)
+		return
+	}
+
+	if expiredIn > 0 {
+		if err = d.kv.Expire(key, expiredIn+2); err != nil {
+			logx.WithContext(ctx).Error("conn.Send(EXPIRE %d,%d) error(%v)", key, expiredIn, err)
+			return
+		}
+	}
+
+	return
+}
+
+func (d *Dao) UpdateCacheQRLoginCode(ctx context.Context, keyId int64, values map[string]string) (err error) {
+	var (
+		key = genQRLoginCodeKey(keyId)
+	)
+
+	if err = d.kv.Hmset(key, values); err != nil {
+		logx.WithContext(ctx).Errorf("conn.HSET(%s) error(%v)", key, err)
+	}
+
+	return
+}
+
+func (d *Dao) DeleteCacheQRLoginCode(ctx context.Context, authKeyId int64) (err error) {
+	key := genQRLoginCodeKey(authKeyId)
+
+	if _, err = d.kv.Del(key); err != nil {
+		logx.WithContext(ctx).Errorf("conn.DEL(%s) error(%v)", key, err)
+	}
+
+	return
+}

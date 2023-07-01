@@ -1,0 +1,23 @@
+version: "3"
+services:
+  kafdrop:
+    image: 'obsidiandynamics/kafdrop:latest'
+    container_name: "kafdrop"
+    restart: "always"
+#    ports:
+#      - "9003:9003"
+    network_mode: 'host'
+    environment:
+      KAFKA_BROKERCONNECT: "localhost:9092"
+      JVM_OPTS: "-Xms16M -Xmx48M -Xss180K -XX:-TieredCompilation -XX:+UseStringDeduplication -noverify"
+      SERVER_PORT: 9003
+      MANAGEMENT_SERVER_PORT: 9003
+  etcdkeeper:
+    image: 'deltaprojects/etcdkeeper:latest'
+    container_name: 'etcdkeeper'
+    network_mode: 'host'
+#    ports:
+#      - "9004:9004"
+    restart: 'always'
+    environment:
+      PORT: '9004'

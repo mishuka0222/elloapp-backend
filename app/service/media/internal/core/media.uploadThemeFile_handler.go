@@ -1,0 +1,43 @@
+package core
+
+import (
+	"gitlab.com/merehead/elloapp/backend/elloapp_tg_backend/app/service/dfs/dfs"
+	"gitlab.com/merehead/elloapp/backend/elloapp_tg_backend/app/service/media/media"
+	"gitlab.com/merehead/elloapp/backend/elloapp_tg_backend/mtproto"
+)
+
+// MediaUploadThemeFile
+// media.uploadThemeFile flags:# owner_id:long file:InputFile thumb:flags.0?InputFile mime_type:string file_name:string = Document;
+func (c *MediaCore) MediaUploadThemeFile(in *media.TLMediaUploadThemeFile) (*mtproto.Document, error) {
+	var (
+		err      error
+		document *mtproto.Document
+		file     = in.GetFile()
+		thumb    = in.GetThumb()
+	)
+
+	if file == nil {
+		c.Logger.Errorf("media.uploadThemeFile - error: file is nil")
+		return nil, mtproto.ErrThemeFileInvalid
+	}
+
+	document, err = c.svcCtx.Dao.DfsClient.DfsUploadThemeFile(c.ctx, &dfs.TLDfsUploadThemeFile{
+		Creator:  in.OwnerId,
+		File:     file,
+		Thumb:    thumb,
+		MimeType: in.GetMimeType(),
+		FileName: in.GetFileName(),
+	})
+	if err != nil {
+		c.Logger.Errorf("media.uploadThemeFile - error: %v", err)
+		err = mtproto.ErrThemeFileInvalid
+		return nil, err
+	}
+
+	if len(document.GetThumbs()) > 0 {
+		c.svcCtx.Dao.SavePhotoSizeV2(c.ctx, document.GetId(), document.GetThumbs())
+	}
+	c.svcCtx.Dao.SaveDocumentV2(c.ctx, file.GetName(), document)
+
+	return document, nil
+}

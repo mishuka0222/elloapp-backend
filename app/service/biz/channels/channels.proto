@@ -1,0 +1,219 @@
+syntax = "proto3";
+
+option go_package = "channels";
+
+package channels;
+
+import "my_type.proto";
+
+
+// channel_data
+
+
+message Void {}
+
+message ChannelParticipant {
+  int64  id = 1;
+  int64  channel_id = 2;
+  int64  user_id = 3;
+  int32   participant_type = 4;
+  int64  inviter_user_id = 5;
+  int32  invited_at = 6;
+  int32  joined_at = 7;
+  int32   state = 8;
+  string created_at = 9;
+  string updated_at = 10;
+  int32 kicked_at = 11;
+  int32 left_at = 12;
+  mtproto.ChatAdminRights admin_rights = 13;
+  mtproto.ChatBannedRights bannedRights = 14;
+  int64 kicked_by = 15;
+}
+
+message Channel {
+  int64  id = 1;
+  int64  creator_user_id = 2;
+  int64  access_hash = 3;
+  int64  random_id = 4;
+  int32  participant_count = 5;
+  string title = 6;
+  string about = 7;
+  mtproto.Photo  photo = 8;
+  string link = 9;
+  string username = 10;
+  bool   admins_enabled = 11;
+  bool   deactivated = 12;
+  int32  version = 13;
+  int32  date = 14;
+  string created_at = 15;
+  string updated_at = 16;
+
+}
+
+message ChannelDataByIdReq {
+  int64 channelId = 1;
+}
+
+message CreateNewChannelReq {
+  int64 creator_id = 1;
+  repeated int64 user_id_list = 2;
+  string title = 3;
+  string about = 4;
+}
+
+message ChannelData {
+  Channel channel = 1;
+  repeated ChannelParticipant participants = 2;
+}
+
+message UpdateChannelLinkReq {
+  int64 channelId = 1;
+  string link = 2;
+}
+
+message UpdateChannelLinkResp {
+  string link = 1;
+}
+
+message CheckUserIsAdministratorReq {
+  int64 channelId = 1;
+  int64 user_id = 2;
+}
+
+message CheckUserIsAdministratorResp {
+  bool status = 1;
+}
+
+message ChannelParticipantListReq {
+  int64 channelId = 1;
+  repeated int32 types = 2;
+}
+
+message ChannelParticipantListResp {
+  repeated mtproto.ChannelParticipant participants = 1;
+}
+
+message ChannelParticipantsReq {
+  int64 channelId = 1;
+  repeated int32 types = 2;
+}
+
+message GetChannelParticipantsResp {
+  mtproto.TLChannelsChannelParticipants participants = 1;
+}
+
+message AddChannelParticipantReq {
+  ChannelData channel = 1;
+  int64 inviterId = 2;
+  int64 userId = 3;
+  mtproto.ChatAdminRights adminRights = 4;
+}
+
+message ToChatReq {
+  ChannelData channel = 1;
+  int64 selfUserId = 2;
+}
+
+message ToChatResp {
+  mtproto.Chat chat = 1;
+}
+
+message DeleteChannelUserReq {
+  int64 channelId = 1;
+  int64 operatorId = 2;
+  int64 deleteUserId = 3;
+  int32 reason = 4;
+  mtproto.ChatBannedRights bannedRights = 5;
+}
+
+message EditChannelTitleReq {
+  int64 channelId = 1;
+  int64 editUserId = 2;
+  string title = 3;
+}
+
+message EditChannelAboutReq {
+  int64 channelId = 1;
+  int64 editUserId = 2;
+  string about = 3;
+}
+
+message EditChannelPhotoReq {
+  int64 channelId = 1;
+  int64 editUserId = 2;
+  mtproto.Photo photo = 3;
+}
+
+message EditChannelAdminReq {
+  int64 channelId = 1;
+  int64 operatorId = 2;
+  int64 editUserId = 3;
+  mtproto.ChatAdminRights adminRights = 4;
+}
+
+message ToggleChannelAdminsReq {
+  ChannelData channel = 1;
+  int64 userId = 2;
+  bool adminsEnabled = 3;
+}
+
+// channel_util
+message GetChatsListBySelfAndIDListReq {
+  int64 selfUserId = 1;
+  repeated int64 idList = 2;
+}
+
+message GetChatsListBySelfAndIDListResp {
+  repeated mtproto.Chat chats = 1;
+}
+
+message CheckChannelUserNameReq {
+  int64 channelId = 1;
+  string userName = 2;
+}
+
+message CheckChannelUserNameResp {
+  bool status = 1;
+}
+
+message GetChannelFullBySelfIdReq {
+  ChannelData channelData = 1;
+  int64 selfUserId = 2;
+}
+
+message GetChannelFullBySelfIdResp {
+  mtproto.TLChannelFull channel = 1;
+}
+
+message DeleteChannelReq {
+  int64 channelId = 1;
+  int64 operatorId = 2;
+}
+
+
+service RPCChannels {
+  // NEW
+  rpc GetChannelDataById(ChannelDataByIdReq) returns (ChannelData);
+  rpc GetAllChannelDataById(ChannelDataByIdReq) returns (ChannelData);
+  rpc CreateNewChannel(CreateNewChannelReq) returns (ChannelData);
+  rpc AddChannelParticipant(AddChannelParticipantReq) returns (ChannelData);
+  rpc GetChatsListBySelfAndIDList(GetChatsListBySelfAndIDListReq) returns (GetChatsListBySelfAndIDListResp);
+  rpc GetChannelFullBySelfId(GetChannelFullBySelfIdReq) returns (GetChannelFullBySelfIdResp);
+  rpc GetChannelParticipantList(ChannelParticipantListReq) returns (ChannelParticipantListResp);
+  rpc GetChannelParticipants(ChannelParticipantsReq) returns (GetChannelParticipantsResp);
+  rpc ToChat(ToChatReq) returns (ToChatResp);
+  rpc CheckChannelUserName(CheckChannelUserNameReq) returns (CheckChannelUserNameResp);
+  rpc UpdateChannelLink(UpdateChannelLinkReq) returns (UpdateChannelLinkResp);
+  rpc CheckUserIsAdministrator(CheckUserIsAdministratorReq) returns (CheckUserIsAdministratorResp);
+  rpc EditChannelAdmin(EditChannelAdminReq) returns (ChannelData);
+  rpc EditChannelTitle(EditChannelTitleReq) returns (Void);
+  rpc EditChannelAbout(EditChannelAboutReq) returns (Void);
+  rpc EditChannelPhoto(EditChannelPhotoReq) returns (ChannelData);
+  rpc DeleteChannelUser(DeleteChannelUserReq) returns (Void);
+  rpc DeleteChannel(DeleteChannelReq) returns (ChannelData);
+  // In Work
+
+  // OLD
+  rpc ToggleChannelAdmins(ToggleChannelAdminsReq) returns (Void);
+
+}

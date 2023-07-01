@@ -1,0 +1,7 @@
+{
+    "protoc": {
+    "options": [
+        "--proto_path=/home/arthur/MereHead/Projects/elloapp_tg_backend/mtproto/example.proto"
+    ]
+    }
+}
